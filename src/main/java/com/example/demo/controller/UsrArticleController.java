@@ -34,20 +34,26 @@ public class UsrArticleController {
 	private void TestData() {
 		int limitNum=10;
 		for(int i=1; i<=limitNum; i++) {
-			lastAritlceID++;
-			artilces.add(new Article(lastAritlceID, "제목"+i, "제목"+i));
-			
+			String title = "제목"+i;
+			String body = "내용"+i;
+			addArticle(title,body);
 		}
 		
 }
+//쌤 버전은 추가되는것도 코드가 중복되니까 메서드로 뺌. => 이점 : 관리하기가 좋음.
+	private Article addArticle(String title, String body) {
+		lastAritlceID++; //왜냐면 Aritlce은 0번부터 시작하지 않으니까.
+		Article article = new Article(lastAritlceID, title, body);
+		this.artilces.add(article);
+		return article;
+		
+	}
 
 	@RequestMapping("/usr/article/dowrite")
 	@ResponseBody
-	public String dowrite(String title, String body) { //그리고 dowrite 매소드가 파라미터(매개변수)를 보내야 아래의 Artilce이 받아서 쓰지 임마!! 다 아는거면서 다까묵었구만!!
-		lastAritlceID++; //왜냐면 Aritlce은 0번부터 시작하지 않으니까.
-		Article article = new Article(lastAritlceID, title, body);
-		artilces.add(article);
-		return "뱁새씨";
+	public Article dowrite(String title, String body) { //그리고 dowrite 매소드가 파라미터(매개변수)를 보내야 아래의 Artilce이 받아서 쓰지 임마!! 다 아는거면서 다까묵었구만!!
+		Article article = addArticle(title,body);
+		return article;
 	}
 	
 	@RequestMapping("/usr/article/showList")
