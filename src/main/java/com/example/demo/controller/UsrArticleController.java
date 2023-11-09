@@ -66,15 +66,15 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) { 
-		Article answer=artileDelete(id);
+		Article answer=foundArticle(id);
 		if(answer==null) {
-			return "해당 게시물이 없습니다";
+			return id+"번 게시물이 없습니다";
 		}
 		artilces.remove(answer);
-		return "해당 게시물이 삭제되었습니다";
+		return id+"번  게시물이 삭제되었습니다";
 	}
 
-	private Article artileDelete(int id) {
+	private Article foundArticle(int id) {
 //		여기까지가 내가 한거인데 이러면 당연히 삭제 안됨. 객체를 없애야하는데 id만 손대니까 삭제 안됨.
 //		for(Article article : artilces) {
 //			if(article.getId()==id) {
@@ -84,6 +84,7 @@ public class UsrArticleController {
 //		}
 //		return false;
 		
+		//쌤의 설명을 듣고 내가 스스로 만든것. 쌤의 코드와 차이 있음.
 		Article foundArticle;
 		for(Article article : artilces) {
 			if(article.getId()==id) {
@@ -93,5 +94,23 @@ public class UsrArticleController {
 		}
 		return null;
 	}
+	
+	@RequestMapping("/usr/article/domodify")
+	@ResponseBody
+	public String domodify(int id,String title, String body) { 
+		Article answer=foundArticle(id);
+		if(answer==null) {
+			return id+"번 게시물은 존재하지 않습니다";
+		}
+		modifyAritlc(answer, title, body);
+		return id+"번  게시물이 수정되었습니다";
+		
+	}
+
+	private void modifyAritlc(Article answer, String title, String body) {
+		answer.setTitle(title);
+		answer.setBody(body);
+	}
+
 	
 }
