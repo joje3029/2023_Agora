@@ -62,4 +62,36 @@ public class UsrArticleController {
 		//dowrite에서 한거 보여주면 됨 => articles라는 ArrayList 보여줌.
 		return this.artilces;
 	}
+	
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) { 
+		Article answer=artileDelete(id);
+		if(answer==null) {
+			return "해당 게시물이 없습니다";
+		}
+		artilces.remove(answer);
+		return "해당 게시물이 삭제되었습니다";
+	}
+
+	private Article artileDelete(int id) {
+//		여기까지가 내가 한거인데 이러면 당연히 삭제 안됨. 객체를 없애야하는데 id만 손대니까 삭제 안됨.
+//		for(Article article : artilces) {
+//			if(article.getId()==id) {
+//				artilces.remove(id);
+//				return true; 
+//			}
+//		}
+//		return false;
+		
+		Article foundArticle;
+		for(Article article : artilces) {
+			if(article.getId()==id) {
+				foundArticle = article;
+				return foundArticle; 
+			}
+		}
+		return null;
+	}
+	
 }
