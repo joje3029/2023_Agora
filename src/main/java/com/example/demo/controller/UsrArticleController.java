@@ -1,17 +1,10 @@
-//Usr Article Controller를 새로 만들고
-//
-///usr/article/dowrite 라는 요청을 받았을 때
-//id, title, body로 이루어진 게시물 객체 생성
-//title, body는 파라미터로 처리
 //-> doWrite 처리후 화면에는 생성된 객체 보여주기
-//articles라는 리스트에 게시물 객체 저장
 //
-///usr/article/showList 라는 요청을 받았을 때 doWrite로 추가한 게시물들 출력
-//
-//Ariticle 클래스는 com.koreaIT.demo.vo라는 패키지 안에 만들어서 진행
-//Article 클래스 안의 전역변수들은 모두 private을 걸고 롬복을 활용해서 처리.
 
 package com.example.demo.controller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,21 +14,32 @@ import com.example.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
-	int a;
+//	List<Article> artilces= new ArrayList<>(); 내가 한거. 틀린 이유 : 우리는 그냥 초기화를 바로 안하기로 했으니까. 나는 지금 그냥 바로 초기화를 하고 있으니까.
+	
+	private List<Article> artilces; // 선언만 한것!
+	private int lastAritlceID;
+//	UrArticleController(String title, String body){ // 바로 초기화 안하려고 생성자를 만들어놓고 위에 초기화를 하냐!! 그리고 파라미터를 Article이 받으면 되는거 알면서 여따가 쳐넣냐!!
+//		this.artilces=new ArrayList<>();
+//	}
+	
 	UsrArticleController(){
-		Article article = new Article();
-		this.a=0;
+		this.artilces=new ArrayList<>();
+		this.lastAritlceID=0;
 	}
 	
 	@RequestMapping("/usr/ariicle/dowrite")
 	@ResponseBody
-	public String showMain() {
+	public String dowrite(String title, String body) { //그리고 dowrite 매소드가 파라미터(매개변수)를 보내야 아래의 Artilce이 받아서 쓰지 임마!! 다 아는거면서 다까묵었구만!!
+		lastAritlceID++; //왜냐면 Aritlce은 0번부터 시작하지 않으니까.
+		Article article = new Article(lastAritlceID, title, body);
+		artilces.add(article);
 		return "뱁새씨";
 	}
 	
-	@RequestMapping("/usr/home/main2")
+	@RequestMapping("/usr/ariicle/showList")
 	@ResponseBody
-	public int showMain2() {
-		return a++;
+	public List<Article> showList() {
+		//dowrite에서 한거 보여주면 됨 => articles라는 ArrayList 보여줌.
+		return this.artilces;
 	}
 }
