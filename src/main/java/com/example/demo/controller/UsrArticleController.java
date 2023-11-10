@@ -20,11 +20,14 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public Article doWrite(String title, String body) {
+	public String doWrite(String title, String body) {
 		
-		Article article = articleService.writeArticle(title, body);
+//		Article article = articleService.writeArticle(title, body); 
+//		위의 코드가 내 코드 이러면 작살남. 왜 이렇게 하려고 했는지는 알겠는데 이러면 안됨. 이친구는 그냥 DB에 insert만 하기 때문에 return 타입이 없어.
+		articleService.writeArticle(title, body); 
 		
-		return article;
+		int lastId = articleService.getlastInsetId(); //이런식으로 따로 구해야함. 지금 들어간 놈은 마지막 글로 들어가니까.그리고 저 select 자체가 반환을 하니까.
+		return lastId+"번 글이 생성되었습니다.";
 	}
 	
 	@RequestMapping("/usr/article/showList")

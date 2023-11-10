@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,7 +20,7 @@ public interface ArticleDao {
 			,title = #{title}
 			,`body` = #{body}
 			""")
-	public Article writeArticle(String title, String body);
+	public void writeArticle(String title, String body);
 	
 	@Select("""
 			SELECT * 
@@ -42,10 +43,16 @@ public interface ArticleDao {
 			,`body` = #{body}
 			WHERE id=#{id}
 			""")
-	public void modifyArticle(Article article, String title, String body);
+	public void modifyArticle(int id, String title, String body);
+
+	@Delete("""
+			DELETE FROM article
+			WHERE id=#{id}
+			""")
+	public void deleteArticle(int id);
 
 	@Select("""
 			SELECT LAST_INSERT_ID();
 			""")
-	public void deleteArticle(Article article);
+	public int getlastInsetId();
 }

@@ -1,0 +1,28 @@
+package com.example.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.service.MemberService;
+import com.example.demo.vo.Member;
+
+@Controller
+public class UsrMemberController {
+	
+	private MemberService memberService;
+	
+	UsrMemberController(MemberService memberService) {
+		this.memberService = memberService;
+	}
+	
+	@RequestMapping("/usr/member/doJoin")
+	@ResponseBody
+	public Member doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email ) {
+		
+		Member member = memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email );
+		
+		return member;
+	}
+		
+}
