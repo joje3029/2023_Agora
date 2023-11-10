@@ -25,4 +25,11 @@ public interface MemberDao {
 			""")
 	public int getlastInsetId();
 	
+	@Select("""
+			SELECT COUNT(*)
+			FROM `member`
+			WHERE loginId = #{loginId}
+			""")
+	public int checkLoginId(String loginId);
+	
 }

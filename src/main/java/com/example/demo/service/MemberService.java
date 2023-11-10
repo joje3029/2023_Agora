@@ -21,4 +21,8 @@ public class MemberService {
 		return memberDao.getlastInsetId();
 	}
 
+	public int checkLoginId(String loginId) {
+		return memberDao.checkLoginId(loginId);
+	}
+
 }

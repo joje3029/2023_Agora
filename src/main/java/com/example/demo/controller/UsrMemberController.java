@@ -40,6 +40,15 @@ public class UsrMemberController {
 			return "이메일을 입력해주세요";
 		}
 
+		//아이디 중복이 있나 없나 로직
+		//1.갔다와야것네...
+		int checkLoginId=memberService.checkLoginId(loginId);
+		String test= Integer.toString(checkLoginId);
+//		있으면 1 없으면 0
+		if(checkLoginId==1) {
+			return loginId+"는 이미 사용 중인 아이디 입니다.";
+		}
+		
 		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
 
 		int lastId = memberService.getlastInsetId();
