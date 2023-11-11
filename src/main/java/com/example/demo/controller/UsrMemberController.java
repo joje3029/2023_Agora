@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MemberService;
+import com.example.demo.util.Util;
 
 @Controller
 public class UsrMemberController {
@@ -19,24 +20,24 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
-
-		// 이놈이 적었나 안적었나 확인 로직
-		if (loginId == null || loginId.trim().length() == 0) {
+		
+		if (Util.isEmpty(loginId)) {
 			return "아이디를 입력해주세요";
 		}
-		if (loginPw == null || loginPw.trim().length() == 0) {
+		
+		if (Util.isEmpty(loginPw)) {
 			return "비밀번호를 입력해주세요";
 		}
-		if (name == null || name.trim().length() == 0) {
+		if (Util.isEmpty(name)) {
 			return "이름을 입력해주세요";
 		}
-		if (nickname == null || nickname.trim().length() == 0) {
+		if (Util.isEmpty(nickname)) {
 			return "닉네임을 입력해주세요";
 		}
-		if (cellphoneNum == null || cellphoneNum.trim().length() == 0) {
+		if (Util.isEmpty(cellphoneNum)) {
 			return "전화번호를 입력해주세요";
 		}
-		if (email == null || email.trim().length() == 0) {
+		if (Util.isEmpty(email)) {
 			return "이메일을 입력해주세요";
 		}
 
@@ -54,5 +55,7 @@ public class UsrMemberController {
 		int lastId = memberService.getlastInsetId();
 		return lastId + "번 회원이 가입 되었습니다.";
 	}
+
+	
 
 }
