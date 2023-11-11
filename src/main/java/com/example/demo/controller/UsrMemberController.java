@@ -42,13 +42,34 @@ public class UsrMemberController {
 		}
 
 		//아이디 중복이 있나 없나 로직
-		//1.갔다와야것네...
+
 		int checkLoginId=memberService.checkLoginId(loginId);
-		String test= Integer.toString(checkLoginId);
 //		있으면 1 없으면 0
 		if(checkLoginId==1) {
 			return loginId+"는 이미 사용 중인 아이디 입니다.";
 		}
+//		비밀번호는 중복 오케이
+//		닉네임이랑 전화번호 이메일은 아니잖아.
+//		근데 이러면 이걸 그때 그떄 DB를 가야하는데.. 이럴빠에야 한번 갔다오고 나서 그걸 객체로 받은걸 까는게 빠르지 않나? 아닌가? 월요일 차쌤 묻기
+//		이게 이래도 되는건지 서비스시에 잘 모르겠어.
+		int checkNickname=memberService.checkNickname(nickname);
+//		있으면 1 없으면 0
+		if(checkNickname==1) {
+			return nickname+"는 이미 사용 중인 닉네임 입니다.";
+		}
+		
+		int checkCellphoneNum=memberService.checkCellphoneNum(cellphoneNum);
+//		있으면 1 없으면 0
+		if(checkCellphoneNum==1) {
+			return cellphoneNum+"는 이미 사용 중인 전화번호 입니다.";
+		}
+		
+		int checkEmail=memberService.checkEmail(email);
+//		있으면 1 없으면 0
+		if(checkEmail==1) {
+			return email+"는 이미 사용 중인 이메일 입니다.";
+		}
+		
 		
 		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
 

@@ -31,5 +31,27 @@ public interface MemberDao {
 			WHERE loginId = #{loginId}
 			""")
 	public int checkLoginId(String loginId);
+
+	
+	@Select("""
+			SELECT COUNT(*)
+			FROM `member`
+			WHERE nickname = #{nickname}
+			""")
+	public int checkNickname(String nickname);
+
+	@Select("""
+			SELECT COUNT(*)
+			FROM `member`
+			WHERE cellphoneNum = #{cellphoneNum}
+			""")
+	public int checkCellphoneNum(String cellphoneNum);
+
+	@Select("""
+			SELECT COUNT(*)
+			FROM `member`
+			WHERE email = #{email}
+			""")
+	public int checkEmail(String email);
 	
 }

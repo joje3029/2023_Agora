@@ -25,4 +25,16 @@ public class MemberService {
 		return memberDao.checkLoginId(loginId);
 	}
 
+	public int checkNickname(String nickname) {
+		return memberDao.checkNickname(nickname);
+	}
+
+	public int checkCellphoneNum(String cellphoneNum) {
+		return memberDao.checkCellphoneNum(cellphoneNum);
+	}
+
+	public int checkEmail(String email) {
+		return memberDao.checkEmail(email);
+	}
+
 }
