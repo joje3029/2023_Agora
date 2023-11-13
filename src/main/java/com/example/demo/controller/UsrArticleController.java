@@ -11,6 +11,8 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrArticleController {
 	
@@ -22,17 +24,22 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(String title, String body) {
+	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
 		
+//		로그인이 되었을때만 글쓸수 있게 권한 검사하는 거 만들기
+		if (session.getAttribute("loginedMemberId") == null) {
+			return ResultData.from("F-1", "로그인해주세요");
+		}
+//		이거 통과했다 == 로그인했다
 		if (Util.empty(title)) {
-			return ResultData.from("F-1", "제목을 입력해주세요");
+			return ResultData.from("F-2", "제목을 입력해주세요");
 		}
 		
 		if (Util.empty(body)) {
-			return ResultData.from("F-2", "내용을 입력해주세요");
+			return ResultData.from("F-3", "내용을 입력해주세요");
 		}
 		
-		articleService.writeArticle(title, body);
+		articleService.writeArticle((String)session.getAttribute("loginedMemberId"), title, body);
 		
 		int id = articleService.getLastInsertId();
 		

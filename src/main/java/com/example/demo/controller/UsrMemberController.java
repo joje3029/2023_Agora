@@ -22,7 +22,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin(HttpSession session, String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		if (Util.empty(loginId)) {
 			return ResultData.from("F-1", "아이디를 입력해주세요");
@@ -58,39 +58,44 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData<Member> doLogin(HttpSession session, String loginId, String loginPw) {
-//		유효성 검사
-		if(session.getAttribute(loginId)!=null) {
-			return ResultData.from("F-1", "로그아웃후 이용해주세요");
+	public ResultData doLogin(HttpSession session, String loginId, String loginPw) {
+		
+		if (session.getAttribute("loginedMemberId") != null) {
+			return ResultData.from("F-1", "로그아웃 후 이용해주세요");
 		}
+		
 		if (Util.empty(loginId)) {
 			return ResultData.from("F-2", "아이디를 입력해주세요");
 		}
 		if (Util.empty(loginPw)) {
 			return ResultData.from("F-3", "비밀번호를 입력해주세요");
 		}
+		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
-		if (member != null) {
-			return ResultData.from("F-4", Util.f("(%s)는 없는 아이디 입니다", loginId));
+		if (member == null) {
+			return ResultData.from("F-4", Util.f("%s은(는) 존재하지 않는 아이디입니다", loginId));
 		}
 		
+		if (member.getLoginPw().equals(loginPw) == false) {
+			return ResultData.from("F-5", "비밀번호를 확인해주세요");
+		}
 		
-//		이제 settion에 저장
-		session.setAttribute("loginId", loginId);
-		return ResultData.from("S-1", Util.f("%s 로그인 되었습니다.", loginId) );
+		session.setAttribute("loginedMemberId", member.getLoginId());
+		
+		return ResultData.from("S-1", Util.f("%s 회원님 환영합니다~", member.getNickname()));
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogOut(HttpSession session, String loginId) {
-		if(session.getAttribute("loginId")==null) {
+	public ResultData doLogout(HttpSession session) {
+		
+		if (session.getAttribute("loginedMemberId") == null) {
 			return ResultData.from("F-1", "로그인 후 이용해주세요");
 		}
 		
-		session.removeAttribute("loginId");
-		return ResultData.from("S-1", Util.f("로그아웃 되었습니다.", loginId) );
+		session.removeAttribute("loginedMemberId");
 		
-		
+		return ResultData.from("S-1", "정상적으로 로그아웃 되었습니다");
 	}
 }

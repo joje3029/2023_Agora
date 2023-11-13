@@ -19,8 +19,9 @@ public interface ArticleDao {
 					, updateDate = NOW()
 					, title = #{title}
 					, `body` = #{body}
+					, loginId = #{loginId}
 			""")
-	public void writeArticle(String title, String body);
+	public void writeArticle(String loginId, String title, String body);
 	
 	@Select("""
 			SELECT *
