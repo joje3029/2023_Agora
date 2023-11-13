@@ -1,0 +1,89 @@
+DROP DATABASE IF EXISTS SB_AM;
+CREATE DATABASE SB_AM;
+USE SB_AM;
+
+CREATE TABLE article(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    `body` TEXT NOT NULL,
+    loginId VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE `member`(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    loginId VARCHAR(20) NOT NULL,
+    loginPw VARCHAR(100) NOT NULL,
+    authLevel SMALLINT UNSIGNED NOT NULL DEFAULT 2 COMMENT '권한 레벨 (일반 = 2, 관리자 = 1)',
+    `name` VARCHAR(20) NOT NULL,
+    nickname VARCHAR(20) NOT NULL,
+    cellphoneNum VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (탈퇴 전 = 0, 탈퇴 후 = 1)',
+    delDate DATETIME COMMENT '탈퇴 날짜'
+);
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목1',
+`body` = '내용1',
+loginId = 'test1';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목2',
+`body` = '내용2',
+loginId = 'test1';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목3',
+`body` = '내용3',
+loginId = 'test2';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'admin',
+loginPw = 'admin',
+authLevel = 1,
+`name` = '관리자',
+nickname = 'admin',
+cellphoneNum = '010-0000-0000',
+email = 'admin@admin.com';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test1',
+loginPw = 'test1',
+authLevel = 2,
+`name` = '유저1',
+nickname = 'user1',
+cellphoneNum = '010-1111-2222',
+email = 'test1@test1.com';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test2',
+loginPw = 'test2',
+authLevel = 2,
+`name` = '유저2',
+nickname = 'user2',
+cellphoneNum = '010-1111-2222',
+email = 'test1@test1.com';
+
+SELECT * FROM article
+
+SELECT * FROM `member`
+
+DESC `member`
+
+SELECT LAST_INSERT_ID();

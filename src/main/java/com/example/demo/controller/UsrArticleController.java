@@ -12,6 +12,7 @@ import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 @Controller
 public class UsrArticleController {
@@ -74,12 +75,16 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public ResultData doModify(HttpSession session, int id, String title, String body) {
 		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
+		}
+		
+		if(article.getLoginId().equals(session.getAttribute("loginedMemberId"))==false) {
+			return ResultData.from("F-2", Util.f("%d번 게시물 수정권한이 없습니다.", id, session.getAttribute("loginedMemberId")));
 		}
 		
 		articleService.modifyArticle(id, title, body);
@@ -89,7 +94,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(int id) {
+	public ResultData doDelete(HttpSession session,int id) {
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -97,6 +102,10 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
+		if(article.getLoginId().equals(session.getAttribute("loginedMemberId"))==false) {
+			return ResultData.from("F-2", Util.f("%d번 게시물 수정권한이 없습니다.", id, session.getAttribute("loginedMemberId")));
+		}
+				
 		articleService.deleteArticle(id);
 		
 		return ResultData.from("S-1", Util.f("%d번 게시물을 삭제했습니다", id));
