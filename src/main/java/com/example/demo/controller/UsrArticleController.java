@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
 
 @Controller
 public class UsrArticleController {
@@ -20,63 +22,77 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body) {
+	public ResultData<Article> doWrite(String title, String body) {
 		
-//		Article article = articleService.writeArticle(title, body); 
-//		위의 코드가 내 코드 이러면 작살남. 왜 이렇게 하려고 했는지는 알겠는데 이러면 안됨. 이친구는 그냥 DB에 insert만 하기 때문에 return 타입이 없어.
-		articleService.writeArticle(title, body); 
+		if (Util.empty(title)) {
+			return ResultData.from("F-1", "제목을 입력해주세요");
+		}
 		
-		int lastId = articleService.getlastInsetId(); //이런식으로 따로 구해야함. 지금 들어간 놈은 마지막 글로 들어가니까.그리고 저 select 자체가 반환을 하니까.
-		return lastId+"번 글이 생성되었습니다.";
+		if (Util.empty(body)) {
+			return ResultData.from("F-2", "내용을 입력해주세요");
+		}
+		
+		articleService.writeArticle(title, body);
+		
+		int id = articleService.getLastInsertId();
+		
+		return ResultData.from("S-1", Util.f("%d번 게시물을 생성했습니다", id), articleService.getArticleById(id));
 	}
 	
 	@RequestMapping("/usr/article/showList")
 	@ResponseBody
-	public List<Article> showList() {
-		return articleService.getArticles();
+	public ResultData<List<Article>> showList() {
+		
+		List<Article> articles = articleService.getArticles();
+		
+		if (articles.size() == 0) {
+			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
+		}
+		
+		return ResultData.from("S-1", "게시물 목록", articles);
 	}
 	
 	@RequestMapping("/usr/article/showDetail")
 	@ResponseBody
-	public Object showDetail(int id) {
+	public ResultData<Article> showDetail(int id) {
 		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 존재하지 않습니다";
+			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		return article;
+		return ResultData.from("S-1", Util.f("%d번 게시물", id), article);
 	}
 	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(int id, String title, String body) {
+	public ResultData doModify(int id, String title, String body) {
 		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 존재하지 않습니다";
+			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		articleService.modifyArticle(article, title, body);
+		articleService.modifyArticle(id, title, body);
 		
-		return id + "번 게시물을 수정했습니다";
+		return ResultData.from("S-1", Util.f("%d번 게시물을 수정했습니다", id));
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(int id) {
+	public ResultData doDelete(int id) {
 		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 존재하지 않습니다";
+			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		articleService.deleteArticle(article);
+		articleService.deleteArticle(id);
 		
-		return id + "번 게시물을 삭제했습니다";
+		return ResultData.from("S-1", Util.f("%d번 게시물을 삭제했습니다", id));
 	}
 	
 }

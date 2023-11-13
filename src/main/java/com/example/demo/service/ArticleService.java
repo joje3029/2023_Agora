@@ -28,18 +28,16 @@ public class ArticleService {
 		return articleDao.getArticleById(id);
 	}
 	
-	public void modifyArticle(Article article, String title, String body) {
-		int id=article.getId();
+	public void modifyArticle(int id, String title, String body) {
 		articleDao.modifyArticle(id, title, body);
 	}
 	
-	public void deleteArticle(Article article) {
-		int id=article.getId();
+	public void deleteArticle(int id) {
 		articleDao.deleteArticle(id);
 	}
 
-	public int getlastInsetId() {
-		return articleDao.getlastInsetId();
+	public int getLastInsertId() {
+		return articleDao.getLastInsertId();
 	}
 	
 }

@@ -10,49 +10,53 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Article;
 
-@Mapper //Mapper는 class가 아니라 interface(100%추상클래스)가 되야함
+@Mapper
 public interface ArticleDao {
 	
 	@Insert("""
 			INSERT INTO article
-			SET regDate = NOW()
-			,updateDate = NOW()
-			,title = #{title}
-			,`body` = #{body}
+				SET regDate = NOW()
+					, updateDate = NOW()
+					, title = #{title}
+					, `body` = #{body}
 			""")
 	public void writeArticle(String title, String body);
 	
 	@Select("""
-			SELECT * 
-			FROM article 
-			ORDER BY id DESC
+			SELECT *
+				FROM article
+				ORDER BY id DESC
 			""")
 	public List<Article> getArticles();
 	
 	@Select("""
 			SELECT * 
-			FROM article 
-			WHERE id=#{id};
+				FROM article
+				WHERE id = #{id}
 			""")
 	public Article getArticleById(int id);
 	
 	@Update("""
+			<script>
 			UPDATE article
-			SET updateDate = NOW()
-			,title = #{title}
-			,`body` = #{body}
-			WHERE id=#{id}
+				SET updateDate = NOW()
+					<if test="title != null and title != ''">
+						, title = #{title}
+					</if>
+					<if test="body != null and body != ''">
+						, `body` = #{body}
+					</if>
+				WHERE id = #{id}
+			</script>
 			""")
 	public void modifyArticle(int id, String title, String body);
-
+	
 	@Delete("""
 			DELETE FROM article
-			WHERE id=#{id}
+				WHERE id = #{id}
 			""")
 	public void deleteArticle(int id);
 
-	@Select("""
-			SELECT LAST_INSERT_ID();
-			""")
-	public int getlastInsetId();
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
 }
