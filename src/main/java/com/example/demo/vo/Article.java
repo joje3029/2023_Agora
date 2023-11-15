@@ -12,4 +12,5 @@ public class Article {
 	private int memberId;
 	private String title;
 	private String body;
+	private String nickname;
 }
