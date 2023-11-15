@@ -8,7 +8,7 @@ CREATE TABLE article(
     updateDate DATETIME NOT NULL,
     title VARCHAR(100) NOT NULL,
     `body` TEXT NOT NULL,
-    loginId VARCHAR(20) NOT NULL
+    memberId INT NOT NULL
 );
 
 CREATE TABLE `member`(
@@ -31,21 +31,28 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1',
-loginId = 'test1';
+memberId = 2;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2',
-loginId = 'test1';
+memberId = 2;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3',
-loginId = 'test2';
+memberId = 3;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목4',
+`body` = '내용',
+memberId = 3;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -80,10 +87,6 @@ nickname = 'user2',
 cellphoneNum = '010-1111-2222',
 email = 'test1@test1.com';
 
-SELECT * FROM article
-
 SELECT * FROM `member`
 
-DESC `member`
-
-SELECT LAST_INSERT_ID();
+SELECT * FROM article

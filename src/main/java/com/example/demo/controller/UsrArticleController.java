@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -12,7 +13,6 @@ import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 public class UsrArticleController {
@@ -47,17 +47,20 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Util.f("%d번 게시물을 생성했습니다", id), articleService.getArticleById(id));
 	}
 	
-	@RequestMapping("/usr/article/showList")
-	@ResponseBody
-	public ResultData<List<Article>> showList() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) { // 타입이 String이어야 하는 이유 : 우리는 경로를 return함 "경로"
 		
 		List<Article> articles = articleService.getArticles();
 		
-		if (articles.size() == 0) {
-			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
-		}
+//		if (articles.size() == 0) {
+//			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
+//		}
 		
-		return ResultData.from("S-1", "게시물 목록", articles);
+		// model은 HashMap 형태이므로 key와 value로 사용함.
+		
+		model.addAttribute("articles",articles); //model에 위의 articles를 추가해서 jsp에 보냄. 추가해서 보내니까 jsp에서 쓸수 있음.
+		
+		return "usr/article/list";
 	}
 	
 	@RequestMapping("/usr/article/showDetail")
