@@ -27,20 +27,19 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
 		
-//		로그인이 되었을때만 글쓸수 있게 권한 검사하는 거 만들기
 		if (session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-1", "로그인해주세요");
+			return ResultData.from("F-L", "로그인 후 이용해주세요");
 		}
-//		이거 통과했다 == 로그인했다
+		
 		if (Util.empty(title)) {
-			return ResultData.from("F-2", "제목을 입력해주세요");
+			return ResultData.from("F-1", "제목을 입력해주세요");
 		}
 		
 		if (Util.empty(body)) {
-			return ResultData.from("F-3", "내용을 입력해주세요");
+			return ResultData.from("F-2", "내용을 입력해주세요");
 		}
 		
-		articleService.writeArticle((String)session.getAttribute("loginedMemberId"), title, body);
+		articleService.writeArticle((int) session.getAttribute("loginedMemberId"), title, body);
 		
 		int id = articleService.getLastInsertId();
 		
@@ -48,17 +47,11 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model) { // 타입이 String이어야 하는 이유 : 우리는 경로를 return함 "경로"
+	public String showList(Model model) {
 		
 		List<Article> articles = articleService.getArticles();
 		
-//		if (articles.size() == 0) {
-//			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
-//		}
-		
-		// model은 HashMap 형태이므로 key와 value로 사용함.
-		
-		model.addAttribute("articles",articles); //model에 위의 articles를 추가해서 jsp에 보냄. 추가해서 보내니까 jsp에서 쓸수 있음.
+		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";
 	}
@@ -86,8 +79,8 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		if(article.getLoginId().equals(session.getAttribute("loginedMemberId"))==false) {
-			return ResultData.from("F-2", Util.f("%d번 게시물 수정권한이 없습니다.", id, session.getAttribute("loginedMemberId")));
+		if ((int) session.getAttribute("loginedMemberId") != article.getMemberId()) {
+			return ResultData.from("F-A", "해당 게시물에 대한 권한이 없습니다");
 		}
 		
 		articleService.modifyArticle(id, title, body);
@@ -97,7 +90,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(HttpSession session,int id) {
+	public ResultData doDelete(HttpSession session, int id) {
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -105,10 +98,10 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		if(article.getLoginId().equals(session.getAttribute("loginedMemberId"))==false) {
-			return ResultData.from("F-2", Util.f("%d번 게시물 수정권한이 없습니다.", id, session.getAttribute("loginedMemberId")));
+		if ((int) session.getAttribute("loginedMemberId") != article.getMemberId()) {
+			return ResultData.from("F-A", "해당 게시물에 대한 권한이 없습니다");
 		}
-				
+		
 		articleService.deleteArticle(id);
 		
 		return ResultData.from("S-1", Util.f("%d번 게시물을 삭제했습니다", id));

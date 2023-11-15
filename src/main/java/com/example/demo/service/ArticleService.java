@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
@@ -16,8 +18,8 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 	
-	public void writeArticle(String loginId,String title, String body) {
-		articleDao.writeArticle(loginId, title, body);
+	public void writeArticle(int memberId, String title, String body) {
+		articleDao.writeArticle(memberId, title, body);
 	}
 	
 	public List<Article> getArticles() {
