@@ -7,6 +7,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'YClover-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/YClover-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 html > body {
 	font-family: 'NanumSquareNeo-Variable', sans-serif;
 	text-underline-position: under;
@@ -22,11 +29,17 @@ html > body {
 	text-align: center; 
 }
 
-.btns > .btn-text-color {
-	color:black;
+.logo_name{
+	font-family: 'YClover-Bold';
 }
 
-.btns > .btn-text-color:hover {
-	color:firebrick;
-	text-decoration: underline;
+.btns>.btns-text_color{
+	color: limegreen;
+	
 }
+
+.btns>.btns-text_color:hover{
+	color: darkgreen;
+	text-decoration: underline; 	
+}
+

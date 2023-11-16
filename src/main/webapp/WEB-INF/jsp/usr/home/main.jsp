@@ -1,26 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>MAIN</title>
-</head>
-<body>
-	<h1>Main Page</h1>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+	<c:set var="pageTitle" value="MAIN" />
 	
-	<div>
-		<div><a href="/">로고</a></div>
-		
-		<ul>
-			<li><a href="/">HOME</a></li>
-			<li><a href="/usr/article/list">LIST</a></li>
-		</ul>
-	</div>
+	<%@ include file="../common/head.jsp" %>
 	
-	<div>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam alias eligendi consequatur modi ut distinctio assumenda voluptates doloribus voluptas nulla quidem quia sequi nesciunt eos illo quas accusamus veritatis labore.
-	</div>
+	<section class="mt-8">
+		<div class="container mx-auto">
+			<img src="https://cdn.pixabay.com/photo/2016/12/14/13/59/ball-1906468_1280.png" alt="크리스마스장식" />
+			<div>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam alias eligendi consequatur modi ut distinctio assumenda voluptates doloribus voluptas nulla quidem quia sequi nesciunt eos illo quas accusamus veritatis labore.
+			</div>
+			<div>
+				안녕하세요
+			</div>
+		</div>
+	</section>
 	
-</body>
-</html>
+	<%@ include file="../common/foot.jsp" %>
