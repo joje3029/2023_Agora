@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="h-20 flex mx-auto text-4xl bg-green-300 text-white mb-8" >
-		<div><a class="h-full px-3 flex items-center" href="/"><span class=logo_name>blue ribbon</span></a></div>
+		<div><a class="h-full px-3 flex items-center" href="/"><span class=logo_name>Agora</span></a></div>
 		<div class="flex-grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>

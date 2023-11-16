@@ -8,8 +8,8 @@
 }
 
 @font-face {
-    font-family: 'YClover-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/YClover-Bold.woff2') format('woff2');
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
@@ -30,7 +30,7 @@ html > body {
 }
 
 .logo_name{
-	font-family: 'YClover-Bold';
+	font-family: 'KBO-Dia-Gothic_bold';
 }
 
 .btns>.btns-text_color{
