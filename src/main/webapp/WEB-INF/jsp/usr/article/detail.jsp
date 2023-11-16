@@ -41,8 +41,8 @@
 			<div class="flex" >
 				<button class="hover:underline hover:text-green-700 mr-16" onclick="history.back();">뒤로가기</button>
 				<c:if test="${loginedMemberId!= null && loginedMemberId == article.memberId  }">
-					<div class="hover:underline hover:text-green-700 mr-16">수정</div>
-					<div class="hover:underline hover:text-green-700">삭제</div>
+					<div class="hover:underline hover:text-green-700 mr-16"><a href="modify?id=${article.id }">수정</a></div>
+					<div class="hover:underline hover:text-green-700" ><a href="doDelete?id=${article.id }" onclick="if(confirm('정말삭제하시겠습니까?') == false) return false" >삭제</a></div>
 				</c:if>
 			</div>
 		</div>
