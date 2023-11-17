@@ -10,6 +10,7 @@ import com.example.demo.interceptor.NeedLoginInterceptor;
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
+	//interceter로 만든거 두개 설정
 	private BeforActionInterceptor beforeActionInterceptor;
 	private NeedLoginInterceptor needLoginInterceptor;
 
@@ -21,8 +22,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		
+		//경로 설정
+		//beforeActionInterceptor의 경로 설정
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/rosource/**");
 
+		//needLoginInterceptor의 경로 설정
 		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doWrite")
 				.addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/article/doModify");
 	}

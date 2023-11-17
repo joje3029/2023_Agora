@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -8,7 +9,9 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -58,6 +61,18 @@ public class UsrMemberController {
 		int id = memberService.getLastInsertId();
 		
 		return ResultData.from("S-1", "회원 가입 성공", memberService.getMemberById(id));
+	}
+	
+	@RequestMapping("/usr/member/login")
+	public String login(HttpServletRequest req) {
+		
+//		Rq rq = (Rq) req.getAttribute("rq");
+//		
+//		if (rq.getLoginedMemberId()==0) {
+//			return Util.jsHistroyBack("로그아웃 후 이용해주세요");
+//		}
+		
+		return "usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogin")

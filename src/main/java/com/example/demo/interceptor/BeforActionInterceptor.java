@@ -20,8 +20,6 @@ public class BeforActionInterceptor implements HandlerInterceptor{
 		
 		Rq rq = new Rq(request, response);
 		
-		request.setAttribute(null, response);
-		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
