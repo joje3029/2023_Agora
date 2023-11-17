@@ -1,26 +1,44 @@
 package com.example.demo.vo;
 
+import java.io.IOException;
+
+import com.example.demo.util.Util;
+
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
-// 밖에서 session에 하던일 시킬꺼임.
 public class Rq {
 	
-	//밖에서 써야하니까 Getter 어노테이션을 붙임.
 	@Getter
-	private int loginedMemberId; //session으로 할때 key이름 이거였으니까 그대로 쓰는거임.
-
-	// 밖에서 쓰고 있으니까 public 생성자
-	public Rq(HttpServletRequest req){
-		HttpSession session =req.getSession(); // session을 사용할꺼니까 request에 session을 꺼내서 변수로 담음
+	private int loginedMemberId;
+	HttpServletResponse resp;
+	
+	//session에 로그인 했는지 안했는지 확인할수 있게 세팅. 안하면 loginedMemberId가 0이고 했으면 뭔가 있것지.
+	public Rq(HttpServletRequest req, HttpServletResponse response) { 
 		
-		int loginedMemberId = 0; // 아래서 비교해야하니까.
-
-		if (session.getAttribute("loginedMemberId") != null) { // session의 key가 loginedMemberId가 null이 아니면
+		this.resp = response;
+		
+		HttpSession session = req.getSession();
+		
+		int loginedMemberId = 0;
+		
+		if (session.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
-
+		
 		this.loginedMemberId = loginedMemberId;
+	}
+	
+	//로그인이 필요한데 로그인을 안한데이면 돌아가라를 해야하니까.
+	public void jsPrintHistoryBack(String msg) {
+		resp.setContentType("text/html; charset=UTF-8;");//response에서 보여줘서.
+		
+		try {
+			resp.getWriter().append(Util.jsHistroyBack(msg)); // 메세지를 보이고 이전으로 돌아가게 함.
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

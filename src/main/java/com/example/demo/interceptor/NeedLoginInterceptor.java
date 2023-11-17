@@ -9,18 +9,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class BeforActionInterceptor implements HandlerInterceptor{
-	//인터셉터를 쓸때는 HandlerInterceptor 를 상속받아야함. 종류등 자세한건 본인 블로그 참고.
-	//커서놓고 Alt+shilf+s -> override/import method 선택
+public class NeedLoginInterceptor implements HandlerInterceptor {
 	
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		//NeedLoginInterceptor 보다 BeforActionInterceptor가 먼저 실행될꺼라서 Rq가 있으므로 사용가능
+		Rq rq = (Rq) request.getAttribute("rq");
 		
-		Rq rq = new Rq(request, response);
-		
-		request.setAttribute(null, response);
+		//Rq에서 loginMemberid에 세팅해놓으니까.
+		if (rq.getLoginedMemberId() == 0) {
+			rq.jsPrintHistoryBack("로그인 후 이용해주세요");
+			return false;
+		}
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

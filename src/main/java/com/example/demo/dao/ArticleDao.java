@@ -24,20 +24,27 @@ public interface ArticleDao {
 	public void writeArticle(int memberId, String title, String body);
 	
 	@Select("""
-			SELECT a.*, m.nickname
-				FROM article AS a
-				INNER JOIN `member` AS m
-				ON a.memberId = m.id
-				ORDER BY id DESC
+			SELECT A.*, M.name AS writerName
+				FROM article AS A
+				INNER JOIN `member` AS M
+				ON A.memberId = M.id
+				ORDER BY A.id DESC
 			""")
 	public List<Article> getArticles();
 	
 	@Select("""
-			SELECT a.*, m.nickname
-				FROM article AS a
-				INNER JOIN `member` AS m
-				ON a.memberId = m.id
-				WHERE a.id = #{id}
+			SELECT A.*, M.name AS writerName
+				FROM article AS A
+				INNER JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE A.id = #{id}
+			""")
+	public Article forPrintArticle(int id);
+	
+	@Select("""
+			SELECT * 
+				FROM article
+				WHERE id = #{id}
 			""")
 	public Article getArticleById(int id);
 	
