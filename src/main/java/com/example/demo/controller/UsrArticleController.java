@@ -70,11 +70,21 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
+	//여기는 이 mapping이 하는 일 특성상 @ResponseBody 를 붙일수 없음 : 여기가 답을하거나 화면을 할꺼가 아니라. modify 화면을 그리는 jsp 로 일을 넘기는 역할이므로.
 	public String modify(HttpServletRequest req, Model model, int id) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.forPrintArticle(id);
+		
+		//화면을 그리고 나서가 아니라 들어갈때 이사람이 권한이 있는지 없는지 존재하지 않는지도 한번 거르면 더 좋겠다. => 이걸 하더라도 저런 문구를 위의 이유로 return 못함.
+		if (article == null) {
+			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다", id)); //그래서 rq에 jsReturnOnView 라는 메소드를 만들어서 해결하는 것임.
+		}
+		
+		if (rq.getLoginedMemberId() != article.getMemberId()) {
+			return rq.jsReturnOnView("해당 게시물에 대한 권한이 없습니다");
+		}
 		
 		model.addAttribute("article", article);
 		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
