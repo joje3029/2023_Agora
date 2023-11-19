@@ -14,11 +14,14 @@ public class Rq {
 	@Getter
 	private int loginedMemberId;
 	HttpServletResponse resp;
+	HttpSession session;
+	HttpServletRequest req;
 	
 	//session에 로그인 했는지 안했는지 확인할수 있게 세팅. 안하면 loginedMemberId가 0이고 했으면 뭔가 있것지.
 	public Rq(HttpServletRequest req, HttpServletResponse response) { 
 		
 		this.resp = response;
+		this.req = req;
 		
 		HttpSession session = req.getSession();
 		
@@ -41,4 +44,14 @@ public class Rq {
 			e.printStackTrace();
 		}
 	}
+
+	public void login(Member member) { //로그인만 되면 되는거니까 굳이 뭔가 반환할 필요 없음
+		this.session.setAttribute("loginedMemberId", member.getId());
+		//이거 할라고 session이 전역으로 뺀거임.
+	}
+
+	public void logout() {
+		this.session.removeAttribute("loginedMemberId"); //session이에서 요소를 삭제하는거니까 늘 하듯 remove
+	}
+
 }
