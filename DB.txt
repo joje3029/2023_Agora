@@ -6,9 +6,10 @@ CREATE TABLE article(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
+    memberId INT UNSIGNED NOT NULL,
+    boardId INT UNSIGNED NOT NULL,
     title VARCHAR(100) NOT NULL,
-    `body` TEXT NOT NULL,
-    memberId INT NOT NULL
+    `body` TEXT NOT NULL
 );
 
 CREATE TABLE `member`(
@@ -26,33 +27,37 @@ CREATE TABLE `member`(
     delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-title = '제목1',
-`body` = '내용1',
-memberId = 2;
+CREATE TABLE board(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` VARCHAR(20) NOT NULL COMMENT 'notice(공지사항), free(자유), ...',
+    `name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
+);
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 2,
+boardId = 1,
+title = '공지1',
+`body` = '공지내용1';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+boardId = 2,
 title = '제목2',
-`body` = '내용2',
-memberId = 2;
+`body` = '내용2';
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 2,
+boardId = 2,
 title = '제목3',
-`body` = '내용3',
-memberId = 3;
-
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-title = '제목4',
-`body` = '내용',
-memberId = 3;
+`body` = '내용3';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -76,17 +81,20 @@ nickname = 'user1',
 cellphoneNum = '010-1111-2222',
 email = 'test1@test1.com';
 
-INSERT INTO `member`
+INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-loginId = 'test2',
-loginPw = 'test2',
-authLevel = 2,
-`name` = '유저2',
-nickname = 'user2',
-cellphoneNum = '010-1111-2222',
-email = 'test1@test1.com';
+`code` = 'notice',
+`name` = '공지사항';
 
-SELECT * FROM `member`
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free',
+`name` = '자유';
 
-SELECT * FROM article
+SELECT * FROM article;
+SELECT * FROM `member`;
+SELECT * FROM board;
+
+SELECT LAST_INSERT_ID();

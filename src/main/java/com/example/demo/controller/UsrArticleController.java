@@ -52,9 +52,9 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model) {
+	public String list(Model model, int boardId) {
 		
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getArticles(boardId);
 		
 		model.addAttribute("articles", articles);
 		

@@ -33,9 +33,14 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="flex justify-end">
-				<div class="hover:underline hover:text-green-700 mr-16""><a href="write">글쓰기</a></div>
-			</div>
+
+			<c:if test="${rq.getLoginedMemberId() != 0 }">
+				<div class="flex justify-end">
+					<div class="hover:underline hover:text-green-700 mr-16"">
+						<a href="write">글쓰기</a>
+					</div>
+				</div>
+			</c:if>
 
 		</div>
 	</div>
