@@ -11,6 +11,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		<div>게시글 갯수 : ${articleCount}</div>
 		<div class="table-box-type">
 			<table>
 				<thead>

@@ -32,23 +32,34 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type">
-		<form action="doWrite" method="get" onsubmit="writeForm_onSubmit(this); return false;">
-			<table>
+			<form action="doWrite" method="get"
+				onsubmit="writeForm_onSubmit(this); return false;">
+				<table>
+					<tr>
+						<th>게시판 선택</th>
+						<label>
+							<td><input type="radio" name="boardId" value="1"/>NOTICE</td>
+							<td><input type="radio" name="boardId" value="2"/>FREE</td>
+						</label>
+					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="title" value="${article.title }" placeholder="제목을 입력해주세요" /></td>
+						<td><input type="text" name="title" value="${article.title }"
+							placeholder="제목을 입력해주세요" /></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea name="body" cols="30" rows="10" value="${article.body }" placeholder="내용을 입력해주세요"></textarea></td>
+						<td><textarea name="body" cols="30" rows="10"
+								value="${article.body }" placeholder="내용을 입력해주세요"></textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2"><button>글 저장</button></td>
 					</tr>
-			</table>
-		</form>
-			<div class="flex" >
-				<button class="hover:underline hover:text-green-700 mr-16" onclick="history.back();">뒤로가기</button>
+				</table>
+			</form>
+			<div class="flex">
+				<button class="hover:underline hover:text-green-700 mr-16"
+					onclick="history.back();">뒤로가기</button>
 			</div>
 		</div>
 	</div>

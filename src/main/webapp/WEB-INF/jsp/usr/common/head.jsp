@@ -28,9 +28,9 @@
 			<li class="hover:underline"><a
 				class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
 			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/usr/article/listlist?boardId=1"><span>NOTICE</span></a></li>
+				class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
 			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/usr/article/listlist?boardId=2"><span>FREE</span></a></li>
+				class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
 
 			<c:if test="${rq.getLoginedMemberId() == 0 }">
 				<!-- jsp에서 el 문법 사용 가능  -->
