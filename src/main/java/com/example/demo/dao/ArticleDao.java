@@ -24,7 +24,7 @@ public interface ArticleDao {
 	public void writeArticle(int memberId, String title, String body);
 	
 	@Select("""
-			SELECT A.*, M.name AS writerName
+			SELECT A.*, M.nickname AS nickname
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
@@ -33,7 +33,7 @@ public interface ArticleDao {
 	public List<Article> getArticles();
 	
 	@Select("""
-			SELECT A.*, M.name AS writerName
+			SELECT A.*, M.nickname AS nickname
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id

@@ -20,6 +20,10 @@ public class BeforActionInterceptor implements HandlerInterceptor{
 		
 		Rq rq = new Rq(request, response);
 		
+		 // request에 Rq 객체를 attribute로 설정
+		request.setAttribute("rq", rq); 
+		//HttpServletRequest의 attribute로 설정하는 부분. 이렇게 설정하면 해당 요청에 대한 정보를 Rq 객체에 담아 컨트롤러에서 사용가능.
+		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
