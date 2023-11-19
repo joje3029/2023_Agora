@@ -29,7 +29,6 @@ public class Rq {
 		
 		if (session.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-			System.out.println(5);
 		}
 		this.loginedMemberId = loginedMemberId;
 	}

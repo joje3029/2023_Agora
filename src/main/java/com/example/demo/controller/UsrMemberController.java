@@ -66,13 +66,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/login")
 	public String login(HttpServletRequest req) {
 		
-//		Rq rq = (Rq) req.getAttribute("rq");
-//		
-//		if (rq.getLoginedMemberId()==0) {
-//			return Util.jsHistroyBack("로그아웃 후 이용해주세요");
-//		} 
-// 이건 페이지를 그릴 jsp로 연결하는게 목적이니까.
-		
 		return "usr/member/login";
 	}
 	
@@ -82,7 +75,7 @@ public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if(rq.getLoginedMemberId()==0) {
+		if(rq.getLoginedMemberId()!=0) {
 			return Util.jsHistroyBack("로그아웃 후 이용해주세요");
 		}
 		
