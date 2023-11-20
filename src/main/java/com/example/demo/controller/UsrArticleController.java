@@ -8,21 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
-import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
 	
 	private ArticleService articleService;
+	private BoardService boardService;
 	
-	UsrArticleController(ArticleService articleService) {
+	UsrArticleController(ArticleService articleService, BoardService boardService) {
 		this.articleService = articleService;
+		this.boardService = boardService;
 	}
 	
 	@RequestMapping("/usr/article/write")
@@ -56,10 +58,13 @@ public class UsrArticleController {
 		
 		List<Article> articles = articleService.getArticles(boardId);
 		
-		String articleCount=articleService.getArticlCount(boardId);
+		//이거 boardService로 옮기자. 결합도와 응집도를 위해서라도.
+//		String articleCount=articleService.getArticlCount(boardId);
+		Board board = boardService.getBoardById(boardId);
 	
 		model.addAttribute("articles", articles);
-		model.addAttribute("", articleCount);
+		
+//		model.addAttribute("", articleCount);
 		
 		return "usr/article/list";
 	}
