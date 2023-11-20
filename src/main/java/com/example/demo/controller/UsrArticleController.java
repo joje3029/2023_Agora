@@ -55,7 +55,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, int boardId, @RequestParam(defaultValue = "1") int page) {//파라미터를 받아야지. 파라미터를 받는 이유. 그래야 어디서부터 보여주는지 list가 알지. 그래서 요청으로 받아서 넘기는거야.
+	public String list(Model model, int boardId, @RequestParam(defaultValue = "1") int page, String searchKeywordType, String searchKeyword) {//파라미터를 받아야지. 파라미터를 받는 이유. 그래야 어디서부터 보여주는지 list가 알지. 그래서 요청으로 받아서 넘기는거야.
 		//@RequestParam(defaultValue = "1") int page 파라미터가 없으면 기본값을 1로 할께라고 하는 것
 		if (page <= 0) { // 페이지는 1부터 시작 => 이 조건식은 0/음수를 파라미터로 요청한 것. 즉 존재하지 않는걸 요청한 것.
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
