@@ -2,6 +2,10 @@ package com.example.demo.vo;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.example.demo.util.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // 요청이 들어왔을때 여기에 만들어질 친구의 생명주기 같은거. 이 어노테이션이 생기면 : http 요청이 들어올 때마다 새로 만듦. 단, 새로 만들어졌지만 이전꺼를 물려받는식으로 계속 가져감.
+//이거를 안하면 beforaction에서 채갈때마다 새로운 객체를 생성. 충돌가능성 발생. 그래서 새로 생길때 이전놈이 가진건 물려받되. 이전놈을 죽이는거임.
 public class Rq {
 
 	@Getter
@@ -17,7 +24,6 @@ public class Rq {
 	HttpSession session;
 	HttpServletRequest req;
 
-	// session에 로그인 했는지 안했는지 확인할수 있게 세팅. 안하면 loginedMemberId가 0이고 했으면 뭔가 있것지.
 	public Rq(HttpServletRequest req, HttpServletResponse response) {
 
 		this.resp = response;
@@ -31,6 +37,9 @@ public class Rq {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		this.loginedMemberId = loginedMemberId;
+		
+		this.req.setAttribute("rq", this); //this => 여기 이 객체를 보내는 거임. 왜인지는 this.에서 .을 생각하면 쟤가 뭔지 알꺼여. 
+		//new Rq라고 해서 객체를 만드는 과정이 없어짐으로. beforaction에서 하던일이지만 이제는 인터셉터에서 그일을 안하니까.
 	}
 
 	// 로그인이 필요한데 로그인을 안한데이면 돌아가라를 해야하니까.
@@ -57,6 +66,10 @@ public class Rq {
 		req.setAttribute("msg", msg); //키명을 msg로 해서 request에 넣고
 
 		return "usr/common/js"; // 이 jsp로 보냄.
+	}
+
+	public void init() {
+		// 말짱하게 쓰기 위해서 한번 쓰는게 목적이라서 이게 다임.
 	}
 
 }

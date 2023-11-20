@@ -18,16 +18,18 @@ import jakarta.servlet.http.HttpSession;
 public class UsrMemberController {
 	
 	private MemberService memberService;
+	private Rq rq;
 	
-	UsrMemberController(MemberService memberService) {
+	UsrMemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
+		this.rq = rq;
 	}
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpSession session, String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
-		if (session.getAttribute("loginedMemberId") != null) {
+		if(rq.getLoginedMemberId()!=0) {
 			return ResultData.from("F-L", "로그아웃 후 이용해주세요");
 		}
 		
@@ -71,9 +73,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody //애가 그려야하니까.
-public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+public String doLogin( String loginId, String loginPw) {
 		
 		if(rq.getLoginedMemberId()!=0) {
 			return Util.jsHistroyBack("로그아웃 후 이용해주세요");
