@@ -38,7 +38,7 @@ CREATE TABLE board(
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
-memberId = 2,
+memberId = 1,
 boardId = 1,
 title = '공지1',
 `body` = '공지내용1';
@@ -98,3 +98,12 @@ SELECT * FROM `member`;
 SELECT * FROM board;
 
 SELECT LAST_INSERT_ID();
+
+/*
+insert into article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_', FLOOR(RAND() * 10000)), CONCAT('내용_', FLOOR(RAND() * 10000))
+from article;
+*/
