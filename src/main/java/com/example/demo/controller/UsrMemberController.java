@@ -25,6 +25,7 @@ public class UsrMemberController {
 		this.rq = rq;
 	}
 	
+	//회원가입
 	@RequestMapping("/usr/member/join")
 	public String join(HttpServletRequest req) {
 		return "usr/member/join";
@@ -70,6 +71,13 @@ public class UsrMemberController {
 		return ResultData.from("S-1", "회원 가입 성공", memberService.getMemberById(id));
 	}
 	
+	//회원정보 수정
+	@RequestMapping("/usr/member/modify")
+	public String modify(HttpServletRequest req) {
+		return "usr/member/modify";
+	}
+	
+	//로그인
 	@RequestMapping("/usr/member/login")
 	public String login(HttpServletRequest req) {
 		
@@ -77,7 +85,7 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
-	@ResponseBody //애가 그려야하니까.
+	@ResponseBody
 public String doLogin( String loginId, String loginPw) {
 		
 		if(rq.getLoginedMemberId()!=0) {
@@ -102,16 +110,13 @@ public String doLogin( String loginId, String loginPw) {
 		}
 		
 		
-//		session.setAttribute("loginedMemberId", member.getId());
-//		여기서는 더이상 session에 직접 접근하지않으니까 가져오는거 이외에는 불가능 => 가꼬오는것도 rq에서 연결했으니까 가능
-//	    즉, rq에서 뭔가 해야함. 둘이 엮어서 req안의 session에 넣을 방법을.
-		
 		rq.login(member);
 		
 		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
 	}
 	
+	//로그아웃
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
@@ -122,8 +127,6 @@ public String doLogin( String loginId, String loginPw) {
 			return Util.jsHistroyBack("로그인 후 이용해주세요");
 		}
 		
-//		session.removeAttribute("loginedMemberId");
-//		login과 같은 이유. 직접 session 접근 안하니까.ㅏ
 		rq.logout();
 		
 		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "/");
