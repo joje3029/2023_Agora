@@ -5,6 +5,7 @@
 	<c:set var="pageTitle" value="MAIN" />
 	
 	<%@ include file="../common/head.jsp" %>
+	<%@ include file="../common/floatingBanner.jsp" %>
 	
 	<section class="mt-8">
 		<div class="container mx-auto">

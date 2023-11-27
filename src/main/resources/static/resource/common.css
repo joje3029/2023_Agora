@@ -215,3 +215,13 @@ a {
     display: block;
     width: 100%;
 }
+.banner_div{
+	position: fixed;
+    top: 47%;
+    right: 5%;
+}
+
+/* 토론방, 칼럼 리스트 부분 css */
+.listBody{
+	padding: 5%;
+}

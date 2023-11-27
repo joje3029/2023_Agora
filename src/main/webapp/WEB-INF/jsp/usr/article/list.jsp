@@ -4,57 +4,86 @@
 <!-- 이 페이지에서 쓸꺼니까 c. head로 넘기면 안되는 이유. head 아래의 선언보다 아래에서 연결됨. -->
 
 <c:set var="pageTitle" value="${board.name } 게시판" />
-<!--  여기서 변수 선언헀으니까 haed에서 pageTitle을 title에 넣어서 사용가능.  -->
 
 <%@ include file="../common/head.jsp"%>
-<!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div>게시글 갯수 : ${articlesCnt}</div>
+<section class="listBody">
+	 <div>
+            <!--Breadcrumbs : 왼쪽이 더 이쁨!-->
+            <div class="text-sm breadcrumbs">
+                <ul>
+                  <li><a>Home</a></li> 
+                  <li><a>Documents</a></li> 
+                  <li>Add Document</li>
+                </ul>
+            </div>
+            <!--메뉴 : 네비게이션 일자로 만들어요!-->
+            <div class="menuBar">
+                <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
+                    <li><a>전체 칼럼</a></li>
+                    <li><a>구독한 작가 칼럼</a></li>
+                    <li><a>좋아요 한 칼럼</a></li>
+                  </ul>
+            </div>
+            <div class="container mx-auto px-3">
+                <div>게시글 갯수 : ${articlesCnt}</div>
+        
+                <!-- 여다가 검색기능 만들꺼임. -->
+                <form> <!-- form은 Action이 없으면 자기한테로 감. method도 현 상태에다가 붙음 그래서 표시 안해도 됨. -->
+                    <input type="hidden" value="${board.id }" />
+                    <div class="navbar bg-base-100">
+                        <select name="searchKeywordType" >
+                            <option value="title">제목</option>
+                            <option value="body">내용</option>
+                            <option value="title,body">제목+내용</option>
+                        </select>
+                        <input type="text" name="searchKeyword" placeholder="검색어를 써주세요." class="btn btn-ghost text-xl"/>
+                        <div class="navbar-end">
+                            <button class="btn btn-ghost btn-circle">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            </button>
+                            <div class="btn btn-ghost btn-circle">
+                              <div class="indicator">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                                <span class="badge badge-xs badge-primary indicator-item"></span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </form>
+        </div>
+        <!--칼럼작성버튼 로그인시에만 나옴-->
+        <c:if test="${rq.getLoginedMemberId() != 0 }">
+            <div class="flex justify-end">
+                <div class="hover:underline hover:text-green-700 mr-16"">
+                    <a href="write">칼럼 작성</a>
+                </div>
+            </div>
+        </c:if>
 
-		<!-- 여다가 검색기능 만들꺼임. -->
-		<form> <!-- form은 Action이 없으면 자기한테로 감. method도 현 상태에다가 붙음 그래서 표시 안해도 됨. -->
-			<input type="hidden" value="${board.id }" />
-			<select name="searchKeywordType">
-				<option value="title">제목</option>
-				<option value="body">내용</option>
-				<option value="title,body">제목+내용</option>
-			</select>
-			<input type="text" name="searchKeyword" placeholder="검색어를 써주세요." />
-			<button>검색</button>
-		</form>
-
-		<div class="table-box-type">
-			<table>
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>작성일</th>
-						<th>제목</th>
-						<th>작성자</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="article" items="${articles }">
-						<tr>
-							<td>${article.id }</td>
-							<td>${article.regDate }</td>
-							<td class="hover:underline"><a
-								href="detail?id=${article.id }">${article.title }</a></td>
-							<td>${article.nickname }</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-
-			<c:if test="${rq.getLoginedMemberId() != 0 }">
-				<div class="flex justify-end">
-					<div class="hover:underline hover:text-green-700 mr-16"">
-						<a href="write">글쓰기</a>
-					</div>
-				</div>
-			</c:if>
+		<div class="list_outline">
+            <div>
+                <c:forEach var="article" items="${articles }">
+                    <div>
+                        <div>
+                            <a href="detail?id=${article.id }">
+                                <p class="room-name">제목${article.title }</p>
+                                <div class="empty"></div>
+                                <div class="flex">
+                                    <i class="fa-solid fa-user"></i>
+                                    &nbsp;
+                                    <p class="moderator">닉네임${article.nickname }</p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <p class="headcount">수정일${article.regDate }</p>
+                                </div>
+                            </a>
+                        </div>
+                      </div>
+                </c:forEach>
+            </div>
+        </div>
+        
+        
 			<!-- 여기서부터 페이지네이션 부분 -->
 			<div class="mt-2 flex justify-center">
 				<div class="join">

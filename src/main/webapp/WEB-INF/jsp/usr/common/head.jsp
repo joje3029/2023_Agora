@@ -27,8 +27,8 @@
 				<li class="menu_bar_item">전체메뉴</li>
 				<li class="menu_bar_item">칼럼
 					<ul class="dropdown-content">
-						<li><a href="#">전체칼럼</a></li>
-						<li><a href="#">구독한 작가 칼럼</a></li>
+						<li><a href="/usr/article/list?boardId=1">전체칼럼</a></li>
+						<li><a href="/usr/article/list?boardId=2">구독한 작가 칼럼</a></li>
 						<li><a href="#">좋아요 한 칼럼</a></li>
 					</ul>
 				</li>
