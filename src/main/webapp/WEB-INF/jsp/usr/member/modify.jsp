@@ -62,7 +62,7 @@
 
 <section class="login">
 	<h1 class="text-4xl">회원정보수정</h1>
-	<form action="doJoin" method="post"
+	<form action="domodify" method="post"
 		onsubmit="joinForm_onSubmit(this); return false;">
 		<table>
 			<tr colspan="2"><p class="text-xs"><span class="text-red-700">*</span>표시는 필수 기입항목입니다.</p></tr>

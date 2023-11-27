@@ -200,3 +200,18 @@ a {
     width: 50%;
     margin: 1% 0;
 }
+
+.phrases{
+    display: flex;
+    justify-content: start
+}
+
+.check_reason{
+    border: 1px solid black;
+    border-radius: 3%;
+    padding: 3%;
+}
+.ext>textarea{
+    display: block;
+    width: 100%;
+}

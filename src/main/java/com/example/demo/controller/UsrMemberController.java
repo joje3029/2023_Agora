@@ -77,6 +77,25 @@ public class UsrMemberController {
 		return "usr/member/modify";
 	}
 	
+	@RequestMapping("/usr/member/domodify")
+	public String domodify() {
+		return "/";  //일단 임시로 널 안나게
+		
+	}
+	
+	//회원탈퇴
+	@RequestMapping("/usr/member/withdraw")
+	public String withdraw(HttpServletRequest req) {
+		return "usr/member/withdraw";
+	}
+	
+	@RequestMapping("/usr/member/dowithdraw")
+	public String dosecede() {
+		return "/";  //일단 임시로 널 안나게
+		
+	}
+	
+	
 	//로그인
 	@RequestMapping("/usr/member/login")
 	public String login(HttpServletRequest req) {
