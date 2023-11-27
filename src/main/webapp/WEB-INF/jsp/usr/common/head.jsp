@@ -18,36 +18,60 @@
 <link rel="stylesheet" href="/resource/common.css" />
 </head>
 <body>
-	<div class="h-20 flex mx-auto text-4xl bg-green-300 text-white mb-8">
+	<section id="header">
+		<div class="site_name" id="site_name">
+			<a href="/"><span id="logo_name">Agora</span></a>
+		</div>
 		<div>
-			<a class="h-full px-3 flex items-center" href="/"><span
-				class=logo_name>Agora</span></a>
+			<ul class="menu_bar" id="menu_bar">
+				<li class="menu_bar_item">전체메뉴</li>
+				<li class="menu_bar_item">칼럼
+					<ul class="dropdown-content">
+						<li><a href="#">전체칼럼</a></li>
+						<li><a href="#">구독한 작가 칼럼</a></li>
+						<li><a href="#">좋아요 한 칼럼</a></li>
+					</ul>
+				</li>
+				<li class="menu_bar_item">토론방
+					<ul class="dropdown-content">
+						<li><a href="#">전체 토론방</a></li>
+						<li><a href="#">추천 토론방</a></li>
+						<li><a href="#">내 토론방</a></li>
+						<li><a href="#">새로운 토론방 만들기</a></li>
+					</ul>
+				</li>
+				<li class="menu_bar_item">마이페이지
+					<ul class="dropdown-content">
+						<li><a href="/usr/member/join">회원가입</a></li>
+						<li><a href="/usr/member/modify">회원정보수정</a></li>
+						<li><a href="/usr/member/findId">아이디찾기</a></li>
+						<li><a href="/usr/member/findPw">비밀번호찾기</a></li>
+						<li><a href="/usr/member/withdraw">회원탈퇴</a></li>
+					</ul>
+				</li>
+			</ul>
 		</div>
 		<div class="flex-grow"></div>
-		<ul class="flex">
-			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
-			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
-			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
+		<div class="login_out_session">
+			<ul>
 
-			<c:if test="${rq.getLoginedMemberId() == 0 }">
-				<!-- jsp에서 el 문법 사용 가능  -->
-				<li class="hover:underline"><a
-					class="h-full px-3 flex items-center" href="/usr/member/login"><span>LOGIN</span></a></li>
-			</c:if>
-			<c:if test="${rq.getLoginedMemberId() != 0 }">
-				<!-- test부분의 조건이 true이면 실행되는 원리 -->
-				<li class="hover:underline"><a
-					class="h-full px-3 flex items-center" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
-			</c:if>
-		</ul>
-	</div>
+				<c:if test="${rq.getLoginedMemberId() == 0 }">
+					<li><a href="/usr/member/login"><span>LOGIN</span></a></li>
+				</c:if>
+				<c:if test="${rq.getLoginedMemberId() != 0 }">
+					<li><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
+				</c:if>
+			</ul>
+		</div>
+	</section>
+
+
+
+
 
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
-			<h1>${pageTitle }</h1>
+			<h1>${pageTitle }</h1><!-- 이게 필요한데가 있고 아닌데가 있어서. 최종적으로 보고 수정어떻게 할지 보자. -->
 
 		</div>
 	</section>

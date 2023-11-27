@@ -1,45 +1,103 @@
-@charset "UTF-8";
+/* 소민이는 너무 헷갈린 나머지 일단 테일윈드치트시트를 안쓰고 css를 하기로 했어요. 나중에 때려 고쳐요. 때려고치기 편하게 해요! 때려고치기 불편하게 하면 너죽고 나죽는거야 임마 */
+@font-face {
+	font-family: 'NanumSquareNeo-Variable';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
 
 @font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
-
-html > body {
-	font-family: 'NanumSquareNeo-Variable', sans-serif;
-	text-underline-position: under;
-}
-
-.table-box-type > table {
-	width: 100%;
-}
-
-.table-box-type > table th, .table-box-type > table td {
-	border: 1px solid black;
-	padding: 10px;
-	text-align: center; 
-}
-
-.logo_name{
 	font-family: 'KBO-Dia-Gothic_bold';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
 }
 
-.btns>.btns-text_color{
-	color: limegreen;
-	
+/* 사이트들 기본 폰트 모양*/
+html>body {
+	font-family: 'NanumSquareNeo-Variable', sans-serif;
+	}
+
+/* 노멀라이즈 */
+
+* {
+  margin: 0;
 }
 
-.btns>.btns-text_color:hover{
-	color: darkgreen;
-	text-decoration: underline; 	
+body, ul, li {
+  margin:0;
+  padding:0;
+  list-style:none;
 }
 
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 메인배경색 : background-color: #D1FAE5; */
+
+/* 헤더부분 */
+/* 로고 폰트 모양 */
+#header {
+    width: 100%;
+    height: 100px;
+    background-color: #D1FAE5;
+    display: flex;
+    align-items: center;
+    font-family: 'HakgyoansimWoojuR';
+}
+
+.site_name {
+    display: inline-block;
+    font-family: 'KBO-Dia-Gothic_bold';
+    font-size: 30px;
+    margin: 0 2%;
+}
+
+.menu_bar {
+    padding: 10px;
+    position: relative;
+    display: flex;
+
+}
+
+.menu_bar_item {
+    font-size: 20px;
+    width: 200px;
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+/* 드롭다운 메뉴의 스타일 */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #D1FAE5;
+    width: 200px;
+    margin-top: 10px
+}
+
+.menu_bar_item:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #A7f3d0;
+}
+
+.login_out_session{
+	margin: 0 2%;
+}
+
+/* footer 부분 css */
+#footer{
+	background-color: #D1FAE5;
+}
