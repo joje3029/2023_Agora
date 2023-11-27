@@ -25,6 +25,11 @@ public class UsrMemberController {
 		this.rq = rq;
 	}
 	
+	@RequestMapping("/usr/member/join")
+	public String join(HttpServletRequest req) {
+		return "usr/member/join";
+	}
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData<Member> doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {

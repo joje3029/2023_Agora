@@ -27,7 +27,7 @@
 </script>
 
 			<section class="login">
-	            <h1>로그인</h1>
+	            <h1 class="text-4xl">로그인</h1>
 	            <form action="doLogin" method="post"
 	                    onsubmit="loginForm_onSubmit(this); return false;">
 	                <table>
@@ -46,7 +46,7 @@
 	                    
 	            </form>
 	            <div class="account_row">
-	                <div class="account_left"><a href="">회원가입</a></div>
+	                <div class="account_left"><a href="/usr/member/join">회원가입</a></div>
 	                <div class="account_right">
 	                    <div class="loginId"><a href="">아이디찾기</a></div>
 	                    <div class="passWord"><a href="">비밀번호</a></div>
