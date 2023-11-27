@@ -4,7 +4,7 @@
 
 <c:set var="pageTitle" value="MEMBER LOGIN" />
 
-<%@ include file="../common/head.jsp"%>
+<%@ include file="../common/head2.jsp"%>
 
 <script>
 	const loginForm_onSubmit = function(form){
@@ -26,32 +26,41 @@
 	}
 </script>
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type">
-			<form action="doLogin" method="post" onsubmit="loginForm_onSubmit(this); return false;"> <!-- 버튼이 아닌 여기에 onsubmit으로 하는 이유: 결국 실행할 컨트롤러로 정보를 넘기는게 가능한 이유는 button이 아니라 form이니까. -->
-				<table>
-					<tr>
-						<th>로그인</th>
-						<td><input type="text" name="loginId"
-							placeholder="로그인 입력해주세요" /></td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td><input type="text" name="loginPw"
-							placeholder="비밀번호 입력해주세요" /></td>
-					</tr>
-					<tr>
-						<td colspan="2"><button>로그인</button></td>
-					</tr>
-				</table>
-			</form>
-		</div>
-		<div class="flex">
-			<button class="hover:underline hover:text-green-700 mr-16"
-				onclick="history.back();">뒤로가기</button>
-		</div>
-	</div>
-</section>
-
-<%@ include file="../common/foot.jsp"%>
+			<section class="login">
+	            <h1>로그인</h1>
+	            <form action="doLogin" method="post"
+	                    onsubmit="loginForm_onSubmit(this); return false;">
+	                <table>
+	                    <tr>
+	                        <th>아이디</th>
+	                        <td><input type="text" name="loginId" placeholder="로그인 입력해주세요" class="input input-bordered w-full max-w-xs input-sm"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>비밀번호</th>
+	                        <td><input type="text" name="loginPw" placeholder="비밀번호 입력해주세요" class="input input-bordered w-full max-w-xs input-sm"></td>
+	                    </tr>
+	                </table>
+	                <div class="button_center">
+	                    <button class="btn">로그인</button>
+	                </div>
+	                    
+	            </form>
+	            <div class="account_row">
+	                <div class="account_left"><a href="">회원가입</a></div>
+	                <div class="account_right">
+	                    <div class="loginId"><a href="">아이디찾기</a></div>
+	                    <div class="passWord"><a href="">비밀번호</a></div>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="external_login">
+	                <img src="/resource/static.image/kakao_login.png" alt="카카오로그인">
+	                <img src="/resource/static.image/naver_login.png" alt="네이버로그인">
+	                <img src="/resource/static.image/google_login.png" alt="구글로그인">
+	                <div>QR코드들어올자리</div>
+	            </div>
+	        
+	
+	    </section>	
+	</body>
+</html>

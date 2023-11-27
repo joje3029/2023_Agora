@@ -5,14 +5,12 @@
 	<div class="site_name">
 		<a href="/">Agora</a>
 	</div>
-	<div class="menu_bar_item">
-		<a href="/usr/etc/introduce"">사이트소개</a>
-	</div>
-	<div class="menu_bar_item">
-		<a href="/usr/etc/privacy_policy">개인정보처리방침</a>
-	</div>
-	<div class="menu_bar_item">
-		<a href="/project/views/customer_center_page/chatbot_page.html">고객센터</a>
+	<div class=footer_menu>
+		<ul>
+			<li><a href="/usr/etc/introduce">사이트 소개</a></li>
+			<li><a href="/usr/etc/privacyPolicy">개인정보처리방침</a></li>
+			<li><a href="/usr/etc/customerCenter">고객센터</a></li>
+		</ul>
 	</div>
 </div>
 
