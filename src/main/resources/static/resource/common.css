@@ -48,6 +48,7 @@ a {
 	display: flex;
 	align-items: center;
 	font-family: 'HakgyoansimWoojuR';
+	z-index: 3;
 }
 
 .site_name {
@@ -87,7 +88,9 @@ a {
 	position: absolute;
 	background-color: #D1FAE5;
 	width: 200px;
-	margin-top: 10px
+	margin-top: 10px;
+	z-index: 5;
+	
 }
 
 .menu_bar_item:hover .dropdown-content {
@@ -141,13 +144,14 @@ a {
 
 /* login 부분 css */
 .login {
+	width: 50%;
     border: 1px solid black;
     border-radius: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 5% 0;
-    margin: 0 10%;
+    margin: auto;
 }
 
 .login h1{
