@@ -97,7 +97,8 @@
 			<tr>
 				<th><span class="text-red-700">*</span>이메일</th>
 				<td><input type="text" name="email" placeholder="이메일 입력해주세요"
-					class="input input-bordered w-full max-w-xs input-sm"></td>
+					class="input input-bordered w-full max-w-xs input-sm">
+					<div class="btn btn-sm ml-1">인증번호 받기</div></td></td>
 			</tr>
 			<tr>
 				<th>전화번호</th>
@@ -114,7 +115,7 @@
 				<th><span class="text-red-700">*</span>본인인증</th>
 				<td class="flex"><input type="text" name="certification" placeholder="본인인증번호를 입력해주세요"
 					class="input input-bordered w-full max-w-xs input-sm">
-					<div class="btn btn-sm ml-1">인증번호</div></td>
+					<div class="btn btn-sm ml-1">인증번호 확인</div></td>
 			</tr>
 		</table>
 		<div class="button_center">

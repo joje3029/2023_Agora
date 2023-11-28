@@ -67,16 +67,6 @@
 		<table>
 			<tr colspan="2"><p class="text-xs"><span class="text-red-700">*</span>표시는 필수 기입항목입니다.</p></tr>
 			<tr>
-				<th><span class="text-red-700">*</span>비밀번호</th>
-				<td><input type="text" name="loginPw" placeholder="비밀번호 입력해주세요"
-					class="input input-bordered w-full max-w-xs input-sm"></td>
-			</tr>
-			<tr>
-				<th><span class="text-red-700">*</span>비밀번호 확인</th>
-				<td><input type="text" name="checkLoginPw" placeholder="확인 비밀번호 입력해 주세요"
-					class="input input-bordered w-full max-w-xs input-sm"></td>
-			</tr>
-			<tr>
 				<th><span class="text-red-700">*</span>이름</th>
 				<td><input type="text" name="name" placeholder="이름을 입력해주세요"
 					class="input input-bordered w-full max-w-xs input-sm"></td>

@@ -95,6 +95,31 @@ public class UsrMemberController {
 		
 	}
 	
+	//아이디찾기
+		@RequestMapping("/usr/member/findId")
+		public String findId(HttpServletRequest req) {
+			return "usr/member/findId";
+		}
+		
+		
+		@RequestMapping("/usr/member/dofindId")
+		public String dofindId() {
+			return "usr/member/foundId";
+			
+		}
+	//비밀번호
+		@RequestMapping("/usr/member/findPw")
+		public String findPW(HttpServletRequest req) {
+			return "usr/member/findPw";
+		}
+		
+		
+		@RequestMapping("/usr/member/dofindPw")
+		public String dofindPw() {
+			return "/";
+			
+		}
+		
 	
 	//로그인
 	@RequestMapping("/usr/member/login")
@@ -133,6 +158,13 @@ public String doLogin( String loginId, String loginPw) {
 		
 		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
+	}
+	
+	//비밀번호수정
+	@RequestMapping("/usr/member/chagePw")
+	public String chagePw(HttpServletRequest req) {
+		
+		return "usr/member/chagePw";
 	}
 	
 	//로그아웃

@@ -51,11 +51,19 @@ a {
 }
 
 .site_name {
-	display: inline-block;
 	font-family: 'KBO-Dia-Gothic_bold';
 	font-size: 30px;
 	margin: 0 2%;
 }
+
+.site_name>a{
+	display: flex;	
+}
+
+.site_name>a>img{
+	width: 50px;
+}
+
 
 .menu_bar {
 	padding: 10px;
@@ -246,6 +254,23 @@ a {
 
 .article_count{
 	margin: 3% 0;
+}
+
+/*foundID css*/
+
+.login>.contents{
+    display: flex;
+    flex-direction: column;
+}
+
+.login>.contents>p{
+    margin: 3% 0;
+}
+
+section>.button_bar{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .border{
