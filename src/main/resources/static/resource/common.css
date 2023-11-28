@@ -105,7 +105,6 @@ a {
 	display: flex;
 	padding: 1.5%;
 }
-
 .footer_menu {
 	width: 90%;
 	margin-left: 2%;
@@ -225,3 +224,31 @@ a {
 .listBody{
 	padding: 5%;
 }
+
+
+.empty{
+	height: 3rem;
+}
+
+.list_outline{
+	padding: 3%;
+}
+
+.menu-vertical {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.text-xl{
+	width: 80%;
+}
+
+.article_count{
+	margin: 3% 0;
+}
+
+.border{
+	border: 1px solid #064E3B;
+}
+
