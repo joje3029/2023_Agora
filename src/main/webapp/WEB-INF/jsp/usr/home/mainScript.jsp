@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 여기 페이지는 뭔가를 그리기 위해서가 아니라 안됩니다를 alert으로 보여주려고 만든 페이지: 그래서 다른 html 없음. -->
+    <!-- 캐러셀 이전에 만든 코드인데 이걸 쓸지 안쓸지는 진행하면서 보야할듯. 지금생각대로면 데이지 ui의 캐러셀을 응용하거나 아니면 캐러셀을 안쓸수도 있을것 같아서 -->
 <script>
 $(document).ready(function () {
     var carouselIdx = 0;                                                                // 각 캐러셀의 인덱스
