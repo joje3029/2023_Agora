@@ -8,7 +8,7 @@
 	<div class=footer_menu>
 		<ul>
 			<li><a href="/usr/home/interduce">사이트 소개</a></li>
-			<li><a href="/usr/etc/customerCenter">고객센터</a></li>
+			<li><a href="/usr/customer/chatBot">고객센터</a></li>
 		</ul>
 	</div>
 </div>

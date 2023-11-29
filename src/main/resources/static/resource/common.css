@@ -14,7 +14,9 @@
 }
 
 /* 사이트들 기본 폰트 모양*/
-html>body, html > body .ProseMirror, html > body .toastui-editor-contents {
+html>body,
+html>body .ProseMirror,
+html>body .toastui-editor-contents {
 	font-family: 'NanumSquareNeo-Variable', sans-serif;
 }
 
@@ -41,7 +43,8 @@ a {
 
 /*토스트ui관련 */
 
-html > body .ProseMirror, html > body .toastui-editor-contents {
+html>body .ProseMirror,
+html>body .toastui-editor-contents {
 	font-size: 1.25rem;
 }
 
@@ -402,27 +405,42 @@ section>.button_bar {
 }
 
 /* detail css*/
-.listBody>.title-section{
+.listBody>.title-section {
 	display: flex;
 }
 
-.listBody>.title-section>.title{
+.listBody>.title-section>.title {
 	width: 90%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.listBody>.title-section>.alarm-session{
+.listBody>.title-section>.alarm-session {
 	width: 200px;
 	display: flex;
 	justify-content: space-between;
 }
-.listBody>.title-section>.alarm-session>div{
+
+.listBody>.title-section>.alarm-session>div {
 	/* border: 1px solid red; */
 	padding: 5px;
 }
 
-.listBody>.article-read{
+.listBody>.article-read {
 	padding: 10px;
+}
+
+/*chatbot css*/
+.listBody>.chat-contents>.chat-question {
+	width: 30%;
+}
+
+
+.listBody>.chat-contents>.chat-question .question-item {
+	border-top: 2px solid #059669;
+	border-bottom: 2px solid #059669;
+	text-align: center;
+	margin: 20px 0;
+	padding: 20px 0;
 }

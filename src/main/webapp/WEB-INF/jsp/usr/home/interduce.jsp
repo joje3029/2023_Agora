@@ -7,7 +7,6 @@
 <%@ include file="../common/head.jsp"%>
 <%@ include file="../common/floatingBanner.jsp"%>
 <link rel="stylesheet" href="/resource/main.css" />
-<%@ include file="mainScript.jsp"%>
 
 <section class="login">
 	<h1 class="text-4xl bg-green-100 px-3">책으로 소통을!!</h1>
