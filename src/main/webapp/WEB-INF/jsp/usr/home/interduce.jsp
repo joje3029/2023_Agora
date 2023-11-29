@@ -51,8 +51,8 @@
 		<p>아고라가 그 시작입니다!</p>
 		<div class="avatar">
 			<div class="w-24 rounded-full">
-				<img class="/resource/static.image/avata.png"
-					alt="뱁새_주인장 마스코트" />
+				<img class="rotate-center" src="/resource/static.image/mascot.png"
+					alt="뱁새_마스코트" />
 			</div>
 		</div>
 		<p class="scale-up-center">박소민</p>

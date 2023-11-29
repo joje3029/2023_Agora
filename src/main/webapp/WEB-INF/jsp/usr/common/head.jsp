@@ -19,6 +19,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <link rel="stylesheet" href="/resource/common.css" />
+<!-- dompurify -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 </head>
 <body>
 	<section id="header">
@@ -35,6 +37,7 @@
 						<li><a href="/usr/article/list?boardId=1">전체칼럼</a></li>
 						<li><a href="/usr/article/list?boardId=2">구독한 작가 칼럼</a></li>
 						<li><a href="/usr/article/list?boardId=2">좋아요 한 칼럼</a></li>
+						<li><a href="/usr/article/write">칼럼 작성</a></li>
 					</ul>
 				</li>
 				<li class="menu_bar_item">토론방
@@ -48,7 +51,6 @@
 				</li>
 				<li class="menu_bar_item">마이페이지
 					<ul class="dropdown-content">
-						<li><a href="/usr/member/join">회원가입</a></li>
 						<li><a href="/usr/member/modify">회원정보수정</a></li>
 						<li><a href="/usr/member/findId">아이디찾기</a></li>
 						<li><a href="/usr/member/findPw">비밀번호찾기</a></li>
@@ -59,14 +61,15 @@
 			</ul>
 		</div>
 		<div class="flex-grow"></div>
-		<div class="login_out_session">
+		<div class="login-out-session mr-3">
 			<ul>
 
 				<c:if test="${rq.getLoginedMemberId() == 0 }">
-					<li><a href="/usr/member/login"><span>LOGIN</span></a></li>
+					<li class="inline-block mr-2"><a href="/usr/member/join">회원가입</a></li>
+					<li class="inline-block"><a href="/usr/member/login"><span>LOGIN</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
-					<li><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
+					<li class="inline-block"><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 				</c:if>
 			</ul>
 		</div>

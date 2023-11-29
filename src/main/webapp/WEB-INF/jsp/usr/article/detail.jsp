@@ -9,45 +9,43 @@
 <%@ include file="../common/head.jsp"%>
 <!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type">
-			<table>
-					<tr>
-						<th>번호</th>
-						<td>${article.id }</td>
-					</tr>
-					<tr>
-						<th>작성일</th>
-						<td>${article.regDate }</td>
-					</tr>
-					<tr>
-						<th>수정일</th>
-						<td>${article.updateDate }</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>${article.nickname }</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td>${article.title }</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td>${article.body }</td>
-					</tr>
-			</table>
-			<div class="flex" >
-				<button class="hover:underline hover:text-green-700 mr-16" onclick="history.back();">뒤로가기</button>
-				
-				<c:if test="${loginedMemberId!= null && loginedMemberId == article.memberId  }">
-					<div class="hover:underline hover:text-green-700 mr-16"><a href="modify?id=${article.id }">수정</a></div>
-					<div class="hover:underline hover:text-green-700" ><a href="doDelete?id=${article.id }" onclick="if(confirm('정말삭제하시겠습니까?') == false) return false" >삭제</a></div>
-				</c:if>
-			</div>
-		</div>
-	</div>
-</section>
+<section class="listBody">
+        <section class="title-section border">
+            <div class="title">글제목</div>
+            <div class="alarm-session border">
+                <div>좋아요 버튼</div>
+                <div>구독 버튼</div>
+            </div>
+        </section>
+        <section class="article-read">
+            <div class="toast-ui-viewer">
+            <script type="text/x-template">${article.body }</script>        </section>
+        <!-- 댓글과 댓글 형태 -->
+        <section class="comment-session">
+            <div>댓글 갯수(게시글 갯수 세는거랑 동일로직)</div>
+            <div class="border">
+                <form action="../reply/doWrite" method="post" onsubmit="">
+                    <input name="relTypeCode" type="hidden" value="article" />
+                    <input name="relId" type="hidden" value="${article.id }" />
+                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
+                        <div class="mb-2"><span>닉네임</span></div>
+                        <textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
+                        <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
+                        <div class="border">
+                            <form action="" method="post" onsubmit="">
+                                <input name="relTypeCode" type="hidden" value="article" />
+                                <input name="relId" type="hidden" value="${article.id }" />
+                                <div class="mt-4 border border-gray-400 rounded-lg p-4">
+                                    <div class="mb-2"><span>닉네임</span></div>
+                                    <textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
+                                    <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </section>  
 
 <%@ include file="../common/foot.jsp"%>

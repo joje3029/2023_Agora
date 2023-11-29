@@ -21,14 +21,16 @@
             <!--메뉴 : 네비게이션 일자로 만들어요!-->
             <div class="menuBar">
                 <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box border">
-                    <li><a>전체 칼럼</a></li>
-                    <li><a>구독한 작가 칼럼</a></li>
-                    <li><a>좋아요 한 칼럼</a></li>
+                    <li><a>전체 토론방</a></li>
+                    <li><a>추천 토론방</a></li>
+                    <li><a>내 토론방</a></li>
                   </ul>
             </div>
-            <div class="container mx-auto px-3">
+            <div class="container mx-auto px-3 flex justify-between mt-2">
                 <div class="article_count">게시글 갯수 : ${articlesCnt}</div>
-        
+                <div class="btn btn-sm ml-1"><a href="/usr/article/write">칼럼 쓰기</a></div>
+            </div>
+  			<div class="container">
                 <!-- 여다가 검색기능 만들꺼임. -->
                 <form> <!-- form은 Action이 없으면 자기한테로 감. method도 현 상태에다가 붙음 그래서 표시 안해도 됨. -->
                     <input type="hidden" value="${board.id }" />
@@ -52,12 +54,14 @@
                           </div>
                     </div>
                 </form>
-        </div>
+  			
+  			</div>      
+        
         <!--칼럼작성버튼 로그인시에만 나옴-->
         <c:if test="${rq.getLoginedMemberId() != 0 }">
             <div class="flex justify-end">
                 <div class="mr-16 btn border mt-1">
-                    <a href="write">칼럼 작성</a>
+                    <a href="write">토론방 생성</a>
                 </div>
             </div>
         </c:if>
@@ -68,14 +72,16 @@
                     <div class="border list_outline m-0.5">
                         <div>
                             <a href="detail?id=${article.id }">
-                                <p class="room-name p-3 bg-green-100">${article.title }</p>
+                                <p class="room-name p-3 bg-green-100">토론방 제목 ${article.title }</p>
                                 <div class="empty"></div>
                                 <div class="flex">
-                                    <i class="fa-solid fa-user"></i>
-                                    &nbsp;
-                                    <p class="moderator">${article.nickname }</p>
+                                    <i class="fa-solid fa-users"></i>
+                                    &nbsp;&nbsp;
+                                    <p class="moderator">토론방 인원</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <p class="headcount">${article.regDate }</p>
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    &nbsp;&nbsp;
+                                    <p class="headcount">방장 이름</p>
                                 </div>
                             </a>
                         </div>

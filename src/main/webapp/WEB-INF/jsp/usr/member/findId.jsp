@@ -6,52 +6,52 @@
 
 <%@ include file="../common/head2.jsp"%>
 
-<script>
-	const loginForm_onSubmit = function(form){
-		form.loginId.value = form.loginId.value.trim(); // loginId는 key니까 그 키와 대칭되는 값으로 해야함.
-		form.loginPw.value = form.loginPw.value.trim();
-		
-		if(form.loginId.value.length ==0){
-			alret('아이디를 입력해주세요');
-			form.loginId.focus();
-			return
-		}
-		if(form.loginPw.value.length ==0){
-			alret('비밀번호를 입력해주세요');
-			form.loginPw.focus();
-			return
-		}
-		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
-	}
-</script>
+<%@ include file="../common/toastUiEditorLib.jsp" %>
 
 		<section class="login">
-			<h1 class="text-4xl">아이디 찾기</h1>
-			<form action="doLogin" method="post"
-				onsubmit="loginForm_onSubmit(this); return false;">
-				<table>
-					<tr>
-						<th>이름</th>
-						<td><input type="text" name="name" placeholder="이름을 입력해주세요"
-							class="input input-bordered w-full max-w-xs input-sm"></td>
-					</tr>
-					<th>이메일</th>
-					<td class="flex"><input type="text" name="email"
-						placeholder="이메일 입력해주세요"
-						class="input input-bordered w-full max-w-xs input-sm">
-						<div class="btn btn-sm ml-1">인증번호 받기</div></td>
-					</tr>
-					<tr>
-						<th>본인인증</th>
-						<td class="flex"><input type="text" name="certification"
-							placeholder="본인인증번호를 입력해주세요"
-							class="input input-bordered w-full max-w-xs input-sm"> <!--<div class="btn btn-sm ml-1">인증번호 일치 확인</div></td>-->
-					</tr>
-				</table>
-				<div class="button_center">
-					<button class="btn">아이디 찾기</button>
-				</div>
-		</section>
+        <h1 class="text-4xl">칼럼 작성</h1>
+        <form action="doWrite" method="post" onsubmit="submitForm(this); return false;">
+				<input name="body" type="hidden" />
+            <input name="body" type="hidden" />
+            <div class="table-box-type">
+                <table class="table table-lg">
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            <p><span class="text-red-700">*</span>컬럼 분류 설정은 필수입니다</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            <!-- 이거 alert common->toastUiEditorLib.jsp의 script에 추가해야함. -->
+                            <select class="select select-bordered max-w-xs select-sm">
+                                <option disabled selected>컬럼 분류</option>
+                                <option>철학</option>
+                                <option>종교</option>
+                                <option>사회과학</option>
+                                <option>자연과학</option>
+                                <option>기술과학</option>
+                                <option>예술</option>
+                                <option>언어</option>
+                                <option>문학</option>
+                                <option>역사</option>
+                              </select>
+                            <!-- 임시저장은 안되면 빼야해서 일단 div. submit꼬이는거 싫어 -->
+                            <div class="btn btn-sm ml-1">임시저장</div>
+                            <button class="btn btn-sm ml-1">작성</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td><input class="input input-bordered w-full max-w-xs input-sm" name="title" type="text" placeholder="제목을 입력해주세요" /></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td>
+                            <div class="toast-ui-editor"></div>
+                        </td>
+                    </tr>
+                </table>
+        </form>
+    </section>
 	</body>
 </html>

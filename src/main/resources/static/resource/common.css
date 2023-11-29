@@ -14,7 +14,7 @@
 }
 
 /* 사이트들 기본 폰트 모양*/
-html>body {
+html>body, html > body .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'NanumSquareNeo-Variable', sans-serif;
 }
 
@@ -38,6 +38,12 @@ a {
 }
 
 /* 메인배경색 : background-color: #D1FAE5; */
+
+/*토스트ui관련 */
+
+html > body .ProseMirror, html > body .toastui-editor-contents {
+	font-size: 1.25rem;
+}
 
 /* 헤더부분 */
 /* 로고 폰트 모양 */
@@ -106,7 +112,7 @@ a {
 	background-color: #A7f3d0;
 }
 
-.login_out_session {
+.login-out-session {
 	margin: 0 2%;
 }
 
@@ -239,13 +245,13 @@ a {
 /*소개페이지 css 위의 공통부분 빼고 추가로 필요한거*/
 /* amimasta */
 /* 뱁새 이미지 돔. */
-.rotate-center {
+.avatar>.w-24 rounded-full>.rotate-center {
 	-webkit-animation: rotate-center 0.6s ease-in-out both;
 	animation: rotate-center 0.6s ease-in-out both;
 }
 
 /* 주인장이름 팡! */
-.scale-up-center {
+.content-section>.scale-up-center {
 	-webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 	animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
@@ -266,8 +272,7 @@ a {
 	justify-content: end;
 }
 
-.login>.content-section>.img-div.chick-img {
-	border: 1px solid blue;
+.login>.content-section>.img-div>.chick-img {
 	width: 15%;
 }
 
@@ -394,5 +399,30 @@ section>.button_bar {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
 
+/* detail css*/
+.listBody>.title-section{
+	display: flex;
+}
+
+.listBody>.title-section>.title{
+	width: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.listBody>.title-section>.alarm-session{
+	width: 200px;
+	display: flex;
+	justify-content: space-between;
+}
+.listBody>.title-section>.alarm-session>div{
+	/* border: 1px solid red; */
+	padding: 5px;
+}
+
+.listBody>.article-read{
+	padding: 10px;
 }
