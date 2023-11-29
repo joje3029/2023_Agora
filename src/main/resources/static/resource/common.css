@@ -57,11 +57,11 @@ a {
 	margin: 0 2%;
 }
 
-.site_name>a{
-	display: flex;	
+.site_name>a {
+	display: flex;
 }
 
-.site_name>a>img{
+.site_name>a>img {
 	width: 50px;
 }
 
@@ -90,7 +90,7 @@ a {
 	width: 200px;
 	margin-top: 10px;
 	z-index: 5;
-	
+
 }
 
 .menu_bar_item:hover .dropdown-content {
@@ -115,7 +115,9 @@ a {
 	background-color: #D1FAE5;
 	display: flex;
 	padding: 1.5%;
+	margin-top: 1%;
 }
+
 .footer_menu {
 	width: 90%;
 	margin-left: 2%;
@@ -145,139 +147,252 @@ a {
 /* login 부분 css */
 .login {
 	width: 50%;
-    border: 1px solid black;
-    border-radius: 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5% 0;
-    margin: auto;
+	border: 1px solid black;
+	border-radius: 10%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5% 0;
+	margin: auto;
 }
 
-.login h1{
-    margin-bottom: 2%;
+.login h1 {
+	margin-bottom: 2%;
 }
 
-.login form{
-    width: 80%;
+.login form {
+	width: 80%;
 }
 
-.login table{
-    width: 100%;
+.login table {
+	width: 100%;
 }
 
-.login tr{
-    width: 100%;
-    height: 2.5rem;
+.login tr {
+	width: 100%;
+	height: 2.5rem;
 }
 
 .login>div {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1% 0;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 1% 0;
 }
 
-.login .button_center{
-    display: flex;
-    justify-content: center;
+.login .button_center {
+	display: flex;
+	justify-content: center;
 }
 
-.login .external_login{
-    width: 80%;
+.login .external_login {
+	width: 80%;
 }
 
-.login>.account_row{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.login>.account_row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
-.login>.account_row>.account_right{
-    display: flex;
+.login>.account_row>.account_right {
+	display: flex;
 }
 
-.login>.account_row>.account_right>div{
-    margin: 0 15px;
+.login>.account_row>.account_right>div {
+	margin: 0 15px;
 }
 
-.login hr{
-    border: 1px dashed  black;
-    width: 90%;
+.login hr {
+	border: 1px dashed black;
+	width: 90%;
 }
 
-.login .external_login>img{
-    width: 50%;
-    margin: 1% 0;
+.login .external_login>img {
+	width: 50%;
+	margin: 1% 0;
 }
 
-.phrases{
-    display: flex;
-    justify-content: start
+.phrases {
+	display: flex;
+	justify-content: start
 }
 
-.check_reason{
-    border: 1px solid black;
-    border-radius: 3%;
-    padding: 3%;
+.check_reason {
+	border: 1px solid black;
+	border-radius: 3%;
+	padding: 3%;
 }
-.ext>textarea{
-    display: block;
-    width: 100%;
+
+.ext>textarea {
+	display: block;
+	width: 100%;
 }
-.banner_div{
+
+.banner_div {
 	position: fixed;
-    top: 47%;
-    right: 5%;
+	top: 47%;
+	right: 1%;
 }
+
+/*소개페이지 css 위의 공통부분 빼고 추가로 필요한거*/
+/* amimasta */
+/* 뱁새 이미지 돔. */
+.rotate-center {
+	-webkit-animation: rotate-center 0.6s ease-in-out both;
+	animation: rotate-center 0.6s ease-in-out both;
+}
+
+/* 주인장이름 팡! */
+.scale-up-center {
+	-webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+.login>.content-section {
+	border: 2px dashed #A7F3D0;
+	padding: 2%;
+}
+
+.login>.content-section>h2 {
+	background-color: #D1FAE5;
+	/* padding: 0 2%; */
+}
+
+.login>.content-section>.img-div {
+	/* border: 1px solid red; */
+	display: flex;
+	justify-content: end;
+}
+
+.login>.content-section>.img-div.chick-img {
+	border: 1px solid blue;
+	width: 15%;
+}
+
+
+
 
 /* 토론방, 칼럼 리스트 부분 css */
-.listBody{
+.listBody {
 	padding: 5%;
 }
 
 
-.empty{
+.empty {
 	height: 3rem;
 }
 
-.list_outline{
+.list_outline {
 	padding: 3%;
 }
 
 .menu-vertical {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
-.text-xl{
+.text-xl {
 	width: 80%;
 }
 
-.article_count{
+.article_count {
 	margin: 3% 0;
 }
 
 /*foundID css*/
 
-.login>.contents{
-    display: flex;
-    flex-direction: column;
+.login>.contents {
+	display: flex;
+	flex-direction: column;
 }
 
-.login>.contents>p{
-    margin: 3% 0;
+.login>.contents>p {
+	margin: 3% 0;
 }
 
-section>.button_bar{
-    width: 20%;
-    display: flex;
-    justify-content: space-between;
+section>.button_bar {
+	width: 20%;
+	display: flex;
+	justify-content: space-between;
 }
 
-.border{
+.border {
 	border: 1px solid #064E3B;
 }
 
+/* 메인페이지 : 특수성때문에 css 따로함 */
+.main {
+	border: 1px solid salmon;
+}
+
+.main>.main-in-section {
+	border: 1px solid yellowgreen;
+	padding: 1%;
+	margin-top: 2%;
+}
+
+.main>.main-in-section>.section-title {
+	border: 2px solid blueviolet;
+	width: 20%;
+	margin-bottom: 10px;
+	padding-left: 1%;
+}
+
+.main>.main-in-section>.items {
+	border: 1px solid navy;
+	display: flex;
+	justify-content: space-between;
+}
+
+.main>.main-in-section>.items>.item {
+	border: 1px solid orange;
+	width: 19%;
+	height: 18rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.main>.main-in-section>.items>.item>.title {
+
+	text-align: center;
+	padding: 5%;
+	margin: 15% 0 5% 0;
+}
+
+.main>.main-in-section>.items>.item>.writer {
+	text-align: center;
+	padding: 2%;
+}
+
+.main>.main-classification>.table-section {
+	border: 1px solid red;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	/* background-color: red; */
+
+}
+
+.main>.main-classification>.table-section>.table-row {
+	border: 1px solid blueviolet;
+	/* background-color: blueviolet; */
+	width: 70%;
+	display: flex;
+	justify-content: space-around;
+	margin: 1%;
+}
+
+.main>.main-classification>.table-section>.table-row>.table-item {
+	border: 1px solid orange;
+	/* background-color: orange; */
+	width: 33%;
+	height: 150px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
