@@ -3,6 +3,7 @@
 
 <script>
 	//위 아래로 스크립트 하기
+	
 </script>
 
 <div class="banner_div">
@@ -18,7 +19,7 @@
 	    </a>
 	  </li>
 	  <li>
-	    <a href="#"><!-- 고객센터로 연결 -->
+	    <a href="/usr/customer/chatBot">
 	      <i class="fa-sharp fa-solid fa-robot"></i>
 	    </a>
 	  </li>
