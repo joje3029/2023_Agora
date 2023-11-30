@@ -2,8 +2,26 @@
 	pageEncoding="UTF-8"%>
 
 <script>
-	//위 아래로 스크립트 하기
-	
+//플로팅 배너 위아래로 움직이는 스크립트
+ $(document).ready(function () {
+    var arrowUp = $('.fa-arrow-up');
+    var arrowDown = $('.fa-arrow-down');
+
+    arrowUp.click(function () {
+      scrollSmoothly(0);
+    });
+
+    arrowDown.click(function () {
+      var windowHeight = $(window).height();
+      var documentHeight = $(document).height();
+
+      scrollSmoothly(documentHeight - windowHeight);
+    });
+
+    function scrollSmoothly(targetPosition) {
+      $('html, body').animate({ scrollTop: targetPosition }, 1000); // Adjust the duration as needed
+    }
+  });
 </script>
 
 <div class="banner_div">
