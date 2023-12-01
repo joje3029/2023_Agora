@@ -1,109 +1,116 @@
-DROP DATABASE IF EXISTS SB_AM;
-CREATE DATABASE SB_AM;
-USE SB_AM;
+-- ERD 클라우드에서 미리보기로 만든거 수정해야함.
+-- DB 만드는거 ERD가 안해줘서 내가 만듦.
+DROP DATABASE IF EXISTS Agora;
+CREATE DATABASE Agora;
+USE Agora;
 
-CREATE TABLE article(
-    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,
-    memberId INT UNSIGNED NOT NULL,
-    boardId INT UNSIGNED NOT NULL,
-    title VARCHAR(100) NOT NULL,
-    `body` TEXT NOT NULL
+-- 이아는 컬럼명을 걍 다 백틱하는구만. 신경쓰지 말것.
+
+CREATE TABLE `USER_INFO` (
+	`user_uniq_id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID',
+	`user_id` VARCHAR(20) NOT NULL COMMENT '아이디',
+	`passwd` VARCHAR(30) NOT NULL COMMENT '비밀번호',
+	`name` VARCHAR(10) NOT NULL COMMENT '이름',
+	`ncnm` VARCHAR(15) NOT NULL COMMENT '닉네임',
+	`email` VARCHAR(50) NOT NULL COMMENT '이메일',
+	`telno` VARCHAR(11) NOT NULL COMMENT '전화번호',
+	`adres` VARCHAR(50) NOT NULL COMMENT '주소',
+	`secsn_ennc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0',
+	`srbde` DATETIME NOT NULL COMMENT '가입일',
+	`mber_author` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
+	`secsn_reqstdt` DATETIME NOT NULL COMMENT '탈퇴신청날짜'
 );
 
-CREATE TABLE `member`(
-    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,
-    loginId VARCHAR(20) NOT NULL,
-    loginPw VARCHAR(100) NOT NULL,
-    authLevel SMALLINT UNSIGNED NOT NULL DEFAULT 2 COMMENT '권한 레벨 (일반 = 2, 관리자 = 1)',
-    `name` VARCHAR(20) NOT NULL,
-    nickname VARCHAR(20) NOT NULL,
-    cellphoneNum VARCHAR(20) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (탈퇴 전 = 0, 탈퇴 후 = 1)',
-    delDate DATETIME COMMENT '탈퇴 날짜'
+
+CREATE TABLE `COLUMN` (
+	`colmn_uniqu_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
+	`sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`writng_time`	DATETIME	NOT NULL	COMMENT '작성시간',
+	`cn`	TEXT	NOT NULL	COMMENT '내용',
+	`colmn_cl_setup`	INT	UNSIGNED	NOT NULL	COMMENT '칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9',
+	`colmn_delete_time`	DATETIME	NOT NULL	COMMENT '칼럼삭제시간',
+	`colmn_delete_ennc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
+	`colmn_wrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
 );
 
-CREATE TABLE board(
-    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,
-    `code` VARCHAR(20) NOT NULL COMMENT 'notice(공지사항), free(자유), ...',
-    `name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
+CREATE TABLE `COLUMN_LIKE` (
+	`id` INT UNSIGNED NOT NULL COMMENT '칼럼ID',
+	`user_uniq_id` INT UNSIGNED NOT NULL COMMENT '회원ID'
 );
 
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 1,
-boardId = 1,
-title = '공지1',
-`body` = '공지내용1';
+CREATE TABLE `DSCSN_ROOM` (
+	`dscsn_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '토론방ID',
+	`dscsn_room_nm`	VARCHAR(20)	NOT NULL	COMMENT '토론방이름',
+	`crtr_id`	INT	UNSIGNED NOT NULL	COMMENT '생성자ID',
+	`dscsn_room_creat_de`	DATETIME	NOT NULL	COMMENT '토론방생성일자',
+	`dscsn_room_delete_de`	DATETIME	NOT NULL	COMMENT '토론방삭제일자'
+);
 
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 2,
-boardId = 2,
-title = '제목2',
-`body` = '내용2';
+CREATE TABLE `ANSWER` (
+	`answer_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
+	`answer_writing_time`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
+	`answer_cn`	TEXT	NOT NULL	COMMENT '댓글내용',
+	`answer_updt_time`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
+	`answer_delete_time`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`answer_delete_ennc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
+);
 
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 2,
-boardId = 2,
-title = '제목3',
-`body` = '내용3';
+CREATE TABLE `CSTMR_CNSLT_CNTER` (
+	`cstmr_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
+	`user_uniq_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
+	`cstmr_sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`cstmr_cn`	TEXT	NOT NULL	COMMENT '내용',
+	`cstmr_atchmnfl_id`	INT	 NULL	COMMENT '첨부파일ID',
+	`ricfld_sndng_yn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0'
+);
 
-INSERT INTO `member`
-SET regDate = NOW(),
-updateDate = NOW(),
-loginId = 'admin',
-loginPw = 'admin',
-authLevel = 1,
-`name` = '관리자',
-nickname = 'admin',
-cellphoneNum = '010-0000-0000',
-email = 'admin@admin.com';
+CREATE TABLE `UFSD_ATCH_FILE_MNG` (
+	`atch_file_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일ID',
+	`atach_file_dc`	TEXT	NULL	COMMENT '첨부파일설명',
+	`frst_reg_id`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
+	`frst_reg-dt`	DATETIME	NULL	COMMENT '최초등록일자'
+);
 
-INSERT INTO `member`
-SET regDate = NOW(),
-updateDate = NOW(),
-loginId = 'test1',
-loginPw = 'test1',
-authLevel = 2,
-`name` = '유저1',
-nickname = 'user1',
-cellphoneNum = '010-1111-2222',
-email = 'test1@test1.com';
+CREATE TABLE `DSCSN_CHTT_DTLS` (
+	`convrs_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대화순서',
+	`cn`	VARCHAR(10)	NOT NULL	COMMENT '내용',
+	`writing_de`	VARCHAR(30)	NOT NULL	COMMENT '작성일자'
+);
 
-INSERT INTO board
-SET regDate = NOW(),
-updateDate = NOW(),
-`code` = 'notice',
-`name` = '공지사항';
+CREATE TABLE `EMPLYR_SBSCRB` (
+	`owner_user_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
+	`guest_user_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID'
+);
 
-INSERT INTO board
-SET regDate = NOW(),
-updateDate = NOW(),
-`code` = 'free',
-`name` = '자유';
+CREATE TABLE `UFSD_ATCH_FILE_INFO` (
+	`atch_file_seq`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일순서',
+	`atch_file_id`	INT NOT NULL	COMMENT '첨부파일ID',
+	`file_nm`	VARCHAR(200)	NOT NULL	COMMENT '파일명',
+	`file_save_nm`	VARCHAR(100)	NOT NULL	COMMENT '파일저장명',
+	`file_path`	VARCHAR(500)	NULL	COMMENT '파일경로',
+	`file_ext`	VARCHAR(10)	NOT NULL	COMMENT '파일확장자',
+	`file_size`	VARCHAR(20)	NULL	COMMENT '파일크기',
+	`file_editor_yn`	CHAR(1)	NULL	COMMENT '파일에디터사용여부',
+	`file_vod_yn`	CHAR(1)	NULL	COMMENT '영상파일여부',
+	`frst_reg_id`	INT	NULL	COMMENT '최초등록자ID',
+	`frst_reg_dt`	DATETIME	NULL	COMMENT '최초등록일자'
+);
 
-SELECT * FROM article;
-SELECT * FROM `member`;
-SELECT * FROM board;
+CREATE TABLE `REPLY` (
+	`reply_uniqu_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대댓글ID',
+	`answer_uniq_id`	INT	UNSIGNED NOT NULL	COMMENT '댓글ID',
+	`reply_writing_time`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
+	`reply_cn`	TEXT	NOT NULL	COMMENT '댓글내용',
+	`reply_updt_time`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
+	`reply_delete_time`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`reply_delete_ennc`	TINYINT	NOT NULL	COMMENT '삭제여부 : 유(삭제함)-1 무(삭제안함)-0',
+	`reply_wrter`	INT UNSIGNED	NOT NULL	COMMENT '작성자'
+);
 
-SELECT LAST_INSERT_ID();
-
-/*
-insert into article
-(
-    regDate, updateDate, memberId, boardId, title, `body`
-)
-select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_', FLOOR(RAND() * 10000)), CONCAT('내용_', FLOOR(RAND() * 10000))
-from article;
-*/
+CREATE TABLE `MNGR_ANSWER_HIST` (
+	`mngr_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '답변이력ID',
+	`cstmr_uniq_id`	INT UNSIGNED	NOT NULL	COMMENT '고객상담ID',
+	`mngr_sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`mngr_cn`	TEXT	NOT NULL	COMMENT '내용',
+	`mngr_atchmnfl_id`	INT	UNSIGNED NULL	COMMENT '첨부파일ID'
+);
