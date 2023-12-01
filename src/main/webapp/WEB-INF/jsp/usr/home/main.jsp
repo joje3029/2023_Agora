@@ -15,6 +15,8 @@
 		<!-- 토론방 잘 가는지 확인하려고 임시로 만든 로직 -->
 		<div class="border"><a href="/usr/discussion/chat">채팅방</a></div>
 		<div class="border"><a href="/usr/discussion/cam">화상방</a></div>
+		<!-- 관리자쪽 페이지 잘 넘어가는지 화긴하려고 임시로 만든 로직 -> 확인 잘 되면 유저쪽이랑 분리 시켜야함 -->
+		<div class="border"><a href="/usr/admin/login">관리자 로그인</a></div>
 		
 		
 			<section class="main-in-section">

@@ -50,10 +50,11 @@ html>body .toastui-editor-contents {
 
 /*헤더 스크롤 얘가 있어야 스크립트가 class를 넣다 뻈다 하면서 일하지*/
 .nav-up {
-    top: -100px;
+	top: -100px;
 }
-.nav-down{
-    top: 0;
+
+.nav-down {
+	top: 0;
 }
 
 /* 헤더부분 */
@@ -67,6 +68,7 @@ html>body .toastui-editor-contents {
 	font-family: 'HakgyoansimWoojuR';
 	top: 0;
 	z-index: 3;
+	margin-bottom: 30px;
 }
 
 .site_name {
@@ -455,6 +457,37 @@ section>.button_bar {
 }
 
 /* 1:1 고객 상담 css 옮겨야하는거  */
-    .table-section tr{
-        height: 4rem;
-    }
+.table-section tr {
+	height: 4rem;
+}
+
+/*관리자 헤더*/
+#admin_header {
+	background-color: #D1FAE5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 200px;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+}
+
+#admin_header>.menu_bar {
+	padding: 10px;
+}
+
+#admin_header>.menu_bar>ul>.menu_bar_item:hover {
+	background-color: #A7F3D0;
+}
+
+/*메뉴가 옆으로 있을꺼니까 바디를 이렇게 해놔야함. 그래야 안겹치지.-> 모든 관리자 페이지 body section은 클래스가 이거 붙어야함.*/
+.Admain{
+	position: absolute;
+	left: 210px;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	
+}

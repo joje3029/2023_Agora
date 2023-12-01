@@ -25,7 +25,6 @@
 							<th><span class="text-red-700">*</span>내용</th>
 							<td class="flex"><textarea class="textarea textarea-bordered"
 									name="body" cols="50" rows="10" placeholder="내용 입력해주세요"></textarea>
-								<div class="btn btn-sm ml-1">중복확인</div></td>
 						</tr>
 						<tr>
 							<th><span class="text-red-700">*</span>첨부사진</th>

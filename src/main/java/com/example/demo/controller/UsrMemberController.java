@@ -182,4 +182,6 @@ public String doLogin( String loginId, String loginPw) {
 		
 		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "/");
 	}
+	
+
 }

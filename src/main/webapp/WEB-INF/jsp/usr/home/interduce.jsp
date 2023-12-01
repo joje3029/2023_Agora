@@ -5,7 +5,6 @@
 <c:set var="pageTitle" value="MAIN" />
 
 <%@ include file="../common/head.jsp"%>
-<%@ include file="../common/floatingBanner.jsp"%>
 <link rel="stylesheet" href="/resource/main.css" />
 
 <section class="login">

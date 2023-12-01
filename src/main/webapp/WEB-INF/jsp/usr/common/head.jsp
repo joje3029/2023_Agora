@@ -94,15 +94,17 @@ $(document).ready(function () {
 						<li><a href="/usr/discussion/createroom">새로운 토론방 만들기</a></li>
 					</ul>
 				</li>
-				<li class="menu_bar_item">마이페이지
-					<ul class="dropdown-content">
-						<li><a href="/usr/member/modify">회원정보수정</a></li>
-						<li><a href="/usr/member/findId">아이디찾기</a></li>
-						<li><a href="/usr/member/findPw">비밀번호찾기</a></li>
-						<li><a href="/usr/member/chagePw">비밀번호수정</a></li>
-						<li><a href="/usr/member/withdraw">회원탈퇴</a></li>
-					</ul>
-				</li>
+				<c:if  test="${rq.getLoginedMemberId() != 0 }">
+					<li class="menu_bar_item">마이페이지
+						<ul class="dropdown-content">
+							<li><a href="/usr/member/modify">회원정보수정</a></li>
+							<li><a href="/usr/member/findId">아이디찾기</a></li>
+							<li><a href="/usr/member/findPw">비밀번호찾기</a></li>
+							<li><a href="/usr/member/chagePw">비밀번호수정</a></li>
+							<li><a href="/usr/member/withdraw">회원탈퇴</a></li>
+						</ul>
+					</li>
+				</c:if>
 			</ul>
 		</div>
 		<div class="flex-grow"></div>
@@ -117,17 +119,5 @@ $(document).ready(function () {
 					<li class="inline-block"><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 				</c:if>
 			</ul>
-		</div>
-	</section>
-
-
-
-
-
-	<section class="my-3 text-2xl">
-		<div class="container mx-auto px-3">
-			<h1>${pageTitle }</h1>
-			<!-- 이게 필요한데가 있고 아닌데가 있어서. 최종적으로 보고 수정어떻게 할지 보자. -->
-
 		</div>
 	</section>
