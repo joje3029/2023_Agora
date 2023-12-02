@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="MEMBER LOGIN" />
+<c:set var="pageTitle" value="USER LOGIN" />
 
 <%@ include file="../common/head2.jsp"%>
 
@@ -11,6 +11,11 @@
 		form.loginId.value = form.loginId.value.trim(); // loginId는 key니까 그 키와 대칭되는 값으로 해야함.
 		form.loginPw.value = form.loginPw.value.trim();
 		
+		const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{1,30}$/;//id
+		const pwRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[.,\/?!@#$%^&*])[A-Za-z0-9.,\/?!@#$%^&*]{10,50}$/; //pw
+
+		
+		//아무것도 입력 안했을 때
 		if(form.loginId.value.length ==0){
 			alret('아이디를 입력해주세요');
 			form.loginId.focus();
@@ -22,7 +27,25 @@
 			return
 		}
 		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
+		//검증
+	    // test메서드를 사용하여 주저진 문자열이 정규식과 맞지 않는 경우를 검사.
+	     // 아이디 검증
+	     if (!idRegex.test(form.loginId.value)) {
+	        alert('아이디는 영문 대소문자와 숫자로 1~30자 이내여야 합니다.');
+	        form.loginId.value = '';
+	        form.loginId.focus();
+	        return false;
+	    }
+
+	    // 비밀번호 검증
+	    if (!pwRegex.test(form.loginPw.value)) {
+	        alert('비밀번호는 영문 대문자, 소문자, 숫자, 특수문자를 각각 1개 이상 포함하여 10~50자 이내여야 합니다.');
+	        form.loginPw.value = '';
+	        form.loginPw.focus();
+	        return false;
+	    }
+		
+		form.submit();
 	}
 </script>
 
