@@ -73,6 +73,8 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/domodify")
 	public String domodify() {
 		
+		//일단 일로는 들어옴. 404내용보니까 return을 못찾아서 그렇지
+		
 		return "/usr/main/home";  //일단 임시로 null 안나게
 		
 	}

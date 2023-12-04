@@ -12,52 +12,83 @@
 <script>
 	const memberModifyForm_onSubmit  = function(form){
 		form.loginPw.value = form.loginPw.value.trim();//비번
-		form.loginPwChk.value = form.loginPwChk.value.trim();//비번화긴
+		form.loginPwChk.value = form.loginPwChk.value.trim();//비번확인
 		form.name.value = form.name.value.trim();//이름
 		form.nickname.value = form.nickname.value.trim();//닉네임
 		form.cellphoneNum.value = form.cellphoneNum.value.trim();//전화번호
 		form.email.value = form.email.value.trim();//이메일
 		//주소
 		
-		alert("지나감?");
-		
-		if(form.loginId.value.length ==0){
-			alert('아이디를 입력해주세요');
-			form.loginId.focus();
-			return
-		}
+		//비밀번호
 		if(form.loginPw.value.length ==0){
 			alert('비밀번호를 입력해주세요');
 			form.loginPw.focus();
 			return
 		}
+		
+		// 비밀번호 검증.일잘하고 있고.
+	    if (!pwRegex.test(form.loginPw.value)) {
+	        alert('비밀번호는 영문 대문자, 소문자, 숫자, 특수문자를 각각 1개 이상 포함하여 10~50자 이내여야 합니다.');
+	        form.loginPw.value ='';
+	        form.loginPw.focus();
+	        return false;
+	    }
+	  //비밀번호확인
 		if(form.checkLoginPw.value.length ==0){
 			alert('확인비밀번호를 입력해주세요');
 			form.checkLoginPw.focus();
 			return
 		}
 		
+		//비밀번호 확인은 정규식 설정 안해.어자피 안맞으면 비밀번호 안맞는다고 하니까.
+		if (form.loginPw.value != form.loginPwChk.value) {
+			alert('비밀번호가 일치하지 않습니다');
+			form.loginPw.value = '';
+			form.loginPwChk.value = '';
+			form.loginPw.focus();
+			return;
+		}
+		//이름
 		if(form.name.value.length ==0){
 			alert('이름을 입력해주세요');
 			form.name.focus();
 			return
 		}
+		
+		//이름 검증.
+		 if (!nameRegex.test(form.name.value)) {
+		    alert('이름은 한글 또는 영문으로 2~30자 이내여야 합니다.');
+		    form.name.value ='';
+		    form.name.focus();
+		    return false;
+	   }
+		//닉네임
 		if(form.nickname.value.length ==0){
 			alert('닉네임을 입력해주세요');
 			form.nickname.focus();
 			return
 		}
+		
+		//닉네임 검증.
+		if (!nicknameRegex.test(form.nickname.value)) {
+			 alert('닉네임은 한글, 영문 대소문자, 숫자로 구성된 2~30자 이내여야 합니다.');
+			 form.nickname.value ='';
+		    form.nickname.focus();
+		    return false;
+	   }
+		//이메일
 		if(form.email.value.length ==0){
 			alert('이메일을 입력해주세요');
 			form.email.focus();
 			return
 		}
-		if(form.certification.value.length ==0){
-			alert('본인인증번호를 입력해주세요');
-			form.certification.focus();
-			return
-		}
-		
+		//이메일 검증
+		if (!emailRegex .test(form.email.value)) {
+			 alert('이메일은 예시처럼 입렵해주세요.');
+			form.email .value ='';
+		    form.email.focus();
+		    return false;
+	   }
 
 		form.submit();
 	}
@@ -122,7 +153,7 @@
 
 <section class="login">
 	<h1 class="text-4xl">회원정보수정</h1>
-	<form action="domodify" method="post"
+	<form action="/usr/member/domodify" method="post"
 		onsubmit="memberModifyForm_onSubmit(this); return false;">
 		<table>
 			<tr colspan="2">
@@ -200,7 +231,8 @@
 			<button class="btn mr-2"
 				onclick="history.back();">취소</button>
 			<a class="btn"
-				href="/usr/member/dofindPw">비밀번호 변경</a>
+				href="chagePw">비밀번호 변경</a>
+				<!-- 이거 바로 가고 있는데 그전에 본인인증 따로 하게 해야함 -> 모든 웹사이트는 이런 중요한건 본인인증 한번 더 함. -->
 		</div>
 	</div>
 
