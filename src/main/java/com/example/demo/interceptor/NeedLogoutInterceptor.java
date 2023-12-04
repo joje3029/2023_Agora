@@ -9,19 +9,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class BeforActionInterceptor implements HandlerInterceptor {
-
+public class NeedLogoutInterceptor implements HandlerInterceptor {
+	
 	private Rq rq;
 	
-	public BeforActionInterceptor(Rq rq) {
+	public NeedLogoutInterceptor(Rq rq) {
 		this.rq = rq;
 	}
-
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-	
-		rq.init();
+		
+		if (rq.getLoginedMemberId() != 0) {
+			rq.jsPrintHistoryBack("로그아웃 후 이용해주세요");
+			return false;
+		}
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

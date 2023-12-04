@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${pageTitle }</title>
+
 <!-- 데이지ui cdn -->
 <link
 	href="https://cdn.jsdelivr.net/npm/daisyui@4.4.10/dist/full.min.css"
@@ -20,6 +20,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <!-- 공통 css -->
 <link rel="stylesheet" href="/resource/common.css" />
+<title>${pageTitle }</title>
 <!-- dompurify -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 </head>

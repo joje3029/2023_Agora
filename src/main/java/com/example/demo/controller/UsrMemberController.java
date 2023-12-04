@@ -31,43 +31,37 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public String doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		if (Util.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요");
+			return Util.jsHistoryBack("아이디를 입력해주세요");
 		}
 		if (Util.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀번호를 입력해주세요");
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 		if (Util.empty(name)) {
-			return ResultData.from("F-3", "이름을 입력해주세요");
+			return Util.jsHistoryBack("이름을 입력해주세요");
 		}
 		if (Util.empty(nickname)) {
-			return ResultData.from("F-4", "닉네임을 입력해주세요");
+			return Util.jsHistoryBack("닉네임을 입력해주세요");
 		}
 		if (Util.empty(cellphoneNum)) {
-			return ResultData.from("F-5", "전화번호를 입력해주세요");
+			return Util.jsHistoryBack("전화번호를 입력해주세요");
 		}
 		if (Util.empty(email)) {
-			return ResultData.from("F-6", "이메일을 입력해주세요");
+			return Util.jsHistoryBack("이메일을 입력해주세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member != null) {
-			return ResultData.from("F-7", Util.f("이미 사용중인 아이디(%s) 입니다", loginId));
+			return Util.jsHistoryBack(Util.f("이미 사용중인 아이디(%s) 입니다", loginId));
 		}
 		
-//		sha 변환 전
-//		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
-		
-		//sha 변환 후
+		//SHA 변환 후
 		memberService.joinMember(loginId, Util.sha256(loginPw), name, nickname, cellphoneNum, email);
 		
-		
-		int id = memberService.getLastInsertId();
-		
-		return ResultData.from("S-1", "회원 가입 성공", memberService.getMemberById(id));
+		return Util.jsReplace(Util.f("%s님의 가입이 완료되었습니다", name), "login");
 	}
 	
 	//회원정보 수정
@@ -78,7 +72,8 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/domodify")
 	public String domodify() {
-		return "/";  //일단 임시로 널 안나게
+		
+		return "/usr/main/home";  //일단 임시로 null 안나게
 		
 	}
 	

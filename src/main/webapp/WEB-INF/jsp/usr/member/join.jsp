@@ -146,7 +146,7 @@
 		    return false;
 	   }
 		
-		//정부 오케이!
+		//전부 오케이!
 
 		form.submit();
 	}
@@ -300,8 +300,8 @@
 							class="input input-bordered w-full max-w-xs input-sm"
 							name="email" type="text"
 							placeholder="이메일 입력해주세요 예) asd123@gmail.com" />
-							<div class="btn btn-sm ml-1"><a href="/usr/member/doSendEmail">이메일로 인증번호 받기</a></div></td>
-						</td>
+							<!--<div class="btn btn-sm ml-1"><a href="/usr/member/doSendEmail">이메일로 인증번호 받기</a></div> -->
+							</td>
 					</tr>
 
 					<tr>
@@ -324,13 +324,14 @@
 						</td>
 					</tr>
 
-					<tr>
+<!--					<tr>
 						<th><span class="text-red-700">*</span>본인인증</th>
 						<td class="flex"><input type="text" name="certification"
 							placeholder="본인인증번호를 입력해주세요"
 							class="input input-bordered w-full max-w-xs input-sm">
 							<div class="btn btn-sm ml-1">인증번호 확인</div></td>
 					</tr>
+					이메일로 인증번호 받기를 순위에서 미루면서 우선 주석. -->
 
 					<!-- 회원가입 -->
 					<tr>

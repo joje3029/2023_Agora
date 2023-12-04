@@ -59,6 +59,9 @@
 				src="https://cdn.pixabay.com/photo/2014/03/25/15/22/tracks-296631_1280.png"
 				alt="병아리 발자국">
 		</div>
+		<div class="border">test
+			<img src="/resource/static.image/favicon.ico" alt="파비콘 테스트" />
+		</div>
 	</div>
 </section>
 <%@ include file="../common/foot.jsp"%>
