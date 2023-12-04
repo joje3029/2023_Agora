@@ -25,15 +25,13 @@ public interface ArticleDao {
 	public void writeArticle(int memberId, int boardId, String title, String body);
 	
 	@Select("""
-			SELECT A.*, M.nickname AS nickname
-				FROM article AS A
-				INNER JOIN `member` AS M
-				ON A.memberId = M.id
-				WHERE A.boardId = #{boardId}
-				ORDER BY A.id DESC
+			SELECT C.*, U.ncnm
+				FROM `COLUMN` AS C
+				INNER JOIN `USER_INFO` AS U
+				ON C.colmn_wrter = U.user_uniq_id
 				LIMIT #{limitStart}, #{itemsInAPage}
 			""")
-	public List<Article> getArticles(int boardId, int limitStart, int itemsInAPage);
+	public List<Article> getArticles(int limitStart, int itemsInAPage);
 	
 	@Select("""
 			SELECT A.*, M.nickname AS nickname

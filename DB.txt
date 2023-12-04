@@ -18,17 +18,17 @@ CREATE TABLE `USER_INFO` (
 	`secsn_ennc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0',
 	`srbde` DATETIME NOT NULL COMMENT '가입일',
 	`mber_author` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
-	`secsn_reqstdt` DATETIME NOT NULL COMMENT '탈퇴신청날짜'
+	`secsn_reqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
 
 
 CREATE TABLE `COLUMN` (
 	`colmn_uniqu_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
-	`sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`title`	VARCHAR(50)	NOT NULL	COMMENT '제목',
 	`writng_time`	DATETIME	NOT NULL	COMMENT '작성시간',
-	`cn`	TEXT	NOT NULL	COMMENT '내용',
+	`body`	TEXT	NOT NULL	COMMENT '내용',
 	`colmn_cl_setup`	INT	UNSIGNED	NOT NULL	COMMENT '칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9',
-	`colmn_delete_time`	DATETIME	NOT NULL	COMMENT '칼럼삭제시간',
+	`colmn_delete_time`	DATETIME	NULL	COMMENT '칼럼삭제시간',
 	`colmn_delete_ennc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
 	`colmn_wrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
 );
@@ -114,3 +114,169 @@ CREATE TABLE `MNGR_ANSWER_HIST` (
 	`mngr_cn`	TEXT	NOT NULL	COMMENT '내용',
 	`mngr_atchmnfl_id`	INT	UNSIGNED NULL	COMMENT '첨부파일ID'
 );
+
+SELECT * FROM `USER_INFO`; # 사용자 정보(member)
+SELECT * FROM `COLUMN`; # 칼럼
+SELECT * FROM COLUMN_LIKE; # 칼럼 좋아요
+SELECT * FROM DSCSN_ROOM; # 토론방
+SELECT * FROM ANSWER; # 댓글
+SELECT * FROM CSTMR_CNSLT_CNTER; # 고객상담센터
+SELECT * FROM UFSD_ATCH_FILE_MNG; # 첨부파일통합관리
+SELECT * FROM DSCSN_CHTT_DTLS; # 토론방 채팅내역
+SELECT * FROM EMPLYR_SBSCRB; # 사용자 구독
+SELECT * FROM UFSD_ATCH_FILE_INFO; # 첨부파일 상세정보
+SELECT * FROM REPLY; # 대댓글
+SELECT * FROM MNGR_ANSWER_HIST; #관리자답변이력
+
+
+#관리자 생성
+INSERT INTO `USER_INFO` (
+  `user_id`,
+  `passwd`,
+  `name`,
+  `ncnm`,
+  `email`,
+  `telno`,
+  `adres`,
+  `secsn_ennc`,
+  `srbde`,
+  `mber_author`,
+  `secsn_reqstdt`
+) VALUES (
+  'admin',
+  'Admin123456789!',
+  '관리자',
+  '관리자씨',
+  'phandom0311@naver.com',
+  '01012345678',
+  '서울특별시 강남구 신사동 123-456',
+  0,
+  NOW(),
+  2,
+  NULL
+);
+
+#유저 3명 만들기
+#일반 유저 1
+INSERT INTO `USER_INFO` (
+  `user_id`,
+  `passwd`,
+  `name`,
+  `ncnm`,
+  `email`,
+  `telno`,
+  `adres`,
+  `secsn_ennc`,
+  `srbde`,
+  `mber_author`,
+  `secsn_reqstdt`
+) VALUES (
+  'test1',
+  'Test1123456789!',
+  '뱁새씨',
+  '뱁새씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '서울특별시 강남구 신사동 123-456',
+  0,
+  NOW(),
+  1,
+  NULL
+);
+
+#일반 유저 2
+INSERT INTO `USER_INFO` (
+  `user_id`,
+  `passwd`,
+  `name`,
+  `ncnm`,
+  `email`,
+  `telno`,
+  `adres`,
+  `secsn_ennc`,
+  `srbde`,
+  `mber_author`,
+  `secsn_reqstdt`
+) VALUES (
+  'test2',
+  'Test2123456789!',
+  '뱁새공주님',
+  '뱁새공주님',
+  'phandom0311@naver.com',
+  '01023456789',
+  '서울특별시 강남구 신사동 123-456',
+  0,
+  NOW(),
+  1,
+  NULL
+);
+
+#일반 유저 3
+INSERT INTO `USER_INFO` (
+  `user_id`,
+  `passwd`,
+  `name`,
+  `ncnm`,
+  `email`,
+  `telno`,
+  `adres`,
+  `secsn_ennc`,
+  `srbde`,
+  `mber_author`,
+  `secsn_reqstdt`
+) VALUES (
+  'test3',
+  'Test3123456789!',
+  '뱁새아가씨',
+  '뱁새아가씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '서울특별시 강남구 신사동 123-456',
+  0,
+  NOW(),
+  1,
+  NULL
+);
+
+SELECT * FROM `USER_INFO`;
+
+# 칼럼 랜덤 만들기
+INSERT INTO `COLUMN`(
+  `title`,
+  `writng_time`,
+  `body`,
+  `colmn_cl_setup`,
+  `colmn_delete_time`,
+  `colmn_delete_ennc`,
+  `colmn_wrter`
+) VALUES (
+  CONCAT('제목_', FLOOR(RAND() * 10000)),
+  NOW(),
+  CONCAT('내용_', FLOOR(RAND() * 10000)),
+  FLOOR(RAND() * 9) + 1,
+  NULL,
+  0,
+  FLOOR(RAND() * 4) + 1
+);
+
+SELECT * FROM `COLUMN`;
+/*
+`USER_INFO`  : 사용자정보
+`COLUMN`  : 칼럼
+`COLUMN_LIKE`  : 칼럼 좋아요
+`DSCSN_ROOM`  : 토론방
+`ANSWER`  : 댓글
+`CSTMR_CNSLT_CNTER`  : 고객상담센터
+`UFSD_ATCH_FILE_MNG`  : 첨부파일통합관리
+`DSCSN_CHTT_DTLS`  : 토론방 채팅내역
+`EMPLYR_SBSCRB`  : 사용자구독
+`UFSD_ATCH_FILE_INFO`  : 첨부파일 상세정보
+`REPLY`  : 대댓글
+`MNGR_ANSWER_HIST`  : 관리자답변이력
+*/
+
+SELECT C.*, U.ncnm
+FROM `COLUMN` AS C
+INNER JOIN `USER_INFO` AS U
+ON C.colmn_wrter = U.user_uniq_id
+LIMIT 4, 10

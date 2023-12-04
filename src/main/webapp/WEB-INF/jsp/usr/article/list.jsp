@@ -27,7 +27,6 @@
                   </ul>
             </div>
             <div class="container mx-auto px-3">
-                <div class="article_count">게시글 갯수 : ${articlesCnt}</div>
         
                 <!-- 여다가 검색기능 만들꺼임. -->
                 <form> <!-- form은 Action이 없으면 자기한테로 감. method도 현 상태에다가 붙음 그래서 표시 안해도 됨. -->

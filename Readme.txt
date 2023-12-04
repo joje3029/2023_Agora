@@ -66,3 +66,50 @@ test 쓸 것 => 쓰기 귀찮아 복붙 할래
 쌤이 이메일 인증님 넣은데 => 로그인 ->비밀번호 찾기
 비밀번호 찾기 로직을 참고해서 하기
 
+---------------------
+... 이게 기존 코드를 내가 하려는대로 하니까 막 table명부터 칼럼명까지 안맞아서 계속 일이 꼬이는 느낌이거든
+
+=> 고로. 쌤이 수업때 시킨 순서대로 손을 보자
+=> 그럼 CRUD 는 정리가 되것지. 하나하나 했으니께
+=>이게 후딱 되야 소켓을 쓰든 말든 하지.
+
+(1) article list
+(2) title 클릭하면 해당 article의 detail
+(3) write
+(4) list paging
+(5) article modify
+(6) delete confirm -> 정말 삭제하시겠습니까? 하고 한번 묻는거 추가
+(6) member join
+(7) loginID 중복 확인, login, logout
+(8) 게시물 작성시 회원정보 저장
+(9) list, detail에 작성자 이름, include 사용법
+(10) 검색
+(11) 쿠키사용
+(12) 댓글
+(13)
+
+/*
+`USER_INFO`  : 사용자정보
+`COLUMN`  : 칼럼
+`COLUMN_LIKE`  : 칼럼 좋아요
+`DSCSN_ROOM`  : 토론방
+`ANSWER`  : 댓글
+`CSTMR_CNSLT_CNTER`  : 고객상담센터
+`UFSD_ATCH_FILE_MNG`  : 첨부파일통합관리
+`DSCSN_CHTT_DTLS`  : 토론방 채팅내역
+`EMPLYR_SBSCRB`  : 사용자구독
+`UFSD_ATCH_FILE_INFO`  : 첨부파일 상세정보
+`REPLY`  : 대댓글
+`MNGR_ANSWER_HIST`  : 관리자답변이력
+*/
+
+aritcle 객체
+int - colmn_uniqu_id
+string - title
+string - writng_time
+string - body
+int - colmn_cl_setup : 칼럼분류설정(한국 도서 십진 분류법에 따라 구분)
+string - colmn_delete_time
+int - colmn_delete_ennc
+int - colmn_wrter
+string - ncnm
