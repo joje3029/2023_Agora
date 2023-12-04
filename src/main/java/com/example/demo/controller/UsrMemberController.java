@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -12,7 +11,6 @@ import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrMemberController {
@@ -34,10 +32,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData<Member> doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
-		
-		if(rq.getLoginedMemberId()!=0) {
-			return ResultData.from("F-L", "로그아웃 후 이용해주세요");
-		}
 		
 		if (Util.empty(loginId)) {
 			return ResultData.from("F-1", "아이디를 입력해주세요");
@@ -64,7 +58,12 @@ public class UsrMemberController {
 			return ResultData.from("F-7", Util.f("이미 사용중인 아이디(%s) 입니다", loginId));
 		}
 		
-		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
+//		sha 변환 전
+//		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
+		
+		//sha 변환 후
+		memberService.joinMember(loginId, Util.sha256(loginPw), name, nickname, cellphoneNum, email);
+		
 		
 		int id = memberService.getLastInsertId();
 		
@@ -133,24 +132,24 @@ public class UsrMemberController {
 public String doLogin( String loginId, String loginPw) {
 		
 		if(rq.getLoginedMemberId()!=0) {
-			return Util.jsHistroyBack("로그아웃 후 이용해주세요");
+			return Util.jsHistoryBack("로그아웃 후 이용해주세요");
 		}
 		
 		if (Util.empty(loginId)) {
-			return Util.jsHistroyBack("아이디를 입력해주세요");
+			return Util.jsHistoryBack("아이디를 입력해주세요");
 		}
 		if (Util.empty(loginPw)) {
-			return Util.jsHistroyBack("비밀번호를 입력해주세요");
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member == null) {
-			return Util.jsHistroyBack(Util.f("%s은(는) 존재하지 않는 아이디입니다", loginId));
+			return Util.jsHistoryBack(Util.f("%s은(는) 존재하지 않는 아이디입니다", loginId));
 		}
 		
-		if (member.getLoginPw().equals(loginPw) == false) {
-			return Util.jsHistroyBack("비밀번호를 확인해주세요");
+		if (member.getLoginPw().equals(Util.sha256(loginPw)) == false) {
+			return Util.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
 		
@@ -175,7 +174,7 @@ public String doLogin( String loginId, String loginPw) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.getLoginedMemberId()==0) {
-			return Util.jsHistroyBack("로그인 후 이용해주세요");
+			return Util.jsHistoryBack("로그인 후 이용해주세요");
 		}
 		
 		rq.logout();
@@ -183,5 +182,14 @@ public String doLogin( String loginId, String loginPw) {
 		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "/");
 	}
 	
-
+	//인증번호 이메일 로직
+	@RequestMapping("/usr/member/doSendEmail")
+	public String doSendEmail(HttpServletRequest req) {
+		
+		
+		return Util.jsReplace(Util.f("인증메일이 발송되었습니다. 이메일을 확인해주세요"), "join");
+	}
+	
+	
+	
 }

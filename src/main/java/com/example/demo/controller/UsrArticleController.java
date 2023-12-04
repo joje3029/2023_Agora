@@ -40,11 +40,11 @@ public class UsrArticleController {
 	public String doWrite(int boardId, String title, String body) {
 		
 		if (Util.empty(title)) {
-			return Util.jsHistroyBack("제목을 입력해주세요");
+			return Util.jsHistoryBack("제목을 입력해주세요");
 		}
 		
 		if (Util.empty(body)) {
-			return Util.jsHistroyBack("내용을 입력해주세요");
+			return Util.jsHistoryBack("내용을 입력해주세요");
 		}
 		
 		articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
@@ -134,12 +134,12 @@ public class UsrArticleController {
 		
 		if (article == null) {
 			
-			return Util.jsHistroyBack("게시물은 존재하지 않습니다");
+			return Util.jsHistoryBack("게시물은 존재하지 않습니다");
 		}
 		
 		if(rq.getLoginedMemberId()!= article.getMemberId()) {
 			
-			return Util.jsHistroyBack("해당 게시물에 대한 권한이 없습니다");
+			return Util.jsHistoryBack("해당 게시물에 대한 권한이 없습니다");
 		}
 		
 		articleService.modifyArticle(id, title, body);
@@ -154,11 +154,11 @@ public class UsrArticleController {
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return Util.jsHistroyBack(Util.f("%d번 게시물은 존재하지 않습니다", id));
+			return Util.jsHistoryBack(Util.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
 		if (rq.getLoginedMemberId() != article.getMemberId()) {
-			return Util.jsHistroyBack("해당 게시물에 대한 권한이 없습니다");
+			return Util.jsHistoryBack("해당 게시물에 대한 권한이 없습니다");
 		}
 		
 		articleService.deleteArticle(id);

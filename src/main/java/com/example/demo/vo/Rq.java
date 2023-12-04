@@ -47,7 +47,7 @@ public class Rq {
 		resp.setContentType("text/html; charset=UTF-8;");// response에서 보여줘서.
 
 		try {
-			resp.getWriter().append(Util.jsHistroyBack(msg)); // 메세지를 보이고 이전으로 돌아가게 함.
+			resp.getWriter().append(Util.jsHistoryBack(msg)); // 메세지를 보이고 이전으로 돌아가게 함.
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

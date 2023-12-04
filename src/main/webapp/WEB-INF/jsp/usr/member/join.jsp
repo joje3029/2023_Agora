@@ -258,7 +258,7 @@
 				<table class="table table-lg">
 					<tr">
 						<th><span class="text-red-700">*</span>아이디</th>
-						<td><input class="input input-bordered input-primary w-9/12"
+						<td><input class="input input-bordered w-full max-w-xs input-sm"
 							name="loginId" type="text" placeholder="아이디를 입력해주세요"
 							onblur="loginIdDupChk(this);" />
 							<div id="loginIdDupChkMsg" class="text-sm mt-2 h-5"></div></td>
@@ -299,7 +299,9 @@
 						<td><input
 							class="input input-bordered w-full max-w-xs input-sm"
 							name="email" type="text"
-							placeholder="이메일 입력해주세요 예) asd123@gmail.com" /></td>
+							placeholder="이메일 입력해주세요 예) asd123@gmail.com" />
+							<div class="btn btn-sm ml-1"><a href="/usr/member/doSendEmail">이메일로 인증번호 받기</a></div></td>
+						</td>
 					</tr>
 
 					<tr>
