@@ -12,17 +12,37 @@
 <!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
 
 <script>
+
+	const titleRegex = /^.{1,50}$/; // 제목 (50자 제한)
+	
+	$(document).ready(function() {
+	    const titleInput = $('#title');
+	    const maxLength = 50;
+
+	    titleInput.on('input', function() {
+	        const inputValue = $(this).val();
+	        
+	        if (inputValue.length > maxLength) {
+	            $(this).val(inputValue.slice(0, maxLength)); // 최대 길이까지만 잘라냄
+	            alert('제목은 50자 이내여야 합니다.');
+	        }
+	    });
+	});
+	
+	
+	//onSubmit 코드
 	const writeForm_onSubmit = function(form){
 		form.title.value = form.title.value.trim();
 		form.body.value = form.body.value.trim();
 		
+		//내용 있냐 업냐 검증
 		if(form.title.value.length ==0){
-			alret('제목을 입력해주세요');
+			alert('제목을 입력해주세요');
 			form.title.focus();
 			return
 		}
 		if(form.body.value.length ==0){
-			alret('내용을 입력해주세요');
+			alert('내용을 입력해주세요');
 			form.body.focus();
 			return
 		}
@@ -45,7 +65,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="text-center" colspan="2"><select
+						<td class="text-center" colspan="2">
+						
+						<select
 							class="select select-bordered max-w-xs select-sm">
 								<option disabled selected>컬럼 분류</option>
 								<option>철학</option>
@@ -61,6 +83,11 @@
 							<div class="btn btn-sm ml-1">임시저장</div>
 							<button class="btn btn-sm ml-1">작성</button></td>
 					</tr>
+						<th>제목</th>
+						<td>
+						<!-- 스크립트로 제목 제약 해야함. -->
+							<input type="text" name="title" id="title" placeholder="제목을 입력해주세요. 50자 이내입니다." class="input input-bordered w-full max-w-xs input-sm">
+						</td>
 					<tr>
 						<th>내용</th>
 						<td>
@@ -75,4 +102,4 @@
 		</div>
 		</div>
 	</section>
-<%@ include file="../common/foot.jsp"%>
+<%@ include file="../common/foot.jsp"%>	

@@ -7,19 +7,22 @@
 <!--  여기서 변수 선언헀으니까 haed에서 pageTitle을 title에 넣어서 사용가능.  -->
 
 <%@ include file="../common/head.jsp"%>
-<!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
+<%@ include file="../common/toastUiEditorLib.jsp"%>
 
 <section class="listBody">
         <section class="title-section border">
             <div class="title">글제목</div>
             <div class="alarm-session border">
+            	<div><a href="modify?id=${article.id }">수정하기</a></div>
                 <div>좋아요 버튼</div>
                 <div>구독 버튼</div>
             </div>
         </section>
         <section class="article-read">
             <div class="toast-ui-viewer">
-            <script type="text/x-template">${article.body }</script>        </section>
+            <!-- 토스트 ui body를 안보여줌. -->
+            <script type="text/x-template">${article.body }</script>
+       </section>
         <!-- 댓글과 댓글 형태 -->
         <section class="comment-session">
             <div>댓글 갯수(게시글 갯수 세는거랑 동일로직)</div>

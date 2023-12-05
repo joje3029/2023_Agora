@@ -14,37 +14,41 @@ import com.example.demo.vo.Article;
 public interface ArticleDao {
 	
 	@Insert("""
-			INSERT INTO article
-				SET regDate = NOW()
-					, updateDate = NOW()
-					, memberId = #{memberId}
-					, boardId = #{boardId}
-					, title = #{title}
-					, `body` = #{body}
+			INSERT INTO `COLUMN`
+				SET  title = #{title}
+				, writngTime = NOW()
+				, `body` = #{body}
+				, colmnClSetup ='1'
+				, colmnModifidTime = NOW()
+				, colmnDeleteTime = NOW()
+				, colmnDeleteEnnc = 1
+				, colmnWrter = 1
+
 			""")
-	public void writeArticle(int memberId, int boardId, String title, String body);
+	public void writeArticle(int memberId, String title, String body);
 	
+	//지금 limit 넣으면 애가 지랄을 해서 우선 뺌. 나중에 추가해야함.
 	@Select("""
-			SELECT C.*, U.ncnm
+			SELECT C.*, U.nickname
 				FROM `COLUMN` AS C
 				INNER JOIN `USER_INFO` AS U
-				ON C.colmn_wrter = U.user_uniq_id
-				LIMIT #{limitStart}, #{itemsInAPage}
+				ON C.colmnWrter = U.id
+				ORDER BY C.id DESC
 			""")
 	public List<Article> getArticles(int limitStart, int itemsInAPage);
 	
 	@Select("""
-			SELECT A.*, M.nickname AS nickname
-				FROM article AS A
-				INNER JOIN `member` AS M
-				ON A.memberId = M.id
-				WHERE A.id = #{id}
+			SELECT C.*, U.nickname
+				FROM `COLUMN` AS C
+				INNER JOIN `USER_INFO` AS U
+				ON C.colmnWrter = U.id
+				WHERE c.id = #{id}
 			""")
 	public Article forPrintArticle(int id);
 	
 	@Select("""
 			SELECT * 
-				FROM article
+				FROM `COLUMN`
 				WHERE id = #{id}
 			""")
 	public Article getArticleById(int id);

@@ -7,112 +7,112 @@ USE Agora;
 -- 이아는 컬럼명을 걍 다 백틱하는구만. 신경쓰지 말것.
 
 CREATE TABLE `USER_INFO` (
-	`user_uniq_id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID',
-	`user_id` VARCHAR(20) NOT NULL COMMENT '아이디',
+	`id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID',
+	`uwerId` VARCHAR(20) NOT NULL COMMENT '아이디',
 	`passwd` VARCHAR(30) NOT NULL COMMENT '비밀번호',
 	`name` VARCHAR(10) NOT NULL COMMENT '이름',
-	`ncnm` VARCHAR(15) NOT NULL COMMENT '닉네임',
+	`nickname` VARCHAR(15) NOT NULL COMMENT '닉네임',
 	`email` VARCHAR(50) NOT NULL COMMENT '이메일',
 	`telno` VARCHAR(11) NOT NULL COMMENT '전화번호',
 	`adres` VARCHAR(50) NOT NULL COMMENT '주소',
-	`secsn_ennc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0',
-	`srbde` DATETIME NOT NULL COMMENT '가입일',
-	`mber_author` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
-	`secsn_reqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
+	`secsnEnnc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0',
+	`joinDate` DATETIME NOT NULL COMMENT '가입일',
+	`mberAuthor` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
+	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
 
 
 CREATE TABLE `COLUMN` (
-	`colmn_uniqu_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
+	`Id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
 	`title`	VARCHAR(50)	NOT NULL	COMMENT '제목',
-	`writng_time`	DATETIME	NOT NULL	COMMENT '작성시간',
+	`writngTime`	DATETIME	NOT NULL	COMMENT '작성시간',
 	`body`	TEXT	NOT NULL	COMMENT '내용',
-	`colmn_cl_setup`	INT	UNSIGNED	NOT NULL	COMMENT '칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9',
-	`colmn_delete_time`	DATETIME	NULL	COMMENT '칼럼삭제시간',
-	`colmn_delete_ennc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
-	`colmn_wrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
+	`colmnClSetup`	INT	UNSIGNED	NOT NULL	COMMENT '칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9',
+	`colmnDeleteTime`	DATETIME	NULL	COMMENT '칼럼삭제시간',
+	`colmnDeleteEnnc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
+	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
 );
 
 CREATE TABLE `COLUMN_LIKE` (
 	`id` INT UNSIGNED NOT NULL COMMENT '칼럼ID',
-	`user_uniq_id` INT UNSIGNED NOT NULL COMMENT '회원ID'
+	`userUniqId` INT UNSIGNED NOT NULL COMMENT '회원ID'
 );
 
 CREATE TABLE `DSCSN_ROOM` (
-	`dscsn_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '토론방ID',
-	`dscsn_room_nm`	VARCHAR(20)	NOT NULL	COMMENT '토론방이름',
-	`crtr_id`	INT	UNSIGNED NOT NULL	COMMENT '생성자ID',
-	`dscsn_room_creat_de`	DATETIME	NOT NULL	COMMENT '토론방생성일자',
-	`dscsn_room_delete_de`	DATETIME	NOT NULL	COMMENT '토론방삭제일자'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '토론방ID',
+	`dscsnRoomNm`	VARCHAR(50)	NOT NULL	COMMENT '토론방이름',
+	`crtrId`	INT	UNSIGNED NOT NULL	COMMENT '생성자ID',
+	`dscsnRoomCreatDete`	DATETIME	NOT NULL	COMMENT '토론방생성일자',
+	`dscsnRoomDeleteDete`	DATETIME	NOT NULL	COMMENT '토론방삭제일자'
 );
 
 CREATE TABLE `ANSWER` (
-	`answer_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
-	`answer_writing_time`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
-	`answer_cn`	TEXT	NOT NULL	COMMENT '댓글내용',
-	`answer_updt_time`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
-	`answer_delete_time`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
-	`answer_delete_ennc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
+	`answerWritingTime`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
+	`answerBody`	TEXT	NOT NULL	COMMENT '댓글내용',
+	`answerUpdtTime`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
+	`answerDeleteTime`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`answerDeleteEnnc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
 );
 
 CREATE TABLE `CSTMR_CNSLT_CNTER` (
-	`cstmr_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
-	`user_uniq_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
-	`cstmr_sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
-	`cstmr_cn`	TEXT	NOT NULL	COMMENT '내용',
-	`cstmr_atchmnfl_id`	INT	 NULL	COMMENT '첨부파일ID',
-	`ricfld_sndng_yn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
+	`userUniqId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
+	`cstmrTitle`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`cstmrBody`	TEXT	NOT NULL	COMMENT '내용',
+	`cstmrAtchmnflDd`	INT	 NULL	COMMENT '첨부파일ID',
+	`ricfldSndngYn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0'
 );
 
 CREATE TABLE `UFSD_ATCH_FILE_MNG` (
-	`atch_file_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일ID',
-	`atach_file_dc`	TEXT	NULL	COMMENT '첨부파일설명',
-	`frst_reg_id`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
-	`frst_reg-dt`	DATETIME	NULL	COMMENT '최초등록일자'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일ID',
+	`atachFileDc`	TEXT	NULL	COMMENT '첨부파일설명',
+	`frstRegId`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
+	`frstRegDate`	DATETIME	NULL	COMMENT '최초등록일자'
 );
 
 CREATE TABLE `DSCSN_CHTT_DTLS` (
-	`convrs_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대화순서',
-	`cn`	VARCHAR(10)	NOT NULL	COMMENT '내용',
-	`writing_de`	VARCHAR(30)	NOT NULL	COMMENT '작성일자'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대화순서',
+	`chatBody`	VARCHAR(10)	NOT NULL	COMMENT '내용',
+	`writeDate`	VARCHAR(30)	NOT NULL	COMMENT '작성일자'
 );
 
 CREATE TABLE `EMPLYR_SBSCRB` (
-	`owner_user_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
-	`guest_user_id`	INT	UNSIGNED NOT NULL	COMMENT '회원ID'
+	`ownerUserId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
+	`guestUserId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID'
 );
 
 CREATE TABLE `UFSD_ATCH_FILE_INFO` (
-	`atch_file_seq`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일순서',
-	`atch_file_id`	INT NOT NULL	COMMENT '첨부파일ID',
-	`file_nm`	VARCHAR(200)	NOT NULL	COMMENT '파일명',
-	`file_save_nm`	VARCHAR(100)	NOT NULL	COMMENT '파일저장명',
-	`file_path`	VARCHAR(500)	NULL	COMMENT '파일경로',
-	`file_ext`	VARCHAR(10)	NOT NULL	COMMENT '파일확장자',
-	`file_size`	VARCHAR(20)	NULL	COMMENT '파일크기',
-	`file_editor_yn`	CHAR(1)	NULL	COMMENT '파일에디터사용여부',
-	`file_vod_yn`	CHAR(1)	NULL	COMMENT '영상파일여부',
-	`frst_reg_id`	INT	NULL	COMMENT '최초등록자ID',
-	`frst_reg_dt`	DATETIME	NULL	COMMENT '최초등록일자'
+	`atchFileSeq`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일순서',
+	`atchFileId`	INT NOT NULL	COMMENT '첨부파일ID',
+	`fileName`	VARCHAR(200)	NOT NULL	COMMENT '파일명',
+	`fileSaveName`	VARCHAR(100)	NOT NULL	COMMENT '파일저장명',
+	`filePath`	VARCHAR(500)	NULL	COMMENT '파일경로',
+	`fileExt`	VARCHAR(10)	NOT NULL	COMMENT '파일확장자',
+	`fileSize`	VARCHAR(20)	NULL	COMMENT '파일크기',
+	`fileEditorYn`	CHAR(1)	NULL	COMMENT '파일에디터사용여부',
+	`fileVodYn`	CHAR(1)	NULL	COMMENT '영상파일여부',
+	`frstRegId`	INT	NULL	COMMENT '최초등록자ID',
+	`frstRegDate`	DATETIME	NULL	COMMENT '최초등록일자'
 );
 
 CREATE TABLE `REPLY` (
-	`reply_uniqu_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대댓글ID',
-	`answer_uniq_id`	INT	UNSIGNED NOT NULL	COMMENT '댓글ID',
-	`reply_writing_time`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
-	`reply_cn`	TEXT	NOT NULL	COMMENT '댓글내용',
-	`reply_updt_time`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
-	`reply_delete_time`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
-	`reply_delete_ennc`	TINYINT	NOT NULL	COMMENT '삭제여부 : 유(삭제함)-1 무(삭제안함)-0',
-	`reply_wrter`	INT UNSIGNED	NOT NULL	COMMENT '작성자'
+	`replyUniquId`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '대댓글ID',
+	`answerUniqId`	INT	UNSIGNED NOT NULL	COMMENT '댓글ID',
+	`replyWritingTime`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
+	`replyBody`	TEXT	NOT NULL	COMMENT '댓글내용',
+	`replyUpdtTime`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
+	`replyDeleteTime`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`replyDeleteEnnc`	TINYINT	NOT NULL	COMMENT '삭제여부 : 유(삭제함)-1 무(삭제안함)-0',
+	`replyWrter`	INT UNSIGNED	NOT NULL	COMMENT '작성자'
 );
 
 CREATE TABLE `MNGR_ANSWER_HIST` (
-	`mngr_uniq_id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '답변이력ID',
-	`cstmr_uniq_id`	INT UNSIGNED	NOT NULL	COMMENT '고객상담ID',
-	`mngr_sj`	VARCHAR(50)	NOT NULL	COMMENT '제목',
-	`mngr_cn`	TEXT	NOT NULL	COMMENT '내용',
-	`mngr_atchmnfl_id`	INT	UNSIGNED NULL	COMMENT '첨부파일ID'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '답변이력ID',
+	`cstmrUniqId`	INT UNSIGNED	NOT NULL	COMMENT '고객상담ID',
+	`mngrTitle`	VARCHAR(50)	NOT NULL	COMMENT '제목',
+	`mngrBody`	TEXT	NOT NULL	COMMENT '내용',
+	`mngrAtchmnflId`	INT	UNSIGNED NULL	COMMENT '첨부파일ID'
 );
 
 SELECT * FROM `USER_INFO`; # 사용자 정보(member)
@@ -131,17 +131,17 @@ SELECT * FROM MNGR_ANSWER_HIST; #관리자답변이력
 
 #관리자 생성
 INSERT INTO `USER_INFO` (
-  `user_id`,
+  `uwerId`,
   `passwd`,
   `name`,
-  `ncnm`,
+  `nickname`,
   `email`,
   `telno`,
   `adres`,
-  `secsn_ennc`,
-  `srbde`,
-  `mber_author`,
-  `secsn_reqstdt`
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`
 ) VALUES (
   'admin',
   'Admin123456789!',
@@ -159,17 +159,17 @@ INSERT INTO `USER_INFO` (
 #유저 3명 만들기
 #일반 유저 1
 INSERT INTO `USER_INFO` (
-  `user_id`,
+  `uwerId`,
   `passwd`,
   `name`,
-  `ncnm`,
+  `nickname`,
   `email`,
   `telno`,
   `adres`,
-  `secsn_ennc`,
-  `srbde`,
-  `mber_author`,
-  `secsn_reqstdt`
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`
 ) VALUES (
   'test1',
   'Test1123456789!',
@@ -186,17 +186,17 @@ INSERT INTO `USER_INFO` (
 
 #일반 유저 2
 INSERT INTO `USER_INFO` (
-  `user_id`,
+  `uwerId`,
   `passwd`,
   `name`,
-  `ncnm`,
+  `nickname`,
   `email`,
   `telno`,
   `adres`,
-  `secsn_ennc`,
-  `srbde`,
-  `mber_author`,
-  `secsn_reqstdt`
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`
 ) VALUES (
   'test2',
   'Test2123456789!',
@@ -213,17 +213,17 @@ INSERT INTO `USER_INFO` (
 
 #일반 유저 3
 INSERT INTO `USER_INFO` (
-  `user_id`,
+  `uwerId`,
   `passwd`,
   `name`,
-  `ncnm`,
+  `nickname`,
   `email`,
   `telno`,
   `adres`,
-  `secsn_ennc`,
-  `srbde`,
-  `mber_author`,
-  `secsn_reqstdt`
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`
 ) VALUES (
   'test3',
   'Test3123456789!',
@@ -243,12 +243,12 @@ SELECT * FROM `USER_INFO`;
 # 칼럼 랜덤 만들기
 INSERT INTO `COLUMN`(
   `title`,
-  `writng_time`,
+  `writngTime`,
   `body`,
-  `colmn_cl_setup`,
-  `colmn_delete_time`,
-  `colmn_delete_ennc`,
-  `colmn_wrter`
+  `colmnClSetup`,
+  `colmnDeleteTime`,
+  `colmnDeleteEnnc`,
+  `colmnWrter`
 ) VALUES (
   CONCAT('제목_', FLOOR(RAND() * 10000)),
   NOW(),
@@ -259,8 +259,33 @@ INSERT INTO `COLUMN`(
   FLOOR(RAND() * 4) + 1
 );
 
+/* 칼럼 배로 불리기
+INSERT INTO `COLUMN` (
+  `title`,
+  `writngTime`,
+  `body`,
+  `colmnClSetup`,
+  `colmnDeleteTime`,
+  `colmnDeleteEnnc`,
+  `colmnWrter`
+)
+SELECT
+  CONCAT('제목_', FLOOR(RAND() * 10000)),
+  NOW(),
+  CONCAT('내용_', FLOOR(RAND() * 10000)),
+  FLOOR(RAND() * 9) + 1,
+  NULL,
+  0,
+  FLOOR(RAND() * 4) + 1
+FROM
+  `COLUMN`
+LIMIT 10; 
+-- 원하는 행 수를 지정해주세요
+*/
+
 SELECT * FROM `COLUMN`;
-/*
+SELECT * FROM `USER_INFO`;
+/* 테이블 종류
 `USER_INFO`  : 사용자정보
 `COLUMN`  : 칼럼
 `COLUMN_LIKE`  : 칼럼 좋아요
@@ -275,8 +300,9 @@ SELECT * FROM `COLUMN`;
 `MNGR_ANSWER_HIST`  : 관리자답변이력
 */
 
-SELECT C.*, U.ncnm
+#이걸로 가꼬 오려는거
+SELECT C.*, U.nickname
 FROM `COLUMN` AS C
 INNER JOIN `USER_INFO` AS U
-ON C.colmn_wrter = U.user_uniq_id
-LIMIT 4, 10
+ON C.colmnWrter = U.id
+WHERE U.id = #{id}

@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 이 페이지에서 쓸꺼니까 c. head로 넘기면 안되는 이유. head 아래의 선언보다 아래에서 연결됨. -->
 
-<c:set var="pageTitle" value="${board.name }" />
-
 <%@ include file="../common/head.jsp"%>
 
 <section class="listBody">
@@ -30,7 +28,6 @@
         
                 <!-- 여다가 검색기능 만들꺼임. -->
                 <form> <!-- form은 Action이 없으면 자기한테로 감. method도 현 상태에다가 붙음 그래서 표시 안해도 됨. -->
-                    <input type="hidden" value="${board.id }" />
                     <div class="navbar bg-base-100 border">
                         <select name="searchKeywordType" >
                             <option value="title">제목</option>
@@ -66,7 +63,7 @@
                 <c:forEach var="article" items="${articles }">
                     <div class="border list_outline m-0.5">
                         <div>
-                            <a href="detail?id=${article.id }">
+                            <a href="detail?id=${article.id }"> 
                                 <p class="room-name p-3 bg-green-100">${article.title }</p>
                                 <div class="empty"></div>
                                 <div class="flex">
@@ -74,7 +71,7 @@
                                     &nbsp;
                                     <p class="moderator">${article.nickname }</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <p class="headcount">${article.regDate }</p>
+                                    <p class="headcount">${article.writngTime }</p>
                                 </div>
                             </a>
                         </div>
@@ -86,49 +83,9 @@
         
         
 			<!-- 여기서부터 페이지네이션 부분 -->
-			<div class="mt-2 flex justify-center">
-				<div class="join">
-					<!-- 아래에서 쓸 변수 설정 -->
-					<c:set var="pageMenuLen" value="5" />
-					<!-- 페이지메뉴의 길이 : 앞 뒤로 5개 있게 -->
-					<!-- 삼항연산자 문법 :  조건문 ? 참 일때: 거짓 일때 -->
-					<c:set var="startPage"
-						value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
-					<!-- 시작점: 현 페이지 - 5가 1보다 크거나 같나? 참이면 startpage가 현재에서 -5한 값부터. 아니면 1-->
-					<c:set var="endPage"
-						value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
-					<!-- 끝나는 점: 현 페이지 +5를 했을 때 총 페이지 갯수보다 작으면 현재에서 +5한 값까지. 아니면 총 페이지갯수-->
-
-					<!-- 실제로 그려내는 부분 -->
-					<!-- 맨앞이면 << 없는거 : 코드보면 해석할줄 아니까. 맨앞(1)으로 이동 -->
-					<c:if test="${page == 1 }">
-						<a class="join-item btn btn-sm btn-disabled">«</a>
-					</c:if>
-					<c:if test="${page > 1 }">
-						<a class="join-item btn btn-sm"
-							href="?boardId=${board.id }&page=1">«</a>
-					</c:if>
-
-					<!-- 페이지들 실제로 그리는 반복문 -->
-					<!-- begin : 반복을 시작하는 값, end : 반복을 끝내는 값, var : 현재 반복되는 항목에 대한 이름을 정의 -->
-					<!-- 위에서 어디서부터 어디까지 보일지 정한걸로 forEach 돌기 -->
-					<c:forEach begin="${startPage }" end="${endPage }" var="i">
-						<!-- class는 지금 페이지랑 페이지번호가 같으면 되게하는것. Daisy Ui 이용. -->
-						<a class="join-item btn btn-sm ${page == i ? 'btn-active' : '' }"
-							href="?boardId=${board.id }&page=${i } ">${i }</a>
-						<!--  페이지번호 -->
-					</c:forEach>
-
-					<!-- 맨 뒤면 >> 없는거 맨뒤로 이동-->
-					<c:if test="${page < pagesCnt }">
-						<a class="join-item btn btn-sm"
-							href="?boardId=${board.id }&page=${pagesCnt }">»</a>
-					</c:if>
-					<c:if test="${page == pagesCnt }">
-						<a class="join-item btn btn-sm btn-disabled">»</a>
-					</c:if>
-				</div>
-			</div>
+			<!--  기존꺼 사용 못함. 수정해야함. 이유 : 기존에는 bordid로 구분해서 데려왔는데 지금 나는 그딴거 없음. -->
+			<!-- 1차로 다 지울꺼임. -->
+			
 		</div>
 	</div>
 </section>

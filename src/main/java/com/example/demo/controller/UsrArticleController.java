@@ -31,7 +31,8 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body) {
+	public String doWrite(String title, String body) {
+		//인터셉터에서 로그인 해야만 가능하게 설정할꺼니까 로그인했냐 안했냐도 필요없고, 
 		
 		if (Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해주세요");
@@ -41,7 +42,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("내용을 입력해주세요");
 		}
 		
-		articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
+		articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		
 		int id = articleService.getLastInsertId();
 		
@@ -49,7 +50,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, int boardId, @RequestParam(defaultValue = "1") int page, String searchKeywordType, String searchKeyword) {//파라미터를 받아야지. 파라미터를 받는 이유. 그래야 어디서부터 보여주는지 list가 알지. 그래서 요청으로 받아서 넘기는거야.
+	public String list(Model model, @RequestParam(defaultValue = "1") int page, String searchKeywordType, String searchKeyword) {//파라미터를 받아야지. 파라미터를 받는 이유. 그래야 어디서부터 보여주는지 list가 알지. 그래서 요청으로 받아서 넘기는거야.
 		//@RequestParam(defaultValue = "1") int page 파라미터가 없으면 기본값을 1로 할께라고 하는 것
 		if (page <= 0) { // 페이지는 1부터 시작 => 이 조건식은 0/음수를 파라미터로 요청한 것. 즉 존재하지 않는걸 요청한 것.
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
@@ -89,17 +90,15 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
-	//여기는 이 mapping이 하는 일 특성상 @ResponseBody 를 붙일수 없음 : 여기가 답을하거나 화면을 할꺼가 아니라. modify 화면을 그리는 jsp 로 일을 넘기는 역할이므로.
 	public String modify(Model model, int id) {
 		
 		Article article = articleService.forPrintArticle(id);
 		
-		//화면을 그리고 나서가 아니라 들어갈때 이사람이 권한이 있는지 없는지 존재하지 않는지도 한번 거르면 더 좋겠다. => 이걸 하더라도 저런 문구를 위의 이유로 return 못함.
 		if (article == null) {
-			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다", id)); //그래서 rq에 jsReturnOnView 라는 메소드를 만들어서 해결하는 것임.
+			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다", id)); 
 		}
 		
-		if (rq.getLoginedMemberId() != article.getMemberId()) {
+		if (rq.getLoginedMemberId() != article.getColmnWrter()) {
 			return rq.jsReturnOnView("해당 게시물에 대한 권한이 없습니다");
 		}
 		
