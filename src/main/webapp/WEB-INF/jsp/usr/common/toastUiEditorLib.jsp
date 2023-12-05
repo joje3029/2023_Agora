@@ -218,6 +218,7 @@
 	  $('.toast-ui-editor').each(function(index, node) {
 	    const $node = $(node);
 	    const $initialValueEl = $node.find(' > script');
+	    
 	    const initialValue = $initialValueEl.length == 0 ? '' : $initialValueEl.html().trim();
 
 	    const editor = new toastui.Editor({

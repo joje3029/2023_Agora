@@ -11,11 +11,13 @@
 
 <section class="listBody">
         <section class="title-section border">
-            <div class="title">글제목</div>
-            <div class="alarm-session border">
-            	<div><a href="modify?id=${article.id }">수정하기</a></div>
-                <div>좋아요 버튼</div>
-                <div>구독 버튼</div>
+            <div class="title">${article.title }</div>
+            <div class="alarm-session border w-96">
+            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정해야함. -->
+            	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>
+            	<div class="btn"><a class="" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제하기</a></div>
+                <div class="btn">좋아요 버튼</div>
+                <div class="btn">구독 버튼</div>
             </div>
         </section>
         <section class="article-read">

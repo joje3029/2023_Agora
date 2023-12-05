@@ -12,8 +12,6 @@
 <!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
 
 <script>
-
-	const titleRegex = /^.{1,50}$/; // 제목 (50자 제한)
 	
 	$(document).ready(function() {
 	    const titleInput = $('#title');

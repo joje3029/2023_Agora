@@ -55,21 +55,26 @@ public interface ArticleDao {
 	
 	@Update("""
 			<script>
-			UPDATE article
-				SET updateDate = NOW()
-					<if test="title != null and title != ''">
+			UPDATE `COLUMN`
+				SET writngTime = NOW()
+                <if test="title != null and title != ''">
 						, title = #{title}
 					</if>
 					<if test="body != null and body != ''">
 						, `body` = #{body}
 					</if>
-				WHERE id = #{id}
+				, colmnClSetup ='1'
+				, colmnModifidTime = NOW()
+				, colmnDeleteTime = NOW()
+				, colmnDeleteEnnc = 1
+				, colmnWrter = 1
+			WHERE id = #{id}
 			</script>
 			""")
 	public void modifyArticle(int id, String title, String body);
 	
 	@Delete("""
-			DELETE FROM article
+			DELETE FROM `COLUMN`
 				WHERE id = #{id}
 			""")
 	public void deleteArticle(int id);

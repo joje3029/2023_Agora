@@ -7,33 +7,49 @@
 <!--  여기서 변수 선언헀으니까 haed에서 pageTitle을 title에 넣어서 사용가능.  -->
 
 <%@ include file="../common/head.jsp"%>
-<!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
+<%@ include file="../common/toastUiEditorLib.jsp"%>
 
 <script>
-	const modifyForm_onSubmit = function(form){
-		form.loginId.value = form.loginId.value.trim(); // loginId는 key니까 그 키와 대칭되는 값으로 해야함.
-		form.loginPw.value = form.loginPw.value.trim();
+	$(document).ready(function() {
+	    const titleInput = $('#title');
+	    const maxLength = 50;
+	
+	    titleInput.on('input', function() {
+	        const inputValue = $(this).val();
+	        
+	        if (inputValue.length > maxLength) {
+	            $(this).val(inputValue.slice(0, maxLength)); // 최대 길이까지만 잘라냄
+	            alert('제목은 50자 이내여야 합니다.');
+	        }
+	    });
+	});
+
+
+	const submitForm = function(form) {
+		form.title.value = form.title.value.trim();
+		form.body.value = form.body.value.trim();
 		
-		if(form.loginId.value.length ==0){
-			alret('아이디를 입력해주세요');
-			form.loginId.focus();
+		if(form.title.value.length ==0){
+			alert('제목을 입력해주세요');
+			form.title.focus();
 			return
 		}
-		if(form.loginPw.value.length ==0){
-			alret('비밀번호를 입력해주세요');
-			form.loginPw.focus();
+		if(form.body.value.length ==0){
+			alert('내용을 입력해주세요');
+			form.body.focus();
 			return
 		}
 		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
+		form.submit();
 	}
 </script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type">
-		<form action="doModify" method="get" onsubmit="modifyForm_onSubmit(this); return false;">
+		<form action="doModify" method="get" onsubmit="submitForm(this); return false;">
 			<input type="hidden" name="id" value="${article.id }" />
+			<input name="body" type="hidden" />
 			<table>
 					<tr>
 						<th>번호</th>
@@ -41,11 +57,11 @@
 					</tr>
 					<tr>
 						<th>작성일</th>
-						<td>${article.regDate }</td>
+						<td>${article.writngTime }</td>
 					</tr>
 					<tr>
 						<th>수정일</th>
-						<td>${article.updateDate }</td>
+						<td>${article.colmnModifiedTime }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -53,14 +69,18 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="title" value="${article.title }" placeholder="제목을 입력해주세요" /></td>
+						<td><input type="text" name="title" id="title" value="${article.title }" placeholder="제목을 입력해주세요" /></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea name="body" cols="30" rows="10" value="${article.body }" placeholder="내용을 입력해주세요"></textarea></td>
+						<td>
+							<div name="body" class="toast-ui-editor">
+								<script type="text/x-template">${article.body }</script>
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><button>수정</button></td>
+						<td class="text-center" colspan="2"><button class="btn btn-wide">수정</button></td>
 					</tr>
 			</table>
 		</form>
