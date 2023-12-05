@@ -31,7 +31,9 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public String doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public String doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String streetAdres, String detailAdres, String extAdres) {
+		
+		String adres = streetAdres+detailAdres+extAdres;
 		
 		if (Util.empty(loginId)) {
 			return Util.jsHistoryBack("아이디를 입력해주세요");
@@ -51,6 +53,9 @@ public class UsrMemberController {
 		if (Util.empty(email)) {
 			return Util.jsHistoryBack("이메일을 입력해주세요");
 		}
+		if (Util.empty(adres)) {
+			return Util.jsHistoryBack("주소를 입력해주세요");
+		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
@@ -58,8 +63,12 @@ public class UsrMemberController {
 			return Util.jsHistoryBack(Util.f("이미 사용중인 아이디(%s) 입니다", loginId));
 		}
 		
+		String[] splitCellphoneNum = cellphoneNum.split("-");
+		
+		cellphoneNum = splitCellphoneNum[0]+splitCellphoneNum[1]+splitCellphoneNum[2];
+		
 		//SHA 변환 후
-		memberService.joinMember(loginId, Util.sha256(loginPw), name, nickname, cellphoneNum, email);
+		memberService.joinMember(loginId, Util.sha256(loginPw), name, nickname, cellphoneNum, email, adres);
 		
 		return Util.jsReplace(Util.f("%s님의 가입이 완료되었습니다", name), "login");
 	}

@@ -146,7 +146,6 @@
 		    return false;
 	   }
 		
-		//전부 오케이!
 
 		form.submit();
 	}
@@ -209,45 +208,45 @@
 	
 	
 	//아이디 ajax 부분
-//	const loginIdDupChk = function(el) {
-//		el.value = el.value.trim();
-//
-//		let loginIdDupChkMsg = $('#loginIdDupChkMsg');
-//
-//		loginIdDupChkMsg.empty();
+	const loginIdDupChk = function(el) {
+		el.value = el.value.trim();
 
-//		if (el.value.length == 0) {
-//			loginIdDupChkMsg.removeClass('text-green-500');
-//			loginIdDupChkMsg.addClass('text-red-500');
-//			loginIdDupChkMsg.html('<span>아이디는 필수 입력 정보입니다</span>');
-//			return;
-//		}
+		let loginIdDupChkMsg = $('#loginIdDupChkMsg');
 
-//		$.ajax({
-//			url : "loginIdDupChk",
-//			method : "get",
-//			data : {
-//				"loginId" : el.value
-//			},
-//			dataType : "json",
-//			success : function(data) {
-//				if (data.success) {
-//					loginIdDupChkMsg.removeClass('text-red-500');
-//					loginIdDupChkMsg.addClass('text-green-500');
-//					loginIdDupChkMsg.html(`<span>\${data.msg}</span>`);
-//					validLoginId = el.value;
-//				} else {
-//					loginIdDupChkMsg.removeClass('text-green-500');
-//					loginIdDupChkMsg.addClass('text-red-500');
-//					loginIdDupChkMsg.html(`<span>\${data.msg}</span>`);
-//					validLoginId = '';
-//				}
-//			},
-//			error : function(xhr, status, error) {
-//				console.error("ERROR : " + status + " - " + error);
-//			}
-//		})
-//	}
+		loginIdDupChkMsg.empty();
+
+		if (el.value.length == 0) {
+			loginIdDupChkMsg.removeClass('text-green-500');
+			loginIdDupChkMsg.addClass('text-red-500');
+			loginIdDupChkMsg.html('<span>아이디는 필수 입력 정보입니다</span>');
+			return;
+		}
+
+		$.ajax({
+			url : "loginIdDupChk",
+			method : "get",
+			data : {
+				"loginId" : el.value
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.success) {
+					loginIdDupChkMsg.removeClass('text-red-500');
+					loginIdDupChkMsg.addClass('text-green-500');
+					loginIdDupChkMsg.html(`<span>\${data.msg}</span>`);
+					validLoginId = el.value;
+				} else {
+					loginIdDupChkMsg.removeClass('text-green-500');
+					loginIdDupChkMsg.addClass('text-red-500');
+					loginIdDupChkMsg.html(`<span>\${data.msg}</span>`);
+					validLoginId = '';
+				}
+			},
+			error : function(xhr, status, error) {
+				console.error("ERROR : " + status + " - " + error);
+			}
+		})
+	}
 </script>
 
 <section class="mt-8 text-xl">
@@ -307,20 +306,16 @@
 					<tr>
 						<th>주소</th>
 						<td class="address-section p-2">
-							<!-- kakao에서 우편번호 서비스 제공하는거 사용함. --> <input
-							class="my-1 input input-bordered w-full max-w-xs input-sm"
-							type="text" id="sample4_postcode" placeholder="우편번호"> <input
-							class="my-1 btn btn-sm ml-1" type="button"
-							onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+							<!-- kakao에서 우편번호 서비스 제공하는거 사용함. --> 
 							<input class="my-1 input input-bordered w-full max-w-xs input-sm"
-							type="text" id="sample4_roadAddress" placeholder="도로명주소">
-							<input class="my-1 input input-bordered w-full max-w-xs input-sm"
-							type="text" id="sample4_jibunAddress" placeholder="지번주소">
-							<span id="guide" style="color: #999; display: none"></span> <input
-							class="my-1 input input-bordered w-full max-w-xs input-sm"
-							type="text" id="sample4_detailAddress" placeholder="상세주소">
-							<input class="my-1 input input-bordered w-full max-w-xs input-sm"
-							type="text" id="sample4_extraAddress" placeholder="참고항목">
+							type="text" id="sample4_postcode" placeholder="우편번호"> 
+							<input class="my-1 btn btn-sm ml-1" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+							<br>
+							<input name="streetAdres" class="my-1 input input-bordered w-full max-w-xs input-sm" type="text" id="sample4_roadAddress" placeholder="도로명주소">
+							<input class="my-1 input input-bordered w-full max-w-xs input-sm" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+							<span id="guide" style="color: #999; display: none"></span> 
+							<input name="detailAdres" class="my-1 input input-bordered w-full max-w-xs input-sm" type="text" id="sample4_detailAddress" placeholder="상세주소">
+							<input name="extAdres" class="my-1 input input-bordered w-full max-w-xs input-sm"    type="text" id="sample4_extraAddress" placeholder="참고항목">
 						</td>
 					</tr>
 

@@ -10,17 +10,18 @@ import com.example.demo.vo.Member;
 public interface MemberDao {
 	
 	@Insert("""
-			INSERT INTO `member`
-				SET regDate = NOW()
-					, updateDate = NOW()
-					, loginId = #{loginId}
-					, loginPw = #{loginPw}
-					, name = #{name}
-					, nickname = #{nickname}
-					, cellphoneNum = #{cellphoneNum}
-					, email = #{email}
+			INSERT INTO `USER_INFO`
+				SET  `uwerId` = #{loginId}
+				, `passwd` = #{loginPw}
+				, `name` = #{name}
+				, `nickname` = #{nickname}
+				, `email` = #{email}
+				, `adres` = #{adres}
+				, `telno` = #{cellphoneNum}
+				, `joinDate` = NOW()
+				, `secsnReqstdt` = NULL
 			""")
-	public void joinMember(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
+	public void joinMember(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String adres);
 	
 	@Select("""
 			SELECT * 
@@ -34,8 +35,8 @@ public interface MemberDao {
 
 	@Select("""
 			SELECT *
-				FROM `member`
-				WHERE loginId = #{loginId}
+				FROM `USER_INFO`
+				WHERE uwerId = #{loginId}
 			""")
 	public Member getMemberByLoginId(String loginId);
 }
