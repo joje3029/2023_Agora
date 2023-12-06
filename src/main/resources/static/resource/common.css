@@ -428,7 +428,7 @@ section>.button_bar {
 }
 
 .listBody>.title-section>.alarm-session {
-	width: 200px;
+	width: 400px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -439,7 +439,10 @@ section>.button_bar {
 }
 
 .listBody>.article-read {
-	padding: 10px;
+	padding: 1px 15%;
+	background-color: rgba(248, 248, 255, 0.5);
+	
+
 }
 
 /*chatbot css*/
