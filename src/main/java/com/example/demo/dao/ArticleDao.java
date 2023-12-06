@@ -83,16 +83,10 @@ public interface ArticleDao {
 	public int getLastInsertId();
 
 	@Select("""
-			SELECT COUNT(*) 
-				FROM article
-				WHERE boardId =${boardId};
-			""")
-	public String getArticlCount(int boardId);
-
-	@Select("""
 			SELECT COUNT(*)
-				FROM article
-				WHERE boardId = #{boardId}
+				FROM `COLUMN`
 			""")
-	public int getArticlesCnt(int boardId);
+	public int getArticlesCnt();
+
+
 }

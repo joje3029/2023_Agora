@@ -79,18 +79,18 @@ $(document).ready(function () {
 				<li class="menu_bar_item">칼럼
 					<ul class="dropdown-content">
 						<!-- href 고치면서 controller도 고쳐야함 -->
-						<li><a href="/usr/article/list?boardId=1">전체칼럼</a></li>
-						<li><a href="/usr/article/list?boardId=2">구독한 작가 칼럼</a></li>
-						<li><a href="/usr/article/list?boardId=2">좋아요 한 칼럼</a></li>
+						<li><a href="/usr/article/list">전체칼럼</a></li>
+						<li><a href="/usr/article/list">구독한 작가 칼럼</a></li>
+						<li><a href="/usr/article/list">좋아요 한 칼럼</a></li>
 						<li><a href="/usr/article/write">칼럼 작성</a></li>
 					</ul>
 				</li>
 				<li class="menu_bar_item">토론방
 					<ul class="dropdown-content">
 						<!-- href 고치면서 controller도 고쳐야함 -->
-						<li><a href="/usr/discussion/list?boardId=1">전체 토론방</a></li>
-						<li><a href="/usr/discussion/list?boardId=2"">추천 토론방</a></li>
-						<li><a href="/usr/discussion/list?boardId=2">내 토론방</a></li>
+						<li><a href="/usr/discussion/list">전체 토론방</a></li>
+						<li><a href="/usr/discussion/list"">추천 토론방</a></li>
+						<li><a href="/usr/discussion/list">내 토론방</a></li>
 						<li><a href="/usr/discussion/createroom">새로운 토론방 만들기</a></li>
 					</ul>
 				</li>

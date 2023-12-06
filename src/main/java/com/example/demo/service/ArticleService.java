@@ -43,13 +43,9 @@ public class ArticleService {
 	public int getLastInsertId() {
 		return articleDao.getLastInsertId();
 	}
-
-	public String getArticlCount(int boardId) {
-		return articleDao.getArticlCount(boardId);
-	}
-
-	public int getArticlesCnt(int boardId) {
-		return articleDao.getArticlesCnt(boardId);
+	
+	public int getArticlesCnt() {
+		return articleDao.getArticlesCnt();
 	}
 	
 }
