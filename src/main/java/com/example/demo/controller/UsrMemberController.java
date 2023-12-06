@@ -29,6 +29,25 @@ public class UsrMemberController {
 		return "usr/member/join";
 	}
 	
+	// 로그인아이디 중복 체크
+	@RequestMapping("/usr/member/loginIdDupChk")
+	@ResponseBody
+	public ResultData loginIdDupChk(String loginId) {
+
+		if (Util.empty(loginId)) {
+			return ResultData.from("F-1", "아이디를 입력해주세요");
+		}
+
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member != null) {
+			return ResultData.from("F-2", Util.f("%s은(는) 이미 사용중인 아이디입니다", loginId));
+		}
+
+		return ResultData.from("S-1", Util.f("%s은(는) 사용 가능한 아이디입니다", loginId));
+	}
+	
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String streetAdres, String detailAdres, String extAdres) {

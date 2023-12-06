@@ -51,12 +51,12 @@
 	    }
 		
 		//ajax로 확인후 보여주는 부분
-//		if (form.loginId.value != validLoginId) {
-//			alert(form.loginId.value + '은(는) 사용할 수 없는 아이디입니다');
-//			form.loginId.value = '';
-//			form.loginId.focus();
-//			return;
-//		}
+		if (form.loginId.value != validLoginId) {
+			alert(form.loginId.value + '은(는) 사용할 수 없는 아이디입니다');
+			form.loginId.value = '';
+			form.loginId.focus();
+			return;
+		}
 	
 		//비밀번호
 		if (form.loginPw.value.length == 0) {
@@ -140,7 +140,7 @@
 		
 		//이메일 검증
 		if (!emailRegex .test(form.email.value)) {
-			 alert('이메일은 예시처럼 입렵해주세요.');
+			 alert('이메일은 예시처럼 입력해주세요.');
 			form.email .value ='';
 		    form.email.focus();
 		    return false;
@@ -211,9 +211,9 @@
 	const loginIdDupChk = function(el) {
 		el.value = el.value.trim();
 
-		let loginIdDupChkMsg = $('#loginIdDupChkMsg');
+		let loginIdDupChkMsg = $('#loginIdDupChkMsg'); // 확인하고 메세지 보일 부분.
 
-		loginIdDupChkMsg.empty();
+		loginIdDupChkMsg.empty(); // 메세지 비우기 -> 안그러면조짐.
 
 		if (el.value.length == 0) {
 			loginIdDupChkMsg.removeClass('text-green-500');
