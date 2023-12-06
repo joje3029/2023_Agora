@@ -249,8 +249,8 @@
 	}
 </script>
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
+<section class="login">
+	<div class="container">
 		<form action="doJoin" method="post"
 			onsubmit="joinForm_onSubmit(this); return false;">
 			<div class="table-box-type">
@@ -269,7 +269,7 @@
 							name="loginPw" type="text" placeholder="비밀번호를 입력해주세요" /></td>
 					</tr>
 					<tr>
-						<th>비밀번호 확인</th>
+						<th class="w-36">비밀번호 확인</th>
 						<td><input
 							class="input input-bordered w-full max-w-xs input-sm"
 							name="loginPwChk" type="text" placeholder="비밀번호 확인을 입력해주세요" /></td>

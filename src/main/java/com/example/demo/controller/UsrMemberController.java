@@ -126,7 +126,7 @@ public class UsrMemberController {
 		}
 		
 		
-		@RequestMapping("/usr/member/dofindId")
+		@RequestMapping("/usr/member/doFindId")
 		public String dofindId() {
 			return "usr/member/foundId";
 			
@@ -173,11 +173,10 @@ public String doLogin( String loginId, String loginPw) {
 			return Util.jsHistoryBack(Util.f("%s은(는) 존재하지 않는 아이디입니다", loginId));
 		}
 		
-		if (member.getLoginPw().equals(Util.sha256(loginPw)) == false) {
+		if (member.getPasswd().equals(Util.sha256(loginPw)) == false) {
 			return Util.jsHistoryBack("비밀번호를 확인해주세요");
 		}
-		
-		
+	
 		rq.login(member);
 		
 		

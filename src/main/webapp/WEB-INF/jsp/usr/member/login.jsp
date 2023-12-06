@@ -7,7 +7,7 @@
 <%@ include file="../common/head2.jsp"%>
 
 <script>
-		
+		// 로그인이랑 비밀번호 글자 제한
 		$(document).ready(function() {
 		    const loginIdInput = $('#loginId');
 		    const loginPwInput = $('#loginPw');
@@ -53,37 +53,43 @@
 			}
 		</script>
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
+<section class="login boder">
+	<h1 class="text-4xl">로그인</h1>
+	<div class="container">
 		<form action="doLogin" method="post"
 			onsubmit="loginForm_onSubmit(this); return false;">
 			<div class="table-box-type">
-				<table class="table table-lg">
+				<table>
 					<tr>
 						<th>아이디</th>
-						<td><input id="loginId"
-							class="input input-bordered input-primary w-9/12" name="loginId"
-							type="text" placeholder="아이디를 입력해주세요" /></td>
+						<td><input type="text" name="loginId" placeholder="로그인 입력해주세요" class="input input-bordered w-full max-w-xs input-sm"></td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td><input id="loginPw"
-							class="input input-bordered input-primary w-9/12" name="loginPw"
-							type="text" placeholder="비밀번호를 입력해주세요" /></td>
+						<td><input type="text" name="loginPw" placeholder="비밀번호 입력해주세요" class="input input-bordered w-full max-w-xs input-sm"></td>
 					</tr>
 					<tr>
 						<td class="text-center" colspan="2"><button
-								class="btn-text-color btn btn-wide btn-outline">로그인</button></td>
+								class="btn">로그인</button></td>
 					</tr>
 				</table>
 			</div>
 		</form>
-
-		<div class="btns mt-2">
-			<button class="btn-text-color btn btn-outline btn-sm"
-				onclick="history.back();">뒤로가기</button>
-		</div>
 	</div>
+	<div class="account_row">
+	                <div class="account_left"><a href="/usr/member/join">회원가입</a></div>
+	                <div class="account_right">
+	                    <div class="loginId"><a href="/usr/member/findId">아이디찾기</a></div>
+	                    <div class="passWord"><a href="/usr/member/findPw">비밀번호</a></div>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="external_login">
+	                <img class="" src="/resource/static.image/kakao_login.png" alt="카카오로그인">
+	                <img src="/resource/static.image/naver_login.png" alt="네이버로그인">
+	                <img src="/resource/static.image/google_login.png" alt="구글로그인">
+	                <div>QR코드들어올자리</div>
+	            </div>
 </section>
 </body>
 </html>

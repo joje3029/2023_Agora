@@ -9,7 +9,7 @@ USE Agora;
 CREATE TABLE `USER_INFO` (
 	`id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID',
 	`uwerId` VARCHAR(20) NOT NULL COMMENT '아이디',
-	`passwd` VARCHAR(30) NOT NULL COMMENT '비밀번호',
+	`passwd` VARCHAR(200) NOT NULL COMMENT '비밀번호',
 	`name` VARCHAR(10) NOT NULL COMMENT '이름',
 	`nickname` VARCHAR(15) NOT NULL COMMENT '닉네임',
 	`email` VARCHAR(50) NOT NULL COMMENT '이메일',
@@ -144,7 +144,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'admin',
-  'Admin123456789!',
+  SHA('Admin123456789!'),
   '관리자',
   '관리자씨',
   'phandom0311@naver.com',
@@ -172,7 +172,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test1',
-  'Test1123456789!',
+  SHA('Test1123456789!'),
   '뱁새씨',
   '뱁새씨',
   'phandom0311@naver.com',
@@ -199,7 +199,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test2',
-  'Test2123456789!',
+  SHA('Test2123456789!'),
   '뱁새공주님',
   '뱁새공주님',
   'phandom0311@naver.com',
@@ -226,7 +226,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test3',
-  'Test3123456789!',
+  SHA('Test3123456789!'),
   '뱁새아가씨',
   '뱁새아가씨',
   'phandom0311@naver.com',
