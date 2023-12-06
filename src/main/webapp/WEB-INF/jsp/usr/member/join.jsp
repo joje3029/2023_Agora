@@ -11,9 +11,6 @@
 <script>
 	let validLoginId = '';
 	
-	
-	//여기가 내가 싸워야할 부분. 씨댕 뒤졌어. 정규식!
-	
 	//정규식님
 	const spacePattern = /\s/; //공백
 	const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{1,30}$/;//id
@@ -28,7 +25,7 @@
 	const joinForm_onSubmit = function(form) {
 		form.loginId.value = form.loginId.value.trim();//id
 		form.loginPw.value = form.loginPw.value.trim();//비번
-		form.loginPwChk.value = form.loginPwChk.value.trim();//비번화긴
+		form.loginPwChk.value = form.loginPwChk.value.trim();//비번확인
 		form.name.value = form.name.value.trim();//이름
 		form.nickname.value = form.nickname.value.trim();//닉네임
 		form.cellphoneNum.value = form.cellphoneNum.value.trim();//전화번호

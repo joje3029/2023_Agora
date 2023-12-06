@@ -120,15 +120,28 @@ public class UsrMemberController {
 	}
 	
 	//아이디찾기
+	//아이디찾기 폼으로감
 		@RequestMapping("/usr/member/findId")
 		public String findId(HttpServletRequest req) {
 			return "usr/member/findId";
 		}
+	
+	//아이디 찾기 폼에서 인증 이메일 보낼 곳
+		@RequestMapping("/usr/member/doSendCertificationMail")
+		@ResponseBody
+		public String doSendCertificationMail(String loginId, String email) {
+
+			//인증메일 보내는 일 하는 아.
+			ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempLoginPwByEmail(member);
+
+			return Util.jsReplace(notifyTempLoginPwByEmailRd.getMsg(), "login");
+		}
 		
 		
+	// 아이디 찾는 일을 하는 곳
 		@RequestMapping("/usr/member/doFindId")
 		public String dofindId() {
-			return "usr/member/foundId";
+			return "usr/member/foundId";// 찾은 아이디 알려주는 jsp 
 			
 		}
 	//비밀번호

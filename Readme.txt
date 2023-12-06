@@ -73,54 +73,6 @@ test 쓸 것 => 쓰기 귀찮아 복붙 할래
 => 그럼 CRUD 는 정리가 되것지. 하나하나 했으니께
 =>이게 후딱 되야 소켓을 쓰든 말든 하지.
 
-(1) article list
-(2) title 클릭하면 해당 article의 detail
-(3) write
-(4) list paging
-(5) article modify
-(6) delete confirm -> 정말 삭제하시겠습니까? 하고 한번 묻는거 추가
-(6) member join
-(7) loginID 중복 확인, login, logout
-(8) 게시물 작성시 회원정보 저장
-(9) list, detail에 작성자 이름, include 사용법
-(10) 검색
-(11) 쿠키사용
-(12) 댓글
-(13)
-
-/*
-`USER_INFO`  : 사용자정보
-`COLUMN`  : 칼럼
-`COLUMN_LIKE`  : 칼럼 좋아요
-`DSCSN_ROOM`  : 토론방
-`ANSWER`  : 댓글
-`CSTMR_CNSLT_CNTER`  : 고객상담센터
-`UFSD_ATCH_FILE_MNG`  : 첨부파일통합관리
-`DSCSN_CHTT_DTLS`  : 토론방 채팅내역
-`EMPLYR_SBSCRB`  : 사용자구독
-`UFSD_ATCH_FILE_INFO`  : 첨부파일 상세정보
-`REPLY`  : 대댓글
-`MNGR_ANSWER_HIST`  : 관리자답변이력
-*/
-
-aritcle 객체
-int - colmn_uniqu_id
-string - title
-string - writng_time
-string - body
-int - colmn_cl_setup : 칼럼분류설정(한국 도서 십진 분류법에 따라 구분)
-string - colmn_delete_time
-int - colmn_delete_ennc
-int - colmn_wrter
-string - ncnm
-
----------------------------------------------------------------------
-... 이게 기존 코드를 내가 하려는대로 하니까 막 table명부터 칼럼명까지 안맞아서 계속 일이 꼬이는 느낌이거든
-
-=> 고로. 쌤이 수업때 시킨 순서대로 손을 보자
-=> 그럼 CRUD 는 정리가 되것지. 하나하나 했으니께
-=>이게 후딱 되야 소켓을 쓰든 말든 하지.
-
 (1) article list(v) -> 전체 칼럼 : 나머지 선택한거랑 토론방은 좀있다. 
 (2) title 클릭하면 해당 article의 detail (v) -> detail 안의 세세한 다른 기능(좋아요, 구독, 댓글과는 별개) 은 아직. 우선 해당 글이 보인다 안보인다를 함.
 (3) write -> write 볼라구 인터셉터에서 로그인필요한곳 경로에서 쓰기는 다 주석담. 되는거 확인하고 풀기(v) -> 인터셉터 원상복구함.
@@ -130,13 +82,37 @@ string - ncnm
 
 
 (7) loginID 중복 확인, login, logout -> 중복확인은 거기. 회원가입만하면됨. 
+
+- 로그인 로그아웃 되게하기(v)
+-> 현 문제점 누르고 나면 member가 어쩌고 함 = 즉, 경로 못찾고 뒤에서 난리남.
+
+- 아이디 찾기랑 비번찾기랑 경로 연결(v)
+
+- 아이디 찾기 되는지 확인 => 인증번호 받고나서 치는데가 없음....(v)
+여기 로직.
+=> 인증번호 받기를 누름-> doFindLoginPw 씨로 formdl action을 취함 -> 그럼 그 메일로 쌤의 인증번호씨가 일을함.
+->인증번호 입력 확인누르면 일함.
+
+<쌤이 쓴 로직>: 비밀번호 찾기에 적용되어있음.
+가입시 로그인 아이디 / 이름 / 이메일 / 전화번호 동일하면 가입된 이메일로 임시비번이 감. 그리구 임시비번으로 해당놈의 비번이 바뀜 그래서 임시비번으로 로그인 가능.
+
+
+1차 목표 우선. 인증번호 받기를 누르면 메일이 가야겠네
+
+
+
+
+- 비번찾기 되는지 확인
+
+
+
 (8) 게시물 작성시 회원정보 저장
 (4) list paging
 (9) list, detail에 작성자 이름, include 사용법
 (10) 검색
 (11) 쿠키사용
 (12) 댓글
-(13)
+(13) 오늘 태마 하는법 알려주심 -> lemonade 적용하기 => 애를 디폴트로 해서 못생긴거에서 탈출하자!
 
 INSERT INTO article
 SET regDate = NOW()

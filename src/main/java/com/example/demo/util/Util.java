@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import java.security.MessageDigest;
+import java.util.UUID;
 
 public class Util {
 	public static boolean empty(String str) {
@@ -76,5 +77,9 @@ public class Util {
 		} catch (Exception ex) {
 			return "";
 		}
+	}
+	// 인증번호가 길면 안되니까. 랜덤한 숫자인데 10까지로 끊은거.
+	public static String createTempPassword() {
+	    return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
 	}
 }

@@ -144,7 +144,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'admin',
-  SHA('Admin123456789!'),
+  SHA2('Admin123456789!', 256),
   '관리자',
   '관리자씨',
   'phandom0311@naver.com',
@@ -172,7 +172,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test1',
-  SHA('Test1123456789!'),
+  SHA2('Test1123456789!', 256),
   '뱁새씨',
   '뱁새씨',
   'phandom0311@naver.com',
@@ -199,7 +199,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test2',
-  SHA('Test2123456789!'),
+  SHA2('Test2123456789!', 256),
   '뱁새공주님',
   '뱁새공주님',
   'phandom0311@naver.com',
@@ -226,7 +226,7 @@ INSERT INTO `USER_INFO` (
   `secsnReqstdt`
 ) VALUES (
   'test3',
-  SHA('Test3123456789!'),
+  SHA2('Test3123456789!',256),
   '뱁새아가씨',
   '뱁새아가씨',
   'phandom0311@naver.com',
@@ -300,9 +300,5 @@ SELECT * FROM `USER_INFO`;
 `MNGR_ANSWER_HIST`  : 관리자답변이력
 */
 
-#이걸로 가꼬 오려는거
-SELECT C.*, U.nickname
-FROM `COLUMN` AS C
-INNER JOIN `USER_INFO` AS U
-ON C.colmnWrter = U.id
-WHERE U.id = #{id}
+USE SB_AM
+SELECT * FROM `member`

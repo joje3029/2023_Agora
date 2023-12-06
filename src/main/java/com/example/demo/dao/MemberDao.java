@@ -39,4 +39,13 @@ public interface MemberDao {
 				WHERE uwerId = #{loginId}
 			""")
 	public Member getMemberByLoginId(String loginId);
+	
+	@Select("""
+			SELECT *
+				FROM `member`
+				WHERE `name` = #{name}
+				AND email = #{email}
+				AND cellphoneNum = #{cellphoneNum}
+			""")
+	public Member getMemberByNameAndEmailAndCell(String name, String email, String cellphoneNum);
 }

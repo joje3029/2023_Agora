@@ -65,7 +65,7 @@
                                 <th><span class="text-red-700">*</span>이메일</th>
                                 <td><input type="text" name="email" placeholder="이메일 입력해주세요 예) asd123@gmail.com"
                                     class="input input-bordered w-full max-w-xs input-sm">
-                                    <div class="btn btn-sm ml-1">인증번호 받기</div></td>
+                                    <div class="btn btn-sm ml-1"><a href="doSendCertificationMail">인증번호 받기</a></div></td>
                             </tr>
                             <tr>
                                 <th><span class="text-red-700">*</span>인증번호 입력</th>
