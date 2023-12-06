@@ -36,7 +36,8 @@
                         <div class="mb-2"><span>닉네임</span></div>
                         <textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
                         <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
-                        <div class="border">
+                        <!-- 대댓글 부분 : 댓글 구현 전까지는 주석처리 -->
+<!--                         <div class="border">
                             <form action="" method="post" onsubmit="">
                                 <input name="relTypeCode" type="hidden" value="article" />
                                 <input name="relId" type="hidden" value="${article.id }" />
@@ -46,7 +47,7 @@
                                     <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>

@@ -323,3 +323,20 @@ SET  title = #{title}
 , colmnModifiedTime = NULL
 , colmnDeleteTime = NULL
 , colmnWrter = #{memberId}
+
+SELECT * FROM `COLUMN`;
+SELECT * FROM `USER_INFO`;
+
+#작성자 기준
+SELECT C.*, U.nickname
+FROM `COLUMN` AS C
+INNER JOIN `USER_INFO` AS U
+ON C.colmnwrter = U.id
+WHERE U.nickname LIKE '뱁새아가씨'
+
+#전체(제목+내용+작성자)
+SELECT C.*, U.nickname
+FROM `COLUMN` AS C
+INNER JOIN `USER_INFO` AS U
+ON C.colmnwrter = U.id
+WHERE C.title LIKE '%뱁새%' OR C.body LIKE '%뱁새%' OR U.nickname LIKE '%뱁새%'
