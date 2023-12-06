@@ -50,13 +50,13 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") int page, String searchKeywordType, String searchKeyword) {
+	public String list(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
 		if (page <= 0) {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
 		}
 		
 		// 총 페이지 개수
-		int articlesCnt = articleService.getArticlesCnt();
+		int articlesCnt = articleService.getArticlesCnt(searchKeywordType, searchKeyword);
 		
 		//페이징 관련 변수
 		int itemsInAPage  = 10;
@@ -65,8 +65,10 @@ public class UsrArticleController {
 		
 		// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
 		//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-		List<Article> articles = articleService.getArticles(limitStart, itemsInAPage); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		List<Article> articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		
+		model.addAttribute("searchKeywordType", searchKeywordType);
+		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("articles", articles);
 		model.addAttribute("articlesCnt", articlesCnt);
 		model.addAttribute("pagesCnt", pagesCnt);

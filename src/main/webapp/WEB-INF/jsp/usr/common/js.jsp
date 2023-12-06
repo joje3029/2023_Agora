@@ -9,4 +9,6 @@
 		alert(msg); //안된다 alert띄우고 
 	}
 	history.back();	//이전화면으로 돌림.
+	
+	
 </script>

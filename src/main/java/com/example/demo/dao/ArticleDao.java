@@ -27,16 +27,33 @@ public interface ArticleDao {
 			""")
 	public void writeArticle(int memberId, String title, String body);
 	
-	//지금 limit 넣으면 애가 지랄을 해서 우선 뺌. 나중에 추가해야함.
 	@Select("""
+			<script>
 			SELECT C.*, U.nickname
 				FROM `COLUMN` AS C
 				INNER JOIN `USER_INFO` AS U
 				ON C.colmnWrter = U.id
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordType == 'title'">
+							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'body'">
+							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'writer'">
+							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'all'">
+							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</if>
 				ORDER BY C.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
+			</script>	
 			""")
-	public List<Article> getArticles(int limitStart, int itemsInAPage);
+	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword);
 	
 	@Select("""
 			SELECT C.*, U.nickname
@@ -84,10 +101,32 @@ public interface ArticleDao {
 	public int getLastInsertId();
 
 	@Select("""
+			<script>
 			SELECT COUNT(*)
-				FROM `COLUMN`
+				FROM `COLUMN` AS C
+				<if test="searchKeyword != ''">
+				INNER JOIN `USER_INFO` AS U
+				ON C.colmnWrter = U.id
+					<choose>
+						<when test="searchKeywordType == 'title'">
+							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'body'">
+							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'writer'">
+							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'all'">
+							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</if>
+			</script>	
 			""")
-	public int getArticlesCnt();
+	public int getArticlesCnt(String searchKeywordType, String searchKeyword);
+	
+	
 
 
 }
