@@ -80,13 +80,31 @@
                 </c:forEach>
             </div>
         </div>
-        
-        
-			<!-- 여기서부터 페이지네이션 부분 -->
-			<!--  기존꺼 사용 못함. 수정해야함. 이유 : 기존에는 bordid로 구분해서 데려왔는데 지금 나는 그딴거 없음. -->
-			<!-- 1차로 다 지울꺼임. -->
+        <!-- 여기서부터 페이지네이션 부분 -->
+        <div class="mt-2 flex justify-center">
+				<div class="join">
+					<c:set var="pageMenuLen" value="5" />
+					<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
+					<c:set var="endPage" value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
+
+					<c:if test="${page == 1 }">
+						<a class="join-item btn btn-sm btn-disabled">«</a>
+					</c:if>
+					<c:if test="${page > 1 }">
+						<a class="join-item btn btn-sm" href="?boardId=${board.id }&page=1">«</a>
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<a class="join-item btn btn-sm ${page == i ? 'btn-active' : '' }" href="?page=${i } ">${i }</a>
+					</c:forEach>
+					<c:if test="${page < pagesCnt }">
+						<a class="join-item btn btn-sm" href="?page=${pagesCnt }">»</a>
+					</c:if>
+					<c:if test="${page == pagesCnt }">
+						<a class="join-item btn btn-sm btn-disabled">»</a>
+					</c:if>
+				</div>
+			</div>
 			
-		</div>
 	</div>
 </section>
 

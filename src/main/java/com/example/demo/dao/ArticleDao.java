@@ -34,6 +34,7 @@ public interface ArticleDao {
 				INNER JOIN `USER_INFO` AS U
 				ON C.colmnWrter = U.id
 				ORDER BY C.id DESC
+				LIMIT #{limitStart}, #{itemsInAPage}
 			""")
 	public List<Article> getArticles(int limitStart, int itemsInAPage);
 	

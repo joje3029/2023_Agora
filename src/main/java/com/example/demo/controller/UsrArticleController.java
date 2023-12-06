@@ -58,12 +58,6 @@ public class UsrArticleController {
 		// 총 페이지 개수
 		int articlesCnt = articleService.getArticlesCnt();
 		
-//		페이지내이션 개발에 필요한 4가지 값
-//		- 총 페이지 개수 : articlesCnt(v)
-//		- 화면에 보여질 페이지 그룹 : 10, pageGroup(v)
-//		- 화면에 보여질 페이지의 첫번째 페이지 번호 : 1,(v) 
-//		- 화면에 보여질 페이지의 마지막 페이지 번호 : math.ceil(board/10)
-		
 		//페이징 관련 변수
 		int itemsInAPage  = 10;
 		int limitStart  = (page-1) * itemsInAPage;
