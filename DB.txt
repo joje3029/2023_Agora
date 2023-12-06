@@ -28,6 +28,7 @@ CREATE TABLE `COLUMN` (
 	`writngTime`	DATETIME	NOT NULL	COMMENT '작성시간',
 	`body`	TEXT	NOT NULL	COMMENT '내용',
 	`colmnClSetup`	INT	UNSIGNED	NOT NULL	COMMENT '칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9',
+	`colmnModifiedTime`	DATETIME	NULL	COMMENT '칼럼수정시간',
 	`colmnDeleteTime`	DATETIME	NULL	COMMENT '칼럼삭제시간',
 	`colmnDeleteEnnc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
 	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
@@ -246,6 +247,7 @@ INSERT INTO `COLUMN`(
   `writngTime`,
   `body`,
   `colmnClSetup`,
+  `colmnModifiedTime`,
   `colmnDeleteTime`,
   `colmnDeleteEnnc`,
   `colmnWrter`
@@ -255,16 +257,18 @@ INSERT INTO `COLUMN`(
   CONCAT('내용_', FLOOR(RAND() * 10000)),
   FLOOR(RAND() * 9) + 1,
   NULL,
+  NULL,
   0,
   FLOOR(RAND() * 4) + 1
 );
 
 /* 칼럼 배로 불리기
 INSERT INTO `COLUMN` (
-  `title`,
+ `title`,
   `writngTime`,
   `body`,
   `colmnClSetup`,
+  `colmnModifiedTime`,
   `colmnDeleteTime`,
   `colmnDeleteEnnc`,
   `colmnWrter`
@@ -274,6 +278,7 @@ SELECT
   NOW(),
   CONCAT('내용_', FLOOR(RAND() * 10000)),
   FLOOR(RAND() * 9) + 1,
+  NULL,
   NULL,
   0,
   FLOOR(RAND() * 4) + 1
@@ -300,5 +305,21 @@ SELECT * FROM `USER_INFO`;
 `MNGR_ANSWER_HIST`  : 관리자답변이력
 */
 
-USE SB_AM
-SELECT * FROM `member`
+INSERT INTO `COLUMN`
+SET  title = '댕댕이'
+, writngTime = NOW()
+, `body` = '복실이'
+, colmnClSetup ='1'
+, colmnModifiedTime = NULL
+, colmnDeleteTime = NULL
+, colmnWrter = 3
+
+
+INSERT INTO `COLUMN`
+SET  title = #{title}
+, writngTime = NOW()
+, `body` = #{body}
+, colmnClSetup ='1'
+, colmnModifiedTime = NULL
+, colmnDeleteTime = NULL
+, colmnWrter = #{memberId}
