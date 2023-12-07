@@ -47,7 +47,6 @@
 					form.loginPw.focus();
 					return;
 				}
-			// 글자수 제한
 				
 				form.submit();
 			}

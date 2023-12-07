@@ -9,6 +9,48 @@
 <%@ include file="../common/head.jsp"%>
 <%@ include file="../common/toastUiEditorLib.jsp"%>
 
+<script>
+	//여기서 할꺼.
+	$(document).ready(function() {
+		const replyInput = $('#reply'); // textarea 
+		const textCount = $('#textCount'); // 숫자 올라갈 부분
+		const maxLength = 500;
+
+		replyInput.on('input', function () {
+			const text = replyInput.val();
+			const currentCharacterCount = text.length;
+
+			if (currentCharacterCount > maxLength) {
+				replyInput.val(text.slice(0, maxLength));
+				textCount.text(maxLength);
+			} else {
+				textCount.text(currentCharacterCount);
+			}
+		});
+
+		replyInput.on('input', function() {
+			const inputValue = $(this).val();
+			
+			if (inputValue.length > maxLength) {
+				$(this).val(inputValue.slice(0, maxLength));
+				alert('댓글은 500자 이내로 작성 가능합니다.');
+			}
+		});
+	});
+
+	const replyForm_onSubmit = function(form) {
+		form.reply.value = form.reply.value.trim();
+		
+		if (form.reply.value.length === 0) {
+			alert('댓글을 작성해주세요.');
+			form.reply.focus();
+			return;
+		}
+		
+		form.submit();
+	}	
+</script>
+
 <section class="listBody">
         <section class="title-section border">
             <div class="title">${article.title }</div>
@@ -26,31 +68,24 @@
             <script type="text/x-template">${article.body }</script>
        </section>
         <!-- 댓글과 댓글 형태 -->
-        <section class="comment-session">
-            <div>댓글 갯수(게시글 갯수 세는거랑 동일로직)</div>
-            <div class="border">
-                <form action="../reply/doWrite" method="post" onsubmit="">
+        <section class="comment-session p-1 border">
+            <div>댓글 남기기 : [댓글 갯수](게시글 갯수 세는거랑 동일로직)</div>
+            
+            <div>
+                <form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
                     <input name="relTypeCode" type="hidden" value="article" />
                     <input name="relId" type="hidden" value="${article.id }" />
                     <div class="mt-4 border border-gray-400 rounded-lg p-4">
-                        <div class="mb-2"><span>닉네임</span></div>
-                        <textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
-                        <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
-                        <!-- 대댓글 부분 : 댓글 구현 전까지는 주석처리 -->
-<!--                         <div class="border">
-                            <form action="" method="post" onsubmit="">
-                                <input name="relTypeCode" type="hidden" value="article" />
-                                <input name="relId" type="hidden" value="${article.id }" />
-                                <div class="mt-4 border border-gray-400 rounded-lg p-4">
-                                    <div class="mb-2"><span>닉네임</span></div>
-                                    <textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
-                                    <div class="flex justify-end"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
-                                </div>
-                            </form>
-                        </div> -->
-                    </div>
+                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
+                        <textarea id="reply" class="textarea textarea-bordered w-full" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
+                        <div class="flex justify-end ">
+                        	<!-- 글자수 보여주는 부분 -->
+                        	<div class="count_bar"><span id="textCount">0</span>/500</div>
+                        	<button class="btn btn-sm" onclick="">작성</button>
+                        </div>
                 </form>
             </div>
+                        <!-- 대댓글 부분 : 댓글 구현 전까지는 주석처리 -->
         </section>
     </section>  
 
