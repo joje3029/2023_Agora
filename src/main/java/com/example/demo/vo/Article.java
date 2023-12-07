@@ -18,4 +18,9 @@ public class Article {
 	private int  colmnDeleteEnnc; // 칼럼 삭제 유무
 	private String colmnWrter; //작성자 번호
 	private String nickname; //작성자 닉네임
+	
+	//textarea와 토스트ui의 차이때문에 있어야함.
+	public String getForPrintBody() {
+		return this.body.replaceAll("\n", "<br />");
+	}
 }
