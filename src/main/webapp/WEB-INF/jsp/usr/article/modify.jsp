@@ -44,13 +44,12 @@
 	}
 </script>
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
+<section class="listBody">
 		<div class="table-box-type">
 		<form action="doModify" method="get" onsubmit="submitForm(this); return false;">
 			<input type="hidden" name="id" value="${article.id }" />
 			<input name="body" type="hidden" />
-			<table>
+			<table class="table table-lg">
 					<tr>
 						<th>번호</th>
 						<td>${article.id }</td>
@@ -58,10 +57,6 @@
 					<tr>
 						<th>작성일</th>
 						<td>${article.writngTime }</td>
-					</tr>
-					<tr>
-						<th>수정일</th>
-						<td>${article.colmnModifiedTime }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -88,7 +83,6 @@
 				<button class="hover:underline hover:text-green-700 mr-16" onclick="history.back();">뒤로가기</button>
 			</div>
 		</div>
-	</div>
 </section>
 
 <%@ include file="../common/foot.jsp"%>

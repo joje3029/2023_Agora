@@ -16,7 +16,7 @@ public class Article {
 	private String  colmnModifiedTime; // 칼럼 수정시간
 	private String  colmnDeleteTime; // 칼럼 삭제시간
 	private int  colmnDeleteEnnc; // 칼럼 삭제 유무
-	private String colmnWrter; //작성자 번호
+	private int colmnWrter; //작성자 번호
 	private String nickname; //작성자 닉네임
 	
 	//textarea와 토스트ui의 차이때문에 있어야함.
