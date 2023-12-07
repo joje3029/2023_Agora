@@ -73,8 +73,7 @@
             
             <div>
                 <form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
-                    <input name="relTypeCode" type="hidden" value="article" />
-                    <input name="relId" type="hidden" value="${article.id }" />
+                    <input name="columnId" type="hidden" value="${article.id }" /><!-- 이 글 넘버 보냄. -->
                     <div class="mt-4 border border-gray-400 rounded-lg p-4">
                         <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
                         <textarea id="reply" class="textarea textarea-bordered w-full" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
