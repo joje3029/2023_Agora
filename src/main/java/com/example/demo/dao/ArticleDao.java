@@ -41,7 +41,7 @@ public interface ArticleDao {
 						<when test="searchKeywordType == 'body'">
 							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
-						<when test="searchKeywordType == 'writer'">
+						<when test="searchKeywordType == 'write'">
 							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<when test="searchKeywordType == 'all'">
@@ -114,7 +114,7 @@ public interface ArticleDao {
 						<when test="searchKeywordType == 'body'">
 							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
-						<when test="searchKeywordType == 'writer'">
+						<when test="searchKeywordType == 'write'">
 							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<when test="searchKeywordType == 'all'">
