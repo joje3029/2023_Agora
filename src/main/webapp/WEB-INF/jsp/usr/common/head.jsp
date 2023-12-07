@@ -98,9 +98,7 @@ $(document).ready(function () {
 					<li class="menu_bar_item">마이페이지
 						<ul class="dropdown-content">
 							<li><a href="/usr/member/modify">회원정보수정</a></li>
-							<li><a href="/usr/member/findId">아이디찾기</a></li>
-							<li><a href="/usr/member/findPw">비밀번호찾기</a></li>
-							<li><a href="/usr/member/chagePw">비밀번호수정</a></li>
+							<li><a href="/usr/member/chagePw">비밀번호수정</a></li><!-- 이거.... 고민해야할듯. 이걸 그대로 오픈할지.말지 -> 변경전에 확인할꺼니까 상관없나?-> 본인 인증 페이지(비번 인증으로 하기) 만들어야할듯   -->
 							<li><a href="/usr/member/withdraw">회원탈퇴</a></li>
 						</ul>
 					</li>

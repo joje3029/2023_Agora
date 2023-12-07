@@ -47,7 +47,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/discussion/createroom"); // 토론방 생성관련
 		ir.addPathPatterns("/usr/discussion/chat"); // 채팅 토론방 생성관련
 		ir.addPathPatterns("/usr/discussion/cam"); // 화상 토론방 생성 관련
-		// 지금 댓글과 대댓글 없음 -> 기능 만들면서 경로 추가해야함.
+// 댓글과 대댓글은  url이 따로 있는게 아니라 detail내에서 이뤄지므로 필요 없음.		
 
 		// 로그아웃이여야하는곳-> 엑셀 인터셉터 구분에서 초록색
 		ir = registry.addInterceptor(needLogoutInterceptor);
