@@ -9,18 +9,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.MemberService;
+import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Member;
+import com.example.demo.vo.Reply;
 import com.example.demo.vo.Rq;
 
 @Controller
 public class UsrArticleController {
 	
 	private ArticleService articleService;
+	private ReplyService replyService;
+	private MemberService memberService;
 	private Rq rq;
 	
-	UsrArticleController(ArticleService articleService,  Rq rq) {
+	UsrArticleController(ArticleService articleService, ReplyService replyService, MemberService memberService,  Rq rq) {
 		this.articleService = articleService;
+		this.replyService = replyService;
+		this.memberService = memberService;
 		this.rq =rq;
 	}
 	
@@ -81,10 +89,20 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String detail(Model model, int id) {
 		
+		//선택한 칼럼의 내용을 가져옴.
 		Article article = articleService.forPrintArticle(id);
 		
+		//선택한 칼럼의 댓글을 가져옴.
+		List<Reply> replies = replyService.getReplies( id);
+		
+		//로그인한 놈의 정보를 가져옴.
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		//그래야 닉네임으로 보여주니까. -> 댓글 적어놓은걸.
+		model.addAttribute("nickname", member.getNickname());
 		model.addAttribute("article", article);
-		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
+//		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
+		model.addAttribute("replies", replies);
 		
 		return "usr/article/detail";
 	}

@@ -92,10 +92,11 @@
 				<div class="py-2 pl-16 border-bottom-line">
 					<div class="font-semibold">${reply.writerName }</div>
 					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
-					<div class="text-xs text-gray-400">${reply.updateDate }</div>
+					<div class="text-xs text-gray-400">${reply.answerUpdtTime }</div>
             	</div>
             	</c:forEach>
             </div>
+	</body>
+</html>           
             
 
-<%@ include file="../common/foot.jsp"%>

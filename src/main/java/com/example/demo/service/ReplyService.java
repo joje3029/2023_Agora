@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ReplyDao;
+import com.example.demo.vo.Reply;
 
 @Service
 public class ReplyService {
@@ -19,6 +22,10 @@ public class ReplyService {
 
 	public int getLastInsertId() {
 		return replyDao.getLastInsertId();
+	}
+
+	public List<Reply> getReplies(int id) {
+		return replyDao.getReplies(id);
 	}
 
 }

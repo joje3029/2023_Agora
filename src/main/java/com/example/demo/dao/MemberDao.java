@@ -25,7 +25,7 @@ public interface MemberDao {
 	
 	@Select("""
 			SELECT * 
-				FROM `member`
+				FROM `USER_INFO`
 				WHERE id = #{id}
 			""")
 	public Member getMemberById(int id);
@@ -42,7 +42,7 @@ public interface MemberDao {
 	
 	@Select("""
 			SELECT *
-				FROM `member`
+				FROM `USER_INFO`
 				WHERE `name` = #{name}
 				AND email = #{email}
 				AND cellphoneNum = #{cellphoneNum}
