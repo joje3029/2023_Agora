@@ -65,7 +65,7 @@
 	        alert('비밀번호는 영문 대문자, 소문자, 숫자, 특수문자를 각각 1개 이상 포함하여 10~50자 이내여야 합니다.');
 	        form.loginPw.value ='';
 	        form.loginPw.focus();
-	        return false;
+	        return;
 	    }
 	
 		//비밀번호확인
@@ -76,7 +76,7 @@
 		}
 		
 		//비밀번호 확인은 정규식 설정 안해.어자피 안맞으면 비밀번호 안맞는다고 하니까.
-		if (form.loginPw.value != form.loginPwChk.value) {
+		if (form.loginPw.value !== form.loginPwChk.value) {
 			alert('비밀번호가 일치하지 않습니다');
 			form.loginPw.value = '';
 			form.loginPwChk.value = '';

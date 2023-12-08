@@ -85,4 +85,11 @@ public interface MemberDao {
 			 </script>
 			""")
 	public void modifyMemebr(int id, String name, String nickname, String cellphoneNum, String email, String postNum, String adress, String detailAdress, String extAdress);
+
+	@Update("""
+			UPDATE `USER_INFO`
+				SET passwd = #{loginPw}
+			WHERE id =  #{loginedMemberId}
+			""")
+	public void modifyPw(int loginedMemberId, String loginPw);
 }

@@ -64,4 +64,9 @@ public class MemberService {
 		memberDao.modifyMemebr(id, name, nickname, cellphoneNum, email, postNum, adress, detailAdress, extAdress);
 		
 	}
+
+	public void modifyPw(int loginedMemberId, String loginPw) {
+		memberDao.modifyPw(loginedMemberId, loginPw);
+		
+	}
 }

@@ -207,13 +207,13 @@ public class UsrMemberController {
 			
 		}
 	
-	//비밀번호 바꾸기전 인증할 페이지
+	//비밀번호 바꾸기전 인증할 페이지 양식
 		@RequestMapping("/usr/member/IdentityVerification")
 		public String showIdentityVerification() {
 			return "usr/member/IdentityVerification"; 
 			
 		}
-		
+		// 인증할 페이지 양식이 아니라 직접 일하는거
 		@RequestMapping("/usr/member/doIdentityVerification")
 		@ResponseBody
 		public String doIdentityVerification(String passWd) {
@@ -224,9 +224,6 @@ public class UsrMemberController {
 			
 			 String shaPassWd=Util.sha256(passWd);
 			 
-			 System.out.println(member.getPasswd());
-			 System.out.println(shaPassWd);
-			
 			if(!member.getPasswd().equals(shaPassWd)) {
 				return Util.jsReplace("본인인증에 실패했습니다.", "IdentityVerification"); 
 			}
@@ -288,11 +285,23 @@ public String doLogin( String loginId, String loginPw) {
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
 	}
 	
-	//비밀번호수정
+	//비밀번호 변경 양식 보여주기
 	@RequestMapping("/usr/member/chagePw")
 	public String chagePw(HttpServletRequest req) {
 		
 		return "usr/member/chagePw";
+	}
+	// 비밀번호 변경실제로 되는 곳.
+	@RequestMapping("/usr/member/doChagePw")
+	@ResponseBody
+	public String doChagePw(HttpServletRequest req, String loginPw) {
+		
+		//DB가서 바꾸는 로직! 적거라!!
+		memberService.modifyPw(rq.getLoginedMemberId(), Util.sha256(loginPw));
+		
+		
+		
+		return Util.jsReplace("비밀번호가 변경되었습니다.", "/");
 	}
 	
 	//로그아웃

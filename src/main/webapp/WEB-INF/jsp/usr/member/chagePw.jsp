@@ -7,29 +7,52 @@
 <%@ include file="../common/head2.jsp"%>
 
 <script>
-	const loginForm_onSubmit = function(form){
-		form.loginId.value = form.loginId.value.trim(); // loginId는 key니까 그 키와 대칭되는 값으로 해야함.
-		form.loginPw.value = form.loginPw.value.trim();
+	const pwRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[.,\/?!@#$%^&*])[A-Za-z0-9.,\/?!@#$%^&*]{10,50}$/; //pw
+
+	const chagePwForm_onSubmit = function(form){
 		
-		if(form.loginId.value.length ==0){
-			alret('아이디를 입력해주세요');
-			form.loginId.focus();
-			return
-		}
-		if(form.loginPw.value.length ==0){
-			alret('비밀번호를 입력해주세요');
+		
+		form.loginPw.value = form.loginPw.value.trim(); // 새 비번
+		form.checkLoginPw.value = form.checkLoginPw.value.trim(); // 새 비번 확인
+
+		console.log(form.loginPw.value);
+		console.log(form.checkLoginPw.value);
+		
+		if(form.loginPw.value==0){
+			alert('새비밀번호를 입력해주세요');
 			form.loginPw.focus();
-			return
+			return;
 		}
 		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
+		if(!pwRegex.test(form.checkLoginPw.value)){
+			alert('비밀번호는 영문 대문자, 소문자, 숫자, 특수문자를 각각 1개 이상 포함하여 10~50자 이내여야 합니다.');
+			form.checkLoginPw.value = '';
+			form.checkLoginPw.focus();
+			return;
+		}
+		
+		if(form.checkLoginPw.value==0){
+			alert('새비밀번호 확인을 입력해주세요');
+			form.checkLoginPw.focus();
+			return;
+		}
+		
+		if(form.loginPw.value !== form.checkLoginPw.value){
+			alert('비밀번호가 일치하지 않습니다');
+			form.loginPw.value = '';
+			form.checkLoginPw.value ='';
+			form.loginPw.focus();
+			return;
+		}
+		
+		form.submit();
 	}
 </script>
 
 		<section class="login">
-			<h1 class="text-4xl">비밀번호 찾기</h1>
-			<form action="doLogin" method="post"
-				onsubmit="loginForm_onSubmit(this); return false;">
+			<h1 class="text-4xl">비밀번호 변경</h1>
+			<form action=doChagePw method="post"
+				onsubmit="chagePwForm_onSubmit(this); return false;">
 				<table>
 					<tr colspan="2"><p class="text-xs"><span class="text-red-700">*</span>새로운 비밀번호를 설정해 주세요.</p></tr>
 					<tr>

@@ -214,8 +214,6 @@
 	<div class="btns mt-2">
 		<div class="flex justify-between">
 			<button class="btn mr-2" onclick="history.back();">취소</button>
-			<a class="btn" href="chagePw">비밀번호 변경</a>
-			<!-- 이거 바로 가고 있는데 그전에 본인인증 따로 하게 해야함 -> 모든 웹사이트는 이런 중요한건 본인인증 한번 더 함. -->
 		</div>
 	</div>
 

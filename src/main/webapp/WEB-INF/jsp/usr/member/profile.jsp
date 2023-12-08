@@ -41,7 +41,7 @@
 				<a href="modify">회원정보 수정</a>
 			</div>
 			<div class="btn">
-					<a href="chagePw">비밀번호 변경</a>
+					<a href="IdentityVerification">비밀번호 변경</a>
 			</div>
 		</section>
 
