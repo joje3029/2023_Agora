@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html data-theme=lemonade>
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
@@ -23,6 +23,7 @@
 <!-- dompurify -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 </head>
+<!-- 테마 관련 -->
 
 <script>
 $(document).ready(function () {
