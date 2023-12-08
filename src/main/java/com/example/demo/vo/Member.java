@@ -15,6 +15,10 @@ public class Member {
 	private String nickname; //닉네임
 	private String email; //이메일
 	private String telno; //전화번호
+	private String postNum; //우편번호
+	private String adress; //주소
+	private String detailAdress; //상세주소
+	private String extAdress; //주소의 참고사항
 	private String adres; //주소
 	private int secsnEnnc; //탈퇴 유/무
 	private String joinDate; //가입일

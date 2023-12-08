@@ -15,8 +15,8 @@ public class MemberService {
 		this.memberDao = memberDao;
 	}
 
-	public void joinMember(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String adres) {
-		memberDao.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email, adres);
+	public void joinMember(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String postNum, String adress, String detailAdress, String extAdress) {
+		memberDao.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email, postNum, adress, detailAdress, extAdress);
 	}
 
 	public Member getMemberById(int id) {
@@ -58,5 +58,10 @@ public class MemberService {
 	// 메일받은 놈 아이디로 찾아서 그놈 비번을 임시 번호로 변경하는 로직
 	private void setTempPassword(Member member, String tempPassword) {
 		memberDao.doPasswordModify(member.getId(), Util.sha256(tempPassword));
+	}
+
+	public void modifyMemebr(int id, String name, String nickname, String cellphoneNum, String email, String postNum, String adress, String detailAdress, String extAdress) {
+		memberDao.modifyMemebr(id, name, nickname, cellphoneNum, email, postNum, adress, detailAdress, extAdress);
+		
 	}
 }
