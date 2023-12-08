@@ -169,7 +169,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   2,
   NULL,
-  Null
+  NULL
 );
 
 #유저 3명 만들기
@@ -205,7 +205,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 #일반 유저 2
@@ -240,7 +240,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 #일반 유저 3
@@ -275,7 +275,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 SELECT * FROM `USER_INFO`;
@@ -327,7 +327,7 @@ LIMIT 10;
 -- 원하는 행 수를 지정해주세요
 */
 
-SELECT * FROM `COLUMN` order by Id desc;
+SELECT * FROM `COLUMN` ORDER BY Id DESC;
 SELECT * FROM `USER_INFO`;
 /* 테이블 종류
 `USER_INFO`  : 사용자정보
@@ -358,18 +358,4 @@ SELECT * FROM `COLUMN`;
 SELECT * FROM `USER_INFO`;
 
 SELECT * FROM `ANSWER`;
-
-#테스트 - 뱁새 공주님을 여왕님으로 바꾸자
-# String name, String nickname, String cellphoneNum, String email, String adres
-# 일단 테스트에서는 수정날짜 칼럼 없이 진행. 되면 위에서부터 수정날짜 칼럼 추가해서 진행
-UPDATE `USER_INFO`
- set `name` = '뱁새 여왕님'
- , `nickname` = '뱁새 여왕님'
- , `email` = 'phandom0311@gmail.com'
- , `telno` = '01030302020'
- , `postNum` = '06321'
- , `adress` = '서울 강남구 청담동 403'
- , `detailAdress` = '2021'
- , `extAdress` = '(청담)'
- where id = 2
 
