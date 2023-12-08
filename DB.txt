@@ -14,10 +14,14 @@ CREATE TABLE `USER_INFO` (
 	`nickname` VARCHAR(15) NOT NULL COMMENT '닉네임',
 	`email` VARCHAR(50) NOT NULL COMMENT '이메일',
 	`telno` VARCHAR(11) NOT NULL COMMENT '전화번호',
-	`adres` VARCHAR(50) NOT NULL COMMENT '주소',
+	`postNum` VARCHAR(10) NOT NULL COMMENT '우편번호',	
+	`adress` VARCHAR(50) NOT NULL COMMENT '주소',		
+	`detailAdress` VARCHAR(50) NOT NULL COMMENT '상세주소',	
+	`extAdress` VARCHAR(50) NOT NULL COMMENT '참고항목',	
 	`secsnEnnc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0',
 	`joinDate` DATETIME NOT NULL COMMENT '가입일',
 	`mberAuthor` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
+	`modifyDate` DATETIME NULL COMMENT '수정날짜',
 	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
 
@@ -49,10 +53,12 @@ CREATE TABLE `DSCSN_ROOM` (
 
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
+	`writerId`	INT	UNSIGNED NOT NULL	COMMENT '댓글작성한 사람 ID',
+	`columnId`	INT	UNSIGNED NOT NULL	COMMENT '댓글 작성한 칼럼 ID',
 	`answerWritingTime`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
 	`answerBody`	TEXT	NOT NULL	COMMENT '댓글내용',
-	`answerUpdtTime`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
-	`answerDeleteTime`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`answerUpdtTime`	DATETIME	NULL	COMMENT '댓글수정된시간',
+	`answerDeleteTime`	DATETIME	NULL	COMMENT '댓글삭제시간',
 	`answerDeleteEnnc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
 );
 
@@ -138,11 +144,16 @@ INSERT INTO `USER_INFO` (
   `nickname`,
   `email`,
   `telno`,
-  `adres`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
   `secsnEnnc`,
   `joinDate`,
   `mberAuthor`,
-  `secsnReqstdt`
+  `secsnReqstdt`,
+  `modifyDate`
+  
 ) VALUES (
   'admin',
   SHA2('Admin123456789!', 256),
@@ -150,11 +161,15 @@ INSERT INTO `USER_INFO` (
   '관리자씨',
   'phandom0311@naver.com',
   '01012345678',
-  '서울특별시 강남구 신사동 123-456',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
   0,
   NOW(),
   2,
-  NULL
+  NULL,
+  Null
 );
 
 #유저 3명 만들기
@@ -166,11 +181,15 @@ INSERT INTO `USER_INFO` (
   `nickname`,
   `email`,
   `telno`,
-  `adres`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
   `secsnEnnc`,
   `joinDate`,
   `mberAuthor`,
-  `secsnReqstdt`
+  `secsnReqstdt`,
+  `modifyDate`
 ) VALUES (
   'test1',
   SHA2('Test1123456789!', 256),
@@ -178,11 +197,15 @@ INSERT INTO `USER_INFO` (
   '뱁새씨',
   'phandom0311@naver.com',
   '01023456789',
-  '서울특별시 강남구 신사동 123-456',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
   0,
   NOW(),
   1,
-  NULL
+  NULL,
+  Null
 );
 
 #일반 유저 2
@@ -193,11 +216,15 @@ INSERT INTO `USER_INFO` (
   `nickname`,
   `email`,
   `telno`,
-  `adres`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
   `secsnEnnc`,
   `joinDate`,
   `mberAuthor`,
-  `secsnReqstdt`
+  `secsnReqstdt`,
+  `modifyDate`
 ) VALUES (
   'test2',
   SHA2('Test2123456789!', 256),
@@ -205,26 +232,34 @@ INSERT INTO `USER_INFO` (
   '뱁새공주님',
   'phandom0311@naver.com',
   '01023456789',
-  '서울특별시 강남구 신사동 123-456',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
   0,
   NOW(),
   1,
-  NULL
+  NULL,
+  Null
 );
 
 #일반 유저 3
 INSERT INTO `USER_INFO` (
-  `uwerId`,
+   `uwerId`,
   `passwd`,
   `name`,
   `nickname`,
   `email`,
   `telno`,
-  `adres`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
   `secsnEnnc`,
   `joinDate`,
   `mberAuthor`,
-  `secsnReqstdt`
+  `secsnReqstdt`,
+  `modifyDate`
 ) VALUES (
   'test3',
   SHA2('Test3123456789!',256),
@@ -232,11 +267,15 @@ INSERT INTO `USER_INFO` (
   '뱁새아가씨',
   'phandom0311@naver.com',
   '01023456789',
-  '서울특별시 강남구 신사동 123-456',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
   0,
   NOW(),
   1,
-  NULL
+  NULL,
+  Null
 );
 
 SELECT * FROM `USER_INFO`;
@@ -288,7 +327,7 @@ LIMIT 10;
 -- 원하는 행 수를 지정해주세요
 */
 
-SELECT * FROM `COLUMN`;
+SELECT * FROM `COLUMN` order by Id desc;
 SELECT * FROM `USER_INFO`;
 /* 테이블 종류
 `USER_INFO`  : 사용자정보
@@ -306,37 +345,31 @@ SELECT * FROM `USER_INFO`;
 */
 
 INSERT INTO `COLUMN`
-SET  title = '댕댕이'
+SET  title = '댕청이'
 , writngTime = NOW()
-, `body` = '복실이'
+, `body` = '복실이 빵실이'
 , colmnClSetup ='1'
 , colmnModifiedTime = NULL
 , colmnDeleteTime = NULL
-, colmnWrter = 3
+, colmnWrter = 2
 
-
-INSERT INTO `COLUMN`
-SET  title = #{title}
-, writngTime = NOW()
-, `body` = #{body}
-, colmnClSetup ='1'
-, colmnModifiedTime = NULL
-, colmnDeleteTime = NULL
-, colmnWrter = #{memberId}
 
 SELECT * FROM `COLUMN`;
 SELECT * FROM `USER_INFO`;
 
-#작성자 기준
-SELECT C.*, U.nickname
-FROM `COLUMN` AS C
-INNER JOIN `USER_INFO` AS U
-ON C.colmnwrter = U.id
-WHERE U.nickname LIKE '뱁새아가씨'
+SELECT * FROM `ANSWER`;
 
-#전체(제목+내용+작성자)
-SELECT C.*, U.nickname
-FROM `COLUMN` AS C
-INNER JOIN `USER_INFO` AS U
-ON C.colmnwrter = U.id
-WHERE C.title LIKE '%뱁새%' OR C.body LIKE '%뱁새%' OR U.nickname LIKE '%뱁새%'
+#테스트 - 뱁새 공주님을 여왕님으로 바꾸자
+# String name, String nickname, String cellphoneNum, String email, String adres
+# 일단 테스트에서는 수정날짜 칼럼 없이 진행. 되면 위에서부터 수정날짜 칼럼 추가해서 진행
+UPDATE `USER_INFO`
+ set `name` = '뱁새 여왕님'
+ , `nickname` = '뱁새 여왕님'
+ , `email` = 'phandom0311@gmail.com'
+ , `telno` = '01030302020'
+ , `postNum` = '06321'
+ , `adress` = '서울 강남구 청담동 403'
+ , `detailAdress` = '2021'
+ , `extAdress` = '(청담)'
+ where id = 2
+
