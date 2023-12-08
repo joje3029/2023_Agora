@@ -7,6 +7,9 @@
 <!--  여기서 변수 선언헀으니까 haed에서 pageTitle을 title에 넣어서 사용가능.  -->
 
 <%@ include file="../common/head.jsp"%>
+
+<%@ include file="../common/floatingBanner.jsp"%>
+
 <%@ include file="../common/toastUiEditorLib.jsp"%>
 
 <script>

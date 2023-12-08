@@ -260,18 +260,6 @@ html>body .toastui-editor-contents {
 }
 
 /*소개페이지 css 위의 공통부분 빼고 추가로 필요한거*/
-/* amimasta */
-/* 뱁새 이미지 돔. */
-.avatar>.w-24 rounded-full>.rotate-center {
-	-webkit-animation: rotate-center 0.6s ease-in-out both;
-	animation: rotate-center 0.6s ease-in-out both;
-}
-
-/* 주인장이름 팡! */
-.content-section>.scale-up-center {
-	-webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
 
 .login>.content-section {
 	border: 2px dashed #A7F3D0;
@@ -443,9 +431,6 @@ section>.button_bar {
 
 .listBody>.article-read {
 	padding: 1px 15%;
-	background-color: rgba(248, 248, 255, 0.5);
-	
-
 }
 
 /*chatbot css*/

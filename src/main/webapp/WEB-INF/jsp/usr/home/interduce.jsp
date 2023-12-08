@@ -5,6 +5,9 @@
 <c:set var="pageTitle" value="MAIN" />
 
 <%@ include file="../common/head.jsp"%>
+
+<%@ include file="../common/floatingBanner.jsp"%>
+
 <link rel="stylesheet" href="/resource/main.css" />
 
 <section class="login">
@@ -58,9 +61,6 @@
 			<img class="chick-img"
 				src="https://cdn.pixabay.com/photo/2014/03/25/15/22/tracks-296631_1280.png"
 				alt="병아리 발자국">
-		</div>
-		<div class="border">test
-			<img src="/resource/static.image/favicon.ico" alt="파비콘 테스트" />
 		</div>
 	</div>
 </section>

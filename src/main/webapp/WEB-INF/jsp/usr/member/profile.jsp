@@ -6,6 +6,7 @@
 
 <%@ include file="../common/head.jsp"%>
 
+
 <section class="login">
 	<h1 class="text-4xl">내 회원정보</h1>
 	<div class="width80">

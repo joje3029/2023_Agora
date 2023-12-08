@@ -23,7 +23,6 @@
 <!-- dompurify -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 </head>
-<!-- 테마 관련 -->
 
 <script>
 $(document).ready(function () {
