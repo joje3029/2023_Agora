@@ -48,7 +48,7 @@ public class UsrMemberController {
 		return ResultData.from("S-1", Util.f("%s은(는) 사용 가능한 아이디입니다", loginId));
 	}
 	
-	
+	//회원가입 실행하는 부분
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin( String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, String postNum, String adress, String detailAdress , String extAdress  ) {
@@ -129,14 +129,10 @@ public class UsrMemberController {
 	
 		return "usr/member/modify";
 	}
-	
+	//회원정보 수정하는 부분
 	@RequestMapping("/usr/member/domodify")
 	@ResponseBody
 	public String domodify(int id, String name, String nickname, String cellphoneNum, String email, String postNum, String adress, String detailAdress , String extAdress) {
-		
-		// 뒤에서 해당인 놈 입력받은 정보로 수정되게 하기
-		// form으로 보내는 정보 - 이름 : name / 닉네임 : nickname / 이메일 : email / 전화번호 : cellphoneNum / 주소는 아래의 3개 받으면 됨...
-		
 		
 		if (Util.empty(name)) {
 			return Util.jsHistoryBack("이름을 입력해주세요");
@@ -168,8 +164,6 @@ public class UsrMemberController {
 		cellphoneNum = splitCellphoneNum[0]+splitCellphoneNum[1]+splitCellphoneNum[2];
 		
 		memberService.modifyMemebr(id, name, nickname, cellphoneNum, email, postNum, adress, detailAdress, extAdress );
-		
-		System.out.println(2);
 		
 		return Util.jsReplace(Util.f("%s님의 회원정보수정이 완료되었습니다", name), "/"); 
 		
@@ -212,6 +206,36 @@ public class UsrMemberController {
 			return "usr/member/foundId";// 찾은 아이디 알려주는 jsp 
 			
 		}
+	
+	//비밀번호 바꾸기전 인증할 페이지
+		@RequestMapping("/usr/member/IdentityVerification")
+		public String showIdentityVerification() {
+			return "usr/member/IdentityVerification"; 
+			
+		}
+		
+		@RequestMapping("/usr/member/doIdentityVerification")
+		@ResponseBody
+		public String doIdentityVerification(String passWd) {
+			
+			//여서 할일
+			//form에서 name = passWd로 한거랑 지금 요청하는 놈 비번 일치하는지 DB를 갔다와야해요. 맞으면 비번 바꾸는데로 보내고 아니면 다시 돌려보내야함.
+			Member member = memberService.getMemberById(rq.getLoginedMemberId());
+			
+			 String shaPassWd=Util.sha256(passWd);
+			 
+			 System.out.println(member.getPasswd());
+			 System.out.println(shaPassWd);
+			
+			if(!member.getPasswd().equals(shaPassWd)) {
+				return Util.jsReplace("본인인증에 실패했습니다.", "IdentityVerification"); 
+			}
+			
+			return Util.jsReplace("본인인증에 성공했습니다.", "chagePw");
+			
+		}
+		
+		
 	//비밀번호
 		@RequestMapping("/usr/member/findPw")
 		public String findPW(HttpServletRequest req) {
@@ -290,6 +314,7 @@ public String doLogin( String loginId, String loginPw) {
 	//인증번호 이메일 로직
 	@RequestMapping("/usr/member/doSendEmail")
 	public String doSendEmail(HttpServletRequest req) {
+		
 		
 		
 		return Util.jsReplace(Util.f("인증메일이 발송되었습니다. 이메일을 확인해주세요"), "join");
