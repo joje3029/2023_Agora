@@ -131,7 +131,6 @@ public class UsrArticleController {
 	public String doModify(int id, String title, String body) {
 		
 		System.out.println(1);
-		// 여기까지는 잘 들어옴.
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -150,6 +149,8 @@ public class UsrArticleController {
 		}
 		
 		System.out.println(5);
+		
+		//여기서부터 문제네
 		
 		articleService.modifyArticle(id, title, body);
 		

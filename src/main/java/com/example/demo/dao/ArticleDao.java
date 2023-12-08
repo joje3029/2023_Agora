@@ -82,10 +82,7 @@ public interface ArticleDao {
 						, `body` = #{body}
 					</if>
 				, colmnClSetup ='1'
-				, colmnModifidTime = NOW()
-				, colmnDeleteTime = NOW()
-				, colmnDeleteEnnc = 1
-				, colmnWrter = 1
+				, colmnModifiedTime = NOW()
 			WHERE id = #{id}
 			</script>
 			""")
