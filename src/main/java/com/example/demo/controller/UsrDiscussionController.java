@@ -79,7 +79,7 @@ public class UsrDiscussionController {
 		// 병호님 채팅 목록부터 한거 참고하기 -> 웹소켓님(병호님이 다대다로 해서 가능함.)
 		
 		if(type.equals("1")) {
-			
+			//보내야하는 내용. 그이전에 구글링 : 키워드 
 			
 			return "usr/discussion/chat";
 		}
