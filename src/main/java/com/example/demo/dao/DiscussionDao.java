@@ -6,26 +6,53 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.demo.vo.Article;
+import com.example.demo.vo.DiscussionRoom;
 
 @Mapper
 public interface DiscussionDao {
 	
-	@Select("""
-			SELECT A.*, M.nickname AS nickname
-				FROM article AS A
-				INNER JOIN `member` AS M
-				ON A.memberId = M.id
-				WHERE A.boardId = #{boardId}
-				ORDER BY A.id DESC
-				LIMIT #{limitStart}, #{itemsInAPage}
-			""")
-	public List<Article> getArticles(int boardId, int limitStart, int itemsInAPage);
 	
+	@Select("""
+			<script>
+			SELECT COUNT(*)
+				FROM `DSCSN_ROOM` AS D
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordType == 'roomName'"> # 토론방이름
+							WHERE D.roomName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'managerName'"> # 방장이름
+							WHERE D.managerName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'all'"> # 전체
+							WHERE D.roomName LIKE CONCAT('%', #{searchKeyword}, '%') OR D.managerName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</if>
+			</script>	
+			""")
+	public int getDiscussionCnt(String searchKeywordType, String searchKeyword);
 
 	@Select("""
-			SELECT COUNT(*)
-				FROM article
-				WHERE boardId = #{boardId}
+			<script>
+			SELECT *
+				FROM `DSCSN_ROOM` AS D
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordType == 'roomName'"> # 토론방이름
+							WHERE D.roomName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'managerName'"> # 방장이름
+							WHERE D.managerName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'all'"> # 전체
+							WHERE D.roomName LIKE CONCAT('%', #{searchKeyword}, '%') OR D.managerName LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</if>
+				ORDER BY D.id DESC
+				LIMIT #{limitStart}, #{itemsInAPage}
+			</script>	
 			""")
-	public int getArticlesCnt(int boardId);
+	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword);
 }

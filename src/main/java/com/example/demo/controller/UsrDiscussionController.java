@@ -6,12 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.DiscussionService;
-import com.example.demo.util.Util;
-import com.example.demo.vo.Article;
-import com.example.demo.vo.Board;
+import com.example.demo.vo.DiscussionRoom;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -26,25 +23,26 @@ public class UsrDiscussionController {
 	}
 	//토론방 리스트
 	@RequestMapping("/usr/discussion/list")
-	public String list(Model model, int boardId, @RequestParam(defaultValue = "1") int page, String searchKeywordType, String searchKeyword) {//파라미터를 받아야지. 파라미터를 받는 이유. 그래야 어디서부터 보여주는지 list가 알지. 그래서 요청으로 받아서 넘기는거야.
-		if (page <= 0) { 
+	public String list(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
+		if (page <= 0) {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
 		}
 		
+		// 총 페이지 개수 -> 총 토론방 개수
+		int discussionCnt = discussionService.getDiscussionCnt(searchKeywordType, searchKeyword);
 		
-		int articlesCnt = discussionService.getArticlesCnt(boardId);
-		
+		//페이징 관련 변수
 		int itemsInAPage  = 10;
-		
-		int pagesCnt  = (int)Math.ceil((int)articlesCnt/itemsInAPage); // 이래야 소숫점까지 나오니까 올림을 할지 말지 파악 가능.
-		
 		int limitStart  = (page-1) * itemsInAPage;
-
-		List<Article> articles = discussionService.getArticles(boardId, limitStart, itemsInAPage); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		int pagesCnt = (int) Math.ceil((double) discussionCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
 		
-		model.addAttribute("articles", articles);
-		model.addAttribute("articlesCnt", articlesCnt);
+		// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
+		//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
+		List<DiscussionRoom> disussionRooms = discussionService.getdisussionRooms(limitStart, itemsInAPage, searchKeywordType, searchKeyword); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		
+		model.addAttribute("searchKeywordType", searchKeywordType);
+		model.addAttribute("disussionRooms", disussionRooms);
+		model.addAttribute("articlesCnt", discussionCnt);
 		model.addAttribute("pagesCnt", pagesCnt);
 		model.addAttribute("page", page);
 		

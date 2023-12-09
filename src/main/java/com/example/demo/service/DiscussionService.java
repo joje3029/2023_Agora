@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.DiscussionDao;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.DiscussionRoom;
 
 @Service
 public class DiscussionService {
@@ -16,14 +17,14 @@ public class DiscussionService {
 		this.discussionDao = discussionDao;
 	}
 
-	//냄길것
-	public List<Article> getArticles(int boardId, int limitStart, int itemsInAPage) {
-		return discussionDao.getArticles(boardId, limitStart, itemsInAPage);
+	public int getDiscussionCnt(String searchKeywordType, String searchKeyword) {
+		return discussionDao.getDiscussionCnt(searchKeywordType, searchKeyword);
 	}
+
+	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword) {
+		return discussionDao.getdisussionRooms(limitStart,itemsInAPage, searchKeywordType, searchKeyword);
+	}
+
 	
-	//냄길것
-	public int getArticlesCnt(int boardId) {
-		return discussionDao.getArticlesCnt(boardId);
-	}
 	
 }
