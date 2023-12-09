@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
+<!-- 파비콘 -->
+<link rel="shortcut icon" href="/resource/images/favicon.ico" />
 <!-- 데이지ui cdn -->
 <link
 	href="https://cdn.jsdelivr.net/npm/daisyui@4.4.10/dist/full.min.css"
@@ -71,7 +73,7 @@ $(document).ready(function () {
 	<section id="header">
 		<div class="site_name" id="site_name">
 			<a href="/"><span id="logo_name">Agora</span><img
-				src="/resource/static.image/free-icon-temple-3874642.png" alt="신전" /></a>
+				src="/resource/images/free-icon-temple-3874642.png" alt="신전" /></a>
 		</div>
 		<div>
 			<ul class="menu_bar" id="menu_bar">

@@ -51,7 +51,7 @@
 
 	<section class="listBody">
 		<form action="doWrite" method="post"
-			onsubmit="submitForm(this); return false;">
+			onsubmit="writeForm_onSubmit(this); return false;">
 			<input name="body" type="hidden" />
 			<div class="table-box-type">
 				<table class="table table-lg">

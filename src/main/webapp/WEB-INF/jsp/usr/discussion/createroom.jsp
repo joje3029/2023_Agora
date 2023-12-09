@@ -7,29 +7,59 @@
 
 <%@ include file="../common/head2.jsp"%>
 
+<script>
+
+	$(document).ready(function() {
+	    const roomNameInput = $('#roomName');
+	    const maxLength = 50;
+	
+	    roomNameInput.on('input', function() {
+	    	
+	    	const roomNameInput = $(this).val();
+	        
+	        if (roomNameInput.length > maxLength) {
+	            $(this).val(roomNameInput.slice(0, maxLength)); // 최대 길이까지만 잘라냄
+	            alert('제목은 50자 이내여야 합니다.');
+	        }
+	    });
+	});
+
+	const createForm_onSubmit = function(form){
+		form.roomName.value = form.roomName.value.trim();
+		
+		if(form.roomName.value.length ==0){
+			alert('토론방이름을 입력해주세요');
+			form.roomName.focus();
+			return
+		}
+		
+		form.submit(); 
+	}
+</script>
+
 		<section class="login border">
 	        <h1 class="text-4xl">토론방 만들기</h1>
-	        <form action="">
+	        <form action="docreateroom" method="post" onsubmit="createForm_onSubmit(this); return false;">
 	            <table class="border">
 	                <tr class="border">
 	                    <th class="border">토론방 이름</th>
-	                    <td><input class="input input-bordered w-full max-w-xs input-sm" type="text" placeholder="토론방 이름을 입력해주세요"></td>
+	                    <td><input id="roomName" name="roomName" class="input w-full max-w-xs input-sm" type="text" placeholder="토론방 이름을 입력해주세요"></td>
 	                </tr>
 	                <tr class="border">
 	                    <th colspan="2">
 	                        <label>
-	                            <input type="radio" name="type" value="채팅" class="radio radio-success radio-xs" checked/>
+	                            <input type="radio" name="type" value="1" class="radio radio-success radio-xs" checked/>
 	                            채팅 토론
 	                        </label>
 	                        &nbsp;
 	                        <label>
-	                            <input type="radio" name="type" value="화상" class="radio radio-success radio-xs ">
+	                            <input type="radio" name="type" value="2" class="radio radio-success radio-xs ">
 	                            화상 토론
 	                        </label>
 	                    </th>
 	                </tr>
-	                <tr class="border">
-	                    <th colspan="2"><button class="btn border mt-1">만들기</button></th>
+	                <tr>
+	                    <th colspan="2"><button class="btn border m-1">만들기</button></th>
 	                </tr>
 	            </table>
 	        </form>

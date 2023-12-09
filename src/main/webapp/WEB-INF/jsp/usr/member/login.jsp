@@ -84,9 +84,9 @@
 	            </div>
 	            <hr>
 	            <div class="external_login">
-	                <img class="" src="/resource/static.image/kakao_login.png" alt="카카오로그인">
-	                <img src="/resource/static.image/naver_login.png" alt="네이버로그인">
-	                <img src="/resource/static.image/google_login.png" alt="구글로그인">
+	                <img src="/resource/images/kakao_login.png" alt="카카오로그인">
+	                <img src="/resource/images/naver_login.png" alt="네이버로그인">
+	                <img src="/resource/images/google_login.png" alt="구글로그인">
 	                <div>QR코드들어올자리</div>
 	            </div>
 </section>
