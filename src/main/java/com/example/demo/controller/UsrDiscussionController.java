@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,8 +63,7 @@ public class UsrDiscussionController {
 	}
 	// 토론방 생성하는 아
 	@RequestMapping("/usr/discussion/docreateroom")
-	@ResponseBody
-	public String doCreateroom(HttpServletRequest req, String roomName, int typeId ) {
+	public String doCreateroom(HttpServletRequest req, String roomName, String type ) {
 		//인터셉터에서 로그인 해야만 가능하게 설정할꺼니까 로그인했냐 안했냐도 필요없고, 
 		
 		if (Util.empty(roomName)) {
@@ -74,8 +74,23 @@ public class UsrDiscussionController {
 		//1차 목표는 그거에 따라서 지금 만들어져 있는 jsp로 연결하는걸로하자.
 		// typeId = 1 : 채팅 , typeId = 2 : 화상  
 		
+		//연결결과 잘감. 이제 갈때 정보 데꼬가게 하면 되겠네. model로
 		
-		return null;
+		//우선 채팅이 성공하면 화상도 비슷하게 하면되니까 여기서부터 생각하면 되겠네
+		
+		// 병호님 채팅 목록부터 한거 참고하기 -> 웹소켓님(병호님이 다대다로 해서 가능함.)
+		
+		if(type.equals("1")) {
+			
+			
+			return "usr/discussion/chat";
+		}
+		
+		if(type.equals("2")) {
+			return "usr/discussion/cam";
+		}
+		
+		return null; // 없으면 뭐라하니까. 실제로는 1이냐 2만 있으면 되지만...
 	}
 	
 	
