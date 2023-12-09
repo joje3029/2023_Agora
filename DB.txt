@@ -169,7 +169,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   2,
   NULL,
-  NULL
+  Null
 );
 
 #유저 3명 만들기
@@ -205,7 +205,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  NULL
+  Null
 );
 
 #일반 유저 2
@@ -240,7 +240,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  NULL
+  Null
 );
 
 #일반 유저 3
@@ -275,7 +275,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  NULL
+  Null
 );
 
 SELECT * FROM `USER_INFO`;
@@ -327,7 +327,7 @@ LIMIT 10;
 -- 원하는 행 수를 지정해주세요
 */
 
-SELECT * FROM `COLUMN` ORDER BY Id DESC;
+SELECT * FROM `COLUMN` order by Id desc;
 SELECT * FROM `USER_INFO`;
 /* 테이블 종류
 `USER_INFO`  : 사용자정보
@@ -358,4 +358,3 @@ SELECT * FROM `COLUMN`;
 SELECT * FROM `USER_INFO`;
 
 SELECT * FROM `ANSWER`;
-
