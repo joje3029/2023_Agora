@@ -34,3 +34,19 @@
 
 -----------------------------------------------------------------------
 우선 웹 소켓을 쓰기 전에 DB명과 그런게 저장되는지를 보자.
+
+-----------------------------------------------------------------
+redirect.addAttribute("discussionId", discussionId)
+는
+
+discussionId를 URLdp 해당 값을 usr/discussion/chat 으로 전달함.
+
+병호님 창마다 url 메모
+채팅망 목록 : /usr/chat/chatRoomList
+채팅방 생성 : /usr/chat/createChatRoomForm
+생성하고나서 canjoin()으로 넘어갔을때 : /usr/chat/joinChatRoom?chatRoomId=12
+채팅방 : /usr/chat/joinChatRoom?chatRoomId =12
+
+1. 일단 로그인하고 나서 자기 이름 보이게 저기 옆에 두자
+=> 이거 하려면 loginmemberID 말고도 nickname이랑 loginId도 넘어가야한는데 그거를 안해놓으니까 토론방이고 댓글이고 하다가 귀찮아진다.
+귀찮은거 회피한다고 해결되는것도 아니고 해결하자. 

@@ -47,9 +47,22 @@ CREATE TABLE `DSCSN_ROOM` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '토론방ID',
 	`dscsnRoomNm`	VARCHAR(50)	NOT NULL	COMMENT '토론방이름',
 	`crtrId`	INT	UNSIGNED NOT NULL	COMMENT '생성자ID',
+	`type`	INT	UNSIGNED NOT NULL	COMMENT '토론방 채팅(1)인가 화상(2)인가 구분 ',
 	`dscsnRoomCreatDete`	DATETIME	NOT NULL	COMMENT '토론방생성일자',
-	`dscsnRoomDeleteDete`	DATETIME	NOT NULL	COMMENT '토론방삭제일자'
+	`dscsnRoomDeleteDete`	DATETIME	NULL	COMMENT '토론방삭제일자'
 );
+
+INSERT INTO `DSCSN_ROOM`
+ SET dscsnRoomNm = '뱁새씨란?'
+	, crtrId = 2
+	, `type` = 1
+	, dscsnRoomCreatDete = NOW()
+
+DROP TABLE `DSCSN_ROOM`
+	
+SELECT * 
+FROM `DSCSN_ROOM`
+WHERE id = 3
 
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
@@ -169,7 +182,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   2,
   NULL,
-  Null
+  NULL
 );
 
 #유저 3명 만들기
@@ -205,7 +218,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 #일반 유저 2
@@ -240,7 +253,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 #일반 유저 3
@@ -275,7 +288,7 @@ INSERT INTO `USER_INFO` (
   NOW(),
   1,
   NULL,
-  Null
+  NULL
 );
 
 SELECT * FROM `USER_INFO`;
@@ -327,7 +340,7 @@ LIMIT 10;
 -- 원하는 행 수를 지정해주세요
 */
 
-SELECT * FROM `COLUMN` order by Id desc;
+SELECT * FROM `COLUMN` ORDER BY Id DESC;
 SELECT * FROM `USER_INFO`;
 /* 테이블 종류
 `USER_INFO`  : 사용자정보
