@@ -15,13 +15,6 @@
 <!-- 캐러셀을 일단 안쓴 버전으로 퍼블리싱을 하자 => 캐러셀같은 프론트 단때문에 시간 많이 잡아먹지 말자! -->
 <section class="main">
 
-	<!-- 토론방 잘 가는지 확인하려고 임시로 만든 로직 -->
-	<div class="border">
-		<a href="/usr/discussion/chat">채팅방</a>
-	</div>
-	<div class="border">
-		<a href="/usr/discussion/cam">화상방</a>
-	</div>
 	<!-- 관리자쪽 페이지 잘 넘어가는지 화긴하려고 임시로 만든 로직 -> 확인 잘 되면 유저쪽이랑 분리 시켜야함 -->
 	<div class="border">
 		<a href="/usr/admin/login">관리자 로그인</a>

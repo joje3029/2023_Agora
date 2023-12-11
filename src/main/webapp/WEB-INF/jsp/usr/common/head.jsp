@@ -120,6 +120,8 @@ $(document).ready(function () {
 					<li class="inline-block"><a href="/usr/member/login"><span>LOGIN</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
+					<li class="inline-block">닉네임</li>
+					&nbsp;&nbsp;&nbsp;&nbsp;
 					<li class="inline-block"><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 				</c:if>
 			</ul>
