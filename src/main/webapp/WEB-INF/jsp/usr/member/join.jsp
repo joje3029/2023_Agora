@@ -318,8 +318,9 @@
 
 					<!-- 회원가입 -->
 					<tr>
-						<td class="text-center" colspan="2"><button
-								class="btn btn-wide">회원가입</button></td>
+						<td class="text-center" colspan="2">
+							<button class="btn btn-wide">회원가입</button>
+						</td>
 					</tr>
 				</table>
 			</div>

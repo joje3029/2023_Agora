@@ -9,6 +9,17 @@
 
 <script src="/resource/common.js" defer="defer"></script>
 
+<script>
+	// ajax 함수 2개 만들기 -  (1)cnaJoin : 토론방 참가하는 거 (2)canCreate : 로톤방 만드는거 
+	function canCreate(chatRoomId) {
+			
+		alert("false다  임마!")// 일 잘하는 구만	
+		
+			return false; 
+	}			
+			
+</script>
+
 <section class="listBody">
 	 <div>
             <div class="text-sm breadcrumbs">
@@ -56,7 +67,7 @@
         <c:if test="${rq.getLoginedMemberId() != 0 }">
             <div class="flex justify-end">
                 <div class="mr-16 btn mt-1">
-                    <a href="createroom">토론방 만들기</a>
+                    <a href="createroom" onclick="if (canCreate() == false) {return false;}">토론방 만들기</a>
                 </div>
             </div>
         </c:if>
@@ -66,15 +77,15 @@
                 <c:forEach var="disussionRoom" items="${disussionRooms }">
                     <div class="border list_outline m-0.5">
                         <div>
-                            <a href="detail?id=${article.id }"> 
-                                <p class="room-name p-3 bg-green-100">방 이름 ${article.title }</p>
+                            <a href="detail?id=${article.id }" onclick="if (canJoin(${disussionRoom.id}) == false) {return false;}"> 
+                                <p class="room-name p-3 bg-green-100">방 이름 ${disussionRoom.title }</p>
                                 <div class="empty"></div>
                                 <div class="flex">
                                     <i class="fa-solid fa-user"></i>
                                     &nbsp;
-                                    <p class="moderator">방장명 ${article.nickname }</p>
+                                    <p class="moderator">방장명 ${disussionRoom.crtrId }</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <p class="headcount">방 인원${article.writngTime }</p>
+                                    <p class="headcount">방 인원${disussionRoom }</p>
                                 </div>
                             </a>
                         </div>
