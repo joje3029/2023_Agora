@@ -33,6 +33,10 @@ public class DiscussionService {
 		return discussionDao.getLastInsertId();
 	}
 
+	public DiscussionRoom getDiscussionRoomById(int discussionId) {
+		return discussionDao.getDiscussionRoomById(discussionId);
+	}
+
 	
 	
 }

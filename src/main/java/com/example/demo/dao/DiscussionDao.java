@@ -68,4 +68,11 @@ public interface DiscussionDao {
 	
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+	
+	@Select("""
+			SELECT *
+				FROM `DSCSN_ROOM` AS D
+				WHERE id = #{discussionId}
+			""")
+	public DiscussionRoom getDiscussionRoomById(int discussionId);
 }

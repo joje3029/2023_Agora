@@ -6,23 +6,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.service.DiscussionService;
+import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.DiscussionRoom;
+import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrDiscussionController {
-	
+	private MemberService memberService;
 	private DiscussionService discussionService;
 	private Rq rq;
 	
-	UsrDiscussionController(DiscussionService discussionService, Rq rq) {
+	UsrDiscussionController(DiscussionService discussionService, MemberService memberService, Rq rq) {
 		this.discussionService = discussionService;
+		this.memberService = memberService;
 		this.rq =rq; 
 	}
 	//토론방 리스트
@@ -98,14 +102,22 @@ public class UsrDiscussionController {
 	}
 	
 	
-	
-	
-	
-	
-	
 	//채팅방
 	@RequestMapping("/usr/discussion/chat")
-	public String chat() {
+	public String chat(Model model, @RequestParam("discussionId") int discussionId) {
+		// 내가 만들든 선택하든 한놈 채팅방으로 가기 위해
+		DiscussionRoom discussionRoom = discussionService.getDiscussionRoomById(discussionId);
+		
+		if (discussionRoom.getId() == 0) {
+			return rq.jsReturnOnView("존재하지 않는 토론방 입니다");
+		}
+		
+		//로그인한 놈 정보 같이 넘기기 위해 DB 가기
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		model.addAttribute("discussionRoom", discussionRoom);
+	    model.addAttribute("member", member);
+		
 		return "usr/discussion/chat";
 	}
 	
