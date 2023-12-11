@@ -72,8 +72,9 @@ $(document).ready(function () {
 <body>
 	<section id="header">
 		<div class="site_name" id="site_name">
-			<a href="/"><span id="logo_name">Agora</span><img
-				src="/resource/images/free-icon-temple-3874642.png" alt="신전" /></a>
+			<a href="/"><span id="logo_name">Agora</span>
+			<img src="/resource/images/Temple4.png" alt="신전5" />
+			</a>
 		</div>
 		<div>
 			<ul class="menu_bar" id="menu_bar">

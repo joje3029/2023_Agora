@@ -3,7 +3,9 @@
 
 <div class="footer" id="footer">
 	<div class="site_name">
-		<a href="/">Agora</a>
+		<a href="/">Agora
+		<img class="h-8" src="/resource/images/Temple4.png" alt="신전5" />
+		</a>
 	</div>
 	<div class=footer_menu>
 		<ul>

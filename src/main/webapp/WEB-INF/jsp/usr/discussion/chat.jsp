@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 이 페이지에서 쓸꺼니까 c. head로 넘기면 안되는 이유. head 아래의 선언보다 아래에서 연결됨. -->
 
-<!--<c:set var="pageTitle" value="${board.name }" />-->
+<c:set var="pageTitle" value="채팅 토론방" />
 
 <!-- head2로 할지 head로 할지 정해야함. -->
 <%@ include file="../common/head2.jsp"%>
@@ -12,11 +12,11 @@
 		<section class="listBody">
 			<section class="top border flex justify-between">
 				<div class="room-name w-11/12 text-center">토론방 이름 ${discussionRoom.dscsnRoomNm }</div>
-				<div class="w-16 border text-center">나가기</div>
+				<div class="w-16 border text-center"><a href="/usr/discussion/list"> 나가기</a></div>
 			</section>
 			<section class="personnel-section my-2 border">
-				<div>인원 : 인원수(DB에서 받아오기)</div>
-				<div>참가 인원 닉네임 표시될 부분</div>
+				<div>인원 : 인원수(DB에서 받아오기)</div><!-- 이건 연결되기 전에 컨트롤러에서 DB갔다와서 model로 해줘야함 -->
+				<div>참가 인원 닉네임 표시될 부분</div><!-- 이건 연결되기 전에 컨트롤러에서 DB갔다와서 model로 해줘야함 -->
 			</section>
 			<section class="chat-body border">
 				<!--데이지 ui에서 class 이걸로 써서 채팅할꺼임.-->
