@@ -11,12 +11,7 @@
 
 <script>
 	// ajax 함수 2개 만들기 -  (1)cnaJoin : 토론방 참가하는 거 (2)canCreate : 로톤방 만드는거 
-	function canCreate(chatRoomId) {
-			
-		alert("false다  임마!")// 일 잘하는 구만	
-		
-			return false; 
-	}			
+	// 근데 canCreate는 지금 만들필요 없을것 같아 나는 병호님과는 다르게 1유저가 1개만 만드는게 아니니까.			
 			
 </script>
 
@@ -67,7 +62,7 @@
         <c:if test="${rq.getLoginedMemberId() != 0 }">
             <div class="flex justify-end">
                 <div class="mr-16 btn mt-1">
-                    <a href="createroom" onclick="if (canCreate() == false) {return false;}">토론방 만들기</a>
+                    <a href="createroom" >토론방 만들기</a>
                 </div>
             </div>
         </c:if>
@@ -78,14 +73,14 @@
                     <div class="border list_outline m-0.5">
                         <div>
                             <a href="detail?id=${article.id }" onclick="if (canJoin(${disussionRoom.id}) == false) {return false;}"> 
-                                <p class="room-name p-3 bg-green-100">방 이름 ${disussionRoom.title }</p>
+                                <p class="room-name p-3 bg-green-100">${disussionRoom.dscsnRoomNm }</p>
                                 <div class="empty"></div>
                                 <div class="flex">
                                     <i class="fa-solid fa-user"></i>
                                     &nbsp;
-                                    <p class="moderator">방장명 ${disussionRoom.crtrId }</p>
+                                    <p class="moderator">${disussionRoom.crtrId }</p><!-- 이거 가꼬올때 inner join 해야겠다. -->
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <p class="headcount">방 인원${disussionRoom }</p>
+                                    <p class="headcount">방 인원</p>
                                 </div>
                             </a>
                         </div>
