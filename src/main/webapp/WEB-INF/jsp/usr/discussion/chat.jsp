@@ -11,7 +11,7 @@
 
 		<section class="listBody">
 			<section class="top border flex justify-between">
-				<div class="room-name w-11/12 text-center">토론방 이름</div>
+				<div class="room-name w-11/12 text-center">토론방 이름 ${discussionRoom.dscsnRoomNm }</div>
 				<div class="w-16 border text-center">나가기</div>
 			</section>
 			<section class="personnel-section my-2 border">
