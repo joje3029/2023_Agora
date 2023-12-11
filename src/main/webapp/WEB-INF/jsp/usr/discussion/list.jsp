@@ -75,7 +75,7 @@
                             <a href="detail?id=${article.id }" onclick="if (canJoin(${disussionRoom.id}) == false) {return false;}"> 
                                 <p class="room-name p-3 bg-green-100">${disussionRoom.dscsnRoomNm }</p>
                                 <div class="empty"></div>
-                                <div class="flex">
+                                <div class="flex"> 
                                     <i class="fa-solid fa-user"></i>
                                     &nbsp;
                                     <p class="moderator">${disussionRoom.crtrId }</p><!-- 이거 가꼬올때 inner join 해야겠다. -->

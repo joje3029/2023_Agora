@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -55,4 +56,16 @@ public interface DiscussionDao {
 			</script>	
 			""")
 	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword);
+	
+	@Insert("""
+			INSERT INTO `DSCSN_ROOM`
+				 SET dscsnRoomNm = #{roomName}
+					, crtrId = #{loginedMemberId}
+					, `type` = #{type}
+					, dscsnRoomCreatDete = NOW()
+			""")
+	public void createDiscussionRoom(int loginedMemberId, String roomName, String type);
+	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
 }

@@ -25,6 +25,14 @@ public class DiscussionService {
 		return discussionDao.getdisussionRooms(limitStart,itemsInAPage, searchKeywordType, searchKeyword);
 	}
 
+	public void createDiscussionRoom(int loginedMemberId, String roomName, String type) {
+		discussionDao.createDiscussionRoom(loginedMemberId, roomName, type);
+	}
+
+	public int getLastInsertId() {
+		return discussionDao.getLastInsertId();
+	}
+
 	
 	
 }

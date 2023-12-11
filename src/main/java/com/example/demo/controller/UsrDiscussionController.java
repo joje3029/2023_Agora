@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.service.DiscussionService;
 import com.example.demo.util.Util;
@@ -61,7 +62,7 @@ public class UsrDiscussionController {
 	}
 	// 토론방 생성하는 아
 	@RequestMapping("/usr/discussion/docreateroom")
-	public String doCreateroom(HttpServletRequest req, String roomName, String type ) {
+	public String doCreateroom(RedirectAttributes redirect, HttpServletRequest req, String roomName, String type ) {
 		//인터셉터에서 로그인 해야만 가능하게 설정할꺼니까 로그인했냐 안했냐도 필요없고, 
 		
 		if (Util.empty(roomName)) {
@@ -79,8 +80,12 @@ public class UsrDiscussionController {
 		// 병호님 채팅 목록부터 한거 참고하기 -> 웹소켓님(병호님이 다대다로 해서 가능함.)
 		
 		if(type.equals("1")) { // 채팅이래
-			//보내야하는 내용. 그이전에 구글링 : 키워드 
+			// 방 만들기 : 넘길 내용. 방제목 만든놈, 방 타입
+			discussionService.createDiscussionRoom(rq.getLoginedMemberId(), roomName, type);
 			
+			int discussionId = discussionService.getLastInsertId();
+			
+			redirect.addAttribute("discussionId", discussionId);
 			
 			return "usr/discussion/chat";
 		}
