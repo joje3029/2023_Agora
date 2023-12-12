@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; // 스크립트를 엄격한 모드로 실행하도록 지시하는 역할
 
 let stompClient = null; // 밑에서 쓰니까 전역으로 미리 뺀거네
 let memberId = null; //
@@ -10,12 +10,16 @@ let messageForm = document.querySelector('#message-form'); // 내가 쓴 메세�
 let messageInput = document.querySelector('#message-input'); // 내가 쓴 메세지 보내기 안에 있는 input 부분
 let exitButton = document.querySelector('#exit-button'); // 나가기
 
-//	URL 에서 chatRoomId 파라미터 값 가져오기 -> 나는 discussionId 파라미터값을 가져와야겠네.  
+//	URL 에서 discussionId 파라미터 값 가져오기 -> 나는 discussionId 파라미터값을 가져와야겠네.  
 const url = new URL(location.href).searchParams; // searchParams : URL 쿼리 문자열을 나타내는 URLSearchParams 객체에 대한 참조 
 // const url = new URL(location.href); 은 현재 문서의 URL을 나타내는 객체를 생성함. 
 // URL.searchparams는 해당 URL의 쿼리 문자열 부분을 나타내는 URLSearchparams 객체를 반환
 // => 즉, 현재 문서의 URL에서 쿼리 문자열을 추출하여 URLSearchparams 객체로 얻게 됨.
-const chatRoomId = url.get('chatRoomId'); // 쿼리 문자열에서 chatRoomId라는 이름의 매개변수의 값을 가져오고 있음.
+const discussionId = url.get('discussionId'); // 쿼리 문자열에서 discussionId라는 이름의 매개변수의 값을 가져오고 있음.
+
+console.log("url"+url); //discussionId=8
+console.log("discussionId"+discussionId); //discussionId8
+
 
 // 웹페이지의 모든 리소스(이미지, 스타일시트, 스크립트 등)가 완전히 로드되고 나면 실행되는 이벤트.
 // 브라우저가 웹 페이지의 모든 내용을 성공적으로 불러온 후에 이 이벤트 발생
@@ -23,11 +27,14 @@ const chatRoomId = url.get('chatRoomId'); // 쿼리 문자열에서 chatRoomId�
 window.onload = function connect(event) {
 	
 	//	주소창 누르고 새로고침하면 퇴장, 입장 반복되던 부분 안되게
-	if (performance.navigation.type == 1) {
-		alert("정상적인 접근이 아닙니다.");
-		location.href = '/usr/chat/chatRoomList';
-		return;
-	}
+
+//	기능 만드는 동안 주석 - 불편
+//	if (performance.navigation.type == 1) {
+//		alert("정상적인 접근이 아닙니다.");
+//		location.href = '/usr/chat/chatRoomList';
+//		return;
+//	}
+
 	// 이 if 코드는 웹 페이지가 새로고침될 때의 처리를 하는 부분
 	// performance.navigation.type : 사용자의 페이지 네비게이션 유형을 나타내는 속성 중 하나.
 	// performance.navigation.type == 1 : 페이지가 새로 고침되었음을 의미. 새로고침이나 다른 페이지로의 이동 등이 일어날 때마다 performance.navigation.type은 특정 값으로 설정됨. 그중에서 1은 새로고침.
@@ -37,6 +44,11 @@ window.onload = function connect(event) {
 	memberId = document.querySelector('#member-id').value.trim(); // 내가 궁금해 하는 member.id input
 	memberNickname = document.querySelector('#member-nickname').value.trim(); // 내가 궁금해 하는 member.nickname input
 	hostMemberId = document.querySelector('#host-member-id').value.trim(); // 내가 궁금해 하는 chatRoom.memberId input
+	
+	console.log("memberId"+memberId);
+	console.log("memberNickname"+memberNickname);
+	console.log("hostMemberId"+hostMemberId);
+	
 	
 	//	연결하고자 하는 Socket 의 endPoint (WebSocketStompConfig에서 정한 endPoint)
 	let socket = new SockJS('/ws-stomp'); // SockJS를 통해 WebSocket 연결을 수립하려는 것. WebsocketStompConfig에 가면 있으셔
@@ -55,9 +67,9 @@ window.onload = function connect(event) {
 // 연결하는 함수
 function onConnected() {
 
-    //	sub 할 url => /sub/usr/chat/joinChatRoom/chatRoomId 로 구독한다
-    stompClient.subscribe('/sub/usr/chat/joinChatRoom/' + chatRoomId, onMessageReceived);
-    // 나는 /joinChatRoom/chatRoomId -> joinDiscussionRoom/discussionId 로 변경
+    //	sub 할 url => /sub/usr/chat/joinChatRoom/discussionId 로 구독한다
+    stompClient.subscribe('/sub/usr/chat/' + discussionId, onMessageReceived);
+    // 나는 /joinChatRoom/discussionId -> chat/discussionId 로 변경
 
 
     //	서버에 memberNickname 을 가진 멤버가 들어왔다는 것을 알림
@@ -69,7 +81,7 @@ function onConnected() {
     stompClient.send('/pub/usr/chat/enterMember', // /pub/usr/chat/enterMember 는 WebsocketStompConfig 의 configureMessageBroker의 메시지 보낼때 를 보면 됨
         {},
         JSON.stringify({ // JSON.stringify를 사용하여 js 객체를 JSON 문자열로 변환한 것을 전송함.
-            'chatRoomId' : chatRoomId,
+            'discussionId' : discussionId,
             'memberId' : memberId,
             'message' : memberNickname + ' 님이 입장하셨습니다.',
             'memberNickname' : memberNickname,
@@ -98,7 +110,7 @@ function exitChatRoom() {
         type: 'GET',
         url: '/usr/chat/exitChatRoom', //
         data: {
-            'chatRoomId': chatRoomId,
+            'discussionId': discussionId,
             'memberId': memberId
         },
         complete: function () { //Ajax 요청이 완료된 후에 실행되는 콜백 함수를 지정하는 옵션
@@ -121,7 +133,7 @@ async function disconnect(event) {
 	await stompClient.send('/pub/usr/chat/exitMember',
 	    {},
 	    JSON.stringify({
-	        'chatRoomId' : chatRoomId,
+	        'discussionId' : discussionId,
 	        'memberId' : memberId,
 	        'message' : memberNickname + ' 님이 퇴장하셨습니다.',
 	        'memberNickname' : memberNickname,
@@ -147,7 +159,7 @@ function getMemberList() {
         type: 'GET',
         url: '/usr/chat/memberList', // chatControoler에 채팅방 참가한 맴버 리스트 반환하는 url이 있음
         data: {
-            'chatRoomId': chatRoomId
+            'discussionId': discussionId
         },
         success: function (data) { // 성공하면 ajax로 받은 data로 
 			let members = ''; // 해당인간들 (들 즉, 복수잖아 그래서 s)
@@ -220,7 +232,7 @@ function banMember(sessionId) {
 	stompClient.send('/pub/usr/chat/banMember',
 	    {},
 	    JSON.stringify({
-	        'chatRoomId' : chatRoomId,
+	        'discussionId' : discussionId,
 	        'memberId' : memberId,
 	        'memberNickname' : memberNickname,
 	        'sessionId' : sessionId,
@@ -235,7 +247,7 @@ function changeHost(hostId, hostNickname) {
 	stompClient.send('/pub/usr/chat/changeHost',
 	    {},
 	    JSON.stringify({
-	        'chatRoomId' : chatRoomId,
+	        'discussionId' : discussionId,
 	        'memberId' : memberId,
 	        'message' : memberNickname + ' 님이 ' + hostNickname + ' 님에게 방장을 위임하셨습니다.',
 	        'memberNickname' : memberNickname,
@@ -266,7 +278,7 @@ async function getChatRoom(getMemberList) {
         type: 'GET',
         url: '/usr/chat/getChatRoom',
         data: {
-            'chatRoomId': chatRoomId
+            'discussionId': discussionId
         },
         success: function (data) {
 			if (data.memberId != hostMemberId) {
@@ -292,7 +304,7 @@ function deleteChatRoom() {
 	stompClient.send('/pub/usr/chat/deleteChatRoom',
 	    {},
 	    JSON.stringify({
-	        'chatRoomId' : chatRoomId,
+	        'discussionId' : discussionId,
 	        'message' : '방장이 채팅방을 삭제하였습니다. 더 이상 채팅에 참여할 수 없습니다.',
 	        'messageType' : 'DELETE'
 	    })
@@ -332,7 +344,7 @@ function sendMessage(event) {
 			}
 			
 			let chatMessage = {
-	            'chatRoomId' : chatRoomId,
+	            'discussionId' : discussionId,
 	            'memberId' : memberId,
 	            'message' : messageContent,
 	            'memberNickname' : memberNickname,
@@ -347,7 +359,7 @@ function sendMessage(event) {
 		} else { // 그냥 대화 -> 내가 필요한 부분.
 			
 	        let chatMessage = {
-	            'chatRoomId' : chatRoomId, // 방 di
+	            'discussionId' : discussionId, // 방 di
 	            'memberId' : memberId, // 누가 말한긴가
 	            'message' : messageContent, // 메세지 내용
 	            'memberNickname' : memberNickname, //말한놈 닉네임
@@ -378,7 +390,7 @@ function getMember(nickname) {
 	    url: '/usr/chat/getMember',
 	    async: false,
 	    data: {
-    		'chatRoomId': chatRoomId,
+    		'discussionId': discussionId,
     		'nickname': nickname
 	    },
 	    success: function (data) {

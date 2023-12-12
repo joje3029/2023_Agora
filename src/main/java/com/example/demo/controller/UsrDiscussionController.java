@@ -94,6 +94,8 @@ public class UsrDiscussionController {
 			//리다이렉트 할때 만들어진 번호 받게 했어
 			redirect.addAttribute("discussionId", discussionId);
 			
+			System.out.println("discussionId4 + "+discussionId);
+			
 			return "redirect:/usr/discussion/chat";
 		}
 		
