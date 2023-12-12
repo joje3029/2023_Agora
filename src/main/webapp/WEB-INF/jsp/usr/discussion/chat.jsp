@@ -18,7 +18,7 @@
 
 
 		<section class="listBody">
-			<div id="connecting" class="bg-gray-200 text-center text-2xl py-2">
+			<div id="connect" class="bg-gray-200 text-center text-2xl py-2">
         		연결중..
         	</div>
 			<section class="top border flex justify-between">

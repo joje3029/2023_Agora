@@ -66,6 +66,8 @@ window.onload = function connect(event) {
 
 // 연결하는 함수
 function onConnected() {
+	
+	console.log("WebSocket 연결 성공!");
 
     //	sub 할 url => /sub/usr/chat/joinChatRoom/discussionId 로 구독한다
     stompClient.subscribe('/sub/usr/chat/' + discussionId, onMessageReceived);
@@ -411,6 +413,8 @@ function getMember(nickname) {
 function onMessageReceived(payload) { // 웹 소켓을 통해 메시지를 수신할 떄 호출되는 함수. 
 	
     let chat = JSON.parse(payload.body); // 받은 메시지의 본문을 json형식으로 파싱하여 chat 변수에 저장.
+    // 실제로 온거
+    // {"discussionId":"10","memberId":"2","message":"뱁새씨 님이 입장하셨습니다.","memberNickname":"뱁새씨","messageType":"ENTER"}
     
     let messageElement = document.createElement('li'); // 문서에 li 만드는거 -> 이게 메시지임 노랑 배경놈.
     
@@ -420,6 +424,7 @@ function onMessageReceived(payload) { // 웹 소켓을 통해 메시지를 수�
 	chatFormatRegDateElement.classList.add('text-sm');// 채팅 시간에 css
 	
 	chatFormatRegDateElement.appendChild(chatFormatRegDateText);// 시간 엘리먼트에 텍스트 노드를 추가
+	
 	// 메시지 상태에 따라 함.
 	// 현재 사용자의 메시지와 다른 사용자의 메시지를 구분하고 각각을 다르게 스타일링하여 표시하는 부분
     if (chat.messageType == 'ENTER') { // 누가 들어오면 실행됨.
@@ -492,7 +497,6 @@ function onMessageReceived(payload) { // 웹 소켓을 통해 메시지를 수�
     if (chat.messageType == 'DELETE') {  // 삭제된 메시지일 경우.
 		contentElement.classList.add('text-red-500'); // 삭제된 메시지임을 나타내기 위해 텍스트 색상을 빨간색으로 변경함
 	}
-    
     contentElement.appendChild(messageText); //채팅 메시지 내용을 p 엘리먼트에 추가함
     
 	messageElement.appendChild(contentElement); // 채팅 메시지 내용을 표시하는 p 엘리먼트를 메시지 엘리먼트에 추가함.
