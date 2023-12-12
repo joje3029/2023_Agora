@@ -89,12 +89,12 @@ public class UsrDiscussionController {
 			
 			int discussionId = discussionService.getLastInsertId();
 			
-			System.out.println("discussionId1 + "+discussionId); // 여는 오케
+//			System.out.println("discussionId1 + "+discussionId); // 여는 오케
 			
 			//리다이렉트 할때 만들어진 번호 받게 했어
 			redirect.addAttribute("discussionId", discussionId);
 			
-			System.out.println("discussionId4 + "+discussionId);
+//			System.out.println("discussionId4 + "+discussionId);
 			
 			return "redirect:/usr/discussion/chat";
 		}
@@ -111,7 +111,7 @@ public class UsrDiscussionController {
 	@RequestMapping("/usr/discussion/chat")
 	public String chat(Model model, @RequestParam("discussionId") int discussionId) {
 		
-		System.out.println("discussionId2 + "+discussionId); // 낫오케
+//		System.out.println("discussionId2 + "+discussionId); // 낫오케
 		
 		// 내가 만들든 선택하든 한놈 채팅방으로 가기 위해
 		DiscussionRoom discussionRoom = discussionService.getDiscussionRoomById(discussionId);
@@ -126,7 +126,7 @@ public class UsrDiscussionController {
 		model.addAttribute("discussionRoom", discussionRoom);
 	    model.addAttribute("member", member);
 	    
-	    System.out.println(discussionRoom);
+//	    System.out.println(discussionRoom);
 		
 		return "usr/discussion/chat";
 	}
