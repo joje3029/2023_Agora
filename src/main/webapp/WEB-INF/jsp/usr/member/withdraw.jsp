@@ -7,7 +7,7 @@
 <%@ include file="../common/head2.jsp"%>
 
 <script>
-	const joinForm_onSubmit = function(form){
+	const withdrawForm_onSubmit = function(form){
 		form.loginId.value = form.loginId.value.trim(); 
 		form.loginPw.value = form.loginPw.value.trim();
 		form.checkLoginPw.value = form.checkLoginPw.value.trim(); 
@@ -67,35 +67,39 @@
 			<p>탈퇴하려는 이유를 체크해 주세요</p>
 		</div>
 		<div class="check_reason">
-			<label>
-	        <input type="checkbox" name="reason" value="apple">
-	       	다른 사이트가 더 좋아서
-		    </label>
-		    <br>
-		    <label>
-		        <input type="checkbox" name="reason" value="banana">
-		        사용빈도가 낮아서
-		    </label>
-		    <br>
-		    <label>
-		        <input type="checkbox" name="reason" value="orange">
-		        콘텐츠 불만
-		    </label>
-		    <br>
-		    <label class="ext">
-		        <input type="checkbox" name="reason" value="orange">
-		        기타
-		        <!-- 기타를 체크하면 나오게 해야함 -->
-		        <textarea class="textarea textarea-bordered rows="" cols="" placeholder="이유를 적어주세요"></textarea>
-		    </label>
+			<form action="/usr/member/domodify" method="post"
+		onsubmit="withdrawForm_onSubmit(this); return false;">
+				<label>
+		        <input type="checkbox" name="reason" value="otherSite">
+		       	다른 사이트가 더 좋아서
+			    </label>
+			    <br>
+			    <label>
+			        <input type="checkbox" name="reason" value="notUse">
+			        사용빈도가 낮아서
+			    </label>
+			    <br>
+			    <label>
+			        <input type="checkbox" name="reason" value="contentsDiscontent">
+			        콘텐츠 불만
+			    </label>
+			    <br>
+			    <label class="ext">
+			        <input type="checkbox" name="reason" value="extReaseon">
+			        기타
+			        <!-- 기타를 체크하면 나오게 해야함 -->
+			        <textarea class="textarea textarea-bordered rows="" cols="" placeholder="이유를 적어주세요"></textarea>
+			    </label>
+			 </form>
 		</div>
 		<div>
 			<p>현재 사용중인 비밀번호를 입력하세요</p>
+			<!-- 여기는 Ajax로 DB갔다와야겠다. 수업때 아이디 중복을 참고하기! -->
 			<input class="input input-bordered w-full max-w-xs input-sm" type="text" placeholder="비밀번호를 입력하세요"/>
 		</div>
 		<div>
 			<p>비밀번호를 잊으셨나요?</p>
-			<div><a href="">비밀번호 재설정</a></div><!-- 비밀번호 페이지로 링크 연결하기 -->
+			<div class="btn btn-sm"><a href="/usr/member/IdentityVerification">비밀번호 재설정</a></div><!-- 비밀번호 페이지로 링크 연결하기 -->
 		</div>
 		<div class="button_center">
 				<button class="btn">저장</button>

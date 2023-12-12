@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td>${member.adres}</td>
+				<td>${member.adress} ${member.detailAdress} ${member.extAdress}</td>
 			</tr>
 		</table>
 	</div>
@@ -38,9 +38,11 @@
 			<div class="btn">
 				<a href="/">홈으로 돌아가기</a>
 			</div>
+			&nbsp;&nbsp;
 			<div class="btn">
 				<a href="modify">회원정보 수정</a>
 			</div>
+			&nbsp;&nbsp;
 			<div class="btn">
 					<a href="IdentityVerification">비밀번호 변경</a>
 			</div>

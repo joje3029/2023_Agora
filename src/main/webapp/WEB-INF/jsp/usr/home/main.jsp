@@ -21,24 +21,24 @@
 	</div>
 	
 	<!-- 메인 페이지 환영 캐러셀 : 안녕 동물 친구들!! -->
-	<section class="main-in-section w-full">
-		<div class="carousel w-full">
-			<div id="slide1" class="carousel-item relative w-full">
-				<img src="/resource/images/Lets_Read_A_Book_Together.jpg" class="w-full" />
+	<section class="main-in-section w-full h-80">
+		<div class="carousel w-full ">
+			<div id="slide1" class="carousel-item relative w-full h-80">
+					<img src="/resource/images/Lets_Read_A_Book_Together.jpg" class=" " />
 				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 					<a href="#slide4" class="btn btn-circle">❮</a>
 					<a href="#slide2" class="btn btn-circle">❯</a>
 				</div>
 			</div>
-			<div id="slide2" class="carousel-item relative w-full">
-				<img src="/resource/images/Lets_Talk_Toggether.jpg" class="w-full" />
+			<div id="slide2" class="carousel-item relative w-full ">
+				<img src="/resource/images/Lets_Talk_Toggether.jpg" class="h-2/6" />
 				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 					<a href="#slide1" class="btn btn-circle">❮</a>
 					<a href="#slide3" class="btn btn-circle">❯</a>
 				</div>
 			</div>
 			<div id="slide3" class="carousel-item relative w-full">
-				<img src="/resource/images/Express_Your_Thoughts.jpg" class="w-full" />
+				<img src="/resource/images/Express_Your_Thoughts.jpg" class="h-2/6" />
 				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 					<a href="#slide2" class="btn btn-circle">❮</a>
 					<a href="#slide4" class="btn btn-circle">❯</a>
