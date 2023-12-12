@@ -339,6 +339,18 @@ section>.button_bar {
 }
 
 /* 메인페이지 : 특수성때문에 css 따로함 */
+
+.main-height{
+	height: 32rem;
+}
+.main-image-height{
+	height: 31rem;
+}
+
+.carousel-item{
+	justify-content: center;
+}
+
 .main {
 	border: 1px solid salmon;
 }
@@ -350,10 +362,10 @@ section>.button_bar {
 }
 
 .main>.main-in-section>.section-title {
-	border: 2px solid blueviolet;
+	border: 2px solid yellowgreen;
 	width: 20%;
 	margin-bottom: 10px;
-	padding-left: 1%;
+	padding: 5px;
 }
 
 .main>.main-in-section>.items {
