@@ -3,6 +3,7 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 
@@ -68,5 +69,9 @@ public class MemberService {
 	public void modifyPw(int loginedMemberId, String loginPw) {
 		memberDao.modifyPw(loginedMemberId, loginPw);
 		
+	}
+
+	public Member getMemberByNickname(String recipientNickname) {
+		return memberDao.getMemberByNickname(recipientNickname);
 	}
 }

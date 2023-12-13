@@ -92,4 +92,11 @@ public interface MemberDao {
 			WHERE id =  #{loginedMemberId}
 			""")
 	public void modifyPw(int loginedMemberId, String loginPw);
+	
+	@Select("""
+			SELECT *
+			FROM `USER_INFO`
+			WHERE nickname = #{recipientNickname}
+			""")
+	public Member getMemberByNickname(String recipientNickname);
 }

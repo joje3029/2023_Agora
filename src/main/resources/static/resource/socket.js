@@ -151,7 +151,7 @@ async function disconnect(event) {
     
     event.preventDefault(); // 주어진 이벤트의 기본 동작을 중단시키는 메서드. 
     
-	location.href = '/usr/chat/chatRoomList'; // 나가서 돌아갈 곳.
+	location.href = '/usr/discussion/list'; // 나가서 돌아갈 곳.
 	
 }
 
