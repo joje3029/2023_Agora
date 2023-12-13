@@ -24,7 +24,7 @@
   });
 </script>
 
-<div class="banner_div">
+<div class="banner-div">
 	<ul class="menu bg-base-200 rounded-box">
 	  <li>
 	    <a>

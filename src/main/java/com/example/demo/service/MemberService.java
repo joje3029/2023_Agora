@@ -74,4 +74,19 @@ public class MemberService {
 	public Member getMemberByNickname(String recipientNickname) {
 		return memberDao.getMemberByNickname(recipientNickname);
 	}
+
+	public Member getMemberBypassWd(int loginedMemberId) {
+		return memberDao.getMemberBypassWd(loginedMemberId);
+	}
+
+	public void deleteMember(int loginedMemberId) {
+		// loginedMemberId : 삭제하는데 쓰려고  
+		
+		
+		
+	}
+
+	public void insertReason(String reason) {
+		memberDao.insertReason(reason);		
+	}
 }

@@ -99,4 +99,16 @@ public interface MemberDao {
 			WHERE nickname = #{recipientNickname}
 			""")
 	public Member getMemberByNickname(String recipientNickname);
+	
+	@Select("""
+			SELECT *
+			FROM `USER_INFO`
+			WHERE id = #{loginedMemberId}
+			""")
+	public Member getMemberBypassWd(int loginedMemberId);
+	
+	@Insert("""
+			
+			""")
+	public void insertReason(String reason);
 }

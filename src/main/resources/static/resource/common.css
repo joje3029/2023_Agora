@@ -258,10 +258,11 @@ html>body .toastui-editor-contents {
 	width: 100%;
 }
 
-.banner_div {
+.banner-div {
 	position: fixed;
 	top: 47%;
 	right: 1%;
+	z-index: 9;
 }
 
 /*소개페이지 css 위의 공통부분 빼고 추가로 필요한거*/
