@@ -14,5 +14,6 @@ public class DiscussionRoom {
 	private int type; // 토론방이 채팅이냐 화상이냐
 	private String  dscsnRoomCreatDete; // 토론방생성일자
 	private String  dscsnRoomDeleteDete; // 토론방삭제일자
+	private String  nickname; // 방장 닉네임
 	
 }

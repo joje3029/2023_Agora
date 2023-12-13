@@ -39,11 +39,12 @@
 			<section class="chat-body border"> <!-- 즉 여기가 병호님으로치면 id가 chat인 곳이여  -->
 			<!-- 아래 hidden input 3개 잘 넘어오는거 type text로 바꿔서 확인함 -->
 				<input type="hidden" id="member-id" value="${member.id}"><!--유저놈 번호-->
-				<input type="hidden" id="member-nickname" value="${member.nickname}"><!--유저놈 닉네임--, 이거 지금 안넘어옴!>
+				<input type="hidden" id="member-nickname" value="${member.nickname}"><!--유저놈 닉네임--, 이거 지금 안넘어옴!>-->
 				<input type="hidden" id="host-member-id" value="${discussionRoom.crtrId}"> <!-- 방장시키 정보 => 유저가 방장이냐 아니냐 볼라고-->
 				<div class="flex justify-center chat-height">
 					<ul id="message-area"></ul><!-- 실제 챗 들어올 부분 -->
 				</div>
+				<div>소켓이를 위한 표시 : ${member.id} ${member.nickname} ${discussionRoom.crtrId} </div>
 			</section>
 			
 			<section class="in-chat">

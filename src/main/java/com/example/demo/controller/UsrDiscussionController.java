@@ -116,6 +116,7 @@ public class UsrDiscussionController {
 		// 내가 만들든 선택하든 한놈 채팅방으로 가기 위해
 		DiscussionRoom discussionRoom = discussionService.getDiscussionRoomById(discussionId);
 		
+		
 		if (discussionRoom.getId() == 0) {
 			return rq.jsReturnOnView("존재하지 않는 토론방 입니다");
 		}
@@ -126,7 +127,7 @@ public class UsrDiscussionController {
 		model.addAttribute("discussionRoom", discussionRoom);
 	    model.addAttribute("member", member);
 	    
-//	    System.out.println(discussionRoom);
+	    System.out.println(discussionRoom);
 		
 		return "usr/discussion/chat";
 	}

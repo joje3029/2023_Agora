@@ -70,9 +70,11 @@ public interface DiscussionDao {
 	public int getLastInsertId();
 	
 	@Select("""
-			SELECT *
+			SELECT D.*, U.nickname 
 				FROM `DSCSN_ROOM` AS D
-				WHERE id = #{discussionId}
+				INNER JOIN `USER_INFO` AS U
+				ON D.crtrId = U.id
+				WHERE D.id =#{discussionId}
 			""")
 	public DiscussionRoom getDiscussionRoomById(int discussionId);
 }
