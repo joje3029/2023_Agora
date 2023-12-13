@@ -44,8 +44,8 @@
 				<div class="flex justify-center chat-height">
 					<ul id="message-area"></ul><!-- 실제 챗 들어올 부분 -->
 				</div>
-				<div>소켓이를 위한 표시 : ${member.id} ${member.nickname} ${discussionRoom.crtrId} </div>
 			</section>
+				<div>소켓이를 위한 표시 : ${member.id} ${member.nickname} ${discussionRoom.crtrId} </div>
 			
 			<section class="in-chat">
 				<div class="mt-4 border rounded-lg p-4">

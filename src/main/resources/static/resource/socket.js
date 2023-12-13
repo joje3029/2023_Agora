@@ -1,3 +1,5 @@
+// 내가 원하는데로 수정한 웹 소켓.js
+
 'use strict'; // 스크립트를 엄격한 모드로 실행하도록 지시하는 역할
 
 let stompClient = null; // 밑에서 쓰니까 전역으로 미리 뺀거네
@@ -67,10 +69,11 @@ window.onload = function connect(event) {
 // 연결하는 함수
 function onConnected() {
 	
-	console.log("WebSocket 연결 성공!");
+	console.log("WebSocket 연결 성공!"); // 여기까지 오심
 
     //	sub 할 url => /sub/usr/chat/joinChatRoom/discussionId 로 구독한다
     stompClient.subscribe('/sub/usr/chat/' + discussionId, onMessageReceived);
+    //여기까지도 출력됨 id : sub-0 destination 나오잖아
     // 나는 /joinChatRoom/discussionId -> chat/discussionId 로 변경
 
 
@@ -89,10 +92,11 @@ function onConnected() {
             'memberNickname' : memberNickname,
             'messageType' : 'ENTER' // 들어왔다.
         })
-    )
+    )// 여까지도 잘 됨. 그래서 이게 만들어졌음을 표시됨. 
     
-	connectingElement.classList.add('hidden'); // 연결중 div의 요소 클래스에 접근. hidden -> 즉, 잘 연결되면 연결중을 안보이게 함.
-
+	//connectingElement.classList.add('hidden'); // 연결중 div의 요소 클래스에 접근. hidden -> 즉, 잘 연결되면 연결중을 안보이게 함.
+	//일단 이걸 주석 처리하면 classList를 못찾아서 나는 에러는 없음.
+	//문제는 화면에 sen내용이 안떠. 씨댕.
 }
 
 // 에러 함수
@@ -167,32 +171,20 @@ function getMemberList() {
 			let members = ''; // 해당인간들 (들 즉, 복수잖아 그래서 s)
 			for (let i = 0; i < data.length; i++) { //
 				if (data[i].id == memberId) { // 현재 사용자의 ID와 일치하는 경우, 해당 멤버의 닉네임을 그대로 표시
+                    //소민이는 현재 사용자는 자기가 초록색으로 조금 굵게 보이게 했지용
 					members += `<li class="p-1">
 									<span>
-										<span class="cursor-pointer hover:underline text-green-500">${data[i].nickname}</span> 
+										<span class="text-green-500 font-semibold">${data[i].nickname}</span> 
 									</span>
 								</li>`;//해당 i의 nickname
 				} else { // 해당인간이 아니면 맴버의 닉네임을 표시하고, 몇 가지 조건에 따라 추가적인 기능을 제공하는 메뉴 생성
 					members += `<li class="p-1">
-									<span>														// 아래에 showCommandList() 이놈을 부름 : 멤버 리스트에 있는 멤버를 클릭할 때 강퇴, 귓속말 보내기 등의 명령어 목록 보여주기(자기 자신은 제외)
-										<span class="cursor-pointer hover:underline" onclick="showCommandList('${data[i].sessionId}');">${data[i].nickname}</span>
+									<span>														
+										<span class="onclick="showCommandList('${data[i].sessionId}');">${data[i].nickname}</span>
 										<ul id="${data[i].sessionId}" class="hidden">`;
-					if (memberId == hostMemberId) { // memberid랑 방장ID가 일치하면 즉, 방장이면 강퇴, 위임, 귓솟말 기능 추가
+					if (memberId == hostMemberId) { // memberid랑 방장ID가 일치하면 즉, 방장이면 강퇴 기능 추가
 						members += `			<li>
 													<span class="cursor-pointer hover:underline" onclick="if(confirm('${data[i].nickname} 님을 강퇴하시겠습니까?')) {banMember('${data[i].sessionId}');}">강퇴</span>
-												</li>
-												<li>
-													<span class="cursor-pointer hover:underline" onclick="if(confirm('${data[i].nickname} 님에게 방장을 위임하시겠습니까?')) {changeHost('${data[i].id}', '${data[i].nickname}');}">방장 위임하기</span>
-												</li>
-												<li>
-													<span class="cursor-pointer hover:underline" onclick="whisper('${data[i].nickname}');">귓속말 보내기</span>
-												</li>
-											</ul>
-										</span>
-									</li>`;
-					} else { // 방장이 아니면 귓속말 보내기 기능만 추가
-						members += `			<li>
-													<span class="cursor-pointer hover:underline" onclick="whisper('${data[i].nickname}');">귓속말 보내기</span>
 												</li>
 											</ul>
 										</span>
@@ -212,7 +204,7 @@ function getMemberList() {
 //	클릭한 상태에서 다른 멤버를 클릭하면 기존 명령어 목록 사라지고 다른 명령어 목록 보여주게 함
 let originalCommandListElement = null;
 // 귓속말 강퇴등 기능
-function showCommandList(sessionId) {
+function showCommandList(sessionId) { //써야함.
 	
 	if (originalCommandListElement != null) {
 		originalCommandListElement.classList.add('hidden');
@@ -243,76 +235,10 @@ function banMember(sessionId) {
 	)
 	
 }
-//방장 위임
-function changeHost(hostId, hostNickname) {
-	
-	stompClient.send('/pub/usr/chat/changeHost',
-	    {},
-	    JSON.stringify({
-	        'discussionId' : discussionId,
-	        'memberId' : memberId,
-	        'message' : memberNickname + ' 님이 ' + hostNickname + ' 님에게 방장을 위임하셨습니다.',
-	        'memberNickname' : memberNickname,
-	        'changeHostId' : hostId,
-	        'messageType' : 'CHANGE'
-	    })
-	)
-	
-}
-// 귓속말 -> 난 필요 없음.
-function whisper(nickname) {
-	
-	messageInput.value = "/귓속말 " + nickname + " ";
-	
-}
-
 
 //	비동기로 채팅방 정보를 받으며 '퇴장/위임 했다는 문구'가 나올 때마다 실행된다.
 //	퇴장한 멤버가 방장이면 입장해 있는 멤버 중 가장 빨리 들어온 멤버가 자동으로 방장이 됨
 //	이때 채팅방에서 방장 닉네임이 바뀌어야 하므로 받아온 채팅방 정보로 채팅방의 방장 닉네임을 새로운 방장 닉네임으로 변경
-async function getChatRoom(getMemberList) {
-	
-	let host = $('#host');
-	let buttons = $('#buttons');
-	let deleteButton = $('#delete-button');
-	
-	await $.ajax({
-        type: 'GET',
-        url: '/usr/chat/getChatRoom',
-        data: {
-            'discussionId': discussionId
-        },
-        success: function (data) {
-			if (data.memberId != hostMemberId) {
-				deleteButton.remove();
-				let hostNickname = data.hostNickname;
-				hostMemberId = data.memberId;
-				document.querySelector('#host-member-id').value = data.memberId;
-				host.empty();
-				host.html('<div>방장 : ' + hostNickname + '</div>');
-				if (memberId == hostMemberId) {
-					buttons.append(`<button id="delete-button" class="btn-text-color btn btn-info btn-sm my-2 ml-2 h-10" onclick="if(confirm('정말 채팅방을 삭제하시겠습니까?')) {deleteChatRoom();}">채팅방 삭제</button>`);
-				}
-			}
-        }
-    })
-    
-    await getMemberList();
-	
-}
-// 방 삭제 시
-function deleteChatRoom() {
-	
-	stompClient.send('/pub/usr/chat/deleteChatRoom',
-	    {},
-	    JSON.stringify({
-	        'discussionId' : discussionId,
-	        'message' : '방장이 채팅방을 삭제하였습니다. 더 이상 채팅에 참여할 수 없습니다.',
-	        'messageType' : 'DELETE'
-	    })
-	)
-	
-}
 
 //	메시지 전송때는 JSON 형식의 메시지를 전달한다.
 function sendMessage(event) {
@@ -321,44 +247,7 @@ function sendMessage(event) {
 
     if (messageContent && stompClient) { // 귓속말일 때만 -> 필요없음.
 		
-	    if (messageContent.startsWith('/귓속말')) {
-			
-			let nickname = messageContent.split(' ')[1];
-			
-			if (nickname == null || nickname == '') {
-				alert('"/귓속말 닉네임 내용"의 형식을 지켜주세요. (띄어쓰기를 잘 지켜주세요.)');
-				event.preventDefault();
-				return;
-			}
-			
-			let content = messageContent.split(' ')[2];
-			
-			if (content == null || content == '') {
-				alert('"/귓속말 닉네임 내용"의 형식을 지켜주세요. (띄어쓰기를 잘 지켜주세요.)');
-				event.preventDefault();
-				return;
-			}
-			
-			if (getMember(nickname) == false) {
-				alert('채팅방에 존재하지 않는 멤버입니다. 닉네임을 확인해주세요.');
-				event.preventDefault();
-				return;
-			}
-			
-			let chatMessage = {
-	            'discussionId' : discussionId,
-	            'memberId' : memberId,
-	            'message' : messageContent,
-	            'memberNickname' : memberNickname,
-	            'recipientNickname' : nickname,
-	            'messageType' : 'WHISPER'
-        	};
-
-        	stompClient.send('/pub/usr/chat/sendMessage', {}, JSON.stringify(chatMessage));
-        
-        	messageInput.value = '';
-			
-		} else { // 그냥 대화 -> 내가 필요한 부분.
+	     // 그냥 대화 -> 내가 필요한 부분.
 			
 	        let chatMessage = {
 	            'discussionId' : discussionId, // 방 di
@@ -373,12 +262,9 @@ function sendMessage(event) {
 	        
 	        messageInput.value = ''; // 채팅의 메세지 적는곳 비움.
 	        
-		}
-        
     }
     
     event.preventDefault();  // 이벤트의 기본 동작을 취소하는 역할. 
-    
 }
 
 //	채팅방에 파라미터로 받은 닉네임을 가진 멤버가 참여 중인지 판단
@@ -447,30 +333,6 @@ function onMessageReceived(payload) { // 웹 소켓을 통해 메시지를 수�
 	} else if (chat.messageType == 'DELETE') { // 삭제
 		messageElement.classList.add('event-message'); //방장시키가 삭제했다는 메시지
 		messageElement.appendChild(chatFormatRegDateElement); 
-	} else if (chat.messageType == 'WHISPER') {// 귓속말
-		if (chat.memberId != memberId && chat.recipientId != memberId) {
-			return;
-		}
-		
-		let memberNicknameElement;
-		let memberNicknameText;
-		
-		if (memberId == chat.memberId) {
-			messageElement.classList.add('me');
-			memberNicknameElement = document.createElement('span');
-			memberNicknameText = document.createTextNode(chat.recipientNickname + ' 님에게 귓속말');
-		} else {
-			messageElement.classList.add('other');
-			memberNicknameElement = document.createElement('span');
-			memberNicknameText = document.createTextNode(chat.memberNickname + ' 님의 귓속말');
-		}
-		
-		memberNicknameElement.classList.add('font-semibold');
-			
-		memberNicknameElement.appendChild(memberNicknameText);
-		messageElement.appendChild(memberNicknameElement);
-	
-		messageElement.appendChild(chatFormatRegDateElement);
 	} else { // 전부(Enter, Leave, change, ban, delete, whisper) 아니면
 		
 		if (memberId == chat.memberId) { // 메시지가 현재 사용자의 것인지 아닌지에 따라 다른 스타일을 적용함. 만약 현재 사용자의 메시지라면 me 클래스 추가/ 아니면 other 클래스 추가 -> 색상 구분하려고 한거구나
