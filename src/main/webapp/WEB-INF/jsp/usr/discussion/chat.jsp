@@ -21,10 +21,10 @@
 			<div id="connect" class="bg-gray-200 text-center text-2xl py-2">
         		연결중..
         	</div>
-			<section class="top border flex justify-between">
-				<div class="room-name w-11/12 text-center">${discussionRoom.dscsnRoomNm }</div>
+			<section class="top border flex justify-between items-center">
+				<div class="room-name w-11/12 text-center font-semibold text-5xl  p-4">${discussionRoom.dscsnRoomNm }</div>
 				<!-- <div class="w-16 border text-center"><a href="/usr/discussion/list"> 나가기</a></div>  -->
-				<button id="exit-button" class="btn btn-sm w-24 border text-center">나가기</button>
+				<button id="exit-button" class="btn text-center mr-2">나가기</button>
 			</section>
 			<section class="personnel-section my-2 border">
 				<div>
@@ -39,12 +39,11 @@
 			<section class="chat-body border"> <!-- 즉 여기가 병호님으로치면 id가 chat인 곳이여  -->
 			<!-- 아래 hidden input 3개 잘 넘어오는거 type text로 바꿔서 확인함 -->
 				<input type="hidden" id="member-id" value="${member.id}"><!--유저놈 번호-->
-				<input type="hidden" id="member-nickname" value="${member.nickname}"><!--유저놈 닉네임-->
+				<input type="hidden" id="member-nickname" value="${member.nickname}"><!--유저놈 닉네임--, 이거 지금 안넘어옴!>
 				<input type="hidden" id="host-member-id" value="${discussionRoom.crtrId}"> <!-- 방장시키 정보 => 유저가 방장이냐 아니냐 볼라고-->
 				<div class="flex justify-center chat-height">
 					<ul id="message-area"></ul><!-- 실제 챗 들어올 부분 -->
 				</div>
-				
 			</section>
 			
 			<section class="in-chat">
