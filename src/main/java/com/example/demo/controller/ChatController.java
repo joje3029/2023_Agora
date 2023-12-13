@@ -18,7 +18,6 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.Chat;
 import com.example.demo.vo.ChatRoom;
 import com.example.demo.vo.Member;
-import com.example.demo.vo.ResultData;
 
 
 @Controller

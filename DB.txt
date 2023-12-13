@@ -66,9 +66,10 @@ CREATE TABLE CHATROOMMEMBER(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'PK',
     regDate DATETIME NOT NULL COMMENT '채팅토론방 참가 시간',
     dscsnRoomId INT UNSIGNED NOT NULL COMMENT '토론방 PK ID',
-    memberId INT UNSIGNED NOT NULL UNIQUE COMMENT '유저 PK ID',
+    memberId INT UNSIGNED NOT NULL COMMENT '유저 PK ID',
     sessionId VARCHAR(50) NOT NULL  COMMENT '일단 미지수 뭐일까....'
 );
+
 
 /*INSERT INTO `DSCSN_ROOM`
  SET dscsnRoomNm = '뱁새씨란?'
@@ -84,14 +85,6 @@ WHERE id = 3
 
 
 */
-
-SELECT D.*, U.nickname 
-FROM `DSCSN_ROOM` AS D
-INNER JOIN `USER_INFO` AS U
-ON D.crtrId = U.id
-WHERE D.id = 1
-
-
 
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
@@ -119,8 +112,6 @@ CREATE TABLE `UFSD_ATCH_FILE_MNG` (
 	`frstRegId`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
 	`frstRegDate`	DATETIME	NULL	COMMENT '최초등록일자'
 );
-
-
 
 
 CREATE TABLE `EMPLYR_SBSCRB` (
@@ -160,19 +151,6 @@ CREATE TABLE `MNGR_ANSWER_HIST` (
 	`mngrBody`	TEXT	NOT NULL	COMMENT '내용',
 	`mngrAtchmnflId`	INT	UNSIGNED NULL	COMMENT '첨부파일ID'
 );
-
-SELECT * FROM `USER_INFO`; # 사용자 정보(member)
-SELECT * FROM `COLUMN`; # 칼럼
-SELECT * FROM COLUMN_LIKE; # 칼럼 좋아요
-SELECT * FROM DSCSN_ROOM; # 토론방
-SELECT * FROM ANSWER; # 댓글
-SELECT * FROM CSTMR_CNSLT_CNTER; # 고객상담센터
-SELECT * FROM UFSD_ATCH_FILE_MNG; # 첨부파일통합관리
-SELECT * FROM DSCSN_CHTT_DTLS; # 토론방 채팅내역
-SELECT * FROM EMPLYR_SBSCRB; # 사용자 구독
-SELECT * FROM UFSD_ATCH_FILE_INFO; # 첨부파일 상세정보
-SELECT * FROM REPLY; # 대댓글
-SELECT * FROM MNGR_ANSWER_HIST; #관리자답변이력
 
 
 #관리자 생성
@@ -317,8 +295,6 @@ INSERT INTO `USER_INFO` (
   NULL
 );
 
-SELECT * FROM `USER_INFO`;
-
 # 칼럼 랜덤 만들기
 INSERT INTO `COLUMN`(
   `title`,
@@ -365,35 +341,3 @@ FROM
 LIMIT 10; 
 -- 원하는 행 수를 지정해주세요
 */
-
-SELECT * FROM `COLUMN` ORDER BY Id DESC;
-SELECT * FROM `USER_INFO`;
-/* 테이블 종류
-`USER_INFO`  : 사용자정보
-`COLUMN`  : 칼럼
-`COLUMN_LIKE`  : 칼럼 좋아요
-`DSCSN_ROOM`  : 토론방
-`ANSWER`  : 댓글
-`CSTMR_CNSLT_CNTER`  : 고객상담센터
-`UFSD_ATCH_FILE_MNG`  : 첨부파일통합관리
-`DSCSN_CHTT_DTLS`  : 토론방 채팅내역
-`EMPLYR_SBSCRB`  : 사용자구독
-`UFSD_ATCH_FILE_INFO`  : 첨부파일 상세정보
-`REPLY`  : 대댓글
-`MNGR_ANSWER_HIST`  : 관리자답변이력
-*/
-
-INSERT INTO `COLUMN`
-SET  title = '댕청이'
-, writngTime = NOW()
-, `body` = '복실이 빵실이'
-, colmnClSetup ='1'
-, colmnModifiedTime = NULL
-, colmnDeleteTime = NULL
-, colmnWrter = 2
-
-
-SELECT * FROM `COLUMN`;
-SELECT * FROM `USER_INFO`;
-
-SELECT * FROM `ANSWER`;

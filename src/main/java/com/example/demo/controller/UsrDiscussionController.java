@@ -104,7 +104,7 @@ public class UsrDiscussionController {
 		}
 		
 		return null; // 없으면 뭐라하니까. 실제로는 1이냐 2만 있으면 되지만...
-	}
+	}	
 	
 	
 	//채팅방
