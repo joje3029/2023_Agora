@@ -498,5 +498,19 @@ section>.button_bar {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	
+}
+
+/*채팅 토론방 css*/
+
+.event-message{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px dashed green;
+    padding: 7px 0;
+    margin: 10px;
+}
+
+.me{
+ background-color: #059669;	
 }
