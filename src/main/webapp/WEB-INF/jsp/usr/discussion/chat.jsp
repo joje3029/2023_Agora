@@ -14,11 +14,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!-- stomp.js : Stomp는 simple(or Streaming) Text Orientated messaging Protocol 의 약자. 메시지 기반 통신 프로토콜. Stomp.js는 WebSocket을 통해 Stomp 프로토콜을 사용하여 메시지를 교환하기 위한 JavaScrpt 클라이어늩 라이브러리 주로 웹 소켓을 통한 메시징 애플리케이션에서 사용됨. -->
 <!-- 이 두라이브러리는 실시간 웹 애플리케이션에서 클라이언트와 서버 간의 양방향 통신을 구현하는 데 널리 사용도미. 일반적으로 spring Websocket과 같은 서버 측 라이브러리와 함꼐 사용되여 실시간 데이터 전송 및 메시징을 구현하는데 활용됨. -->
-<script src="/resource/socket.js"></script><!--  웹 소켓 쓰려는거 : 누가들어왔다, 나갔다. 채팅 내용(데이지 UI 쓸꺼)등. -->
+
+
 
 
 		<section class="listBody">
-			<div id="connect" class="bg-gray-200 text-center text-2xl py-2">
+			<div id="connecting" class="bg-gray-200 text-center text-2xl py-2">
         		연결중..
         	</div>
 			<section class="top border flex justify-between items-center">
@@ -49,9 +50,9 @@
 			
 			<section class="in-chat">
 				<div class="mt-4 border rounded-lg p-4">
-					<form id="message-form ">
+					<form id="message-form">
 					 	<input type="hidden" id="roomId" name="discussionId" value="${discussionRoom.id}">
-						<textarea id="message-input" class="textarea textarea-bordered w-full"
+						<textarea name="message" id="message-input" class="textarea textarea-bordered w-full"
 							placeholder="의견을 말해주세요!" autocomplete="off"></textarea>
 						<div class="flex justify-end">
 							<button class="btn btn-sm">입력</button>
@@ -61,4 +62,6 @@
 			</section>
 		</section>
 	</body>
+	
+	<script src="/resource/socket.js"></script><!--  웹 소켓 쓰려는거 : 누가들어왔다, 나갔다. 채팅 내용(데이지 UI 쓸꺼)등. -->
 </html>
