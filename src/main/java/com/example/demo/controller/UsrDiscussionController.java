@@ -119,11 +119,14 @@ public class UsrDiscussionController {
 			return rq.jsReturnOnView("존재하지 않는 토론방 입니다");
 		}
 		
+		int discussionRoomId = discussionRoom.getId();
+		
 		//로그인한 놈 정보 같이 넘기기 위해 DB 가기
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
 		model.addAttribute("discussionRoom", discussionRoom);
 	    model.addAttribute("member", member);
+	    model.addAttribute("discussionRoomId", discussionRoomId);
 	    
 	    System.out.println("discussionRoom : "+discussionRoom); //여기까지 오케
 		
