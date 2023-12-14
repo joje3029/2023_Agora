@@ -179,22 +179,27 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/doWithdraw")
-	public String dosecede(String reason, String detailReason) {
+	@ResponseBody
+	public String dosecede(HttpServletRequest req, String reason, String detailReason) {
 		
-		System.out.println("reason : "+reason);
-		System.out.println("detailReason : "+detailReason);
+		System.out.println("reason : "+reason); // 이건 내가 아까 안쓴다 했고
+		System.out.println("detailReason : "+detailReason); // 기타가 아니니께  null이 들어온거고.
+		
+		System.out.println(rq.getLoginedMemberId());
+
+		// 삭제 이유 withdrow_reason에 insert
+		// reason : 탈퇴 이유를 어디다가 넣어서 데이터로 관리자 쪽에서 보려고
+		memberService.insertReason(reason, detailReason);
 		
 		// 지금은 스케쥴링 안할꺼니까, 나중에 시간되면 스케줄링 하게 되면 표기랑 delet시간 insert하는 방식으로 변경하기
 		memberService.deleteMember(rq.getLoginedMemberId());
+	
+		//그리고 여기서 rq 에 있는거 비워야겠네 로그아웃처럼. 오케
+		Rq rq = (Rq) req.getAttribute("rq");
 		
+		rq.logout();
 		
-
-		// reason : 탈퇴 이유를 어디다가 넣어서 데이터로 관리자 쪽에서 보려고
-		// 탈퇴 이유 테이블 만들기!
-		//memberService.insertReason(reason, detailReason);
-		
-		
-		return "/"; // 일단 임시로 널 안나게
+		return Util.jsReplace(Util.f("탈퇴 되었습니다"), "/"); // 일단 임시로 널 안나게
 
 	}
 

@@ -79,14 +79,16 @@ public class MemberService {
 		return memberDao.getMemberBypassWd(loginedMemberId);
 	}
 
-	public void deleteMember(int loginedMemberId) {
-		// loginedMemberId : 삭제하는데 쓰려고  
-		
-		
+	
+
+	public void insertReason(String reason, String detailReason) {
+		memberDao.insertReason(reason, detailReason);
 		
 	}
 
-	public void insertReason(String reason) {
-		memberDao.insertReason(reason);		
+	public void deleteMember(int loginedMemberId) {
+		memberDao.deleteMember(loginedMemberId);
+		
 	}
+
 }

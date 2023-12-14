@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -106,9 +107,18 @@ public interface MemberDao {
 			WHERE id = #{loginedMemberId}
 			""")
 	public Member getMemberBypassWd(int loginedMemberId);
-	
+
 	@Insert("""
-			
+			INSERT INTO `WITHDROW_REASON`
+				SET reason = #{reason}
+				, detailReason = #{detailReason}
 			""")
-	public void insertReason(String reason);
+	public void insertReason(String reason, String detailReason);
+	
+	@Delete("""
+			DELETE FROM `USER_INFO`
+				WHERE id = #{loginedMemberId}
+			""")
+	public void deleteMember(int loginedMemberId);
+	
 }

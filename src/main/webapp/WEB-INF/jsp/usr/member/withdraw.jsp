@@ -7,7 +7,7 @@
 <%@ include file="../common/head2.jsp"%>
 
 <script>
-	// 비번 일치 여부 Ajax
+	// 비번 일치 여부 Ajax -> 일 잘함. 
 	const passwdCheck = function(el) {
 		el.value = el.value.trim();
 		
@@ -18,7 +18,7 @@
 		if (el.value.length == 0) {
 			passwdCheck.removeClass('text-green-500');
 			passwdCheck.addClass('text-red-500');
-			passwdCheck.html('<span>비밀번호를 입력 해 주세요 1</span>');
+			passwdCheck.html('<span>비밀번호를 입력 해 주세요</span>');
 			return;
 		}
 		
@@ -72,13 +72,10 @@
 	    });
 
 	    // 탈퇴 버튼 클릭 시 이벤트 처리
-	    $('.btn').click(function() {
+	    $('#ext-btn').click(function() {
 	        // 체크된 이유가 있는지 확인
-	        var checkedReason = $('input[name="reason"]:checked').length > 0;
-	        var passwdLength = $('#passwdCheck').val().length; // 비번입력하세요
-
-	        console.log(checkedReason);
-	        console.log(passwdLength);
+	        let checkedReason = $('input[name="reason"]:checked').length > 0;
+	        let passwdCkInput = $('#passwdCkInput').val().length; // 비번입력하세요
 
 	        // 체크된 이유가 없다면 경고 표시 및 form 제출 방지
 	        if (!checkedReason) {
@@ -86,18 +83,14 @@
 	            return false;
 	        }
 
-	        if (passwdLength == 0) {
+	        if (passwdCkInput == 0) {
 	            $('#passwdCheck').removeClass('text-green-500');
 	            $('#passwdCheck').addClass('text-red-500');
-	            $('#passwdCheck').html('<span>비밀번호를 입력 해 주세요 2</span>');
+	            $('#passwdCheck').html('<span>비밀번호를 입력 해 주세요</span>');
 	            return false;
 	        }
-
-	        // 폼 엘리먼트를 찾아서 변수에 할당
-	        var form = $('#withdrawForm');
-
-	        // 폼 엘리먼트를 제출합니다.
-	        form.submit();
+	        
+	        $("#withdrawForm").submit();
 	    });
 	});
 
@@ -105,7 +98,6 @@
 
 
 
-	<!-- 얘 위치 중앙인거 .login의 align-items: center; 때문임 css 수정하면서 고칠것 -->
 	<section class="login">
 		<h1 class="text-4xl">회원탈퇴</h1>
 		<div class="phrases">
@@ -113,8 +105,7 @@
 			<p>탈퇴하려는 이유를 하나만 체크해 주세요</p>
 		</div>
 		<div class="check_reason">
-			<form action="/usr/member/doWithdraw" method="post" onsubmit="withdrawForm_onSubmit(this); return false;">
-			
+			<form id="withdrawForm"  action="/usr/member/doWithdraw" method="post">
 				<label>
 		        <input type="radio" name="reason" value="otherSite" class="radio radio-success radio-xs">
 		       	다른 사이트가 더 좋아서
@@ -141,7 +132,7 @@
 		<div>
 			<p>현재 사용중인 비밀번호를 입력하세요</p>
 			<!-- 여기는 Ajax로 DB갔다와야겠다. 수업때 아이디 중복을 참고하기! -->
-			<input class="input input-bordered w-full max-w-xs input-sm" type="text" name="passWd" placeholder="비밀번호를 입력하세요" onblur="passwdCheck(this);"/>
+			<input id="passwdCkInput" class="input input-bordered w-full max-w-xs input-sm" type="text" name="passWd" placeholder="비밀번호를 입력하세요" onblur="passwdCheck(this);"/>
 			<div id="passwdCheck" class="text-sm mt-2 h-5"></div>
 		</div>
 		<div>
@@ -149,7 +140,7 @@
 			<div class="btn"><a href="/usr/member/IdentityVerification">비밀번호 재설정</a></div><!-- 비밀번호 페이지로 링크 연결하기 -->
 		</div>
 		<div class="button_center">
-				<button class="btn">탈퇴하기</button>
+				<button id="ext-btn" class="btn">탈퇴하기</button>
 		</div>
 	</section>
 </body>
