@@ -72,8 +72,8 @@
                 <c:forEach var="disussionRoom" items="${disussionRooms }">
                     <div class="border list_outline m-0.5">
                         <div>
-                            <a href="detail?id=${article.id }" onclick="if (canJoin(${disussionRoom.id}) == false) {return false;}"> 
-                                <p class="room-name p-3 bg-green-100">${disussionRoom.dscsnRoomNm }</p>
+                            <a href="chat?discussionId=${disussionRoom.id} " onclick="if (canJoin(${disussionRoom.id}) == false) {return false;}"> 
+                                <div class="room-name p-3 bg-green-100">${disussionRoom.dscsnRoomNm }</div>
                                 <div class="empty"></div>
                                 <div class="flex"> 
                                     <i class="fa-solid fa-user"></i>

@@ -50,7 +50,7 @@ public class UsrDiscussionController {
 		
 		model.addAttribute("searchKeywordType", searchKeywordType);
 		model.addAttribute("disussionRooms", disussionRooms);
-		model.addAttribute("articlesCnt", discussionCnt);
+		model.addAttribute("discussionCnt", discussionCnt);
 		model.addAttribute("pagesCnt", pagesCnt);
 		model.addAttribute("page", page);
 		
