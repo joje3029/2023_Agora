@@ -111,8 +111,6 @@ public class UsrDiscussionController {
 	@RequestMapping("/usr/discussion/chat")
 	public String chat(Model model, @RequestParam("discussionId") int discussionId) {
 		
-//		System.out.println("discussionId2 + "+discussionId); // 낫오케
-		
 		// 내가 만들든 선택하든 한놈 채팅방으로 가기 위해
 		DiscussionRoom discussionRoom = discussionService.getDiscussionRoomById(discussionId);
 		
