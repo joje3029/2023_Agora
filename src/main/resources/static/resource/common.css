@@ -512,5 +512,13 @@ section>.button_bar {
 }
 
 .me{
- background-color: #059669;	
+ 	background-color: #A7f3d0;
+ 	padding: 7px;
+    margin: 10px;
+}
+
+.other{
+	background-color: #059669;
+ 	padding: 7px;
+    margin: 10px;
 }

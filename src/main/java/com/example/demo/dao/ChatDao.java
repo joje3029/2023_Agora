@@ -38,7 +38,7 @@ public interface ChatDao {
 	@Delete("""
 			<script>
 				DELETE FROM CHATROOMMEMBER
-				WHERE chatRoomId = #{chatRoomId}
+				WHERE discussionRoomId = #{discussionRoomId}
 				<if test="memberId != 0">
 					AND memberId = #{memberId}
 				</if>
@@ -65,7 +65,7 @@ public interface ChatDao {
 	
 	@Delete("""
 			DELETE FROM CHAT
-				WHERE chatRoomId = #{discussionRoomId}
+				WHERE discussionRoomId = #{discussionRoomId}
 			""")
 	void deleteChat(int discussionRoomId);
 

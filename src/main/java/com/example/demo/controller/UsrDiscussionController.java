@@ -125,7 +125,7 @@ public class UsrDiscussionController {
 		model.addAttribute("discussionRoom", discussionRoom);
 	    model.addAttribute("member", member);
 	    
-	    System.out.println(discussionRoom); //여기까지 오케
+	    System.out.println("discussionRoom : "+discussionRoom); //여기까지 오케
 		
 		return "usr/discussion/chat"; // 즉 chat jsp로 넘어가서 생기는 문제
 	}

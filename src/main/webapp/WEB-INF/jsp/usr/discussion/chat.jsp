@@ -42,7 +42,7 @@
 				<input type="hidden" id="member-id" value="${member.id}"><!--유저놈 번호-->
 				<input type="hidden" id="member-nickname" value="${member.nickname}"><!--유저놈 닉네임--, 이거 지금 안넘어옴!>-->
 				<input type="hidden" id="host-member-id" value="${discussionRoom.crtrId}"> <!-- 방장시키 정보 => 유저가 방장이냐 아니냐 볼라고-->
-				<div class="chat-height">
+				<div class="chat-height overflow-auto">
 					<ul id="message-area"></ul><!-- 실제 챗 들어올 부분 -->
 				</div>
 			</section>
