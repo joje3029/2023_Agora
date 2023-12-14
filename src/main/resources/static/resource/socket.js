@@ -38,7 +38,7 @@ window.onload = function connect(event) {
     //	기능 만드는 동안 주석 - 불편
 	// if (performance.navigation.type == 1) {
 	// 	alert("정상적인 접근이 아닙니다.");
-	// 	location.href = '/usr/chat/chatRoomList';
+	// 	location.href = '/usr/discussion/list';
 	// 	return;
 	// }
 	
@@ -124,7 +124,7 @@ function exitChatRoom() {
         },
         complete: function () { //Ajax 요청이 완료된 후에 실행되는 콜백 함수를 지정하는 옵션
 			if (confirm('서버와의 연결이 끊겼습니다. 채팅방에서 나가시겠습니까?')) {
-				location.href = '/usr/chat/chatRoomList'; //나갈끼다 하면 채팅목록으로 보냄
+				location.href = '/usr/discussion/list'; //나갈끼다 하면 채팅목록으로 보냄
 			}
         }
     })
@@ -154,7 +154,7 @@ async function disconnect(event) {
     
     event.preventDefault();// 주어진 이벤트의 기본 동작을 중단시키는 메서드. 
     
-	location.href = '/usr/chat/chatRoomList';// 나가서 돌아갈 곳.
+	location.href = '/usr/discussion/list';// 나가서 돌아갈 곳.
 	
 }
 
@@ -248,7 +248,7 @@ function sendMessage(event) {
 	
     let messageContent = messageInput.value.trim();
 
-    if (messageContent && stompClient) { // 귓속말일 때만 -> 필요없음.
+    if (messageContent && stompClient) { 
 		
         // 그냥 대화 -> 내가 필요한 부분.
            
@@ -385,7 +385,7 @@ window.onkeydown = function (event) {  // 키 이벤트를 감지하여 F5키를
 	if ((event.keyCode == 116) || (event.ctrlKey == true && event.keyCode == 82)) {
 		event.stopPropagation();
 		if (confirm('채팅방에서 나가시겠습니까?')) {
-			location.href = '/usr/chat/chatRoomList';
+			location.href = '/usr/discussion/list';
 		}
 		return false;
 	}

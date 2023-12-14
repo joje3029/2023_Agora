@@ -51,27 +51,29 @@ public class ChatController {
 		chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //chat 에서 이전 시간 데꼬와서 세팅
 
 		//chatroom에 들어감		  chat에서 방id			chat에서 유저 id, 	메시징 인프라에서 사용하는 헤더 정보에서 세션 id를 가져옴
-		chatService.joinChatRoom(chat.getDiscussionRoomId(), chat.getMemberId(), headerAccessor.getSessionId());	// 챗에서 받는 수신자 	 챗에서 강퇴 당한놈 id		챗에서 메세지 타입
-		chatService.saveChat(chat.getRegDate(), chat.getDiscussionRoomId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+		chatService.joinChatRoom(chat.getDiscussionId(), chat.getMemberId(), headerAccessor.getSessionId());	// 챗에서 받는 수신자 	 챗에서 강퇴 당한놈 id		챗에서 메세지 타입
+		chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
 		// chat 내용 세이브	  chat에서 날짜 가져옴 chat에서 방 번호 가져옴 caht에서 멤버 아이디 가져옴 chat에서 메시지 가져오기 
 
 		headerAccessor.getSessionAttributes().put("memberId", chat.getMemberId()); // 메시지 헤더에 글쓰는놈 id를 key이름 memberId로 해서 세팅
-		headerAccessor.getSessionAttributes().put("discussionRoomId", chat.getDiscussionRoomId()); //메시지 헤더에 chatRoom id를 key이름 discussionRoomId로 해서 세팅
+		headerAccessor.getSessionAttributes().put("discussionRoomId", chat.getDiscussionId()); //메시지 헤더에 chatRoom id를 key이름 discussionRoomId로 해서 세팅
 		
 		//암튼 그 템플릿에 template.convertAndSend 는 Spring 프레임워크에서 메시징을 처리하기 위한 메소드 중 하나. 
 		// 주로 Spring의 메시징 기능을 사용하여 메시지를 특정 주제에 발행하거나 메시지를 소비하는데 사용. 이 메소드는 주로 Spring의 메시징 모듈에서 WebSocket이나 메시지 큐와 같은 통신 메커니즘에 사용됨.
-		template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionRoomId(), chat);
+		template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionId(), chat);
 		//여기서는 특정 주제에 메시지를 발행함. 
 		// * 여서 sub씨는 메세지를 구독하는 요청 url -> WebSocketStompconfig를 참고
 		// 구체적으로는 /sub/usr/chat/joinChatRoom/ 다음에 채팅방 id가 추가된 주제로 메시지 발행. 
 	}
     
-	//
+	//여기가 문제라서 프론트 화면 안뜨는기야.
     @MessageMapping("/usr/chat/sendMessage") // socket.js에서 json형태의 메시지를 전달하면 오는 url
     public void sendMessage(@Payload Chat chat) {  //@Payload : 메소드의 특정 매개변수가 메시지의 페이로드를 나타냄. 
     	
     	String recipientNickname = chat.getRecipientNickname(); //chat에서 수신자 닉네임을 recipientNickname에 담음.
     	
+    	System.out.println("recipientNickname : "+ recipientNickname );
+    
     	if (recipientNickname != null) { //만약에 수신자에 뭐가 들었으면(null이 아니면)
     		Member member = memberService.getMemberByNickname(recipientNickname); //memberService에서 수신자놈 닉네임을 꺼내서 담음
     		chat.setRecipientId(member.getId()); //chat에 수신자놈 id 세팅
@@ -83,9 +85,15 @@ public class ChatController {
 		chat.setRegDate(now); // 지금 시간세팅
 		chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //chat의 시간을 chatdml 형태 시간에 세팅
     	// 챗을 저장			chat 날짜			chat의 채팅 방 id	chatdml 멤버 id		chat의 메시지		chat의 수신자id			chat의 강퇴당한놈 	chat의 메시지 타입
-    	chatService.saveChat(chat.getRegDate(), chat.getDiscussionRoomId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+    	// 여기서 chat.getDiscussionRoomId()가 0으로 들어감. chat에 세팅을 지금 언노밍 하고 있는가. 
+		chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+
+		System.out.println("chat.getDiscussionId() : "+chat.getDiscussionId());
+    	System.out.println("chat : "+chat);
     	
-        template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionRoomId(), chat);
+    	//응 그래서 DB에 저장은 겁나 잘되. /usr/discussion/chat/         /usr/discussion/chat?discussionId=7
+    	
+        template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionId(), chat);
         //여기서는 특정 주제에 메시지를 발행함. 
 		// * 여서 sub씨는 메세지를 구독하는 요청 url -> WebSocketStompconfig를 참고
 		// 구체적으로는 /sub/usr/chat/joinChatRoom/ 다음에 채팅방 id가 추가된 주제로 메시지 발행. 
@@ -120,9 +128,9 @@ public class ChatController {
     	chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //양식 시간 세팅
     	
 		//chat 저장
-    	chatService.saveChat(chat.getRegDate(), chat.getDiscussionRoomId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+    	chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
     	
-    	template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionRoomId(), chat);
+    	template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionId(), chat);
     	//여기서는 특정 주제에 메시지를 발행함. 
 		// * 여서 sub씨는 메세지를 구독하는 요청 url -> WebSocketStompconfig를 참고
 		// 구체적으로는 /sub/usr/chat/joinChatRoom/ 다음에 채팅방 id가 추가된 주제로 메시지 발행. 
@@ -137,7 +145,7 @@ public class ChatController {
     	
     	chat.setBanMemberId(member.getId());//chat의 강퇴당한 시키를 BanMemberId에 세팅
     	
-    	chatService.exitChatRoom(chat.getDiscussionRoomId(), chat.getBanMemberId()); // 강퇴하는 놈이니께 나가게 해야지
+    	chatService.exitChatRoom(chat.getDiscussionId(), chat.getBanMemberId()); // 강퇴하는 놈이니께 나가게 해야지
     	
     	LocalDateTime now = LocalDateTime.now(); //시간
     	chat.setRegDate(now); // 현시간 세팅
@@ -147,9 +155,12 @@ public class ChatController {
     	chat.setBanMemberNickname(member.getNickname());//강퇴 당한놈 닉네임 세팅
     	
 		// chat에 저장
-    	chatService.saveChat(chat.getRegDate(), chat.getDiscussionRoomId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+    	chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
     	
-    	template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionRoomId(), chat);
+    	System.out.println("chat.getDiscussionRoomId() : "+ chat.getDiscussionId());
+    	System.out.println("chat : "+ chat);
+    	
+    	template.convertAndSend("/usr/discussion/chat?discussionId=" + chat.getDiscussionId(), chat);
     	//여기서는 특정 주제에 메시지를 발행함. 
 		// * 여서 sub씨는 메세지를 구독하는 요청 url -> WebSocketStompconfig를 참고
 		// 구체적으로는 /sub/usr/chat/joinChatRoom/ 다음에 채팅방 id가 추가된 주제로 메시지 발행. 

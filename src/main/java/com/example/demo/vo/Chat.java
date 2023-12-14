@@ -23,7 +23,7 @@ public class Chat {
     
     private int id; //chat id
     private LocalDateTime regDate; //chat 시간
-    private int discussionRoomId; //chat이 들어가야하는 방 번호
+    private int discussionId; //chat이 들어가야하는 방 번호
     private int memberId; //chat 쓴 멤버 id
     private String message; // chat 내용
     private int recipientId; // 수신자 아이디 : 메시지 받는 놈 아이디
