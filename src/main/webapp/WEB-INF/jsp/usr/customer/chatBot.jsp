@@ -28,7 +28,9 @@
 					<li class="question-item"><a href="#">토론방</a></li>
 					<li class="question-item"><a href="#">구독</a></li>
 					<li class="question-item"><a href="#">탈퇴</a></li>
-					<li class="question-item"><a href="customercenter">그 외</a></li>
+					<c:if  test="${rq.getLoginedMemberId() != 0 }">
+						<li class="question-item"><a href="customercenter">그 외</a></li>
+					</c:if>
 					</ui>
 				</nav>
 				<div class="chatbot-bubble border border-2 border-green-700 w-full p-6">
