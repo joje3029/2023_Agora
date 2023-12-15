@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html data-theme=lemonade>
 <head>
 <meta charset="UTF-8">
 
@@ -28,9 +28,9 @@
 <!-- 운영자 메뉴부분 -> head -->
 <body>
 	<section id="admin_header">
-		<div class="site_name" id="site_name">
-			<span id="logo_name">Agora</span><img
-				src="/resource/static.image/free-icon-temple-3874642.png" alt="신전" />
+		<div class="site_name flex justify-center mt-2" id="site_name">
+			<span id="logo_name">Agora</span>
+			<img class="h-10" src="/resource/images/Temple4.png" alt="신전5" />
 		</div>
 		<div class="menu_bar">
 			<ul>

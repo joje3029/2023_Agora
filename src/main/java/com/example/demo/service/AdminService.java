@@ -12,6 +12,10 @@ public class AdminService {
 	public AdminService(AdminDao adminDao) {
 		this.adminDao = adminDao;
 	}
+
+	public int getUsersCnt(String searchKeywordType, String searchKeyword) {
+		return adminDao.getUsersCnt(searchKeywordType, searchKeyword);
+	}
 	
 	
 }

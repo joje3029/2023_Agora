@@ -10,7 +10,7 @@
 		<section class="Admain">
 		 	<section class="listBody">
 		<div class="flex justify-between">
-			<h1 class="backcground2 my-6">관리자 고객 상담 답변</h1>
+			<h1 class="bg-green-100 inline-block text-3xl p-3">관리자 고객 상담 답변</h1>
 		</div>
 		<section class="table-section flex justify-center ">
 			<form action="doLogin" method="post"

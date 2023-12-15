@@ -10,7 +10,7 @@
 		<section class="Admain">
 			  <section class="listBody">
 		<div class="flex justify-between">
-			<h1 class="backcground2 my-6">사이트 통계</h1>
+			<h1 class="bg-green-100 inline-block text-3xl p-3">사이트 통계</h1>
 		</div>
 		<section class="mt-8 text-xl">
 			<div class="container mx-auto px-3 border border-green-600 mb-4">

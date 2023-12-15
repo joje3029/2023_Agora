@@ -25,5 +25,12 @@ public class Member {
 	private int mberAuthor; //회원권한
 	private String secsnReqstdt; //탈퇴신청날짜
 	
-	
+
+	public String delStatusStr() {
+		if (secsnEnnc == 0) {
+			return "활동 중";
+		}
+		return "탈퇴";
+	}
+
 }

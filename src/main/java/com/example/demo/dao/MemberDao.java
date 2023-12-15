@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -120,5 +122,17 @@ public interface MemberDao {
 				WHERE id = #{loginedMemberId}
 			""")
 	public void deleteMember(int loginedMemberId);
+	
+	@Select("""
+			SELECT COUNT(*)
+				FROM `USER_INFO`
+			""")
+	public int getMembersCnt();
+	
+	@Select("""
+			SELECT *
+				FROM `USER_INFO`
+			""")
+	public List<Member> getMembers();
 	
 }

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
@@ -90,5 +92,15 @@ public class MemberService {
 		memberDao.deleteMember(loginedMemberId);
 		
 	}
+
+	public int getMembersCnt() {
+		return memberDao.getMembersCnt();
+	}
+
+	public List<Member> getMembers() {
+		return memberDao.getMembers();
+	}
+
+	
 
 }

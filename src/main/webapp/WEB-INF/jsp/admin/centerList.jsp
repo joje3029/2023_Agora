@@ -10,7 +10,7 @@
 		<section class="Admain">
 		 	<section class="listBody">
 		<div class="flex justify-between">
-			<h1 class="backcground2 my-6">관리자 고객 상담 리스트</h1>
+			<h1 class="bg-green-100 inline-block text-3xl p-3">관리자 고객 상담 리스트</h1>
 		</div>
 		<section class="mt-8 text-xl">
 			<div class="container mx-auto px-3">
