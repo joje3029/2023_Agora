@@ -97,8 +97,10 @@ public class MemberService {
 		return memberDao.getMembersCnt();
 	}
 
-	public List<Member> getMembers() {
-		return memberDao.getMembers();
+
+	public List<Member> getMembers(int itemsInAPage, int limitStart, String startDate, String endDate, String searchId,
+			String searchNickname) {
+		return memberDao.getMembers(itemsInAPage, limitStart, startDate, endDate, searchId, searchNickname);
 	}
 
 	

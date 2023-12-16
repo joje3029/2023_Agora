@@ -114,20 +114,31 @@ public class AdminController {
 	
 //	회원조회
 	@RequestMapping("/admin/userlist")
-	public String userlist(Model model) {
-
+	public String userlist(Model model,@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "")  String startDate , @RequestParam(defaultValue = "") String endDate, @RequestParam(defaultValue = "")  String searchId  , @RequestParam(defaultValue = "") String searchNickname ) {
+		
+		if (page <= 0) {
+			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
+		}
+		
 //		// 멤버 총 인원 페이지 개수
-//		int membersCnt = memberService.getMembersCnt();
-//		//페이징 관련 병수
-//		int itemsInAPage = 10;
-//		int limitStart = (page - 1) * itemsInAPage;
-//		int pagesCnt = (int) Math.ceil((double) membersCnt / itemsInAPage);// 화면에 보여질 페이지의 마지막 페이지 번호
+		int membersCnt = memberService.getMembersCnt();
+//		//페이징 관련 변수
+		int itemsInAPage = 10;
+		int limitStart = (page - 1) * itemsInAPage;
+		int pagesCnt = (int) Math.ceil((double) membersCnt / itemsInAPage);// 화면에 보여질 페이지의 마지막 페이지 번호
 
-		List<Member> members = memberService.getMembers();
+		List<Member> members = memberService.getMembers(itemsInAPage, limitStart, startDate, endDate, searchId, searchNickname);
 
 //		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
-//		model.addAttribute("member", member);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("searchId", searchId);
+		model.addAttribute("searchNickname", searchNickname);
+		model.addAttribute("membersCnt", membersCnt);
+		model.addAttribute("pagesCnt", pagesCnt);
+		model.addAttribute("page", page);
+		
 		model.addAttribute("members", members);
 		
 		return "admin/userlist";

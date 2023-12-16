@@ -19,18 +19,18 @@
 								<tr>
 									<th class="mr-4">가입일</th>
 									<!--네이버 같은데 달력은 시간 되면 하고. 형태에 맞게 때리면 db에서 조회하게 하자-->
-									<td><input type="date" class="input input-bordered max-w-xs input-sm w-44" > ~ 
-									<input type="date" class="input input-bordered max-w-xs input-sm w-44" ></td>
+									<td><input type="date" name="startDate" class="input input-bordered max-w-xs input-sm w-44" > ~ 
+									<input type="date" name="endDate" class="input input-bordered max-w-xs input-sm w-44" ></td>
 								</tr>
 								<tr>
 									<th class="mr-4">아이디</th>
 									<!--이거는 db에서 like 로 조회 => 그래야 제대로 된 놈을 찾기 편하지-->
-									<td><input type="text" placeholder="조회할 아이디 입력" class="input input-bordered"></td>
+									<td><input type="text" name="searchId" placeholder="조회할 아이디 입력" class="input input-bordered"></td>
 								</tr>
 								<tr>
 									<th class="mr-4">닉네임</th>
 									<!--닉네임은 중복안되게 했으니까 조회 가능-->
-									<td><input type="text" placeholder="조회할 닉네임 입력" class="input input-bordered"></td>
+									<td><input type="text" name="searchNickname" placeholder="조회할 닉네임 입력" class="input input-bordered"></td>
 								</tr>
 							</table>
 							<div class="w-full flex justify-center"><button class="btn">조회</button></div>
