@@ -3,6 +3,7 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.AdminDao;
+import com.example.demo.vo.CustomerCenter;
 
 @Service
 public class AdminService {
@@ -13,8 +14,8 @@ public class AdminService {
 		this.adminDao = adminDao;
 	}
 
-	public int getUsersCnt(String searchKeywordType, String searchKeyword) {
-		return adminDao.getUsersCnt(searchKeywordType, searchKeyword);
+	public CustomerCenter getCustomerList() {
+		return adminDao.getCustomerList();
 	}
 	
 	

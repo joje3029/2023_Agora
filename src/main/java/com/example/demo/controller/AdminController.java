@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
+import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminController {
@@ -101,7 +100,19 @@ public class AdminController {
 	
 //	고객상담 리스트로 가는 로직
 	@RequestMapping("/admin/centerList")
-	public String showCenterList() {
+	public String showCenterList(Model model) {
+		
+		System.out.println("여기까지는 오는거지?"); // 여기옴 
+		
+		//보내기 전에 db(CSTMR_CNSLT_CNTER)가서 데꼬와야함.
+		//여기서 문제네
+		CustomerCenter customerCenters =adminService.getCustomerList();
+		
+		
+		System.out.println(customerCenters);
+		
+		model.addAttribute("customerCenters", customerCenters);
+		
 		return "admin/centerList";
 }
 	

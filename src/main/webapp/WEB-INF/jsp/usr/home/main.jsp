@@ -12,14 +12,9 @@
 <link rel="stylesheet" href="/resource/main.css" />
 <%@ include file="mainScript.jsp"%>
 
+
 <!-- 캐러셀을 일단 안쓴 버전으로 퍼블리싱을 하자 => 캐러셀같은 프론트 단때문에 시간 많이 잡아먹지 말자! -->
 <section class="main">
-
-	<!-- 관리자쪽 페이지 잘 넘어가는지 화긴하려고 임시로 만든 로직 -> 확인 잘 되면 유저쪽이랑 분리 시켜야함 -->
-	<div class="border">
-		<a href="/usr/admin/login">관리자 로그인</a>
-	</div>
-	
 	<!-- 메인 페이지 환영 캐러셀 : 안녕 동물 친구들!! -->
 	<section class="main-in-section w-full main-height">
 		<div class="carousel w-full ">
@@ -53,6 +48,9 @@
 			</div>
 		</div>
 	</section>
+	
+	
+	
 	
 	<section class="main-in-section">
 		<div class="section-title text-2xl">추천 칼럼</div>

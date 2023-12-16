@@ -22,24 +22,18 @@
 								<th>번호</th>
 								<th>제목</th>
 								<th>고객 아이디</th>
-								<th>고객 이메일</th>
-								<th>문의한 일자</th>
 								<th>답변 상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<!--여기 코드는 article list 코드랑 로직 다른거 없음.-->
-							<!--아래는 일단 박은거-->
-							<!--답변은 해당 tr을 건드리면 해당으로 넘어가는걸로-->
-							<!-- c:forEach 넣어야함 : 퍼블리싱중에 넣으니까 안보여서 뻄. -->
-							<tr>
-								<th>1</th>
-								<th>뱁새!</th>
-								<th>sdf123</th>
-								<th>joje123456@gmail.com</th>
-								<th>2023-01-11</th>
-								<th>답변했음</th>
-							</tr>
+							<c:forEach var="customerCenter" items="${customerCenters }">
+												<tr class="hover">
+													<td>${customerCenter.id }</td>
+													<td>${customerCenter.cstmrTitle }</td>
+													<td>${member.uwerId }</td>
+													<td>${member.ricfldSndngYn }</td>
+												</tr>
+										</c:forEach>
 						</tbody>
 					</table>
 				</div>
