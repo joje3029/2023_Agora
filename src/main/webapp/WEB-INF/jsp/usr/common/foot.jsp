@@ -3,7 +3,7 @@
 
 <div class="footer" id="footer">
 	<div class="site_name">
-		<a href="/">Agora
+		<a href="/"><span id="logo_name">Agora</span>
 		<img class="h-8" src="/resource/images/Temple4.png" alt="신전5" />
 		</a>
 	</div>

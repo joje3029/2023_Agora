@@ -11,8 +11,6 @@ import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
 public class UsrMemberController {
 
@@ -26,7 +24,7 @@ public class UsrMemberController {
 
 	// 회원가입
 	@RequestMapping("/usr/member/join")
-	public String join(HttpServletRequest req) {
+	public String join() {
 		return "usr/member/join";
 	}
 
@@ -104,7 +102,7 @@ public class UsrMemberController {
 
 	// 회원정보 보여주기
 	@RequestMapping("/usr/member/profile")
-	public String showProfile(HttpServletRequest req, Model model) {
+	public String showProfile( Model model) {
 
 		// 연결하기 전에 DB가서 지금 로그인한 놈 정보 select로 가져와야겠네.
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
@@ -116,7 +114,7 @@ public class UsrMemberController {
 
 	// 회원정보 수정
 	@RequestMapping("/usr/member/modify")
-	public String modify(HttpServletRequest req, Model model) {
+	public String modify( Model model) {
 
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 
@@ -174,13 +172,13 @@ public class UsrMemberController {
 
 	// 회원탈퇴
 	@RequestMapping("/usr/member/withdraw")
-	public String withdraw(HttpServletRequest req) {
+	public String withdraw() {
 		return "usr/member/withdraw";
 	}
 
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
-	public String dosecede(HttpServletRequest req, String reason, String detailReason) {
+	public String dosecede( String reason, String detailReason) {
 		
 		System.out.println("reason : "+reason); // 이건 내가 아까 안쓴다 했고
 		System.out.println("detailReason : "+detailReason); // 기타가 아니니께  null이 들어온거고.
@@ -195,8 +193,6 @@ public class UsrMemberController {
 		memberService.deleteMember(rq.getLoginedMemberId());
 	
 		//그리고 여기서 rq 에 있는거 비워야겠네 로그아웃처럼. 오케
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		rq.logout();
 		
 		return Util.jsReplace(Util.f("탈퇴 되었습니다"), "/"); // 일단 임시로 널 안나게
@@ -206,7 +202,7 @@ public class UsrMemberController {
 	// 아이디찾기
 	// 아이디찾기 폼으로감
 	@RequestMapping("/usr/member/findId")
-	public String findId(HttpServletRequest req) {
+	public String findId() {
 		return "usr/member/findId";
 	}
 
@@ -257,7 +253,7 @@ public class UsrMemberController {
 
 	// 비밀번호
 	@RequestMapping("/usr/member/findPw")
-	public String findPW(HttpServletRequest req) {
+	public String findPW() {
 		return "usr/member/findPw";
 	}
 
@@ -269,7 +265,7 @@ public class UsrMemberController {
 
 	// 로그인
 	@RequestMapping("/usr/member/login")
-	public String login(HttpServletRequest req) {
+	public String login() {
 
 		return "usr/member/login";
 	}
@@ -306,7 +302,7 @@ public class UsrMemberController {
 
 	// 비밀번호 변경 양식 보여주기
 	@RequestMapping("/usr/member/chagePw")
-	public String chagePw(HttpServletRequest req) {
+	public String chagePw() {
 
 		return "usr/member/chagePw";
 	}
@@ -314,7 +310,7 @@ public class UsrMemberController {
 	// 비밀번호 변경실제로 되는 곳.
 	@RequestMapping("/usr/member/doChagePw")
 	@ResponseBody
-	public String doChagePw(HttpServletRequest req, String loginPw) {
+	public String doChagePw( String loginPw) {
 
 		// DB가서 바꾸는 로직! 적거라!!
 		memberService.modifyPw(rq.getLoginedMemberId(), Util.sha256(loginPw));
@@ -325,9 +321,7 @@ public class UsrMemberController {
 	// 로그아웃
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout() {
 
 		if (rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("로그인 후 이용해주세요");
@@ -340,7 +334,7 @@ public class UsrMemberController {
 
 	// 인증번호 이메일 로직
 	@RequestMapping("/usr/member/doSendEmail")
-	public String doSendEmail(HttpServletRequest req) {
+	public String doSendEmail() {
 
 		return Util.jsReplace(Util.f("인증메일이 발송되었습니다. 이메일을 확인해주세요"), "join");
 	}

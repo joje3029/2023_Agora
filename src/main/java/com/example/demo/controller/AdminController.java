@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.AdminService;
 import com.example.demo.service.MemberService;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
@@ -29,16 +31,73 @@ public class AdminController {
 	
 //	관리자 메인페이지
 	@RequestMapping("/admin/main")
-	public String showAdMain() {
+	public String main() {
 		return "admin/main";
 	}
 	
-//	관리자쪽 로그인
+//	관리자 로그인
 	@RequestMapping("/admin/login")
-	public String adlogin() {
-		
+	public String login() {
 		return "admin/login";
 	}
+	
+	
+// 관리자 로그인 DB랑 확인하고 메인페이지로 넘기기(관리자 페이지의 모든 서비스는 관리자 로그인에서 고르인이 되야함.-> 다 되면 intercepter에 다른경로 다 추가할꺼야!!)	
+// 여기는 Db랑 비교할때 단순 있다 없다외에도 관리자 권한도 따져야함. 
+	@RequestMapping("admin/doLogin")
+	@ResponseBody
+	public String doLogin(String loginId, String loginPw) {
+
+		if (rq.getLoginedMemberId() != 0) {
+			return Util.jsHistoryBack("로그아웃 후 이용해주세요");
+		}
+
+		if (Util.empty(loginId)) {
+			return Util.jsHistoryBack("아이디를 입력해주세요");
+		}
+		if (Util.empty(loginPw)) {
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
+		}
+		
+		// 여기서는 
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null) {
+			return Util.jsHistoryBack(Util.f("%s은(는) 존재하지 않는 아이디입니다", loginId));
+		}
+		
+		//여기서 권한이 일반인지 아닌지 확인, 여기까지 왔다는 아이디가 존재는 하신다는 이야기니까.
+		// 권한이 없는데 비번이 맞는지 아닌지 먼저 확인할껀 아니니까.
+		if(member.getMberAuthor()!=2) {
+			return Util.jsHistoryBack(Util.f("%s은(는) 관리자 권한이 없는 아이디입니다", loginId));
+		}
+
+		if (member.getPasswd().equals(Util.sha256(loginPw)) == false) {
+			return Util.jsHistoryBack("비밀번호를 확인해주세요");
+		}
+
+		rq.login(member);
+
+		return Util.jsReplace(Util.f("%s 관리자님 환영합니다.", loginId), "main");
+	}
+	
+	//관리자 로그아웃
+	@RequestMapping("/admin/dologout")
+	@ResponseBody
+	public String dologout() {
+		
+		if (rq.getLoginedMemberId() == 0) {
+			return Util.jsHistoryBack("로그인 후 이용해주세요");
+		}
+
+		rq.logout();
+
+		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "login");
+		
+	}
+	
+	
+	
 	
 //	고객상담 리스트로 가는 로직
 	@RequestMapping("/admin/centerList")

@@ -22,7 +22,8 @@
 </head>
 <body>
 	<section id="header2">
-		<div class="site_name">
-			<a href="/"><span id="logo_name">Agora</span></a>
+		<div class="site_name flex justify-center mt-2" id="site_name">
+			<span id="logo_name">Agora</span>
+			<img class="h-10" src="/resource/images/Temple4.png" alt="신전5" />
 		</div>
 	</section>
