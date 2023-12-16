@@ -38,9 +38,9 @@
 					</div>
 					<div class="table-box-type border2">
 						<!--  이 form이 삭제하는 일을 함.  그래서 얘는 actin이 있어야함.-->
-						<form>
+						<form action="doDeleteMembers" method="POST">
 							<div class="mt-2 flex justify-end">
-								<button class="btn btn-delete-selected-members">회원 삭제</button>
+								<button class="btn btn-delete-selected-members">회원 강제 탈퇴</button>
 							</div>
 							<table class="table table-lg">
 								<thead class="text-lg">

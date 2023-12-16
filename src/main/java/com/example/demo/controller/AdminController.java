@@ -144,6 +144,26 @@ public class AdminController {
 		return "admin/userlist";
 	}
 	
+//	관리자가 회원 탈퇴
+	@RequestMapping("/admin/doDeleteMembers")
+	@ResponseBody
+	public String doDeleteMembers(@RequestParam(name = "ids", required = false) List<String> ids) {
+		
+		if (ids == null) {
+			return Util.jsHistoryBack("선택한 회원이 없습니다");
+		}
+
+		for (String idStr : ids) {
+			if (idStr.equals("1")) {
+				return Util.jsHistoryBack("관리자 계정은 삭제할 수 없습니다");
+			}
+		}
+
+		memberService.modifyMemberssecnEnnc(ids);
+
+		return Util.jsReplace("선택한 회원이 강제탈퇴처리 되었습니다", "userlist");
+	}
+	
 	
 //	마케팅데이터가는 로직
 	@RequestMapping("/admin/marketing")

@@ -294,6 +294,10 @@ public class UsrMemberController {
 		if (member.getPasswd().equals(Util.sha256(loginPw)) == false) {
 			return Util.jsHistoryBack("비밀번호를 확인해주세요");
 		}
+		
+		if (member.getSecsnEnnc() == 1) {
+			return Util.jsHistoryBack("강제 탈퇴되었습니다. 더 이상 이용할수 없는 계정입니다.");
+		}
 
 		rq.login(member);
 

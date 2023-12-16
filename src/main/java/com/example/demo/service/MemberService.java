@@ -103,6 +103,20 @@ public class MemberService {
 		return memberDao.getMembers(itemsInAPage, limitStart, startDate, endDate, searchId, searchNickname);
 	}
 
+	public void modifyMemberssecnEnnc(List<String> ids) {
+		for (String idStr : ids) {
+			Member member = getMemberById(Integer.parseInt(idStr));
+
+			if (member != null) {
+				modifyMemberSecsnEnnc(member.getId());
+			}
+		}
+	}
+
+	private void modifyMemberSecsnEnnc(int id) {
+		memberDao.modifyMemberSecsnEnnc(id);
+	}
+	
 	
 
 }

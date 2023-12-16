@@ -155,11 +155,12 @@ public interface MemberDao {
 		    </script>
 		""")
 	public List<Member> getMembers(int itemsInAPage, int limitStart, String startDate, String endDate, String searchId, String searchNickname);
-	//int itemsInAPage : 검색시 10개씩 끊어 보여줄끼다의 10개 , 
-	//int limitStart : 끈을 곳, 
-	//String startDate :가입일 날짜 검색 시작 일, (v) 
-	//String endDate : 가입일 날짜 검색 종료 일, (v)
-	//String searchId : 아이디로 검색시 ,
-	//String searchNickname : 닉네임으로 검색시
+	
+	@Update("""
+			UPDATE `USER_INFO`
+				SET secsnEnnc =1
+				WHERE id = #{id}
+			""")
+	public void modifyMemberSecsnEnnc(int id);
 	
 }
