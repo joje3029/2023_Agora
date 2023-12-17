@@ -9,14 +9,7 @@
 
 <script>
 const customerForm_onSubmit = function(form) {
-	form.title.value = form.title.value.trim();
 	form.body.value = form.body.value.trim();
-	
-	if (form.title.value.length == 0) {
-		alert('제목을 입력해주세요');
-		form.title.focus();
-		return;
-	}
 	
 	if (form.body.value.length == 0) {
 		alert('내용을 입력해주세요');
@@ -57,16 +50,11 @@ const customerForm_onSubmit = function(form) {
 		<!-- 여기는 답하는거 -->
 		<div class="border p-2 inline-block">유저 메일로 답 보내기</div>
 		<section class="table-section flex justify-center">
-			<form action="main" method="post"
+			<form action="sendCustomerAnswer" method="post"
 				onsubmit="customerForm_onSubmit(this); return false;">
 				<input type="hidden" name="id" value="${customerCenter.id}">
 				<!--나중에 기능할떄 여기서는 보낸 놈(나한테 의뢰온놈) email주소가 iput으로 들어와서 같이 전달 되야함.-->
 				<table >
-					<tr>
-						<th class="w-20"><span class="text-red-700">*</span>제목</th>
-						<td><input type="text" name="title" placeholder="제목을 입력해주세요"
-							class="input input-bordered w-full max-w-xs input-sm"></td>
-					</tr>
 					<tr>
 						<th class="w-20"><span class="text-red-700">*</span>내용</th>
 						<td class="flex"><textarea class="textarea textarea-bordered resize-none"

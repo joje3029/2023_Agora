@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.CustomerCenter;
 
@@ -35,6 +36,20 @@ public interface AdminDao {
 				ORDER BY C.id DESC
 			""")
 	public CustomerCenter getdetailCustomer(int id);
+	
+	@Update("""
+			UPDATE CSTMR_CNSLT_CNTER 
+				SET ricfldSndngYn = 4
+				WHERE id = #{id}
+			""")
+	public Object modifyRicFail(int id);
+	
+	@Update("""
+			UPDATE CSTMR_CNSLT_CNTER 
+				SET ricfldSndngYn = 1
+				WHERE id = #{id}
+			""")
+	public void modifyRicSucess(int id);
 	
 	
 }

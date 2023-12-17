@@ -13,6 +13,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -143,24 +144,31 @@ public class AdminController {
 //	고객상담 답변 이메일로 보내고 고객상담 리스트로 가야함.
 	@RequestMapping("/admin/sendCustomerAnswer")
 	@ResponseBody
-	public String sendCustomerAnswer(int id, String title, String body) {
+	public String sendCustomerAnswer(int id, String body) {
 		
 		// 유저 이메일로 직접 가야함. 즉, 저쪽 문서 번호 받아야함.
 		CustomerCenter customerCenter = adminService.getdetailCustomer(id);
 		
-		String customerEmail =customerCenter.getEmail()
-		
-		//그래서 유저 이메일을 db에서 찾아서 
-		
+		//그래서 유저 이메일을 db에서 찾아서
+		String customerEmail =customerCenter.getEmail();
 		
 		//이메일을 보내는 로직
+		ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempUserAnswerByEmail(customerEmail, body);
 		
+		//보내고 나면 보내졌다는 확인과 함께 고객센터 리스트로 가야함.
+		//그리고 그전에 보냈다고로 바꿔야함-> 일단 이건 보내는거 확인되고나서 하자
 		
-		//보내고 나면 보내졌다는 확인과 함께 리스트로 가야함. 
+		String failmsg="메일 발송 실패하였습니다.";
 		
+		if(notifyTempLoginPwByEmailRd.getMsg().equals(failmsg)) {
+			// 메일 발송 실패시
+			adminService.modifyRicFail(id);
+		}
+		//메일 발송 성공시
+		adminService.modifyRicSucess(id);
 		
+		return Util.jsReplace(notifyTempLoginPwByEmailRd.getMsg(), "centerList");
 		
-		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "centerList");
 	}
 	
 //	회원조회

@@ -31,6 +31,17 @@ public class AdminService {
 	public CustomerCenter getdetailCustomer(int id) {
 		return adminDao.getdetailCustomer(id);
 	}
+
+	public void modifyRicFail(int id) {
+		adminDao.modifyRicFail(id);
+		
+	}
+
+	public void modifyRicSucess(int id) {
+		adminDao.modifyRicSucess(id);
+		
+	}
+
 	
 	
 

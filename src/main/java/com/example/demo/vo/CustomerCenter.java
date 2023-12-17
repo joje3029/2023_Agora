@@ -20,7 +20,10 @@ public class CustomerCenter {
 	
 	public String ricfldStausStr() {
 		if (ricfldSndngYn == 0) {
-			return "미응답함";
+			return "미 응답함";
+		}
+		if (ricfldSndngYn == 4) {
+			return "발신 실패";
 		}
 		return "응답함";
 	}
