@@ -20,18 +20,17 @@
 			<h1 class="bg-green-100 inline-block text-3xl p-3">사이트 통계</h1>
 		</div>
 		<section class="mt-8 text-xl">
-			<div class="container mx-auto px-3 border border-green-600 mb-4">
+			<div class="container mx-auto px-3 border border-green-600 mb-4 w-full ">
 				<ul class="flex justify-around p-4">
 					<li class="btn">신규 가입자 수</li>
 					<li class="btn">일일 방문횟수</li>
-					<li class="btn">탈퇴 회원 수</li>
+					<li class="btn">탈퇴 회원 수와 이유</li>
 				</ul>
 			</div>
-			<div class=" border2">
+			<div>
 				<!--h-screen : height: 100vh; 임시 임시 대충 모양 볼려구-->
-					토스트 ui 차트 들어올 자리
-				<div class="chart-section border">
-					<div id="chart"></div> 
+				<div class="chart-section border w-full">
+					<div id="chart" class="border border-green-600"></div> 
 				</div>
 			</div>
 
@@ -40,27 +39,34 @@
 		</section>
 		
 		<script>
+		// 이건 생이니까 이제 이걸 DB에서 자료를 보내고 그걸로 뿌리게 해야겠네. 
+		// 이건 일단 기준을 탈퇴회원과 탈퇴 이유로 함.
 		/* namespace */
-		const Chart = toastui.Chart;
-		const el = document.getElementById('chart');
+		const Chart = toastui.Chart; // 이건 toastui.Chart를 Chart 변수에 담음 
+		const el = document.getElementById('chart'); // html의 id가 chart인 부분 가져오는거.
+		//이게 실질적으로 그래프를 그리는 data님
 		const data = {
-		  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], //옆의 날짜
 		  series: [
 		    {
-		      name: 'Budget',
+		      name: 'Budget', // 퍼렁이 위에서부터 아래로 길이
 		      data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
 		    },
 		    {
-		      name: 'Income',
+		      name: 'Income', // 노랑이 위에서부터 아래로 길이
 		      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
 		    },
 		  ],
 		};
 		const options = {
-		  chart: { width: 700, height: 400 },
+				chart: { width: 700, height: 400 }, // 차트의 가로 세로 높이
+		  series: {
+			    stack: true
+			  }
 		};
+		
 
-		const chart = Chart.barChart({ el, data, options });
+		const chart = Chart.barChart({ el, data, options }); // 차트 그림. 위의 변수로 설정한 Chart에 넣어서 
 		// const chart = new BarChart({ el, data, options }); // Second way
 
 
