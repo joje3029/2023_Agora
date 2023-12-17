@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,6 +16,7 @@ public interface AdminDao {
 				INNER JOIN `USER_INFO` AS U
 				ON C.userUniqId = U.id
 			""")
-	CustomerCenter getCustomerList();
-
+	public List<CustomerCenter> getCustomerCenterList();
+	
+	
 }

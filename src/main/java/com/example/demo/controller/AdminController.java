@@ -105,11 +105,11 @@ public class AdminController {
 		System.out.println("여기까지는 오는거지?"); // 여기옴 
 		
 		//보내기 전에 db(CSTMR_CNSLT_CNTER)가서 데꼬와야함.
-		//여기서 문제네
-		CustomerCenter customerCenters =adminService.getCustomerList();
+		//여기서 문제네, 주석처리하면 들어가짐 = 이거 하면서 어디가 조짐
 		
+		List<CustomerCenter> customerCenters = adminService.getCustomerCenterList();
 		
-		System.out.println(customerCenters);
+		System.out.println("여기까지는 오는거지?-2");
 		
 		model.addAttribute("customerCenters", customerCenters);
 		
