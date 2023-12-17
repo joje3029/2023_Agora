@@ -7,6 +7,13 @@
 <%@ include file="head.jsp"%>
 <link rel="stylesheet" href="/resource/main.css" />
 
+<!-- <script src="/resource/tostUiChart.js"></script> -->
+
+<!-- 토스트UI 차트 사용하기 위한 cdn -->
+<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
+<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
+
+
 		<section class="Admain">
 			  <section class="listBody">
 		<div class="flex justify-between">
@@ -22,16 +29,42 @@
 			</div>
 			<div class=" border2">
 				<!--h-screen : height: 100vh; 임시 임시 대충 모양 볼려구-->
-				<div class="chart-section border w-full h-screen">
 					토스트 ui 차트 들어올 자리
-					<!--차트는 선으로해서 시계열로 보여주면 되겠다.-->
-					<!--예측은 안할꺼임 어디까지나 보여주기만 할꺼니까.-->
+				<div class="chart-section border">
+					<div id="chart"></div> 
 				</div>
 			</div>
 
 		</section>
 	</section>
 		</section>
+		
+		<script>
+		/* namespace */
+		const Chart = toastui.Chart;
+		const el = document.getElementById('chart');
+		const data = {
+		  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		  series: [
+		    {
+		      name: 'Budget',
+		      data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
+		    },
+		    {
+		      name: 'Income',
+		      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+		    },
+		  ],
+		};
+		const options = {
+		  chart: { width: 700, height: 400 },
+		};
+
+		const chart = Chart.barChart({ el, data, options });
+		// const chart = new BarChart({ el, data, options }); // Second way
+
+
+		</script>
+		
 	</body>
 </html>
-
