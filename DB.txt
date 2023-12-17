@@ -25,8 +25,6 @@ CREATE TABLE `USER_INFO` (
 	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
 
-SELECT * FROM USER_INFO
-
 CREATE TABLE `COLUMN` (
 	`Id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
 	`title`	VARCHAR(50)	NOT NULL	COMMENT '제목',
@@ -157,8 +155,42 @@ CREATE TABLE `MNGR_ANSWER_HIST` (
 CREATE TABLE `WITHDROW_REASON` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '탈퇴 이유 ID',
 	`reason`	VARCHAR(10)	NOT NULL	COMMENT '삭제이유',
-	`detailReason`	TEXT NULL	COMMENT '상세 삭제 이유'
+	`detailReason`	TEXT NULL	COMMENT '상세 삭제 이유',
+	`withdrowDate` DATETIME NOT NULL COMMENT '탈퇴 날짜'
 );
+
+DROP TABLE `WITHDROW_REASON`
+SELECT * FROM `WITHDROW_REASON`
+
+INSERT INTO `WITHDROW_REASON` (
+  `reason`,
+  `detailReason`,
+  `withdrowDate`
+) VALUES (
+  'extReaseon',
+  '뱁새가 귀여워서',
+  DATE_ADD('2023-12-01', INTERVAL FLOOR(RAND() * DATEDIFF('2024-01-01', '2023-12-01')) DAY)
+);
+
+
+/* 탈퇴 배로 불리기
+INSERT INTO `WITHDROW_REASON` (
+  `reason`,
+  `detailReason`,
+  `withdrowDate`
+)
+SELECT
+  'extReaseon',
+  '뱁새가 귀여워서',
+  DATE_ADD('2023-12-01', INTERVAL FLOOR(RAND() * DATEDIFF('2024-01-01', '2023-12-01' + INTERVAL 1 DAY)) DAY) AS randomDate
+FROM
+  `WITHDROW_REASON`
+LIMIT 10;
+-- 원하는 행 수를 지정해주세요
+*/
+
+
+
 
 #관리자 생성
 INSERT INTO `USER_INFO` (
@@ -348,13 +380,3 @@ FROM
 LIMIT 10; 
 -- 원하는 행 수를 지정해주세요
 */
-
-SELECT * FROM USER_INFO
-
-SELECT * FROM USER_INFO
-
-DELETE `USER_INFO`
-
-DROP DATABASE IF EXISTS restaurant;
-CREATE DATABASE restaurant;
-USE restaurant;

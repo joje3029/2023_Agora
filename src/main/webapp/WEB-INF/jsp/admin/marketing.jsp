@@ -29,7 +29,7 @@
 			</div>
 			<div>
 				<!--h-screen : height: 100vh; 임시 임시 대충 모양 볼려구-->
-				<div class="chart-section border w-full">
+				<div class="chart-section w-full flex justify-center">
 					<div id="chart" class="border border-green-600"></div> 
 				</div>
 			</div>
@@ -44,7 +44,8 @@
 		/* namespace */
 		const Chart = toastui.Chart; // 이건 toastui.Chart를 Chart 변수에 담음 
 		const el = document.getElementById('chart'); // html의 id가 chart인 부분 가져오는거.
-		//이게 실질적으로 그래프를 그리는 data님
+		// 이게 실질적으로 그래프를 그리는 data님
+		// 여기가 controller에서 데이터를 요청하고 받아야하는 부분.
 		const data = {
 		  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], //옆의 날짜
 		  series: [
@@ -59,7 +60,7 @@
 		  ],
 		};
 		const options = {
-				chart: { width: 700, height: 400 }, // 차트의 가로 세로 높이
+				chart: { width: 700, height: 400 }, // 차트의 가로 세로 높이 : 토스트 ui 버전이 상향되면서 상대값을 못함. 썩을...
 		  series: {
 			    stack: true
 			  }
