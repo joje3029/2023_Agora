@@ -126,11 +126,41 @@ public class AdminController {
 		return "admin/centerList";
 }
 	
-//	고객상담 답변
+//	고객상담 답변 양식
 	@RequestMapping("/admin/customercenter")
-	public String customercenter() {
+	public String customercenter(Model model, int id) {
+		//Db가서 해당 id의 글 넘겨줘야함. 그래야 디테일하게 보지
+		
+		CustomerCenter customerCenter = adminService.getdetailCustomer(id);
+		
+		System.out.println(customerCenter);
+		
+		model.addAttribute(customerCenter);
 		
 		return "admin/customercenter";
+	}
+	
+//	고객상담 답변 이메일로 보내고 고객상담 리스트로 가야함.
+	@RequestMapping("/admin/sendCustomerAnswer")
+	@ResponseBody
+	public String sendCustomerAnswer(int id, String title, String body) {
+		
+		// 유저 이메일로 직접 가야함. 즉, 저쪽 문서 번호 받아야함.
+		CustomerCenter customerCenter = adminService.getdetailCustomer(id);
+		
+		String customerEmail =customerCenter.getEmail()
+		
+		//그래서 유저 이메일을 db에서 찾아서 
+		
+		
+		//이메일을 보내는 로직
+		
+		
+		//보내고 나면 보내졌다는 확인과 함께 리스트로 가야함. 
+		
+		
+		
+		return Util.jsReplace(Util.f("정상적으로 로그아웃 되었습니다"), "centerList");
 	}
 	
 //	회원조회

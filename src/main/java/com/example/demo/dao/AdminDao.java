@@ -26,5 +26,15 @@ public interface AdminDao {
 			""")
 	public int getCustomerlistCnt();
 	
+	@Select("""
+			SELECT C.*, U.uwerId, U.email
+				FROM `CSTMR_CNSLT_CNTER` AS C
+				INNER JOIN `USER_INFO` AS U
+				ON C.userUniqId = U.id
+				WHERE C.id = #{id}
+				ORDER BY C.id DESC
+			""")
+	public CustomerCenter getdetailCustomer(int id);
+	
 	
 }

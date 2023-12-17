@@ -14,6 +14,8 @@ public class CustomerCenter {
 	private String cstmrBody; //고객센터 내용
 	private int ricfldSndngYn; //응답 유무
 	private String uwerId; // 회원의 loginId
+	private String email; // 회원의 email
+	
 	
 	
 	public String ricfldStausStr() {

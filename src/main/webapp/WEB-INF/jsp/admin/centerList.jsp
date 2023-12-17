@@ -14,7 +14,6 @@
 		</div>
 		<section class="mt-8 text-xl">
 			<div class="container mx-auto px-3">
-
 				<div class="table-box-type">
 					<table class="table table-lg">
 						<thead class="text-lg">
@@ -28,6 +27,7 @@
 						<tbody>
 							<c:forEach var="customerCenter" items="${customerCenters }">
 								<tr class="hover">
+								<td>${customerCenter.id }</td>
 									<td><a href="customercenter?id=${customerCenter.id }">${customerCenter.cstmrTitle }</a></td>
 									<td>${customerCenter.uwerId }</td>
 									<td>${customerCenter.ricfldStausStr() }</td>

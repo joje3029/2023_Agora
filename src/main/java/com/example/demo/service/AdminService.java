@@ -27,6 +27,10 @@ public class AdminService {
 	public int getCustomerlistCnt() {
 		return adminDao.getCustomerlistCnt();
 	}
+
+	public CustomerCenter getdetailCustomer(int id) {
+		return adminDao.getdetailCustomer(id);
+	}
 	
 	
 
