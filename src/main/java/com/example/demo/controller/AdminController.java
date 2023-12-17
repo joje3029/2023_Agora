@@ -150,8 +150,6 @@ public class AdminController {
 
 		List<Member> members = memberService.getMembers(itemsInAPage, limitStart, startDate, endDate, searchId, searchNickname);
 
-//		Member member = memberService.getMemberById(rq.getLoginedMemberId());
-		
 		model.addAttribute("startDate", startDate);
 		model.addAttribute("endDate", endDate);
 		model.addAttribute("searchId", searchId);

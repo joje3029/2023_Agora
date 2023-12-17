@@ -28,8 +28,7 @@
 						<tbody>
 							<c:forEach var="customerCenter" items="${customerCenters }">
 								<tr class="hover">
-									<td>${customerCenter.id }</td>
-									<td>${customerCenter.cstmrTitle }</td>
+									<td><a href="customercenter?id=${customerCenter.id }">${customerCenter.cstmrTitle }</a></td>
 									<td>${customerCenter.uwerId }</td>
 									<td>${customerCenter.ricfldStausStr() }</td>
 								</tr>
