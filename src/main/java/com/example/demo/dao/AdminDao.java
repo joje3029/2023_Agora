@@ -15,8 +15,16 @@ public interface AdminDao {
 				FROM `CSTMR_CNSLT_CNTER` AS C
 				INNER JOIN `USER_INFO` AS U
 				ON C.userUniqId = U.id
+				ORDER BY C.id DESC
+				LIMIT #{limitStart}, #{itemsInAPage}
 			""")
-	public List<CustomerCenter> getCustomerCenterList();
+	public List<CustomerCenter> getCustomerCenterList(int itemsInAPage, int limitStart);
+	
+	@Select("""
+			SELECT COUNT(*)
+				FROM CSTMR_CNSLT_CNTER
+			""")
+	public int getCustomerlistCnt();
 	
 	
 }

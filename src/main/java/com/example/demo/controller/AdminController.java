@@ -100,18 +100,28 @@ public class AdminController {
 	
 //	고객상담 리스트로 가는 로직
 	@RequestMapping("/admin/centerList")
-	public String showCenterList(Model model) {
+	public String showCenterList(Model model, @RequestParam(defaultValue = "1") int page) {
 		
-		System.out.println("여기까지는 오는거지?"); // 여기옴 
+		if (page <= 0) {
+			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
+		}
 		
-		//보내기 전에 db(CSTMR_CNSLT_CNTER)가서 데꼬와야함.
-		//여기서 문제네, 주석처리하면 들어가짐 = 이거 하면서 어디가 조짐
+		// 고객센터 글 전체 개수 가져오기
+		int CustomerlistCnt = adminService.getCustomerlistCnt();
 		
-		List<CustomerCenter> customerCenters = adminService.getCustomerCenterList();
+		//페이징 관련 변수
+		int itemsInAPage = 10;
+		int limitStart = (page - 1) * itemsInAPage;
+		int pagesCnt = (int) Math.ceil((double) CustomerlistCnt / itemsInAPage);// 화면에 보여질 페이지의 마지막 페이지 번호
+
 		
-		System.out.println("여기까지는 오는거지?-2");
+		List<CustomerCenter> customerCenters = adminService.getCustomerCenterList(itemsInAPage, limitStart);
 		
 		model.addAttribute("customerCenters", customerCenters);
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCnt", pagesCnt);
+		model.addAttribute("CustomerlistCnt", CustomerlistCnt);
+		
 		
 		return "admin/centerList";
 }

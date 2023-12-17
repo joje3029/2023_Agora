@@ -20,8 +20,12 @@ public class AdminService {
 		this.adminDao = adminDao;
 	}
 
-	public List<CustomerCenter> getCustomerCenterList() {
-		return adminDao.getCustomerCenterList();
+	public List<CustomerCenter> getCustomerCenterList(int itemsInAPage, int limitStart) {
+		return adminDao.getCustomerCenterList(itemsInAPage, limitStart);
+	}
+
+	public int getCustomerlistCnt() {
+		return adminDao.getCustomerlistCnt();
 	}
 	
 	
