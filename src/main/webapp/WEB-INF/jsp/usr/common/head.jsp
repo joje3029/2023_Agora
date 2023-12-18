@@ -28,43 +28,43 @@
 
 <script>
 $(document).ready(function () {
-    // 헤더 숨김/나타남 변수들
-    var didScroll = false; //스크롤 여부
-    var lastScrollTop = 0; //이전스크롤 위치
-    var delta = 5; //스크롤을 감지하는 정도조절
-    var navbarHeight = $('#header').outerHeight(); //헤더의 높이 저장. DOM 요소의 크기를 계산할때 유용
-    //outerHeight()는 해당 요소의 높이를 반환. -> $('header').outerHeight() : header태그의 전체 높이 반환.
+	var didScroll;
+	var lastScrollTop = 0;
+	var delta = 5;
+	var navbarHeight = $('#header').outerHeight();
 
-    // 스크롤 이벤트 리스너 : 스크롤이벤트가 발생할떄마다 hasScrolled함수 호출
-    $(window).scroll(function () {
-        didScroll = true;
-        hasScrolled();
-    });
+	$(window).scroll(function(event){
+	    didScroll = true;
+	});
 
-    // 스크롤 이벤트 핸들러 최적화
-    function hasScrolled() {
-        if (!didScroll) return;
-        
-        var st = $(this).scrollTop(); //현재 스크롤 위치를 st에 저장.
-                        //scrollTop()메서드는 jQuery에서 제공하는 메서드. 문서나 요소의 상단에서 수직으로 스크롤 된 거리를 반환함. 스크롤바가 상단으로부터 얼마나 내려갔는지 나타내는 값 제공.
-        if (Math.abs(lastScrollTop - st) > delta) { //이전 스크롤 위치 - 현 스크롤 위치차 > delta(==5)
-            if (st > lastScrollTop && st > navbarHeight) { //스크롤 방향 및 위치에 따라 헤더의 클래스를 추가/제거 하여 나타남/숨김
-                $('#header').removeClass('nav-down').addClass('nav-up');
-            } else {
-                if (st + $(window).height() < $(document).height()) {
-                    $('#header').removeClass('nav-up').addClass('nav-down');
-                }
-            }
-            lastScrollTop = st; // lastScrollTop에 현 위치 담기.
-        }
+	setInterval(function() {
+	    if (didScroll) {
+	        hasScrolled();
+	        didScroll = false;
+	    }
+	}, 250);
 
-        didScroll = false; //did Scroll 초기화
-    }
-
-    // 창 크기 변경 이벤트가 발생하면 헤더의 클래스를 추가/제거해서 초기 상태로 복원
-    $(window).on("resize", function () {
-        $('#header').removeClass('nav-up').addClass('nav-down');
-    });
+	function hasScrolled() {
+	    var st = $(this).scrollTop();
+	    
+	    // Make sure they scroll more than delta
+	    if(Math.abs(lastScrollTop - st) <= delta)
+	        return;
+	    
+	    // If they scrolled down and are past the navbar, add class .nav-up.
+	    // This is necessary so you never see what is "behind" the navbar.
+	    if (st > lastScrollTop && st > navbarHeight){
+	        // Scroll Down
+	        $('#header').removeClass('nav-down').addClass('nav-up');
+	    } else {
+	        // Scroll Up
+	        if(st + $(window).height() < $(document).height()) {
+	            $('#header').removeClass('nav-up').addClass('nav-down');
+	        }
+	    }
+	    
+	    lastScrollTop = st;
+	}
 });
 
 </script>

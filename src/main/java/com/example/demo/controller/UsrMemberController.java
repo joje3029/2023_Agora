@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MemberService;
@@ -302,7 +303,7 @@ public class UsrMemberController {
 
 		return "usr/member/login";
 	}
-
+	// 자체 로그인씨가 일하는 곳
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(String loginId, String loginPw) {
@@ -337,6 +338,14 @@ public class UsrMemberController {
 
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
 	}
+	
+	//카카오 로그인씨가 일할 곳
+//	@RequestMapping("/usr/member/kakoLogin")
+//    public String home(@RequestParam(value = "code", required = false) String code) throws Exception{
+//        System.out.println("#########" + code);
+//        return "testPage";
+//    }
+	
 
 	// 비밀번호 변경 양식 보여주기
 	@RequestMapping("/usr/member/chagePw")
