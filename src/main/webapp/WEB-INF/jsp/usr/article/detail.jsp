@@ -15,6 +15,66 @@
 <script>
 	//여기서 할꺼.
 	$(document).ready(function() {
+		// 좋아요 관련
+		getRecommendPoint(); // 좋아요 카운트
+		
+		$('#recommendBtn').click(function(){
+			
+			let recommendBtn = $('#recommendBtn').hasClass('btn-active');
+						
+						$.ajax({
+							url: "/usr/recommendPoint/doRecommendPoint",
+							method: "get",
+							data: {
+									"coulumnId" : ${article.id },
+									"recommendBtn" : recommendBtn
+								},
+							dataType: "text",
+							success: function(data) {
+								if (data === "좋아요 성공") {
+				                    // 좋아요 성공 시의 처리
+				                    $('#recommendBtn').removeClass('btn-active');
+				                    $('#recommendBtn').prop('disabled', true); // 버튼 비활성화
+				                } else if (data === "좋아요 취소") {
+				                    // 좋아요 취소 시의 처리
+				                    $('#recommendBtn').addClass('btn-active');
+				                } else {
+				                    console.error("예상치 못한 응답 : " + data);
+				                }
+								
+							},
+							error: function(xhr, status, error) {
+								console.error("ERROR : " + status + " - " + error);
+							}
+						})
+						
+						location.reload();
+			
+			
+		})
+	})
+	
+	
+	const getRecommendPoint = function(){
+			$.ajax({
+				url: "../recommendPoint/getRecommendPoint",
+				method: "get",
+				data: {
+						"coulumnId" : ${article.id }
+					},
+				dataType: "json",
+				success: function(data) {
+					if (data.success) {
+						$('#recommendBtn').addClass('btn-active');
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error("ERROR : " + status + " - " + error);
+				}
+			})
+		}
+		
+		//댓글 길이 제한 관련
 		const replyInput = $('#reply'); // textarea 
 		const textCount = $('#textCount'); // 숫자 올라갈 부분
 		const maxLength = 500;
@@ -38,7 +98,6 @@
 				$(this).val(inputValue.slice(0, maxLength));
 				alert('댓글은 500자 이내로 작성 가능합니다.');
 			}
-		});
 	});
 
 	const replyForm_onSubmit = function(form) {
@@ -57,15 +116,20 @@
 <section class="listBody">
         <section class="title-section border p-3 font-semibold">
             <div class="title text-3xl">${article.title }</div>
-            <div class="alarm-session w-96">
-            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
-             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">
-            	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>
-            	<div class="btn"><a class="" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제하기</a></div>
-        	</c:if>
-                <div class="btn">좋아요 버튼</div>
-                <div class="btn">구독 버튼</div>
-            </div>
+	            <div class="alarm-session w-96">
+	              <div class="btn">좋아요 갯수 : 3</div><!-- 좋아요 갯수 보일 곳. -->
+            <c:if  test="${rq.getLoginedMemberId() != 0 }">
+	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
+	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">
+	                <div class="btn" id="recommendBtn">좋아요 버튼</div>
+	                <div class="btn">구독 버튼</div>
+	             </c:if>
+	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">
+	            	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>
+	            	<div class="btn"><a class="" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제하기</a></div>
+	        	</c:if>
+	        </c:if>
+	            </div>
         </section>
         <section class="article-read">
             <div class="toast-ui-viewer">
@@ -82,7 +146,7 @@
 	                    <input name="columnId" type="hidden" value="${article.id }" /><!-- 이 글 넘버 보냄. -->
 	                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
 	                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
-	                        <textarea id="reply" class="textarea textarea-bordered w-full" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
+	                        <textarea id="reply" class="textarea textarea-bordered w-full resize-none" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
 	                        <div class="flex justify-end ">
 	                        	<!-- 글자수 보여주는 부분 -->
 	                        	<div class="count_bar"><span id="textCount">0</span>/500</div>
