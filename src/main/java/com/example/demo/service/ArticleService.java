@@ -47,5 +47,9 @@ public class ArticleService {
 	public int getArticlesCnt(String searchKeywordType, String searchKeyword) {
 		return articleDao.getArticlesCnt(searchKeywordType, searchKeyword);
 	}
+
+	public List<Article> getArticleRank() {
+		return articleDao.getArticleRank();
+	}
 	
 }

@@ -32,7 +32,7 @@ $(document).ready(function () {
     var didScroll = false; //스크롤 여부
     var lastScrollTop = 0; //이전스크롤 위치
     var delta = 5; //스크롤을 감지하는 정도조절
-    var navbarHeight = $('header').outerHeight(); //헤더의 높이 저장. DOM 요소의 크기를 계산할때 유용
+    var navbarHeight = $('#header').outerHeight(); //헤더의 높이 저장. DOM 요소의 크기를 계산할때 유용
     //outerHeight()는 해당 요소의 높이를 반환. -> $('header').outerHeight() : header태그의 전체 높이 반환.
 
     // 스크롤 이벤트 리스너 : 스크롤이벤트가 발생할떄마다 hasScrolled함수 호출
@@ -121,8 +121,6 @@ $(document).ready(function () {
 					<li class="inline-block"><a href="/usr/member/login"><span>LOGIN</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
-					<li class="inline-block">닉네임</li>
-					&nbsp;&nbsp;&nbsp;&nbsp;
 					<li class="inline-block"><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 				</c:if>
 			</ul>

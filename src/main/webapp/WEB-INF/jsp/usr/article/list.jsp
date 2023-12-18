@@ -15,19 +15,31 @@
             <div class="text-sm breadcrumbs">
             <!-- 여기 변수로 변경해야함. 변해야해. -->
                 <ul>
-                  <li><a>Home</a></li> 
-                  <li><a>Documents</a></li> 
-                  <li>Add Document</li>
+                  <li><a href="/usr/home/main">Home<i class="fa-solid fa-house"></i></a></li> 
+                  <li><a href="/usr/article/list">칼럼</a></li> 
+                  <li>전체 / 구독 / 좋아요</li>
                 </ul>
             </div>
             <!--메뉴 : 네비게이션 일자로 만들어요!-->
             <div class="menuBar">
-                <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box my-2">
-                    <li><a>전체 칼럼</a></li>
-                    <li><a>구독한 작가 칼럼</a></li>
-                    <li><a>좋아요 한 칼럼</a></li>
-                  </ul>
-            </div>
+			<ul
+				class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box my-2 ">
+				<li><select class="select select-bordered w-32 max-w-xs">
+				  <option disabled selected>전체 칼럼</option>
+				  <option>종교</option>
+				  <option>사회과학</option>
+				  <option>자연과학</option>
+				  <option>기술과학</option>
+				  <option>예술</option>
+				  <option>언어</option>
+				  <option>문학</option>
+				  <option>역사</option>
+				</select></li>
+				<li class="text-lg"><a>구독한 작가 칼럼</a></li>
+				<li class="text-lg"><a>좋아요 한 칼럼</a></li>
+				
+			</ul>
+		</div>
             <div class="container mx-auto px-3">
         
                 <!-- 여다가 검색기능 만들꺼임. -->

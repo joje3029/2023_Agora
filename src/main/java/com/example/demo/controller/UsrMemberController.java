@@ -179,11 +179,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
 	public String dosecede( String reason, String detailReason) {
-		
-		System.out.println("reason : "+reason); // 이건 내가 아까 안쓴다 했고
-		System.out.println("detailReason : "+detailReason); // 기타가 아니니께  null이 들어온거고.
-		
-		System.out.println(rq.getLoginedMemberId());
 
 		// 삭제 이유 withdrow_reason에 insert
 		// reason : 탈퇴 이유를 어디다가 넣어서 데이터로 관리자 쪽에서 보려고
@@ -300,6 +295,7 @@ public class UsrMemberController {
 		}
 
 		rq.login(member);
+		
 
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
 	}

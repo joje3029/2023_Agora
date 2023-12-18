@@ -354,9 +354,6 @@ section>.button_bar {
 	justify-content: center;
 }
 
-.main {
-	border: 1px solid salmon;
-}
 
 .main>.main-in-section {
 	border: 1px solid yellowgreen;
@@ -372,32 +369,41 @@ section>.button_bar {
 }
 
 .main>.main-in-section>.items {
-	border: 1px solid navy;
 	display: flex;
 	justify-content: space-between;
 }
 
-.main>.main-in-section>.items>.item {
-	border: 1px solid orange;
+.main>.main-in-section>.items> .item {
+	border: 1px dashed yellowgreen;
 	width: 19%;
 	height: 18rem;
 	display: flex;
 	flex-direction: column;
 }
 
-.main>.main-in-section>.items>.item>.title {
+/*짝수 일때와 홀수 일때 배경색 차별*/
+.main>.main-in-section>.items>.item:nth-child(even) {
+  background-color: #E3F6CE; /* 짝수일 때의 배경색 */
+}
 
+.main>.main-in-section>.items>.item:nth-child(odd) {
+  background-color: #CEF6CE; /* 홀수일 때의 배경색 */
+}
+
+.main>.main-in-section>.items>.item>.title {
 	text-align: center;
 	padding: 5%;
 	margin: 15% 0 5% 0;
+	font-size: 1.5rem;
 }
 
 .main>.main-in-section>.items>.item>.writer {
 	text-align: center;
 	padding: 2%;
+	font-size: 1rem;
 }
 
-.main>.main-classification>.table-section {
+.main>.main-in-section>.table-section {
 	border: 1px solid red;
 	display: flex;
 	align-items: center;
@@ -406,7 +412,7 @@ section>.button_bar {
 
 }
 
-.main>.main-classification>.table-section>.table-row {
+.main>.main-in-section>.table-section>.table-row {
 	border: 1px solid blueviolet;
 	/* background-color: blueviolet; */
 	width: 70%;
@@ -415,7 +421,7 @@ section>.button_bar {
 	margin: 1%;
 }
 
-.main>.main-classification>.table-section>.table-row>.table-item {
+.main>.main-in-section>.table-section>.table-row>.table-item {
 	border: 1px solid orange;
 	/* background-color: orange; */
 	width: 33%;

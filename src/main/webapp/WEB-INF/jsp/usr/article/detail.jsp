@@ -55,9 +55,9 @@
 </script>
 
 <section class="listBody">
-        <section class="title-section border">
-            <div class="title">${article.title }</div>
-            <div class="alarm-session border w-96">
+        <section class="title-section border p-3 font-semibold">
+            <div class="title text-3xl">${article.title }</div>
+            <div class="alarm-session w-96">
             <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
              <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">
             	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>
@@ -71,24 +71,26 @@
             <div class="toast-ui-viewer">
             <script type="text/x-template">${article.getForPrintBody() }</script>
        </section>
+       
         <!-- 댓글과 댓글 형태 -->
-        <section class="comment-session p-1 border">
-            <div>댓글 남기기 : [댓글 갯수](게시글 갯수 세는거랑 동일로직)</div>
-            
-            <div><!-- 댓글 입력 부분 -->
-                <form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
-                    <input name="columnId" type="hidden" value="${article.id }" /><!-- 이 글 넘버 보냄. -->
-                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
-                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
-                        <textarea id="reply" class="textarea textarea-bordered w-full" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
-                        <div class="flex justify-end ">
-                        	<!-- 글자수 보여주는 부분 -->
-                        	<div class="count_bar"><span id="textCount">0</span>/500</div>
-                        	<button class="btn btn-sm" onclick="">작성</button>
-                        </div>
-                </form>
-            </div>
-            
+	    <section class="comment-session p-1 border">
+        	<c:if  test="${rq.getLoginedMemberId() != 0 }">
+	            <div>댓글 남기기 : [댓글 갯수](게시글 갯수 세는거랑 동일로직)</div>
+	            
+	            <div><!-- 댓글 입력 부분 -->
+	                <form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
+	                    <input name="columnId" type="hidden" value="${article.id }" /><!-- 이 글 넘버 보냄. -->
+	                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
+	                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
+	                        <textarea id="reply" class="textarea textarea-bordered w-full" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
+	                        <div class="flex justify-end ">
+	                        	<!-- 글자수 보여주는 부분 -->
+	                        	<div class="count_bar"><span id="textCount">0</span>/500</div>
+	                        	<button class="btn btn-sm" onclick="">작성</button>
+	                        </div>
+	                </form>
+	            </div>
+            </c:if>
             <!-- 입력한 댓글 보여주는 부분 -->
             <div>
             	<c:forEach var="reply" items="${replies }">

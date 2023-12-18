@@ -123,6 +123,16 @@ public interface ArticleDao {
 			""")
 	public int getArticlesCnt(String searchKeywordType, String searchKeyword);
 	
+	@Select("""
+			SELECT C.*, U.nickname 
+				FROM `COLUMN` AS C
+				INNER JOIN `USER_INFO` AS U
+				ON C.colmnWrter = U.id
+				ORDER BY clickCount DESC
+				LIMIT 5;
+			""")
+	public List<Article> getArticleRank();
+	
 	
 
 
