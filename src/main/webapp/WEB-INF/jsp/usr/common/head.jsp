@@ -118,6 +118,7 @@ $(document).ready(function () {
 
 				<c:if test="${rq.getLoginedMemberId() == 0 }">
 					<li class="inline-block mr-2"><a href="/usr/member/join">회원가입</a></li>
+					&nbsp;&nbsp;&nbsp;
 					<li class="inline-block"><a href="/usr/member/login"><span>LOGIN</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">

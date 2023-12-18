@@ -7,61 +7,122 @@
 <%@ include file="../common/head2.jsp"%>
 
 <script>
-	const loginForm_onSubmit = function(form){
-		form.loginId.value = form.loginId.value.trim(); // loginId는 key니까 그 키와 대칭되는 값으로 해야함.
-		form.loginPw.value = form.loginPw.value.trim();
+   // 정규식님
+   const nameRegex = /^[가-힣A-Za-z]{2,30}$/; //name
+   const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; //email
+   const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{1,30}$/; //id
+   const pnRegex = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/; //전화번호
+
+   const findPw_onSubmit = function(form) {
+	   
+	    form.name.value = form.name.value.trim();//이름
+		form.email.value = form.email.value.trim();//이메일
+		form.loginId.value = form.loginId.value.trim();//id
+		form.cellphoneNum.value = form.cellphoneNum.value.trim();//전화번호
 		
-		if(form.loginId.value.length ==0){
-			alret('아이디를 입력해주세요');
-			form.loginId.focus();
-			return
+		//이름
+		if (form.name.value.length == 0) {
+		  alert('이름을 입력해주세요');
+		  form.name.focus();
+		  return;
 		}
-		if(form.loginPw.value.length ==0){
-			alret('비밀번호를 입력해주세요');
-			form.loginPw.focus();
-			return
+
+		//이름 검증.
+		if (!nameRegex.test(form.name.value)) {
+		  alert('이름은 한글 또는 영문으로 2~30자 이내여야 합니다.');
+		  form.name.value = '';
+		  form.name.focus();
+		  return false;
 		}
+
+		//아이디
+		if (form.loginId.value.length == 0) {
+		  alert('아이디을 입력해주세요');
+		  form.loginId.focus();
+		  return;
+		}
+
+		//아이디 검증.
+		if (!idRegex.test(form.loginId.value)) {
+		  alert('아이디는 영문 대소문자와 숫자로 1~30자 이내여야 합니다.');
+		  form.loginId.value = '';
+		  form.loginId.focus();
+		  return false;
+		}
+
+		//이메일
+		if (form.email.value.length == 0) {
+		  alert('이메일을 입력해주세요');
+		  form.email.focus();
+		  return;
+		}
+
+		//이메일 검증
+		if (!emailRegex.test(form.email.value)) {
+		  alert('이메일은 예시처럼 입력해주세요.');
+		  form.email.value = '';
+		  form.email.focus();
+		  return false;
+		}
+
+		//전화번호
+		if (form.cellphoneNum.value.length == 0) {
+		  alert('전화번호를 입력해주세요');
+		  form.cellphoneNum.focus();
+		  return;
+		}
+
+		//전화번호 검증
+		if (!pnRegex.test(form.cellphoneNum.value)) {
+		   alert('전화번호는 예시처럼 입력해주세요.');
+		  form.cellphoneNum.value ='';
+		    form.cellphoneNum.focus();
+		    return false;
+		 }
 		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
-	}
+		form.submit();
+		
+   }
 </script>
 
+
 		<section class="login">
-        <h1 class="text-4xl">비밀번호 찾기</h1>
-	            <form action="doLogin" method="post"
-	                    onsubmit="loginForm_onSubmit(this); return false;">
-                        <table>
-                            <tr>
-                                <th><span class="text-red-700">*</span>이름</th>
-                                <td><input type="text" name="name" placeholder="이름을 입력해주세요"
-                                    class="input input-bordered w-full max-w-xs input-sm"></td>
-                            </tr>
-                            <tr>
-                                <th><span class="text-red-700">*</span>아이디</th>
-                                <td class="flex"><input type="text" name="loginId"
-                                    placeholder="로그인 입력해주세요"
-                                    class="input input-bordered w-full max-w-xs input-sm">
-                                    <div class="btn btn-sm ml-1">중복확인</div></td>
-                            </tr>
-                            <tr>
-                                <th><span class="text-red-700">*</span>이메일</th>
-                                <td><input type="text" name="email" placeholder="이메일 입력해주세요"
-                                    class="input input-bordered w-full max-w-xs input-sm">
-                                    <div class="btn btn-sm ml-1">인증번호 받기</div></td>
-                            </tr>
-                            <tr>
-                                <th><span class="text-red-700">*</span>본인인증</th>
-                                <td class="flex"><input type="text" name="certification" placeholder="본인인증번호를 입력해주세요"
-                                    class="input input-bordered w-full max-w-xs input-sm">
-                                    <div class="btn btn-sm ml-1">인증번호 확인</div></td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">
-                                    <button class="btn">비밀번호 찾기</button>
-                                </th>
-                            </tr>
-                        </table>
-	            </form>
-    </section>  	
+			<h1 class="text-4xl">비밀번호 찾기</h1>
+			<form action="dofindPw" method="post"
+				onsubmit="findPw_onSubmit(this); return false;">
+				<table>
+					<tr>
+						<th class="w-16"><span class="text-red-700">*</span>이름</th>
+						<td><input type="text" name="name" placeholder="이름을 입력해주세요"
+							class="input input-bordered w-full max-w-xs input-sm"></td>
+					</tr>
+					<tr>
+						<th><span class="text-red-700">*</span>아이디</th>
+						<td class="flex"><input type="text" name="loginId"
+							placeholder="아이디를 입력해주세요"
+							class="input input-bordered w-full max-w-xs input-sm">
+					</tr>
+		
+					<tr>
+						<th><span class="text-red-700">*</span>이메일</th>
+						<td><input type="text" name="email"
+							placeholder="이메일 입력해주세요 예) asd123@gmail.com"
+							class="input input-bordered w-full max-w-xs input-sm">
+					</tr>
+					<tr>
+						<th><span class="text-red-700">*</span>전화번호</th>
+						<td><input type="text" name="cellphoneNum"
+							placeholder="전화번호 입력해주세요 예) 010-1234-5678"
+							"
+		                                    class="input input-bordered w-full max-w-xs input-sm">
+					</tr>
+					<tr>
+						<th colspan="2">
+							<button class="btn">확인</button>
+						</th>
+					</tr>
+				</table>
+			</form>
+		</section>
 	</body>
 </html>

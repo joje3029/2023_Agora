@@ -277,7 +277,7 @@
 							name="nickname" type="text" placeholder="닉네임을 입력해주세요" /></td>
 					</tr>
 					<tr>
-						<th>전화번호</th>
+						<th><span class="text-red-700">*</span>전화번호</th>
 						<td><input
 							class="input input-bordered w-full max-w-xs input-sm"
 							name="cellphoneNum" type="text"

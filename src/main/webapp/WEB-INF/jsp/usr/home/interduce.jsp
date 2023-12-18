@@ -47,12 +47,12 @@
 	</div>
 	<div class="content-section">
 		<h2 class="text-2xl mb-2 px-3">개발자이자 주인장</h2>
-		<p>2023년 3월부터 개발공부를 시작한 이제막 부화한 병아리 개발자입니다!</p>
+		<p>2023년 3월부터 개발공부를 시작한 이제 막 부화한 병아리 개발자입니다!</p>
 		<p>앞으로 많은걸 배워서 더 다양하고 편리한 서비스를 만들고 싶습니다!</p>
 		<p>아고라가 그 시작입니다!</p>
 		<div class="avatar">
 			<div class="w-24 rounded-full">
-				<img class="rotate-center" src="/resource/static.image/mascot.png"
+				<img class="rotate-center" src="/resource/images/mascot.png"
 					alt="뱁새_마스코트" />
 			</div>
 		</div>

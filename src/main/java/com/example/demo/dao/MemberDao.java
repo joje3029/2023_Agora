@@ -52,7 +52,7 @@ public interface MemberDao {
 				FROM `USER_INFO`
 				WHERE `name` = #{name}
 				AND email = #{email}
-				AND cellphoneNum = #{cellphoneNum}
+				AND telno = #{cellphoneNum}
 			""")
 	public Member getMemberByNameAndEmailAndCell(String name, String email, String cellphoneNum);
 	
@@ -162,5 +162,13 @@ public interface MemberDao {
 				WHERE id = #{id}
 			""")
 	public void modifyMemberSecsnEnnc(int id);
+	
+	@Update("""
+			UPDATE `USER_INFO`
+				SET modifyDate = NOW()
+					, passwd = #{sha256}
+				WHERE id = #{id}
+			""")
+	public void doPasswordModify(int id, String sha256);
 	
 }

@@ -201,21 +201,24 @@ public class UsrMemberController {
 		return "usr/member/findId";
 	}
 
-	// 아이디 찾기 폼에서 인증 이메일 보낼 곳
-//		@RequestMapping("/usr/member/doSendCertificationMail")
-//		@ResponseBody
-//		public String doSendCertificationMail(String loginId, String email) {
-//
-//			//인증메일 보내는 일 하는 아.
-//			ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempLoginPwByEmail(member);
-//
-//			return Util.jsReplace(notifyTempLoginPwByEmailRd.getMsg(), "login");
-//		}
-
 	// 아이디 찾는 일을 하는 곳
 	@RequestMapping("/usr/member/doFindId")
-	public String dofindId() {
-		return "usr/member/foundId";// 찾은 아이디 알려주는 jsp
+	@ResponseBody
+	public String dofindId(String name, String email, String cellphoneNum, Model model) {
+		
+		String[] splitCellphoneNum = cellphoneNum.split("-");
+		
+		cellphoneNum = splitCellphoneNum[0] + splitCellphoneNum[1] + splitCellphoneNum[2];
+		
+		Member member=memberService.getMemberByNameAndEmailAndCell(name, email, cellphoneNum);
+		
+		if(member==null) {
+			return Util.jsHistoryBack("아이디를 찾을수 없습니다.");
+		}
+		
+		model.addAttribute("member", member);
+		
+		return Util.jsReplace(Util.f("아이디는 %s 입니다.", member.getUwerId()), "login");
 
 	}
 
@@ -251,10 +254,45 @@ public class UsrMemberController {
 	public String findPW() {
 		return "usr/member/findPw";
 	}
-
+	
+	//임시비번 발급 로직
 	@RequestMapping("/usr/member/dofindPw")
-	public String dofindPw() {
-		return "/";
+	@ResponseBody
+	public String dofindPw(String name, String loginId, String email, String cellphoneNum) {
+		
+		String[] splitCellphoneNum = cellphoneNum.split("-");
+		
+		cellphoneNum = splitCellphoneNum[0] + splitCellphoneNum[1] + splitCellphoneNum[2];
+		
+		System.out.println(1);
+		
+		//일치하는 로그인 아이디 찾기
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if (member == null) {
+			return Util.jsHistoryBack("입력하신 아이디와 일치하는 회원이 없습니다");
+		}
+
+		if (member.getName().equals(name) == false) {
+			return Util.jsHistoryBack("이름이 일치하지 않습니다");
+		}
+
+		if (member.getEmail().equals(email) == false) {
+			return Util.jsHistoryBack("이메일이 일치하지 않습니다");
+		}
+
+		if (member.getTelno().equals(cellphoneNum) == false) {
+			return Util.jsHistoryBack("전화번호가 일치하지 않습니다");
+		}
+		
+		System.out.println(2);
+		
+		// 임시 비번 발급
+		ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempLoginPwByEmail(member);
+		
+		System.out.println(3);
+		
+		return Util.jsReplace(notifyTempLoginPwByEmailRd.getMsg(), "login");
 
 	}
 

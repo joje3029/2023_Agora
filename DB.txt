@@ -25,6 +25,7 @@ CREATE TABLE `USER_INFO` (
 	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
 
+
 CREATE TABLE `COLUMN` (
 	`Id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
 	`title`	VARCHAR(50)	NOT NULL	COMMENT '제목',
@@ -34,7 +35,9 @@ CREATE TABLE `COLUMN` (
 	`colmnModifiedTime`	DATETIME	NULL	COMMENT '칼럼수정시간',
 	`colmnDeleteTime`	DATETIME	NULL	COMMENT '칼럼삭제시간',
 	`colmnDeleteEnnc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
-	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
+	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자',
+	`clickCount`	INT	UNSIGNED	NOT NULL	COMMENT '클릭 횟수- 랭킹에 이용'
+	
 );
 
 CREATE TABLE `COLUMN_LIKE` (
@@ -70,22 +73,6 @@ CREATE TABLE CHATROOMMEMBER(
 );
 
 
-
-/*INSERT INTO `DSCSN_ROOM`
- SET dscsnRoomNm = '뱁새씨란?'
-	, crtrId = 2
-	, `type` = 1
-	, dscsnRoomCreatDete = NOW()
-
-DROP TABLE `DSCSN_ROOM`
-	
-SELECT * 
-FROM `DSCSN_ROOM`
-WHERE id = 3
-
-
-*/
-
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
 	`writerId`	INT	UNSIGNED NOT NULL	COMMENT '댓글작성한 사람 ID',
@@ -102,7 +89,7 @@ CREATE TABLE `CSTMR_CNSLT_CNTER` (
 	`userUniqId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
 	`cstmrTitle`	VARCHAR(50)	NOT NULL	COMMENT '제목',
 	`cstmrBody`	TEXT	NOT NULL	COMMENT '내용',
-	`ricfldSndngYn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0'
+	`ricfldSndngYn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0 보냄 실패-4'
 );
 
 
@@ -155,42 +142,8 @@ CREATE TABLE `MNGR_ANSWER_HIST` (
 CREATE TABLE `WITHDROW_REASON` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '탈퇴 이유 ID',
 	`reason`	VARCHAR(10)	NOT NULL	COMMENT '삭제이유',
-	`detailReason`	TEXT NULL	COMMENT '상세 삭제 이유',
-	`withdrowDate` DATETIME NOT NULL COMMENT '탈퇴 날짜'
+	`detailReason`	TEXT NULL	COMMENT '상세 삭제 이유'
 );
-
-DROP TABLE `WITHDROW_REASON`
-SELECT * FROM `WITHDROW_REASON`
-
-INSERT INTO `WITHDROW_REASON` (
-  `reason`,
-  `detailReason`,
-  `withdrowDate`
-) VALUES (
-  'extReaseon',
-  '뱁새가 귀여워서',
-  DATE_ADD('2023-12-01', INTERVAL FLOOR(RAND() * DATEDIFF('2024-01-01', '2023-12-01')) DAY)
-);
-
-
-/* 탈퇴 배로 불리기
-INSERT INTO `WITHDROW_REASON` (
-  `reason`,
-  `detailReason`,
-  `withdrowDate`
-)
-SELECT
-  'extReaseon',
-  '뱁새가 귀여워서',
-  DATE_ADD('2023-12-01', INTERVAL FLOOR(RAND() * DATEDIFF('2024-01-01', '2023-12-01' + INTERVAL 1 DAY)) DAY) AS randomDate
-FROM
-  `WITHDROW_REASON`
-LIMIT 10;
--- 원하는 행 수를 지정해주세요
-*/
-
-
-
 
 #관리자 생성
 INSERT INTO `USER_INFO` (
@@ -343,7 +296,8 @@ INSERT INTO `COLUMN`(
   `colmnModifiedTime`,
   `colmnDeleteTime`,
   `colmnDeleteEnnc`,
-  `colmnWrter`
+  `colmnWrter`,
+  `clickCount`
 ) VALUES (
   CONCAT('제목_', FLOOR(RAND() * 10000)),
   NOW(),
@@ -352,8 +306,11 @@ INSERT INTO `COLUMN`(
   NULL,
   NULL,
   0,
-  FLOOR(RAND() * 4) + 1
+  FLOOR(RAND() * 4) + 1,
+  FLOOR(RAND() * 20) + 1
 );
+
+SELECT * FROM `COLUMN`
 
 /* 칼럼 배로 불리기
 INSERT INTO `COLUMN` (
@@ -364,7 +321,8 @@ INSERT INTO `COLUMN` (
   `colmnModifiedTime`,
   `colmnDeleteTime`,
   `colmnDeleteEnnc`,
-  `colmnWrter`
+  `colmnWrter`,
+  `clickCount`
 )
 SELECT
   CONCAT('제목_', FLOOR(RAND() * 10000)),
@@ -374,9 +332,16 @@ SELECT
   NULL,
   NULL,
   0,
-  FLOOR(RAND() * 4) + 1
+  FLOOR(RAND() * 4) + 1,
+  FLOOR(RAND() * 20) + 1
 FROM
   `COLUMN`
 LIMIT 10; 
 -- 원하는 행 수를 지정해주세요
 */
+
+SELECT * 
+FROM `USER_INFO`
+WHERE id = 2
+
+
