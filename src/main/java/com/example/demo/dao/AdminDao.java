@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.CustomerCenter;
+import com.example.demo.vo.WithdrowReason;
 
 @Mapper
 public interface AdminDao {
@@ -50,6 +51,32 @@ public interface AdminDao {
 				WHERE id = #{id}
 			""")
 	public void modifyRicSucess(int id);
+	
+	@Select("""
+			SELECT 
+			    withdrawalMonth,
+			    reasons.reason,
+			    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS COUNT
+			FROM (
+			    SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
+			    FROM WITHDROW_REASON
+			    WHERE withDrowDate BETWEEN '2023-01-01' AND '2023-12-31'
+			) AS months
+			CROSS JOIN (
+			    SELECT 'extReaseon' AS reason
+			    UNION
+			    SELECT 'notUse' AS reason
+			    UNION
+			    SELECT 'otherSite' AS reason
+			    UNION
+			    SELECT 'contentsDiscontent' AS reason
+			) AS reasons
+			LEFT JOIN WITHDROW_REASON
+			ON reasons.reason = WITHDROW_REASON.reason AND months.withdrawalMonth = DATE_FORMAT(WITHDROW_REASON.withDrowDate, '%Y-%m')
+			GROUP BY withdrawalMonth, reasons.reason
+			ORDER BY withdrawalMonth, reasons.reason;
+			""")
+	public List<WithdrowReason> getWithdrowReason();
 	
 	
 }

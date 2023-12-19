@@ -10,6 +10,7 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.WithdrowReason;
 
 @Service
 public class AdminService {
@@ -40,6 +41,11 @@ public class AdminService {
 	public void modifyRicSucess(int id) {
 		adminDao.modifyRicSucess(id);
 		
+	}
+
+	public List<WithdrowReason> getWithdrowReason() {
+		
+		return adminDao.getWithdrowReason();
 	}
 
 	

@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,9 @@ import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
+import com.example.demo.vo.WithdrowReason;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class AdminController {
@@ -224,7 +231,84 @@ public class AdminController {
 	
 //	마케팅데이터가는 로직
 	@RequestMapping("/admin/marketing")
-	public String showmarketing() {
+	public String showmarketing(@RequestParam(defaultValue = "1") int type, Model model) {
+		if (type <= 0) {
+			return rq.jsReturnOnView("분류가 올바르지 않습니다");
+		}
+		
+		//if로 type 파라미터로 들어온거에 따라 나뉘어져야함. 우선은 3번만
+		
+		if(type ==3) {
+			
+			//3번씨는 탈퇴 회원 수와 이유 -> 즉 가져와야하는 정보 테이블 WITHDROW_REASON
+			List<WithdrowReason> withdrowReason=adminService.getWithdrowReason();
+			
+			
+			// 새로운 리스트 생성
+			List<String> withdrawDateList = new ArrayList<>();
+			List<String> otherSiteCountList = new ArrayList<>();
+			List<String> notUseCountList = new ArrayList<>();
+			List<String> contentsDiscontentCountList = new ArrayList<>();
+			List<String> extReaseonCountList = new ArrayList<>();
+			
+			
+			// withdrowReason 리스트 순회
+			for (WithdrowReason reason : withdrowReason) {
+			    // 각각의 속성을 새로운 리스트에 추가
+				
+				if (reason.getReason().equals("otherSite")) { // 다른 사이트 이용
+					withdrawDateList.add(reason.getWithdrawalMonth());
+					otherSiteCountList.add(reason.getCount());
+
+				}else if (reason.getReason().equals("notUse")) { // 사용 안함
+					notUseCountList.add(reason.getCount());
+					
+
+				}else if (reason.getReason().equals("contentsDiscontent")) { //컨텐츠 부족
+					contentsDiscontentCountList.add(reason.getCount());
+					
+
+				}else { // 기타 이유
+					extReaseonCountList.add(reason.getCount());
+
+				}
+			}
+
+			// 이걸 Map 형식으로 해서 key와 value로 한후에 넘김
+			// Map 생성
+			Map<String, List<String>> dataMap = new HashMap<>();
+			
+//			//위의 값들 key와 value로 해서 추가
+			dataMap.put("WithdrawDate", withdrawDateList); // 날짜 추가
+			dataMap.put("otherSiteCount", otherSiteCountList); // 날짜 추가
+			dataMap.put("notUseCount", notUseCountList); // 날짜 추가
+			dataMap.put("contentsDiscontentCount", contentsDiscontentCountList); // 날짜 추가
+			dataMap.put("extReaseonCount", extReaseonCountList); // 날짜 추가
+			
+//			model.addAttribute("dataMap", dataMap);
+			
+			// Jackson ObjectMapper 생성
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			// Map을 JSON 문자열로 변환
+			try {
+			    // Map을 JSON 문자열로 변환
+			    String json = objectMapper.writeValueAsString(dataMap);
+
+			    // Model에 JSON 문자열 추가
+			    model.addAttribute("dataMapJson", json);
+			} catch (JsonProcessingException e) {
+			    // JSON 변환 중 예외 발생 시 예외 처리 로직 추가
+			    e.printStackTrace(); // 또는 로깅 등의 예외 처리를 수행
+			}
+
+			
+			return "admin/marketing";
+			
+			
+		}
+		
+		System.out.println(5);
 		
 		return "admin/marketing";
 	}
