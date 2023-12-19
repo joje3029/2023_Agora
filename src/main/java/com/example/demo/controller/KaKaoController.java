@@ -1,24 +1,42 @@
 package com.example.demo.controller;
+
+import java.io.IOException;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
-public class KakaoLoginController {
+import com.example.demo.service.KaKaoService;
 
-    @RequestMapping(value = "/kakao-login", method = RequestMethod.GET)
-    public String kakaoLogin() {
-        // 카카오 REST API 호출 예시
-        String apiUrl = "https://kapi.kakao.com/v2/user/me";
-        String accessToken = "YOUR_ACCESS_TOKEN"; // 사용자의 액세스 토큰
+@Controller
+@RequestMapping("/member")
+public class KaKaoController {
 
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(apiUrl, String.class);
 
-        // 결과 처리
-        // ...
+    @Autowired
+    KaKaoService ks;
 
-        return result;
+    @GetMapping("/do")
+    public String loginPage()
+    {
+        return "kakaoCI/login";
     }
+
+    @GetMapping("/kakao")
+    public String getCI(@RequestParam String code, Model model) throws IOException {
+        System.out.println("code = " + code);
+        String access_token = ks.getToken(code); 
+        Map<String, Object> userInfo = ks.getUserInfo(access_token);
+        model.addAttribute("code", code);
+        model.addAttribute("access_token", access_token);
+        model.addAttribute("userInfo", userInfo);
+
+        //ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
+        return "index";
+    }
+
 }
