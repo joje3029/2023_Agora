@@ -156,10 +156,69 @@ CREATE TABLE `MNGR_ANSWER_HIST` (
 );
 
 CREATE TABLE `WITHDROW_REASON` (
-	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '탈퇴 이유 ID',
-	`reason`	VARCHAR(10)	NOT NULL	COMMENT '삭제이유',
-	`detailReason`	TEXT NULL	COMMENT '상세 삭제 이유'
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '탈퇴 이유 Pk',
+	`reason`	VARCHAR(20)	NOT NULL	COMMENT '탈퇴이유',
+	`detailReason`	TEXT NULL	COMMENT '상세 탈퇴 이유',
+	`withDrowDate`	DATETIME NOT NULL	COMMENT '탈퇴 날짜 '
+	
 );
+
+DROP TABLE WITHDROW_REASON
+
+SELECT * FROM WITHDROW_REASON  
+
+#더미데이터 만들때 이거 이유 4개 만들어서 때리면 됨
+INSERT INTO WITHDROW_REASON (reason, detailReason, withDrowDate)
+VALUES ('extReaseon', '상세이유', 
+        FROM_UNIXTIME(
+            UNIX_TIMESTAMP('2023-01-01') + 
+            RAND() * (UNIX_TIMESTAMP('2023-12-31') - UNIX_TIMESTAMP('2023-01-01'))
+        )
+);
+
+SELECT COUNT(*) FROM WITHDROW_REASON
+
+
+
+# 조건 : 날짜와 큰 이유 별로 분류되야함.
+# 1번 분류가 날짜고 그안에서 이유별로 또 정리 되야하네
+# 그럼 oredr by로는 이유만 하고 각각 날짜개를 따로 해서 count로 세야하네
+
+
+# 이걸로 결정
+SELECT 
+    withdrawalMonth,
+    reasons.reason,
+    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS COUNT
+FROM (
+    SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
+    FROM WITHDROW_REASON
+    WHERE withDrowDate BETWEEN '2023-01-01' AND '2023-12-31'
+) AS months
+CROSS JOIN (
+    SELECT 'extReaseon' AS reason
+    UNION
+    SELECT 'notUse' AS reason
+    UNION
+    SELECT 'otherSite' AS reason
+    UNION
+    SELECT 'contentsDiscontent' AS reason
+) AS reasons
+LEFT JOIN WITHDROW_REASON
+ON reasons.reason = WITHDROW_REASON.reason AND months.withdrawalMonth = DATE_FORMAT(WITHDROW_REASON.withDrowDate, '%Y-%m')
+GROUP BY withdrawalMonth, reasons.reason
+ORDER BY withdrawalMonth, reasons.reason;
+
+
+
+
+
+
+
+
+
+
+
 
 #관리자 생성
 INSERT INTO `USER_INFO` (
