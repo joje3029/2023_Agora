@@ -44,28 +44,14 @@
     String jsonString = (String) request.getAttribute("jsonData");
 %>
 
-<script>
-    // JSON 데이터 파싱
-    var dataMap  = JSON.parse('<%= jsonString %>');
+	<script>
+	    // 모델에서 바로 데이터 사용
+	    var withdrawDateList = ${dataMap['WithdrawDateList']};
+	    var otherSiteCountList = ${dataMap['OtherSiteCountList']};
+	    var notUseCountList = ${dataMap['NotUseCountList']};
+	    var contentsDiscontentCountList = ${dataMap['ContentsDiscontentCountList']};
+	    var extReaseonCountList = ${dataMap['ExtReaseonCountList']};
 	
-    console.log("dataMap : " + dataMap); // 이아가 null이다!
-    
- // 파싱된 데이터 활용 예시
-    var withdrawDateList = dataMap.WithdrawDate;
-    var otherSiteCountList = dataMap.otherSiteCount;
-    var notUseCountList = dataMap.notUseCount;
-    var contentsDiscontentCountList = dataMap.contentsDiscontentCount;
-    var extReaseonCountList = dataMap.extReaseonCount;
-
-    // 원하는 작업 수행
-    console.log("Withdraw Date List: " + withdrawDateList);
-    console.log("Other Site Count List: " + otherSiteCountList);
-    console.log("Not Use Count List: " + notUseCountList);
-    console.log("Contents Discontent Count List: " + contentsDiscontentCountList);
-    console.log("External Reason Count List: " + extReaseonCountList);
-
-</script>		
-		<script>
 		// 이건 생이니까 이제 이걸 DB에서 자료를 보내고 그걸로 뿌리게 해야겠네. 
 		// 이건 일단 기준을 탈퇴회원과 탈퇴 이유로 함.
 		/* namespace */
@@ -74,26 +60,33 @@
 		// 이게 실질적으로 그래프를 그리는 data님
 		// 여기가 controller에서 데이터를 요청하고 받아야하는 부분.
 		
+		//내껄로 때려본거
 		const data = {
 		  //이거는 withdrqwDate를 이용해서 겹치는거 제외하고 한개씩하고 
-		  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], //옆의 날짜
+		  categories: withdrawDateList, //옆의 날짜
 		  
 		  series: [
 			  // 이건 reason의 종류별로 name을 해야하는거고 근데 순차로 들어가야하는거고.
 		    {
-		      name: 'Budget', // 퍼렁이 위에서부터 아래로 길이
-		      data: [5000, 3000, 5000, 7000, 6000, 4000, 1000], // count 갯수가 순차로 들어가야하는거고. 
+		      name: '다른사이트가 더 좋아서', 
+		      data: otherSiteCountList, // count 갯수가 순차로 들어가야하는거고. 
 		    },
 		    {
-		      name: 'Income', // 노랑이 위에서부터 아래로 길이
-		      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+		      name: '사용빈도가 낮아서', // 노랑이 위에서부터 아래로 길이
+		      data: notUseCountList,
 		    },
 		    {
-		      name: 'Outcome', // 노랑이 위에서부터 아래로 길이
-		      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+		      name: '콘텐츠 불만', // 노랑이 위에서부터 아래로 길이
+		      data: contentsDiscontentCountList,
 		    },
+		    {
+			  name: '기타', // 노랑이 위에서부터 아래로 길이
+			  data: extReaseonCountList,
+			},
 		  ],
 		};
+		
+		
 		const options = {
 				chart: { width: 700, height: 400 }, // 차트의 가로 세로 높이 : 토스트 ui 버전이 상향되면서 상대값을 못함. 썩을...
 		  series: {

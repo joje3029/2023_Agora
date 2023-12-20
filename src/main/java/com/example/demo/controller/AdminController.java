@@ -273,35 +273,16 @@ public class AdminController {
 
 				}
 			}
-
-			// 이걸 Map 형식으로 해서 key와 value로 한후에 넘김
-			// Map 생성
+			
+			
 			Map<String, List<String>> dataMap = new HashMap<>();
-			
-//			//위의 값들 key와 value로 해서 추가
-			dataMap.put("WithdrawDate", withdrawDateList); // 날짜 추가
-			dataMap.put("otherSiteCount", otherSiteCountList); // 날짜 추가
-			dataMap.put("notUseCount", notUseCountList); // 날짜 추가
-			dataMap.put("contentsDiscontentCount", contentsDiscontentCountList); // 날짜 추가
-			dataMap.put("extReaseonCount", extReaseonCountList); // 날짜 추가
-			
-//			model.addAttribute("dataMap", dataMap);
-			
-			// Jackson ObjectMapper 생성
-			ObjectMapper objectMapper = new ObjectMapper();
+			dataMap.put("WithdrawDateList", withdrawDateList);
+			dataMap.put("OtherSiteCountList", otherSiteCountList);
+			dataMap.put("NotUseCountList", notUseCountList);
+			dataMap.put("ContentsDiscontentCountList", contentsDiscontentCountList);
+			dataMap.put("ExtReaseonCountList", extReaseonCountList);
 
-			// Map을 JSON 문자열로 변환
-			try {
-			    // Map을 JSON 문자열로 변환
-			    String json = objectMapper.writeValueAsString(dataMap);
-
-			    // Model에 JSON 문자열 추가
-			    model.addAttribute("dataMapJson", json);
-			} catch (JsonProcessingException e) {
-			    // JSON 변환 중 예외 발생 시 예외 처리 로직 추가
-			    e.printStackTrace(); // 또는 로깅 등의 예외 처리를 수행
-			}
-
+			model.addAttribute("dataMap", dataMap);
 			
 			return "admin/marketing";
 			
