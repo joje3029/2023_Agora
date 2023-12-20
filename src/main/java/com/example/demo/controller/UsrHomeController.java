@@ -26,20 +26,22 @@ public class UsrHomeController {
 		
 		// 메인으로 가기 전에 DB에서 랭킹 정보를 가지고 가야해.
 		// 우선은 칼럼만 데꼬 가자
-
+		
 		// 로그인 안했으면
 		if(rq == null) {
 			List<Article> articles =articleService.getArticleRank();
+			
 			model.addAttribute("articles", articles);
 			
-			System.out.println("articles : "+articles);
 			return "usr/home/main";
 		}
 		//로그인 했으면 추천 모듈이 일을해서 세팅
+		
 		// 추천 모듈씨는 되면 넣기
 		
-		return "interduce"; // 임시로 넣음. 
-//		return "usr/home/main";
+		
+		
+		return "usr/home/main";
 	}
 	
 	@RequestMapping("/")
