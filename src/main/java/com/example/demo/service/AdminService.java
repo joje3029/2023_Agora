@@ -9,6 +9,7 @@ import com.example.demo.dao.MemberDao;
 import com.example.demo.util.Util;
 import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.NewMember;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.WithdrowReason;
 
@@ -44,8 +45,11 @@ public class AdminService {
 	}
 
 	public List<WithdrowReason> getWithdrowReason() {
-		
 		return adminDao.getWithdrowReason();
+	}
+
+	public List<NewMember> getUserJoinDate() {
+		return adminDao.getUserJoinDate();
 	}
 
 	

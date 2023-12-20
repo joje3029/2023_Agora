@@ -22,9 +22,8 @@
 		<section class="mt-8 text-xl">
 			<div class="container mx-auto px-3 border border-green-600 mb-4 w-full ">
 				<ul class="flex justify-around p-4">
-					<li class="btn"><a href="marketing?type=1">신규 가입자 수</a></li>
-					<li class="btn"><a href="marketing?type=2">일일 방문횟수</a></li>
-					<li class="btn"><a href="marketing?type=3">탈퇴 회원 수와 이유</a></li>
+					<li class="btn"><a href="marketingNew">신규 가입자 수</a></li>
+					<li class="btn"><a href="marketingwithDrow">탈퇴 회원 수와 이유</a></li>
 				</ul>
 			</div>
 			<div>

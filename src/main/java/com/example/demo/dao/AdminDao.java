@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.CustomerCenter;
+import com.example.demo.vo.Member;
+import com.example.demo.vo.NewMember;
 import com.example.demo.vo.WithdrowReason;
 
 @Mapper
@@ -60,7 +62,7 @@ public interface AdminDao {
 			FROM (
 			    SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
 			    FROM WITHDROW_REASON
-			    WHERE withDrowDate BETWEEN '2023-01-01' AND '2023-12-31'
+			    WHERE withDrowDate BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()
 			) AS months
 			CROSS JOIN (
 			    SELECT 'extReaseon' AS reason
@@ -77,6 +79,35 @@ public interface AdminDao {
 			ORDER BY withdrawalMonth, reasons.reason;
 			""")
 	public List<WithdrowReason> getWithdrowReason();
+	
+	
+	@Select("""
+			WITH MonthSeries AS (
+			  SELECT 1 AS MONTH
+			  UNION SELECT 2
+			  UNION SELECT 3
+			  UNION SELECT 4
+			  UNION SELECT 5
+			  UNION SELECT 6
+			  UNION SELECT 7
+			  UNION SELECT 8
+			  UNION SELECT 9
+			  UNION SELECT 10
+			  UNION SELECT 11
+			  UNION SELECT 12
+			)SELECT
+			  ms.month AS MONTH,
+			  COUNT(ui.id) AS COUNT
+			FROM
+			  MonthSeries ms
+			LEFT JOIN
+			  USER_INFO ui ON MONTH(ui.joinDate) = ms.month AND ui.joinDate >= CURDATE() - INTERVAL 1 YEAR
+			GROUP BY
+			  ms.month
+			ORDER BY
+			  ms.month;
+			""")
+	public List<NewMember> getUserJoinDate();
 	
 	
 }
