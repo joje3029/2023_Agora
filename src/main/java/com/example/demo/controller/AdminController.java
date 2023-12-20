@@ -208,7 +208,7 @@ public class AdminController {
 		return "admin/userlist";
 	}
 	
-//	관리자가 회원 탈퇴
+//	관리자가 회원 강제탈퇴시키는거.
 	@RequestMapping("/admin/doDeleteMembers")
 	@ResponseBody
 	public String doDeleteMembers(@RequestParam(name = "ids", required = false) List<String> ids) {

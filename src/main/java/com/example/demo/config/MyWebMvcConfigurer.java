@@ -33,6 +33,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 		// 로그인이 필요한 곳 -> 엑셀 인터셉터 구분에서 주황색
 		ir = registry.addInterceptor(needLoginInterceptor);
+		// 유저관련
 		ir.addPathPatterns("/usr/article/write"); // 칼럼 쓰기관련
 		ir.addPathPatterns("/usr/article/doWrite"); // 칼럼 쓰기관련
 		ir.addPathPatterns("/usr/article/modify"); // 칼럼 수정관련
@@ -47,6 +48,17 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/discussion/createroom"); // 토론방 생성관련
 		ir.addPathPatterns("/usr/discussion/chat"); // 채팅 토론방 생성관련
 		ir.addPathPatterns("/usr/discussion/cam"); // 화상 토론방 생성 관련
+		//관리자 관련
+		ir.addPathPatterns("/admin/main");// 메인페이지
+		ir.addPathPatterns("/admin/dologout");// 관리자 로그아웃
+		ir.addPathPatterns("/admin/centerList");// 고객상담 리스트로 가는 로직
+		ir.addPathPatterns("/admin/customercenter");// 고객상담 답변 양식
+		ir.addPathPatterns("/admin/sendCustomerAnswer");// 고객상담 답변 이메일로 보내고 고객상담리스트
+		ir.addPathPatterns("/admin/userlist");// 회원조회
+		ir.addPathPatterns("/admin/marketing");// 관리자가 회원 강제탈퇴시키는거.
+		ir.addPathPatterns("/admin/centerList");// 마케팅데이터가는 로직
+		
+		
 // 댓글과 대댓글은  url이 따로 있는게 아니라 detail내에서 이뤄지므로 필요 없음.		
 
 		// 로그아웃이여야하는곳-> 엑셀 인터셉터 구분에서 초록색
