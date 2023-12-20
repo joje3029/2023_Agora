@@ -58,7 +58,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
+	public String list(Model model, @RequestParam(defaultValue = "1") int type,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
 		if (page <= 0) {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
 		}

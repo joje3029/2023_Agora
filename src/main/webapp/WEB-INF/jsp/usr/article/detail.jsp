@@ -52,6 +52,11 @@
 			
 			
 		})
+		
+		// 구독이 할 자리.
+		
+		
+		
 	})
 	
 	
@@ -122,7 +127,7 @@
 	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">
 	                <div class="btn" id="recommendBtn">좋아요 버튼</div>
-	                <div class="btn">구독 버튼</div>
+	                <div class="btn" id="subscribeBtn">구독 버튼</div>
 	             </c:if>
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">
 	            	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>
