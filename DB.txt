@@ -4,6 +4,9 @@ DROP DATABASE IF EXISTS Agora;
 CREATE DATABASE Agora;
 USE Agora;
 
+SHOW DATABASES;
+
+
 -- 이아는 컬럼명을 걍 다 백틱하는구만. 신경쓰지 말것.
 
 CREATE TABLE `USER_INFO` (
@@ -24,6 +27,36 @@ CREATE TABLE `USER_INFO` (
 	`modifyDate` DATETIME NULL COMMENT '수정날짜',
 	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
+
+
+-- 각 월을 나타내는 시리즈 생성 (12개월 기준)
+WITH MonthSeries AS (
+  SELECT 1 AS MONTH
+  UNION SELECT 2
+  UNION SELECT 3
+  UNION SELECT 4
+  UNION SELECT 5
+  UNION SELECT 6
+  UNION SELECT 7
+  UNION SELECT 8
+  UNION SELECT 9
+  UNION SELECT 10
+  UNION SELECT 11
+  UNION SELECT 12
+)SELECT
+  ms.month AS MONTH,
+  COUNT(ui.id) AS COUNT
+FROM
+  MonthSeries ms
+LEFT JOIN
+  USER_INFO ui ON MONTH(ui.joinDate) = ms.month AND ui.joinDate >= CURDATE() - INTERVAL 1 YEAR
+GROUP BY
+  ms.month
+ORDER BY
+  ms.month;
+
+
+
 
 
 CREATE TABLE `COLUMN` (
@@ -256,6 +289,40 @@ INSERT INTO `USER_INFO` (
   NULL
 );
 
+INSERT INTO `USER_INFO` (
+  `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+) VALUES (
+  'test15',
+  SHA2('Test1123456789!', 256),
+  '뱁새씨',
+  '뱁새씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  '2021-02-18 15:00:00',
+  1,
+  NULL,
+  NULL
+);
+
 #유저 3명 만들기
 #일반 유저 1
 INSERT INTO `USER_INFO` (
@@ -418,5 +485,29 @@ LIMIT 10;
 SELECT * 
 FROM `USER_INFO`
 WHERE id = 2
+
+SELECT 
+    withdrawalMonth,
+    reasons.reason,
+    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS COUNT
+FROM (
+    SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
+    FROM WITHDROW_REASON
+    WHERE withDrowDate BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()
+) AS months
+CROSS JOIN (
+    SELECT 'extReaseon' AS reason
+    UNION
+    SELECT 'notUse' AS reason
+    UNION
+    SELECT 'otherSite' AS reason
+    UNION
+    SELECT 'contentsDiscontent' AS reason
+) AS reasons
+LEFT JOIN WITHDROW_REASON
+ON reasons.reason = WITHDROW_REASON.reason AND months.withdrawalMonth = DATE_FORMAT(WITHDROW_REASON.withDrowDate, '%Y-%m')
+GROUP BY withdrawalMonth, reasons.reason
+ORDER BY withdrawalMonth, reasons.reason;
+
 
 
