@@ -13,7 +13,9 @@
 
 <!-- 캐러셀을 일단 안쓴 버전으로 퍼블리싱을 하자 => 캐러셀같은 프론트 단때문에 시간 많이 잡아먹지 말자! -->
 		<section class="Admain">
-		 	<div>test 뱁새씨</div>
+		 	<div class="flex justify-center">
+		 		<img class="h-screen" alt="관리자님 환영해요!" src="/resource/images/admin_welcome.jpg">
+		 	</div>
 		</section>
 
 	</body>

@@ -38,8 +38,8 @@
 		</section>
 		
 	<script>
-		var outTest = ${data.series[0]}; // 근데 이렇게 해서 꺼내 쓸꺼면 하드 방식과 뭐가 다르지?
-			console.log(outTest);
+		//var outTest = ${data.series[0]}; // 근데 이렇게 해서 꺼내 쓸꺼면 하드 방식과 뭐가 다르지?
+			//console.log(outTest);
 	
 		const Chart = toastui.Chart;
 		const el = document.getElementById('chart');

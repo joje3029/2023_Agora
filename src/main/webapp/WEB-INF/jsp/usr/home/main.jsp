@@ -164,7 +164,7 @@
 			</section>
 		</section>
 	
-		<section class="main-classification">
+		<section class="main-in-section">
 			<div class="section-title text-2xl">분야별 칼럼</div>
 			<section class="table-section">
 				<div class="table-row">
