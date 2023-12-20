@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,14 +16,10 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.CustomerCenter;
 import com.example.demo.vo.Member;
-
 import com.example.demo.vo.NewMember;
-
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 import com.example.demo.vo.WithdrowReason;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class AdminController {
@@ -303,4 +298,100 @@ public class AdminController {
 		return "admin/marketingNew";
 
 	}
+	
+//	마케팅데이터가는 로직-차쌤 조언 도전!
+	@RequestMapping("/admin/marketing")
+	public String showMarketing(@RequestParam(defaultValue = "1") int type,Model model) {
+
+		if (type <= 0) {
+			return rq.jsReturnOnView("분류가 올바르지 않습니다");
+		}
+		
+		//if로 type 파라미터로 들어온거에 따라 나뉘어져야함. 우선은 3번만
+		
+		if(type ==2) {
+			
+			//2번씨는 탈퇴 회원 수와 이유 -> 즉 가져와야하는 정보 테이블 WITHDROW_REASON
+			List<WithdrowReason> withdrowReason=adminService.getWithdrowReason();
+			
+			
+			// 새로운 리스트 생성
+			List<String> withdrawDateList = new ArrayList<>();
+			List<String> otherSiteCountList = new ArrayList<>();
+			List<String> notUseCountList = new ArrayList<>();
+			List<String> contentsDiscontentCountList = new ArrayList<>();
+			List<String> extReaseonCountList = new ArrayList<>();
+			
+			
+			// withdrowReason 리스트 순회
+			for (WithdrowReason reason : withdrowReason) {
+			    // 각각의 속성을 새로운 리스트에 추가
+				
+				if (reason.getReason().equals("otherSite")) { // 다른 사이트 이용
+					withdrawDateList.add(reason.getWithdrawalMonth());
+					otherSiteCountList.add(reason.getCount());
+
+				}else if (reason.getReason().equals("notUse")) { // 사용 안함
+					notUseCountList.add(reason.getCount());
+					
+
+				}else if (reason.getReason().equals("contentsDiscontent")) { //컨텐츠 부족
+					contentsDiscontentCountList.add(reason.getCount());
+					
+
+				}else { // 기타 이유
+					extReaseonCountList.add(reason.getCount());
+
+				}
+			}
+			
+			Map<String, Object> otherMap = new HashMap<>();
+			otherMap.put("name", "다른사이트가 더 좋아서");
+			otherMap.put("data", otherSiteCountList);
+			
+			Map<String, Object> notUseMap = new HashMap<>();
+			notUseMap.put("name", "사용빈도가 낮아서");
+			notUseMap.put("data", otherSiteCountList);
+			
+			Map<String, Object> contentsMap = new HashMap<>();
+			contentsMap.put("name", "콘텐츠 불만");
+			contentsMap.put("data", otherSiteCountList);
+			
+			Map<String, Object> extMap = new HashMap<>();
+			extMap.put("name", "기타");
+			extMap.put("data", otherSiteCountList);
+			
+			List<Object> objectList = new ArrayList<>(); // 리스트 초기화
+			
+			objectList.add(otherMap);
+			objectList.add(notUseMap);
+			objectList.add(contentsMap);
+			objectList.add(extMap);
+			
+			Map<String, Object> dataMap = new HashMap<>();
+			dataMap.put("series", objectList);
+			dataMap.put("categories", withdrawDateList);
+			
+			model.addAttribute("data", dataMap);
+			
+			
+			
+//			dataMap.put("WithdrawDateList", withdrawDateList);
+//			dataMap.put("OtherSiteCountList", otherSiteCountList);
+//			dataMap.put("NotUseCountList", notUseCountList);
+//			dataMap.put("ContentsDiscontentCountList", contentsDiscontentCountList);
+//			dataMap.put("ExtReaseonCountList", extReaseonCountList);
+//			model.addAttribute("dataMap", dataMap);
+			
+			return "admin/marketing";
+			
+		}
+		
+		System.out.println(5);
+		
+		return "admin/marketing";
+
+	}
+	
+	
 }
