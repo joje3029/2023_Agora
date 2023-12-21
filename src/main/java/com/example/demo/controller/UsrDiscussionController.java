@@ -47,6 +47,7 @@ public class UsrDiscussionController {
 		//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
 		List<DiscussionRoom> disussionRooms = discussionService.getdisussionRooms(limitStart, itemsInAPage, searchKeywordType, searchKeyword); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		
+		
 		model.addAttribute("searchKeywordType", searchKeywordType);
 		model.addAttribute("disussionRooms", disussionRooms);
 		model.addAttribute("discussionCnt", discussionCnt);

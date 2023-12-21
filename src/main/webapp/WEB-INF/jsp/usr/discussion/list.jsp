@@ -78,9 +78,7 @@
                                 <div class="flex"> 
                                     <i class="fa-solid fa-user"></i>
                                     &nbsp;
-                                    <p class="moderator">${disussionRoom.crtrId }</p><!-- 이거 가꼬올때 inner join 해야겠다. -->
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <p class="headcount">방 인원</p>
+                                    <p class="moderator">${disussionRoom.nickname }</p><!-- 이거 가꼬올때 inner join 해야겠다. -->
                                 </div>
                             </a>
                         </div>

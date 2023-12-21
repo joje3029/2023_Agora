@@ -23,7 +23,7 @@
         		연결중..
         	</div>
 			<section class="top border flex justify-between items-center">
-				<div class="room-name w-11/12 text-center font-semibold text-5xl  p-4">${discussionRoom.dscsnRoomNm }</div>
+				<div class="room-name w-11/12 text-center font-semibold text-5xl  p-4 discussion-title">${discussionRoom.dscsnRoomNm }</div>
 				<!-- <div class="w-16 border text-center"><a href="/usr/discussion/list"> 나가기</a></div>  -->
 				<button id="exit-button" class="btn text-center mr-2">나가기</button>
 			</section>

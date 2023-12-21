@@ -41,8 +41,8 @@ WITH MonthSeries AS (
   UNION SELECT 11
   UNION SELECT 12
 )SELECT
-  ms.month AS MONTH,
-  COUNT(ui.id) AS COUNT
+  ms.month AS month,
+  COUNT(ui.id) AS count
 FROM
   MonthSeries ms
 LEFT JOIN
@@ -101,6 +101,7 @@ CREATE TABLE CHAT(
     messageType VARCHAR(20) NOT NULL COMMENT 'LEAVE / TALK / BAN 등'
 );
 
+
 CREATE TABLE CHATROOMMEMBER(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'PK',
     regDate DATETIME NOT NULL COMMENT '채팅토론방 참가 시간',
@@ -108,7 +109,6 @@ CREATE TABLE CHATROOMMEMBER(
     memberId INT UNSIGNED NOT NULL COMMENT '유저 PK ID',
     sessionId VARCHAR(50) NOT NULL  COMMENT '일단 미지수 뭐일까....'
 );
-
 
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
@@ -120,6 +120,7 @@ CREATE TABLE `ANSWER` (
 	`answerDeleteTime`	DATETIME	NULL	COMMENT '댓글삭제시간',
 	`answerDeleteEnnc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
 );
+
 
 CREATE TABLE `CSTMR_CNSLT_CNTER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
@@ -180,13 +181,13 @@ CREATE TABLE `WITHDROW_REASON` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '탈퇴 이유 Pk',
 	`reason`	VARCHAR(20)	NOT NULL	COMMENT '탈퇴이유',
 	`detailReason`	TEXT NULL	COMMENT '상세 탈퇴 이유',
-	`withDrowDate`	DATETIME NOT NULL	COMMENT '탈퇴 날짜 '
+	`withDrowDate`	datetime not null	COMMENT '탈퇴 날짜 '
 	
 );
 
-DROP TABLE WITHDROW_REASON
+drop table WITHDROW_REASON
 
-SELECT * FROM WITHDROW_REASON  
+select * from WITHDROW_REASON  
 
 #더미데이터 만들때 이거 이유 4개 만들어서 때리면 됨
 INSERT INTO WITHDROW_REASON (reason, detailReason, withDrowDate)
@@ -197,7 +198,7 @@ VALUES ('extReaseon', '상세이유',
         )
 );
 
-SELECT COUNT(*) FROM WITHDROW_REASON
+SELECT count(*) FROM WITHDROW_REASON
 
 
 
@@ -210,7 +211,7 @@ SELECT COUNT(*) FROM WITHDROW_REASON
 SELECT 
     withdrawalMonth,
     reasons.reason,
-    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS COUNT
+    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS Count
 FROM (
     SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
     FROM WITHDROW_REASON
@@ -470,32 +471,6 @@ LIMIT 10;
 -- 원하는 행 수를 지정해주세요
 */
 
-SELECT * 
-FROM `USER_INFO`
-WHERE id = 2
+select * from DSCSN_ROOM
 
-SELECT 
-    withdrawalMonth,
-    reasons.reason,
-    COALESCE(COUNT(WITHDROW_REASON.id), 0) AS COUNT
-FROM (
-    SELECT DISTINCT DATE_FORMAT(withDrowDate, '%Y-%m') AS withdrawalMonth
-    FROM WITHDROW_REASON
-    WHERE withDrowDate BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()
-) AS months
-CROSS JOIN (
-    SELECT 'extReaseon' AS reason
-    UNION
-    SELECT 'notUse' AS reason
-    UNION
-    SELECT 'otherSite' AS reason
-    UNION
-    SELECT 'contentsDiscontent' AS reason
-) AS reasons
-LEFT JOIN WITHDROW_REASON
-ON reasons.reason = WITHDROW_REASON.reason AND months.withdrawalMonth = DATE_FORMAT(WITHDROW_REASON.withDrowDate, '%Y-%m')
-GROUP BY withdrawalMonth, reasons.reason
-ORDER BY withdrawalMonth, reasons.reason;
-
-
-
+select * from CHATROOMMEMBER

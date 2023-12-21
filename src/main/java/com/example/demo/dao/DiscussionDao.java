@@ -38,6 +38,8 @@ public interface DiscussionDao {
 			<script>
 			SELECT *
 				FROM `DSCSN_ROOM` AS D
+				INNER JOIN `USER_INFO` AS U
+				ON D.crtrId = U.id
 				<if test="searchKeyword != ''">
 					<choose>
 						<when test="searchKeywordType == 'roomName'"> # 토론방이름
