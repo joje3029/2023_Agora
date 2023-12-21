@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.service.DiscussionService;
@@ -125,6 +124,7 @@ public class UsrDiscussionController {
 		
 		//로그인한 놈 정보 같이 넘기기 위해 DB 가기
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
 		
 		// 넘길 정보 세팅
 		model.addAttribute("discussionRoom", discussionRoom);
