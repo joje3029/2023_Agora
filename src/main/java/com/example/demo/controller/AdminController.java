@@ -300,7 +300,7 @@ public class AdminController {
 
 	}
 	
-//	마케팅데이터가는 로직-차쌤 조언 도전!
+//	마케팅데이터가는 로직-차쌤 조언 도전! -> marketing.jsp에서 스크립트가 일을 똑바로 안함. 지금 안쓰는 코드. 플젝 끝나고 공부할때 다시 시도.
 	@RequestMapping("/admin/marketing")
 	public String showMarketing(@RequestParam(defaultValue = "1") int type,Model model) {
 

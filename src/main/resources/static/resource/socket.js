@@ -74,7 +74,6 @@ function onConnected() {
     console.log("WebSocket 연결 성공!"); // 여기까지 오심
     //	sub 할 url => /sub/usr/chat/joinChatRoom/discussionId 로 구독한다
     stompClient.subscribe('/sub/usr/chat/joinChatRoom/' + discussionId, onMessageReceived);
-    
     //여기까지도 출력됨 id : sub-0 destination 나오잖아
     // 나는 /joinChatRoom/discussionId -> chat/discussionId 로 변경
 
@@ -95,7 +94,6 @@ function onConnected() {
             'messageType' : 'ENTER' // 들어왔다.
         })
     )// 여까지도 잘 됨. 그래서 이게 만들어졌음을 표시됨. 
-    
 	connectingElement.style.display = 'none';
 	 // 연결중 div의 요소 클래스에 접근. hidden -> 즉, 잘 연결되면 연결중을 안보이게 함.
 	//일단 이걸 주석 처리하면 classList를 못찾아서 나는 에러는 없음.
@@ -130,6 +128,8 @@ function exitChatRoom() {
     })
     
 }
+
+
 // async : 해당함수가 비동기 함수임을 나타냄. 이거 쓰면 함수내에서 await 키워드 사용가능. 
 // await : 프로미스가 처리 될 때까지 함수의 실행을 일시 중단하고, 프로미스가 처리되면 해당 값을 반환함.
 // 누구 나갔다 함수
@@ -139,6 +139,8 @@ async function disconnect(event) {
 	// destination : 메시지가 전송될 대상 주소
 	// headers : 메시지에 추가할 헤더 정보. 메세지에 추가할 헤더 정보
 	// body : 메시지의 본문. 문자열/ 객체 등이 될수 있음.
+	
+	
 	await stompClient.send('/pub/usr/chat/exitMember',
 	    {},
 	    JSON.stringify({
@@ -163,7 +165,7 @@ async function disconnect(event) {
 function getMemberList() {
 	
     let memberList = $('#member-list'); // 멤버 목록이 나올 부분
-    
+    console.log(1);
     $.ajax({
         type: 'GET',
         url: '/usr/chat/memberList', // chatControoler에 채팅방 참가한 맴버 리스트 반환하는 url이 있음
@@ -172,6 +174,9 @@ function getMemberList() {
         },
         success: function (data) { // 성공하면 ajax로 받은 data로 
 			let members = ''; // 해당인간들 (들 즉, 복수잖아 그래서 s)
+			console.log(2);
+			console.log("data : "+data);
+			console.log(3);
 			for (let i = 0; i < data.length; i++) { //
 				if (data[i].id == memberId) { // 현재 사용자의 ID와 일치하는 경우, 해당 멤버의 닉네임을 그대로 표시
                     //소민이는 현재 사용자는 자기가 초록색으로 조금 굵게 보이게 했지용
@@ -194,8 +199,13 @@ function getMemberList() {
 									</li>`;
 					}
 				}
+				console.log(4);
+				console.log("member : "+members);
 			}
+			console.log(5);
 			memberList.empty(); // 멤버 목록을 표시하는 엘리머트의 내용을 초기화 // 안그러면 이전에 남아있을지도 모르는 아가 있것지
+			console.log(6);
+			console.log("members : "+ members)
 			memberList.html(members); // 멤버 목록을 동적으로 생성한 HTML 코드로 채움. 이를 통해 화면에 멤버 목록이 표시됨.
         }
     })

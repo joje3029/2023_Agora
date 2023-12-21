@@ -37,7 +37,7 @@
 				<li class="menu_bar_item"><a href="main">관리자 메인화면</a></li>
 				<li class="menu_bar_item"><a href="userlist">회원조회</a></li>
 				<!--<li class="menu_bar_item"><a href="marketingNew">사이트 통계</a></li> -->
-				<li class="menu_bar_item"><a href="marketing">사이트 통계</a></li>
+				<li class="menu_bar_item"><a href="marketingNew">사이트 통계</a></li>
 				<!--마케팅 데이터 화면 plot을 붙이든. 토스트 ui 에서 제공하는 api를 쓰든 할꺼임-->
 				<li class="menu_bar_item"><a href="centerList">고객상담 확인</a></li>
 				<li class="menu_bar_item"><a href="dologout">로그아웃</a></li>

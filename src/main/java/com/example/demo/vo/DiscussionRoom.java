@@ -15,5 +15,4 @@ public class DiscussionRoom {
 	private String  dscsnRoomCreatDete; // 토론방생성일자
 	private String  dscsnRoomDeleteDete; // 토론방삭제일자
 	private String  nickname; // 방장 닉네임
-	
 }

@@ -126,11 +126,10 @@ public class UsrDiscussionController {
 		//로그인한 놈 정보 같이 넘기기 위해 DB 가기
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
+		// 넘길 정보 세팅
 		model.addAttribute("discussionRoom", discussionRoom);
 	    model.addAttribute("member", member);
 	    model.addAttribute("discussionRoomId", discussionRoomId);
-	    
-	    System.out.println("discussionRoom : "+discussionRoom); //여기까지 오케
 		
 		return "usr/discussion/chat"; // 즉 chat jsp로 넘어가서 생기는 문제
 	}

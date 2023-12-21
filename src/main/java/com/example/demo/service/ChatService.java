@@ -51,8 +51,8 @@ public class ChatService {
 		return chatDao.getMemberBySessionId(sessionId);
 	}
 
-	public List<Member> getMemberList(int discussionRoomId) {
-		return chatDao.getMemberList(discussionRoomId);
+	public List<Member> getMemberList(int discussionId) {
+		return chatDao.getMemberList(discussionId);
 	}
 
 }

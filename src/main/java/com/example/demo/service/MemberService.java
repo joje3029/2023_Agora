@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
 import com.example.demo.util.Util;
+import com.example.demo.vo.DiscussionRoom;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 
@@ -142,6 +143,7 @@ public class MemberService {
 	private void setTempPassword(Member member, String tempPassword) {
 		memberDao.doPasswordModify(member.getId(), Util.sha256(tempPassword));
 	}
+
 
 	
 	

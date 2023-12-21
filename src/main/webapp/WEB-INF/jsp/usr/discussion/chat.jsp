@@ -29,12 +29,11 @@
 			</section>
 			<section class="personnel-section my-2 border">
 				<div>
-					<ul>
-						<li><i class="fa-solid fa-crown"></i> ${discussionRoom.crtrId }-이건 방장 참가 인원 이름들 주르륵 <!-- innerjoin 해서 이름 가져오게 바꾸기 -->  </li>
-					</ul>
 				 인원 : 인원수(DB에서 받아오기)
 				</div><!-- 이건 연결되기 전에 컨트롤러에서 DB갔다와서 model로 해줘야함 -->
-				<div>참가 인원 닉네임 표시될 부분</div><!-- 이건 연결되기 전에 컨트롤러에서 DB갔다와서 model로 해줘야함 -->
+				<div>${RoomMember}</div>
+				
+				<div id="member-list">참가 인원 닉네임 표시될 부분</div><!-- 이건 연결되기 전에 컨트롤러에서 DB갔다와서 model로 해줘야함 -->
 			</section>
 			
 			<section class="chat-body border"> <!-- 즉 여기가 병호님으로치면 id가 chat인 곳이여  -->

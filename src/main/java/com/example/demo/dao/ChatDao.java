@@ -38,13 +38,14 @@ public interface ChatDao {
 	@Delete("""
 			<script>
 				DELETE FROM CHATROOMMEMBER
-				WHERE discussionRoomId = #{discussionRoomId}
+				WHERE dscsnRoomId = #{discussionRoomId}
 				<if test="memberId != 0">
 					AND memberId = #{memberId}
 				</if>
 			 </script>
 			""")
-	void exitChatRoom(int discussionRoomId, int memberId);
+	void exitChatRoom(int discussionRoomId, int memberId); // 나간놈 삭제하는 쿼리
+	
 	
 	@Select("""
 			SELECT D.* , U.nickname AS hostNickname, COUNT(CRM.id) AS currentMemberCount
@@ -70,13 +71,13 @@ public interface ChatDao {
 	void deleteChat(int discussionRoomId);
 
 	@Select("""
-			SELECT U.*, CRM.sessionId AS sessionId
-				FROM USER_INFO AS U
-				INNER JOIN CHATROOMMEMBER AS CRM
-				ON U.id = CRM.memberId
-				WHERE CRM.dscsnRoomId = #{discussionRoomId}
+			SELECT C.*, U.nickname 
+				FROM CHATROOMMEMBER AS C
+				INNER JOIN USER_INFO AS U
+				ON U.id = C.memberId
+				WHERE dscsnRoomId =#{discussionId}
 			""")
-	List<Member> getMemberList(int discussionRoomId);
+	List<Member> getMemberList(int discussionId);
 
 	
 	@Select("""

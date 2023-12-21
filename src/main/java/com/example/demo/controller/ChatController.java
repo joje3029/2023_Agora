@@ -45,19 +45,18 @@ public class ChatController {
 		// 예 : 메시지의 헤더에서 추가적인 정보를 추출하거나 설정하는데 활용될 수 있음.
 		// 즉, webSocket을 통해 전달되는 메시지의 페이로드를 처리. chat 객체로 매핑하여 사용, 동시에 메시지의 헤더 정보에 접근할 수 있음. 
 		// 이러한 방식으로 메시지의 내용과 부가적인 정보를 처리할 수 있음.
-
+		
 		LocalDateTime now = LocalDateTime.now(); // 지금 시간
 		chat.setRegDate(now); //chat 객체에 지금시간 세팅
 		chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //chat 에서 이전 시간 데꼬와서 세팅
-
+		
 		//chatroom에 들어감		  chat에서 방id			chat에서 유저 id, 	메시징 인프라에서 사용하는 헤더 정보에서 세션 id를 가져옴
 		chatService.joinChatRoom(chat.getDiscussionId(), chat.getMemberId(), headerAccessor.getSessionId());	// 챗에서 받는 수신자 	 챗에서 강퇴 당한놈 id		챗에서 메세지 타입
 		chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
 		// chat 내용 세이브	  chat에서 날짜 가져옴 chat에서 방 번호 가져옴 caht에서 멤버 아이디 가져옴 chat에서 메시지 가져오기 
-
+		
 		headerAccessor.getSessionAttributes().put("memberId", chat.getMemberId()); // 메시지 헤더에 글쓰는놈 id를 key이름 memberId로 해서 세팅
 		headerAccessor.getSessionAttributes().put("discussionRoomId", chat.getDiscussionId()); //메시지 헤더에 chatRoom id를 key이름 discussionRoomId로 해서 세팅
-		
 		//암튼 그 템플릿에 template.convertAndSend 는 Spring 프레임워크에서 메시징을 처리하기 위한 메소드 중 하나. 
 		// 주로 Spring의 메시징 기능을 사용하여 메시지를 특정 주제에 발행하거나 메시지를 소비하는데 사용. 이 메소드는 주로 Spring의 메시징 모듈에서 WebSocket이나 메시지 큐와 같은 통신 메커니즘에 사용됨.
 		template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionId(), chat);
@@ -100,36 +99,37 @@ public class ChatController {
     
     @MessageMapping("/usr/chat/exitMember") // 나갈끼다! url
     public void exitMember(@Payload Chat chat, SimpMessageHeaderAccessor headerAccessor) {
-    	
 		//	stomp 세션에 있던 memberId 와 discussionRoomId 를 확인해서 채팅방 멤버 리스트와 채팅방에서 해당 멤버를 삭제
-		int memberId = (int) headerAccessor.getSessionAttributes().get("memberId");
+		
+    	int memberId = (int) headerAccessor.getSessionAttributes().get("memberId");
+    	
 		int discussionRoomId = (int) headerAccessor.getSessionAttributes().get("discussionRoomId");
+		
 		
 		//chatService에 어느놈이 나간다 고 방 id랑 나가는놈 id를 보냄
 		chatService.exitChatRoom(discussionRoomId, memberId);
-
+		
 		ChatRoom chatRoom = chatService.getChatRoomById(discussionRoomId); //방 id를 찾아서 변수에 담음
 		
-		if (chatRoom.getCurrentMemberCount() == 0) { // 방 id가 0이다 -> 방 없음.
-			chatService.deleteChatRoom(discussionRoomId); //방 삭제
-			chatService.deleteChat(discussionRoomId); // chat 삭제
-			return;
-		}
 		
 		//	퇴장한 멤버가 방장일 때 입장해 있는 멤버 중 가장 빨리 들어온 멤버가 자동으로 방장이 되게 함
-		if (chatRoom.getMemberId() == memberId) { // chat 룸의 유저 id가 이놈이랑 같을때
-			chatService.modifyChatRoom(discussionRoomId); //방 찾아가서 수정
-		}
+		
 		
 		// 나갈끼다 했는데 주인도 아니고 방이 없는것도 아니면
     	LocalDateTime now = LocalDateTime.now(); //지금시간
     	chat.setRegDate(now); //chat에 지금 시간 세팅
     	chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //양식 시간 세팅
     	
+    	System.out.println(8);
+    	
     	System.out.println("saveChat 들어가기전 Test");
+    	
+    	System.out.println(9);
     	
 		//chat 저장
     	chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());
+    	
+    	System.out.println(9);
     	
     	template.convertAndSend("/sub/usr/chat/joinChatRoom/" + chat.getDiscussionId(), chat);
     	//여기서는 특정 주제에 메시지를 발행함. 
@@ -171,8 +171,8 @@ public class ChatController {
     //	채팅방에 참여한 멤버 리스트 반환 -> 임마가 없어서 쟈가 안되는거였어!!
     @RequestMapping("/usr/chat/memberList")
     @ResponseBody
-    public List<Member> memberList(int discussionRoomId) {
-        return chatService.getMemberList(discussionRoomId);
+    public List<Member> memberList(int discussionId) {
+        return chatService.getMemberList(discussionId);
     }
     
     //	퇴장한 멤버가 방장이면 입장해 있는 멤버 중 가장 빨리 들어온 멤버가 자동으로 방장이 됨
