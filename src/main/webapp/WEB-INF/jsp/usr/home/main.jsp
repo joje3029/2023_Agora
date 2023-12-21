@@ -54,8 +54,8 @@
 			<section class="items">
 				<c:forEach var="article" items="${articles }">
 						<div class="item">
-							<div class="title"><a href="detail?id=${article.id }">${article.title }</a></div>
-							<div class="writer"><a href="detail?id=${article.id }">${article.nickname }</a></div>
+							<div class="title"><a href="../article/detail?id=${article.id }">${article.title }</a></div>
+							<div class="writer"><a href="../article/detail?id=${article.id }">${article.nickname }</a></div>
 						</div>
 				</c:forEach>
 			</section>

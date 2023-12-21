@@ -66,7 +66,6 @@ public class ChatController {
 		// 구체적으로는 /sub/usr/chat/joinChatRoom/ 다음에 채팅방 id가 추가된 주제로 메시지 발행. 
 	}
     
-	//여기가 문제라서 프론트 화면 안뜨는기야.
     @MessageMapping("/usr/chat/sendMessage") // socket.js에서 json형태의 메시지를 전달하면 오는 url
     public void sendMessage(@Payload Chat chat) {  //@Payload : 메소드의 특정 매개변수가 메시지의 페이로드를 나타냄. 
     	
@@ -126,6 +125,8 @@ public class ChatController {
     	LocalDateTime now = LocalDateTime.now(); //지금시간
     	chat.setRegDate(now); //chat에 지금 시간 세팅
     	chat.setFormatRegDate(Util.formatRegDateVer1(chat.getRegDate())); //양식 시간 세팅
+    	
+    	System.out.println("saveChat 들어가기전 Test");
     	
 		//chat 저장
     	chatService.saveChat(chat.getRegDate(), chat.getDiscussionId(), chat.getMemberId(), chat.getMessage(), chat.getRecipientId(), chat.getBanMemberId(), chat.getMessageType());

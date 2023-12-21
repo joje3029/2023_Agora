@@ -528,6 +528,8 @@ section>.button_bar {
  	background-color: #A7f3d0;
  	padding: 7px;
     margin: 10px;
+    display: block;
+    text-align: right; /* 내용물을 오른쪽 정렬 */
 }
 
 .other{

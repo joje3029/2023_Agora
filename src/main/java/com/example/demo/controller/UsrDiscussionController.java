@@ -106,6 +106,8 @@ public class UsrDiscussionController {
 		return null; // 없으면 뭐라하니까. 실제로는 1이냐 2만 있으면 되지만...
 	}	
 	
+	// 해당 토론방이 채팅인지 화상인지 type에따라 연결할 부분 : 화상 만들면 추가되야함.
+	
 	
 	//채팅방
 	@RequestMapping("/usr/discussion/chat")

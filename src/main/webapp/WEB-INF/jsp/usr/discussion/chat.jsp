@@ -50,7 +50,7 @@
 				<div class="mt-4 border rounded-lg p-4">
 					<form id="message-form">
 					 	<input type="hidden" id="roomId" name="discussionId" value="${discussionRoom.id}">
-						<textarea name="message" id="message-input" class="textarea textarea-bordered w-full"
+						<textarea name="message" id="message-input" class="textarea textarea-bordered w-full resize-none"
 							placeholder="의견을 말해주세요!" autocomplete="off" resize-none></textarea>
 						<div class="flex justify-end">
 							<button class="btn btn-sm">입력</button>
