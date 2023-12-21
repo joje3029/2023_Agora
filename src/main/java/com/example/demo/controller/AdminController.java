@@ -15,6 +15,7 @@ import com.example.demo.service.AdminService;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.CustomerCenter;
+import com.example.demo.vo.DataMap;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.NewMember;
 import com.example.demo.vo.ResultData;
@@ -345,43 +346,65 @@ public class AdminController {
 				}
 			}
 			
-			Map<String, Object> otherMap = new HashMap<>();
-			otherMap.put("name", "다른사이트가 더 좋아서");
-			otherMap.put("data", otherSiteCountList);
+//			Map<String, Object> otherMap = new HashMap<>();
+//			otherMap.put("name", "다른사이트가 더 좋아서");
+//			otherMap.put("data", otherSiteCountList);
+//			
+//			Map<String, Object> notUseMap = new HashMap<>();
+//			notUseMap.put("name", "사용빈도가 낮아서");
+//			notUseMap.put("data", otherSiteCountList);
+//			
+//			Map<String, Object> contentsMap = new HashMap<>();
+//			contentsMap.put("name", "콘텐츠 불만");
+//			contentsMap.put("data", otherSiteCountList);
+//			
+//			Map<String, Object> extMap = new HashMap<>();
+//			extMap.put("name", "기타");
+//			extMap.put("data", otherSiteCountList);
+//			
+//			List<Object> objectList = new ArrayList<>(); // 리스트 초기화
+//			
+//			objectList.add(otherMap);
+//			objectList.add(notUseMap);
+//			objectList.add(contentsMap);
+//			objectList.add(extMap);
+//			
+//			Map<String, Object> dataMap = new HashMap<>();
+//			dataMap.put("series", objectList);
+//			dataMap.put("categories", withdrawDateList);
+			
+			DataMap dataMap = new DataMap();
+			dataMap.setCategories(withdrawDateList);
+			
+			List<Map<String, Object>> seriesData = new ArrayList<>();
+			
+			Map<String, Object> seriesDataMap = new HashMap<>();
+			seriesDataMap.put("name", "다른사이트가 더 좋아서");
+			seriesDataMap.put("data", otherSiteCountList);
+			seriesData.add(seriesDataMap);
 			
 			Map<String, Object> notUseMap = new HashMap<>();
 			notUseMap.put("name", "사용빈도가 낮아서");
 			notUseMap.put("data", otherSiteCountList);
+			seriesData.add(notUseMap);
 			
 			Map<String, Object> contentsMap = new HashMap<>();
 			contentsMap.put("name", "콘텐츠 불만");
-			contentsMap.put("data", otherSiteCountList);
+			contentsMap.put("data", contentsDiscontentCountList);
+			seriesData.add(contentsMap);
 			
 			Map<String, Object> extMap = new HashMap<>();
 			extMap.put("name", "기타");
 			extMap.put("data", otherSiteCountList);
+			seriesData.add(extMap);
 			
-			List<Object> objectList = new ArrayList<>(); // 리스트 초기화
 			
-			objectList.add(otherMap);
-			objectList.add(notUseMap);
-			objectList.add(contentsMap);
-			objectList.add(extMap);
 			
-			Map<String, Object> dataMap = new HashMap<>();
-			dataMap.put("series", objectList);
-			dataMap.put("categories", withdrawDateList);
+			
+			
+			dataMap.setSeries(seriesData);
 			
 			model.addAttribute("data", dataMap);
-			
-			
-			
-//			dataMap.put("WithdrawDateList", withdrawDateList);
-//			dataMap.put("OtherSiteCountList", otherSiteCountList);
-//			dataMap.put("NotUseCountList", notUseCountList);
-//			dataMap.put("ContentsDiscontentCountList", contentsDiscontentCountList);
-//			dataMap.put("ExtReaseonCountList", extReaseonCountList);
-//			model.addAttribute("dataMap", dataMap);
 			
 			return "admin/marketing";
 			

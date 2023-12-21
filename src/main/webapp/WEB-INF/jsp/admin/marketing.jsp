@@ -45,24 +45,24 @@
 		const el = document.getElementById('chart');
 		
 		const data = {
-				  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				  categories: ${data.categories},
 				  series: [
 				    {
-				      name: 'Budget',
-				      data: [5000, 3000, 5000, 7000, 6000, 4000, 1000]
+				      name: "${data.series[0].get('name')}",
+				      data: ${data.series[0].get('data')}
 				    },
 				    {
-				      name: 'Income',
-				      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000]
+				      name: "${data.series[1].get('name')}",
+					  data: ${data.series[1].get('data')}
 				    },
 				    {
-				      name: 'Expenses',
-				      data: [4000, 4000, 6000, 3000, 4000, 5000, 7000]
-				    },
-				    {
-				      name: 'Debt',
-				      data: [3000, 4000, 3000, 1000, 2000, 4000, 3000]
-				    }
+					  name: "${data.series[2].get('name')}",
+					  data: ${data.series[2].get('data')}
+					},
+					{
+					  name: "${data.series[3].get('name')}",
+					  data: ${data.series[3].get('data')}
+					}
 				  ]
 				}
 		  
@@ -72,6 +72,8 @@
 			    stack: true
 			  }
 		};
+		
+		//이거는 뭔가조건으로 표시해야지 이전생각은 미친이에요!!
 		const chart = Chart.barChart({ el, data, options });
 		</script>
 					
