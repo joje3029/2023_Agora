@@ -308,6 +308,13 @@ public class AdminController {
 			return rq.jsReturnOnView("분류가 올바르지 않습니다");
 		}
 		
+		if(type == 1) {
+			System.out.println("컨트롤러 지나감?");
+			
+			model.addAttribute("type", 1);
+			return "admin/marketing";
+		}
+		
 		//if로 type 파라미터로 들어온거에 따라 나뉘어져야함. 우선은 3번만
 		
 		if(type ==2) {
@@ -346,32 +353,6 @@ public class AdminController {
 				}
 			}
 			
-//			Map<String, Object> otherMap = new HashMap<>();
-//			otherMap.put("name", "다른사이트가 더 좋아서");
-//			otherMap.put("data", otherSiteCountList);
-//			
-//			Map<String, Object> notUseMap = new HashMap<>();
-//			notUseMap.put("name", "사용빈도가 낮아서");
-//			notUseMap.put("data", otherSiteCountList);
-//			
-//			Map<String, Object> contentsMap = new HashMap<>();
-//			contentsMap.put("name", "콘텐츠 불만");
-//			contentsMap.put("data", otherSiteCountList);
-//			
-//			Map<String, Object> extMap = new HashMap<>();
-//			extMap.put("name", "기타");
-//			extMap.put("data", otherSiteCountList);
-//			
-//			List<Object> objectList = new ArrayList<>(); // 리스트 초기화
-//			
-//			objectList.add(otherMap);
-//			objectList.add(notUseMap);
-//			objectList.add(contentsMap);
-//			objectList.add(extMap);
-//			
-//			Map<String, Object> dataMap = new HashMap<>();
-//			dataMap.put("series", objectList);
-//			dataMap.put("categories", withdrawDateList);
 			
 			DataMap dataMap = new DataMap();
 			dataMap.setCategories(withdrawDateList);
@@ -405,12 +386,12 @@ public class AdminController {
 			dataMap.setSeries(seriesData);
 			
 			model.addAttribute("data", dataMap);
+			model.addAttribute("type", 2);
 			
 			return "admin/marketing";
 			
 		}
 		
-		System.out.println(5);
 		
 		return "admin/marketing";
 

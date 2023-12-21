@@ -38,43 +38,79 @@
 		</section>
 		
 	<script>
-		//var outTest = ${data.series[0]}; // 근데 이렇게 해서 꺼내 쓸꺼면 하드 방식과 뭐가 다르지?
-			//console.log(outTest);
+	    const type = ${type}; // 근데 이렇게 해서 꺼내 쓸꺼면 하드 방식과 뭐가 다르지?
 	
 		const Chart = toastui.Chart;
 		const el = document.getElementById('chart');
 		
-		const data = {
-				  categories: ${data.categories},
-				  series: [
-				    {
-				      name: "${data.series[0].get('name')}",
-				      data: ${data.series[0].get('data')}
-				    },
-				    {
-				      name: "${data.series[1].get('name')}",
-					  data: ${data.series[1].get('data')}
-				    },
-				    {
-					  name: "${data.series[2].get('name')}",
-					  data: ${data.series[2].get('data')}
-					},
-					{
-					  name: "${data.series[3].get('name')}",
-					  data: ${data.series[3].get('data')}
+		if(type === 1){
+			
+			console.log("지나가?")
+			
+			const data = {
+					  categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					  series: [
+					    {
+					      name: 'Budget',
+					      data: [5000, 3000, 5000, 7000, 6000, 4000, 1000]
+					    },
+					    {
+					      name: 'Income',
+					      data: [8000, 4000, 7000, 2000, 6000, 3000, 5000]
+					    },
+					    {
+					      name: 'Expenses',
+					      data: [4000, 4000, 6000, 3000, 4000, 5000, 7000]
+					    },
+					    {
+					      name: 'Debt',
+					      data: [3000, 4000, 3000, 1000, 2000, 4000, 3000]
+					    }
+					  ]
 					}
-				  ]
-				}
-		  
-		const options = {
-		  chart: { width: 700, height: 400 },
-		  series: {
-			    stack: true
-			  }
-		};
+			  
+			const options = {
+			  chart: { width: 700, height: 400 },
+			};
+			
+			//이거는 뭔가조건으로 표시해야지 이전생각은 미친이에요!!
+			const chart = Chart.barChart({el, data, options});
+		}
+			
 		
-		//이거는 뭔가조건으로 표시해야지 이전생각은 미친이에요!!
-		const chart = Chart.barChart({ el, data, options });
+		if(type === 2){
+			const data = {
+					  categories: ${data.categories},
+					  series: [
+					    {
+					      name: "${data.series[0].get('name')}",
+					      data: ${data.series[0].get('data')}
+					    },
+					    {
+					      name: "${data.series[1].get('name')}",
+						  data: ${data.series[1].get('data')}
+					    },
+					    {
+						  name: "${data.series[2].get('name')}",
+						  data: ${data.series[2].get('data')}
+						},
+						{
+						  name: "${data.series[3].get('name')}",
+						  data: ${data.series[3].get('data')}
+						}
+					  ]
+					}
+			  
+			const options = {
+			  chart: { width: 700, height: 400 },
+			  series: {
+				    stack: true
+				  }
+			};
+			
+			//이거는 뭔가조건으로 표시해야지 이전생각은 미친이에요!!
+			const chart = Chart.barChart({ el, data, options });
+		}
 		</script>
 					
 	</body>

@@ -13,5 +13,7 @@ import lombok.NoArgsConstructor;
 public class DataMap {
 	private List<String> categories;
 	private List<Map<String,Object>> series;
+	private List<Integer> monthList;
+	private List<Integer> countList;
 	
 }
