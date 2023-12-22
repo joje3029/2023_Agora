@@ -292,7 +292,6 @@ html>body .toastui-editor-contents {
 }
 
 .login>.content-section>.img-div {
-	/* border: 1px solid red; */
 	display: flex;
 	justify-content: end;
 }
@@ -419,7 +418,6 @@ section>.button_bar {
 }
 
 .main>.main-in-section>.table-section {
-	border: 1px solid red;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -428,7 +426,6 @@ section>.button_bar {
 }
 
 .main>.main-in-section>.table-section>.table-row {
-	border: 1px solid blueviolet;
 	/* background-color: blueviolet; */
 	width: 70%;
 	display: flex;
@@ -437,14 +434,19 @@ section>.button_bar {
 }
 
 .main>.main-in-section>.table-section>.table-row>.table-item {
-	border: 1px solid orange;
-	/* background-color: orange; */
-	width: 33%;
+	border: 1px solid yellowgreen;
+	background-color: #E3F6CE;
+	width: 32%;
 	height: 150px;
 	text-align: center;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.main>.main-in-section>.table-section>.table-row>.table-item:hover {
+	background-color: #CEF6CE;
+	text-decoration: underline;
 }
 
 /* detail css*/

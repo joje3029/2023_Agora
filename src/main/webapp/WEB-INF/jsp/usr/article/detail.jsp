@@ -13,98 +13,8 @@
 <%@ include file="../common/toastUiEditorLib.jsp"%>
 
 <script>
-	//여기서 할꺼.
-	$(document).ready(function() {
-		// 좋아요 관련
-		getRecommendPoint(); // 좋아요 카운트
-		
-		$('#recommendBtn').click(function(){
-			
-			let recommendBtn = $('#recommendBtn').hasClass('btn-active');
-						
-						$.ajax({
-							url: "/usr/recommendPoint/doRecommendPoint",
-							method: "get",
-							data: {
-									"coulumnId" : ${article.id },
-									"recommendBtn" : recommendBtn
-								},
-							dataType: "text",
-							success: function(data) {
-								if (data === "좋아요 성공") {
-				                    // 좋아요 성공 시의 처리
-				                    $('#recommendBtn').removeClass('btn-active');
-				                    $('#recommendBtn').prop('disabled', true); // 버튼 비활성화
-				                } else if (data === "좋아요 취소") {
-				                    // 좋아요 취소 시의 처리
-				                    $('#recommendBtn').addClass('btn-active');
-				                } else {
-				                    console.error("예상치 못한 응답 : " + data);
-				                }
-								
-							},
-							error: function(xhr, status, error) {
-								console.error("ERROR : " + status + " - " + error);
-							}
-						})
-						
-						location.reload();
-			
-			
-		})
-		
-		// 구독이 할 자리.
-		
-		
-		
-	})
-	
-	
-	const getRecommendPoint = function(){
-			$.ajax({
-				url: "../recommendPoint/getRecommendPoint",
-				method: "get",
-				data: {
-						"coulumnId" : ${article.id }
-					},
-				dataType: "json",
-				success: function(data) {
-					if (data.success) {
-						$('#recommendBtn').addClass('btn-active');
-					}
-				},
-				error: function(xhr, status, error) {
-					console.error("ERROR : " + status + " - " + error);
-				}
-			})
-		}
-		
-		//댓글 길이 제한 관련
-		const replyInput = $('#reply'); // textarea 
-		const textCount = $('#textCount'); // 숫자 올라갈 부분
-		const maxLength = 500;
-
-		replyInput.on('input', function () {
-			const text = replyInput.val();
-			const currentCharacterCount = text.length;
-
-			if (currentCharacterCount > maxLength) {
-				replyInput.val(text.slice(0, maxLength));
-				textCount.text(maxLength);
-			} else {
-				textCount.text(currentCharacterCount);
-			}
-		});
-
-		replyInput.on('input', function() {
-			const inputValue = $(this).val();
-			
-			if (inputValue.length > maxLength) {
-				$(this).val(inputValue.slice(0, maxLength));
-				alert('댓글은 500자 이내로 작성 가능합니다.');
-			}
-	});
-
+	//여기서 할꺼- 댓글씨
+	// 작성 버튼 누르면 보내는 친구. 일 잘함.
 	const replyForm_onSubmit = function(form) {
 		form.reply.value = form.reply.value.trim();
 		
@@ -114,9 +24,41 @@
 			return;
 		}
 		
-		form.submit();
-	}	
+		//form.submit();
+	}
+	
+	$(document).ready(function() {
+		//document 잘 작동하는지 확인하려고 하는 코드
+	    $('#testBtn').on('click', function() {
+	        alert("일하냐?");
+	    });
+	    
+	    // 여기다가 할짓. 댓글관련 글자수 제한과 글자실시간 보여주기
+	    const replyInput = $('#reply'); // textarea 
+		const textCount = $('#textCount'); // 숫자 올라갈 부분
+		const messageDiv = $('#message'); // 메시지 표시 부분
+	    const maxLength = 500;
+		
+	 // textarea의 글자수 제한
+	    replyInput.on('input', function() {
+	        const currentLength = $(this).val().length;
+	        if (currentLength >= maxLength) {
+	            $(this).val($(this).val().substring(0, maxLength));
+	            messageDiv.text('댓글은 500자 이내 입력 가능합니다.').addClass('text-red-600');
+	        } else {
+	            messageDiv.text('').removeClass('error');
+	        }
+	        textCount.text(currentLength + '/' + maxLength);
+	    });
+	    		
+
+	    
+	});
+
+		
 </script>
+
+<div class="border" id="myElement">기존 요소 <button class="btn" id="testBtn">테스트 버튼</button> </div>
 
 <section class="listBody">
         <section class="title-section border p-3 font-semibold">
@@ -152,10 +94,13 @@
 	                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
 	                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
 	                        <textarea id="reply" class="textarea textarea-bordered w-full resize-none" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
-	                        <div class="flex justify-end ">
+	                        <div class="flex justify-between ">
 	                        	<!-- 글자수 보여주는 부분 -->
-	                        	<div class="count_bar"><span id="textCount">0</span>/500</div>
-	                        	<button class="btn btn-sm" onclick="">작성</button>
+	                        	<div class="flex justify-between w-full">
+	                        		<div class="w-6/12" id="message"></div>
+	                        		<div class="count_bar" id="textCount"></div>
+	                        	</div>
+	                        	<button class="btn btn-sm">작성</button>
 	                        </div>
 	                </form>
 	            </div>
@@ -170,6 +115,7 @@
             	</div>
             	</c:forEach>
             </div>
+      </section>
 	</body>
 </html>           
             

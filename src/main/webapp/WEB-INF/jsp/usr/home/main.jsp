@@ -52,12 +52,26 @@
 		<section class="main-in-section">
 			<div class="section-title text-2xl">랭킹 칼럼</div>
 			<section class="items">
-				<c:forEach var="article" items="${articles }">
-						<div class="item">
-							<div class="title"><a href="../article/detail?id=${article.id }">${article.title }</a></div>
-							<div class="writer"><a href="../article/detail?id=${article.id }">${article.nickname }</a></div>
-						</div>
-				</c:forEach>
+				<div class="item">
+					<div class="title">칼럼제목1</div>
+					<div class="writer">작성자1</div>
+				</div>
+				<div class="item">
+					<div class="title">칼럼제목2</div>
+					<div class="writer">작성자2</div>
+				</div>
+				<div class="item">
+					<div class="title">칼럼제목3</div>
+					<div class="writer">작성자3</div>
+				</div>
+				<div class="item">
+					<div class="title">칼럼제목4</div>
+					<div class="writer">작성자4</div>
+				</div>
+				<div class="item">
+					<div class="title">칼럼제목5</div>
+					<div class="writer">작성자5</div>
+				</div>
 			</section>
 		</section>
 	

@@ -27,8 +27,9 @@ public class UsrHomeController {
 		// 메인으로 가기 전에 DB에서 랭킹 정보를 가지고 가야해.
 		// 우선은 칼럼만 데꼬 가자
 		
-		// 로그인 안했으면
+		// 로그인 안했으면 : 좋아요 순으로 가꼬와야함. 
 		if(rq == null) {
+			// 이거 수정해야함. 
 			List<Article> articles =articleService.getArticleRank();
 			
 			model.addAttribute("articles", articles);
