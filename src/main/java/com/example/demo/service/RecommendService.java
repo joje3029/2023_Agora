@@ -36,7 +36,10 @@ public class RecommendService {
 	public void insertSubscribePoint(int loginedMemberId, int writerId) {
 		recommendDao.insertSubscribePoint(loginedMemberId, writerId);
 	}
+	public RecommendPoint getCheckRecommend(int loginedMemberId, int writerId) {
+		return recommendDao.getCheckRecommend(loginedMemberId, writerId);
+	}
 	
-	
+	//로그인 한사람이 로그인했는지 보려고 하는거
 
 }

@@ -123,7 +123,15 @@ public class UsrArticleController {
 		//로그인한 놈의 정보를 가져옴. -> 닉네임에 이름 떠야해.
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
-		
+		// 이 사람이 구독을 했는지 안했는지 체크 -> 했으면 뭔가를 던져서 화면에 누름이 addClass 되야해
+		RecommendPoint checkRecommend = recommendService.getCheckRecommend(rq.getLoginedMemberId(), article.getColmnWrter());
+		// 구독했으면 check가 1 아니면 0으로 세팅해서 넘기자
+		int check = -1;
+		if(checkRecommend==null) {
+			check=0;
+		}else {
+			check=1;
+		}
 		
 		//그래야 닉네임으로 보여주니까. -> 댓글 적어놓은걸.
 		model.addAttribute("nickname", member.getNickname());
@@ -131,6 +139,7 @@ public class UsrArticleController {
 		model.addAttribute("replies", replies);
 		model.addAttribute("replyCount", replyCount);
 		model.addAttribute("recommendPoint", recommendPoint);
+		model.addAttribute("check", check);
 		
 		return "usr/article/detail";
 	}

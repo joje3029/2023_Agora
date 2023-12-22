@@ -46,4 +46,11 @@ public interface RecommendDao {
 			""")
 	public RecommendPoint countRecommendPont(int coulumnId);
 	
+	@Select("""
+			SELECT * FROM EMPLYR_SBSCRB
+				WHERE ownerUserId = ${writerId}
+					AND guestUserId = ${loginedMemberId}
+			""")
+	public RecommendPoint getCheckRecommend(int loginedMemberId, int writerId);
+	
 }
