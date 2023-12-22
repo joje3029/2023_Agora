@@ -38,6 +38,11 @@ public class RecommendService {
 		return ResultData.from("S-1", "좋아요 기록 있음", recommendPoint);
 	}
 	
+	public RecommendPoint countRecommendPont(int coulumnId) {
+		return recommendDao.countRecommendPont(coulumnId);
+	}
+	
+	
 	public void insertRecommendPoint(int loginmemberId, int coulumnId) {
 		recommendDao.insertRecommendPoint(loginmemberId, coulumnId);
 	}
@@ -45,6 +50,8 @@ public class RecommendService {
 	public void deleteRecommendPoint(int loginmemberId, int coulumnId) {
 		recommendDao.deleteRecommendPoint(loginmemberId, coulumnId);
 	}
+	
+	//구독 관련
 	public void deleteSubscribePoint(int loginedMemberId, int writerId) {
 		recommendDao.deleteSubscribePoint(loginedMemberId, writerId);
 		
@@ -52,14 +59,7 @@ public class RecommendService {
 	public void insertSubscribePoint(int loginedMemberId, int writerId) {
 		recommendDao.insertSubscribePoint(loginedMemberId, writerId);
 	}
-
-//	// 구독
-//	public void insertSubscribePoint(int loginedMemberId, int writerId) {
-//		recommendDao.insertSubscribePoint(loginedMemberId, writerId);
-//	}
-//
-//	public void deleteSubscribePoint(int loginedMemberId, int writerId) {
-//		recommendDao.deleteSubscribePoint(loginedMemberId, writerId);
-//	}
+	
+	
 
 }

@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RecommendPoint {
 	private int id; //칼럼 id
+	private int count; // 좋아요 갯수
 }

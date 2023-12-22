@@ -59,6 +59,7 @@
 	
 	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
 	const likeCheck = function(el) {
+		alert("좋아요 오나요?")
 		
 		let likeCheck = $(el).hasClass('btn-active');
 		
@@ -69,15 +70,20 @@
 					"coulumnId" : ${article.id }, //arteicleid
 					"recommendBtn" : likeCheck //버튼 상태 : true / false
 				},
-			dataType: "text", // 답이 text로옴
+			dataType: "json", // 답이 text로옴 -> json으로 바꾸고 조건도 josn중 result가 저거인지로 바꾸고 세는건 뒤에서 세서 json에 담아서 줘야지.
 			success: function(data) {
-				if (data === "좋아요 성공") { //온 답의 결과가 이거면 
+				console.log(data);
+				console.log("recommendPoint:", data.recommendPoint);
+			    console.log("result:", data.result);
+				if (data.result === "좋아요 성공") { //온 답의 결과가 이거면 
 				
 					$("#recommendBtn").addClass("btn-active");
+					$("#likeNum").html(data.recommendPoint.count);
 				
-				} else if (data === "좋아요 취소") {
+				} else if (data.result === "좋아요 취소") {
                     // 좋아요 취소 시의 처리
 					$("#recommendBtn").removeClass("btn-active");
+					$("#likeNum").html(data.recommendPoint.count);
 	            } else {
 	            	console.error("예상치 못한 응답 : " + data);
 	            }
@@ -131,7 +137,7 @@
         <section class="title-section border p-3 font-semibold">
             <div class="title text-3xl">${article.title }</div>
 	            <div class="alarm-session w-96">
-	              <div class="btn">좋아요 갯수 : 3</div><!-- 좋아요 갯수 보일 곳. -->
+	              <div class="backColorGreen">좋아요 갯수 : <span id="likeNum">3</span></div><!-- 좋아요 갯수 보일 곳. -->
             <c:if  test="${rq.getLoginedMemberId() != 0 }">
 	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">

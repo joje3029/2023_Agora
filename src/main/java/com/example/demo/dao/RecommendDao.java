@@ -47,20 +47,11 @@ public interface RecommendDao {
 			""")
 	public void insertSubscribePoint(int loginedMemberId, int writerId);
 	
-//	@Insert("""
-//			INSERT INTO EMPLYR_SBSCRB
-//				SET ownerUserId = #{writerId}
-//				, guestUserId = #{loginmemberId}
-//			""")
-//	public void insertSubscribePoint(int loginedMemberId, int writerId);
-//	
-//	@Delete("""
-//			DELETE FROM EMPLYR_SBSCRB
-//				WHERE  ownerUserId = #{writerId}
-//				AND guestUserId = #{loginmemberId}
-//			""")
-//	public void deleteSubscribePoint(int loginedMemberId, int writerId);
+	@Select("""
+			SELECT COUNT(*) AS `count`
+				FROM COLUMN_LIKE
+				WHERE columnId =#{coulumnId}
+			""")
+	public RecommendPoint countRecommendPont(int coulumnId);
 	
-	
-
 }

@@ -550,3 +550,14 @@ section>.button_bar {
     margin: 10px;
 }
 
+.backColorGreen {
+    background-color: rgba(206, 246, 206, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+
+
