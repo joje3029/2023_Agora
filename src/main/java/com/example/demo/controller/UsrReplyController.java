@@ -26,11 +26,17 @@ public class UsrReplyController {
 		if (Util.empty(reply)) {
 			return Util.jsHistoryBack("내용을 입력해주세요");
 		}
+		
+		System.out.println(1);
 								// 작성한 놈. 몇번째 칼럼, 댓글 내용
 		replyService.writeReply(rq.getLoginedMemberId(), columnId, reply);
 
+		System.out.println(2);
+		
 		int id = replyService.getLastInsertId();
 
+		System.out.println(3);
+		
 		return Util.jsReplace(Util.f("%d번 댓글을 생성했습니다", id), Util.f("../article/detail?id=%d", columnId));
 	}
 

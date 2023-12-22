@@ -24,7 +24,7 @@
 			return;
 		}
 		
-		//form.submit();
+		form.submit();
 	}
 	
 	$(document).ready(function() {
@@ -108,7 +108,7 @@
             <!-- 입력한 댓글 보여주는 부분 -->
             <div>
             	<c:forEach var="reply" items="${replies }">
-				<div class="py-2 pl-16 border-bottom-line">
+				<div class="py-2 pl-2 border-bottom-line">
 					<div class="font-semibold">${reply.writerName }</div>
 					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
 					<div class="text-xs text-gray-400">${reply.answerUpdtTime }</div>

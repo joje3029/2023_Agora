@@ -16,9 +16,10 @@ public interface ReplyDao {
 				SET `writerId` = ${loginedMemberId}
 					,`columnId`= ${columnId}
 					,`answerWritingTime`= NOW() 
-					,`answerBody`= ${reply}
+					,`answerBody`= '${reply}'
 					,`answerUpdtTime`= Null
 					,`answerDeleteTime`= Null
+					, answerDeleteEnnc = 0
 			""")
 	void writeReply(int loginedMemberId, int columnId, String reply);
 
