@@ -59,10 +59,7 @@
 	
 	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
 	const likeCheck = function(el) {
-		alert("좋아요 오나요?")
-		
 		let likeCheck = $(el).hasClass('btn-active');
-		
 		$.ajax({
 			url: "/usr/recommendPoint/doRecommendPoint", // ajax 요청 날림.
 			method: "get", 
@@ -72,9 +69,6 @@
 				},
 			dataType: "json", // 답이 text로옴 -> json으로 바꾸고 조건도 josn중 result가 저거인지로 바꾸고 세는건 뒤에서 세서 json에 담아서 줘야지.
 			success: function(data) {
-				console.log(data);
-				console.log("recommendPoint:", data.recommendPoint);
-			    console.log("result:", data.result);
 				if (data.result === "좋아요 성공") { //온 답의 결과가 이거면 
 				
 					$("#recommendBtn").addClass("btn-active");
@@ -100,10 +94,7 @@
 	
 	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
 	const subscribeCheck = function(el) {
-		alert("구독이 오나요?")
-		
 		let subscribeCheck = $(el).hasClass('btn-active');
-		alert(subscribeCheck)
 		
 		$.ajax({
 			url: "/usr/recommendPoint/doSubscribePoint", // ajax 요청 날림.

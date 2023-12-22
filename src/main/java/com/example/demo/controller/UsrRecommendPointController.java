@@ -22,15 +22,6 @@ public class UsrRecommendPointController {
 		this.recommendService = recommendService;
 		this.rq =rq;
 	}
-//	// 좋아요 갯수 가꼬올라고
-//	@RequestMapping("/usr/recommendPoint/getRecommendPoint")
-//	@ResponseBody
-//	public ResultData<RecommendPoint> getRecommendPoint(String relTypeCode, int coulumnId) {
-//		
-//		System.out.println(1);
-//		
-//		return recommendService.getRecommendPoint(rq.getLoginedMemberId(), coulumnId);
-//	}
 	
 	// 좋아요 버튼을 누르면 ajax에서 보내는 url
 	@RequestMapping("/usr/recommendPoint/doRecommendPoint")

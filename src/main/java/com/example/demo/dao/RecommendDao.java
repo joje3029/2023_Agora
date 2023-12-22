@@ -10,14 +10,6 @@ import com.example.demo.vo.RecommendPoint;
 @Mapper
 public interface RecommendDao {
 	
-	@Select("""
-			SELECT * 
-			FROM COLUMN_LIKE
-			where userUniqId =#{loginedMemberId}
-			and columnId =#{coulumnId}
-			""")
-	public RecommendPoint getRecommendPoint(int loginedMemberId, int coulumnId);
-	
 	@Insert("""
 			INSERT INTO COLUMN_LIKE
 			SET userUniqId = #{loginmemberId}
