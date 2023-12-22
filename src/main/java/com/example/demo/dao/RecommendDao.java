@@ -33,6 +33,34 @@ public interface RecommendDao {
 			""")
 	public void deleteRecommendPoint(int loginmemberId, int coulumnId);
 	
+	@Delete("""
+			DELETE FROM EMPLYR_SBSCRB
+				WHERE  ownerUserId = #{writerId}
+				AND guestUserId = #{loginedMemberId}
+			""")
+	public void deleteSubscribePoint(int loginedMemberId, int writerId);
+	
+	@Insert("""
+			INSERT INTO EMPLYR_SBSCRB
+				SET ownerUserId = #{writerId}
+				, guestUserId = #{loginedMemberId}
+			""")
+	public void insertSubscribePoint(int loginedMemberId, int writerId);
+	
+//	@Insert("""
+//			INSERT INTO EMPLYR_SBSCRB
+//				SET ownerUserId = #{writerId}
+//				, guestUserId = #{loginmemberId}
+//			""")
+//	public void insertSubscribePoint(int loginedMemberId, int writerId);
+//	
+//	@Delete("""
+//			DELETE FROM EMPLYR_SBSCRB
+//				WHERE  ownerUserId = #{writerId}
+//				AND guestUserId = #{loginmemberId}
+//			""")
+//	public void deleteSubscribePoint(int loginedMemberId, int writerId);
+	
 	
 
 }

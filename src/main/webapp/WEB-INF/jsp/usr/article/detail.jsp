@@ -59,11 +59,8 @@
 	
 	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
 	const likeCheck = function(el) {
-		alert("작동한당!!")// 일한당!!
 		
 		let likeCheck = $(el).hasClass('btn-active');
-		
-		alert(likeCheck);
 		
 		$.ajax({
 			url: "/usr/recommendPoint/doRecommendPoint", // ajax 요청 날림.
@@ -74,22 +71,13 @@
 				},
 			dataType: "text", // 답이 text로옴
 			success: function(data) {
-				alert(data)// 좋아요 성공이 옴.
 				if (data === "좋아요 성공") { //온 답의 결과가 이거면 
-					alert("좋아요 성공 왔나요?")
 				
-					$("#testBtn").addClass("text-red-600");
 					$("#recommendBtn").addClass("btn-active");
 				
-				
-				
-					alert("테스트 버튼 바꼈나요?")
 				} else if (data === "좋아요 취소") {
-					alert("좋아요 취소 왔나요?")
                     // 좋아요 취소 시의 처리
-                    $("#testBtn").addClass("text-green-600");
 					$("#recommendBtn").removeClass("btn-active");
-	                   // $('#recommendBtn').addClass('btn-active'); //버튼 활성화
 	            } else {
 	            	console.error("예상치 못한 응답 : " + data);
 	            }
@@ -98,23 +86,46 @@
 			error: function(xhr, status, error) {
 				console.error("ERROR : " + status + " - " + error);
 			}
-			
 		})
+	}
+</script>
+<script>
+	// 여기서 할꺼 좋아요씨. 해보고 되면 위랑 합칠꺼임. 합치고 하니까 둘다 조져지더라
+	
+	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
+	const subscribeCheck = function(el) {
+		alert("구독이 오나요?")
 		
+		let subscribeCheck = $(el).hasClass('btn-active');
+		alert(subscribeCheck)
 		
-		
-		
-		
-		
-		
-		
-		
+		$.ajax({
+			url: "/usr/recommendPoint/doSubscribePoint", // ajax 요청 날림.
+			method: "get", 
+			data: {
+					"writerId" : ${article.colmnWrter }, //arteicle 작성자번호
+					"recommendBtn" : subscribeCheck //버튼 상태 : true / false
+				},
+			dataType: "text", // 답이 text로옴
+			success: function(data) {
+				if (data === "구독 성공") { //온 답의 결과가 이거면 
+					$("#subscribeBtn").addClass("btn-active");
+				
+				} else if (data === "구독 취소") {
+                    // 좋아요 취소 시의 처리
+					$("#subscribeBtn").removeClass("btn-active");
+	            } else {
+	            	console.error("예상치 못한 응답 : " + data);
+	            }
+				
+			},
+			error: function(xhr, status, error) {
+				console.error("ERROR : " + status + " - " + error);
+			}
+		})
 	}
 	
-	
 </script>
-
-<div class="border" id="myElement">기존 요소 <button class="btn" id="testBtn">테스트 버튼</button> </div>
 
 <section class="listBody">
         <section class="title-section border p-3 font-semibold">
@@ -125,7 +136,7 @@
 	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">
 	                <div class="btn" id="recommendBtn" onclick="likeCheck(this);" >좋아요 버튼</div>
-	                <div class="btn" id="subscribeBtn">구독 버튼</div>
+	                <div class="btn" id="subscribeBtn" onclick="subscribeCheck(this)">구독 버튼</div>
 	             </c:if>
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">
 	            	<div class="btn"><a href="/usr/article/modify?id=${article.id }">수정하기</a></div>

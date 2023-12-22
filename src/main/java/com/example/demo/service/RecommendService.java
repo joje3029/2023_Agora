@@ -14,7 +14,7 @@ public class RecommendService {
 	public RecommendService(RecommendDao recommendDao) {
 		this.recommendDao = recommendDao;
 	}
-
+	// 좋아요
 	public ResultData<RecommendPoint> getRecommendPoint(int loginmemberId, int coulumnId) {
 		
 		System.out.println(2);
@@ -37,14 +37,29 @@ public class RecommendService {
 		System.out.println(5);
 		return ResultData.from("S-1", "좋아요 기록 있음", recommendPoint);
 	}
-
+	
 	public void insertRecommendPoint(int loginmemberId, int coulumnId) {
 		recommendDao.insertRecommendPoint(loginmemberId, coulumnId);
 	}
 
 	public void deleteRecommendPoint(int loginmemberId, int coulumnId) {
-		System.out.println("삭제타는 중");
 		recommendDao.deleteRecommendPoint(loginmemberId, coulumnId);
 	}
+	public void deleteSubscribePoint(int loginedMemberId, int writerId) {
+		recommendDao.deleteSubscribePoint(loginedMemberId, writerId);
+		
+	}
+	public void insertSubscribePoint(int loginedMemberId, int writerId) {
+		recommendDao.insertSubscribePoint(loginedMemberId, writerId);
+	}
+
+//	// 구독
+//	public void insertSubscribePoint(int loginedMemberId, int writerId) {
+//		recommendDao.insertSubscribePoint(loginedMemberId, writerId);
+//	}
+//
+//	public void deleteSubscribePoint(int loginedMemberId, int writerId) {
+//		recommendDao.deleteSubscribePoint(loginedMemberId, writerId);
+//	}
 
 }
