@@ -95,10 +95,19 @@ public class UsrArticleController {
 		//선택한 칼럼의 댓글을 가져옴.
 		List<Reply> replies = replyService.getReplies(id);
 		
+		System.out.println(replies);
+		
+		// 댓글 갯수
+		Reply replyCount = replyService.getReplycount(id);
+		
+		System.out.println(replyCount.getCount());
+		
 		//로그인 안했을때
 		if(rq.getLoginedMemberId()==0) {
 			model.addAttribute("article", article);
 			model.addAttribute("replies", replies);
+			model.addAttribute("replyCount", replyCount);
+			
 			
 			return "usr/article/detail";
 		}
@@ -108,10 +117,12 @@ public class UsrArticleController {
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
 		
+		
 		//그래야 닉네임으로 보여주니까. -> 댓글 적어놓은걸.
 		model.addAttribute("nickname", member.getNickname());
 		model.addAttribute("article", article);
 		model.addAttribute("replies", replies);
+		model.addAttribute("replyCount", replyCount);
 		
 		return "usr/article/detail";
 	}

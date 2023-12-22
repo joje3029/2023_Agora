@@ -85,14 +85,15 @@
        
         <!-- 댓글과 댓글 형태 -->
 	    <section class="comment-session p-1 border">
+	        <div>[댓글 갯수] <span>${replyCount.getCount() }</span></div>
+	        <hr class="border border-dashed my-2">
         	<c:if  test="${rq.getLoginedMemberId() != 0 }">
-	            <div>댓글 남기기 : [댓글 갯수](게시글 갯수 세는거랑 동일로직)</div>
 	            
 	            <div><!-- 댓글 입력 부분 -->
 	                <form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
 	                    <input name="columnId" type="hidden" value="${article.id }" /><!-- 이 글 넘버 보냄. -->
 	                    <div class="mt-4 border border-gray-400 rounded-lg p-4">
-	                        <div class="mb-2"><span>닉네임: ${rq.getLoginedMemberId() } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
+	                        <div class="mb-2"><span>닉네임: ${nickname } </span></div><!-- 여기 지금은 rq에 pk 번호만 저장되서 이거로 박음 . 수정해야함. 닉네임으로 -->
 	                        <textarea id="reply" class="textarea textarea-bordered w-full resize-none" name="reply" placeholder="500자 이내로 댓글을 적어주세요."></textarea>
 	                        <div class="flex justify-between ">
 	                        	<!-- 글자수 보여주는 부분 -->
@@ -108,7 +109,7 @@
             <!-- 입력한 댓글 보여주는 부분 -->
             <div>
             	<c:forEach var="reply" items="${replies }">
-				<div class="py-2 pl-2 border-bottom-line">
+				<div class="py-2 pl-2 border border-dashed my-2 ">
 					<div class="font-semibold">${reply.writerName }</div>
 					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
 					<div class="text-xs text-gray-400">${reply.answerUpdtTime }</div>

@@ -20,6 +20,8 @@ public class Reply {
 	
 	private String writerName;
 	
+	private int count;
+	
 	
 	public String getForPrintBody() {
 		return this.answerBody.replaceAll("\n", "<br />");

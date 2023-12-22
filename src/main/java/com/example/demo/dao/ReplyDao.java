@@ -21,18 +21,25 @@ public interface ReplyDao {
 					,`answerDeleteTime`= Null
 					, answerDeleteEnnc = 0
 			""")
-	void writeReply(int loginedMemberId, int columnId, String reply);
+	public void writeReply(int loginedMemberId, int columnId, String reply);
 
 	@Select("SELECT LAST_INSERT_ID()")
-	int getLastInsertId();
+	public int getLastInsertId();
 
 	@Select("""
 			SELECT A.*, U.nickname AS writerName
-			FROM `ANSWER` AS A
-			INNER JOIN `USER_INFO` AS U
-			ON A.writerId = U.id
-			WHERE A.columnId = ${id}
+				FROM `ANSWER` AS A
+				INNER JOIN `USER_INFO` AS U
+				ON A.writerId = U.id
+				WHERE A.columnId = ${id}
 			""")
-	List<Reply> getReplies(int id);
+	public List<Reply> getReplies(int id);
+	
+	@Select("""
+			SELECT COUNT(*) AS `count`
+				FROM `ANSWER`
+				WHERE columnId = ${id}
+			""")
+	public Reply getReplycount(int id);
 
 }

@@ -28,4 +28,8 @@ public class ReplyService {
 		return replyDao.getReplies(id);
 	}
 
+	public Reply getReplycount(int id) {
+		return replyDao.getReplycount(id);
+	}
+
 }
