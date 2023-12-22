@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.RecommendService;
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.RecommendPoint;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.Rq;
 
@@ -21,14 +23,16 @@ import com.example.demo.vo.Rq;
 public class UsrArticleController {
 	
 	private ArticleService articleService;
+	private RecommendService recommendService;
 	private ReplyService replyService;
 	private MemberService memberService;
 	private Rq rq;
 	
-	UsrArticleController(ArticleService articleService, ReplyService replyService, MemberService memberService,  Rq rq) {
+	UsrArticleController(ArticleService articleService, ReplyService replyService, MemberService memberService, RecommendService recommendService, Rq rq) {
 		this.articleService = articleService;
 		this.replyService = replyService;
 		this.memberService = memberService;
+		this.recommendService = recommendService;
 		this.rq =rq;
 	}
 	
@@ -99,12 +103,17 @@ public class UsrArticleController {
 		// 댓글 갯수
 		Reply replyCount = replyService.getReplycount(id);
 		
+		// 좋아요 갯수
+		RecommendPoint recommendPoint = recommendService.countRecommendPont(id);
+		
+		
 		
 		//로그인 안했을때
 		if(rq.getLoginedMemberId()==0) {
 			model.addAttribute("article", article);
 			model.addAttribute("replies", replies);
 			model.addAttribute("replyCount", replyCount);
+			model.addAttribute("recommendPoint", recommendPoint);
 			
 			
 			return "usr/article/detail";
@@ -121,6 +130,7 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		model.addAttribute("replies", replies);
 		model.addAttribute("replyCount", replyCount);
+		model.addAttribute("recommendPoint", recommendPoint);
 		
 		return "usr/article/detail";
 	}

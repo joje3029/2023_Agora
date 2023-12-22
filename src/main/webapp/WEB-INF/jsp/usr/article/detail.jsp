@@ -137,7 +137,7 @@
         <section class="title-section border p-3 font-semibold">
             <div class="title text-3xl">${article.title }</div>
 	            <div class="alarm-session w-96">
-	              <div class="backColorGreen">좋아요 갯수 : <span id="likeNum">3</span></div><!-- 좋아요 갯수 보일 곳. -->
+	              <div class="backColorGreen">좋아요 갯수 : <span id="likeNum">${recommendPoint.count}</span></div><!-- 좋아요 갯수 보일 곳. -->
             <c:if  test="${rq.getLoginedMemberId() != 0 }">
 	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">

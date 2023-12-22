@@ -48,11 +48,8 @@ public class UsrRecommendPointController {
 			// 좋아요 갯수 세야함
 			RecommendPoint recommendPoint=recommendService.countRecommendPont(coulumnId);
 			
-			System.out.println("recommendPoint : "+recommendPoint);
-			
 			data.put("result", "좋아요 취소");
 			data.put("recommendPoint", recommendPoint);
-			
 			
 			return data;
 		}
@@ -60,8 +57,6 @@ public class UsrRecommendPointController {
 		recommendService.insertRecommendPoint(rq.getLoginedMemberId(), coulumnId); // 좋아요 칼럼에 insert 잘하고 있음.
 		// 좋아요 갯수 세야함
 		RecommendPoint recommendPoint=recommendService.countRecommendPont(coulumnId);
-		
-		System.out.println("recommendPoint : "+recommendPoint);
 		
 		data.put("result", "좋아요 성공");
 		data.put("recommendPoint", recommendPoint);
