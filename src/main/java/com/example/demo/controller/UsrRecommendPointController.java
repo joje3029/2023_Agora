@@ -19,7 +19,7 @@ public class UsrRecommendPointController {
 		this.recommendService = recommendService;
 		this.rq =rq;
 	}
-	
+	// 좋아요 갯수 가꼬올라고
 	@RequestMapping("/usr/recommendPoint/getRecommendPoint")
 	@ResponseBody
 	public ResultData<RecommendPoint> getRecommendPoint(String relTypeCode, int coulumnId) {
@@ -39,7 +39,7 @@ public class UsrRecommendPointController {
 		if (recommendBtn) {
 			System.out.println("true이면 여기인가요?");
 			
-			recommendService.getRecommendPoint(rq.getLoginedMemberId(), coulumnId);
+			recommendService.deleteRecommendPoint(rq.getLoginedMemberId(), coulumnId);
 			return "좋아요 취소";
 		}
 		

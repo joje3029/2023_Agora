@@ -12,6 +12,7 @@
 
 <%@ include file="../common/toastUiEditorLib.jsp"%>
 
+
 <script>
 	//여기서 할꺼- 댓글씨
 	// 작성 버튼 누르면 보내는 친구. 일 잘함.
@@ -28,11 +29,6 @@
 	}
 	
 	$(document).ready(function() {
-		//document 잘 작동하는지 확인하려고 하는 코드
-	    $('#testBtn').on('click', function() {
-	        alert("일하냐?");
-	    });
-	    
 	    // 여기다가 할짓. 댓글관련 글자수 제한과 글자실시간 보여주기
 	    const replyInput = $('#reply'); // textarea 
 		const textCount = $('#textCount'); // 숫자 올라갈 부분
@@ -58,6 +54,66 @@
 		
 </script>
 
+<script>
+	// 여기서 할꺼 좋아요씨. 해보고 되면 위랑 합칠꺼임. 합치고 하니까 둘다 조져지더라
+	
+	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
+	const likeCheck = function(el) {
+		alert("작동한당!!")// 일한당!!
+		
+		let likeCheck = $(el).hasClass('btn-active');
+		
+		alert(likeCheck);
+		
+		$.ajax({
+			url: "/usr/recommendPoint/doRecommendPoint", // ajax 요청 날림.
+			method: "get", 
+			data: {
+					"coulumnId" : ${article.id }, //arteicleid
+					"recommendBtn" : likeCheck //버튼 상태 : true / false
+				},
+			dataType: "text", // 답이 text로옴
+			success: function(data) {
+				alert(data)// 좋아요 성공이 옴.
+				if (data === "좋아요 성공") { //온 답의 결과가 이거면 
+					alert("좋아요 성공 왔나요?")
+				
+					$("#testBtn").addClass("text-red-600");
+					$("#recommendBtn").addClass("btn-active");
+				
+				
+				
+					alert("테스트 버튼 바꼈나요?")
+				} else if (data === "좋아요 취소") {
+					alert("좋아요 취소 왔나요?")
+                    // 좋아요 취소 시의 처리
+                    $("#testBtn").addClass("text-green-600");
+					$("#recommendBtn").removeClass("btn-active");
+	                   // $('#recommendBtn').addClass('btn-active'); //버튼 활성화
+	            } else {
+	            	console.error("예상치 못한 응답 : " + data);
+	            }
+				
+			},
+			error: function(xhr, status, error) {
+				console.error("ERROR : " + status + " - " + error);
+			}
+			
+		})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+</script>
+
 <div class="border" id="myElement">기존 요소 <button class="btn" id="testBtn">테스트 버튼</button> </div>
 
 <section class="listBody">
@@ -68,7 +124,7 @@
             <c:if  test="${rq.getLoginedMemberId() != 0 }">
 	            <!-- 수정이랑 삭제는 권한인놈만 보이게 수정함. -->
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">
-	                <div class="btn" id="recommendBtn">좋아요 버튼</div>
+	                <div class="btn" id="recommendBtn" onclick="likeCheck(this);" >좋아요 버튼</div>
 	                <div class="btn" id="subscribeBtn">구독 버튼</div>
 	             </c:if>
 	             <c:if test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() == article.colmnWrter }">

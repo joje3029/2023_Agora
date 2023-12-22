@@ -95,12 +95,10 @@ public class UsrArticleController {
 		//선택한 칼럼의 댓글을 가져옴.
 		List<Reply> replies = replyService.getReplies(id);
 		
-		System.out.println(replies);
 		
 		// 댓글 갯수
 		Reply replyCount = replyService.getReplycount(id);
 		
-		System.out.println(replyCount.getCount());
 		
 		//로그인 안했을때
 		if(rq.getLoginedMemberId()==0) {

@@ -18,8 +18,12 @@ public class RecommendService {
 	public ResultData<RecommendPoint> getRecommendPoint(int loginmemberId, int coulumnId) {
 		
 		System.out.println(2);
-		
+		System.out.println("loginmemberId : "+loginmemberId);
+		System.out.println("coulumnId : "+coulumnId);
+		// 좋아요 기록이 있나 없나 볼라고 함.
 		RecommendPoint recommendPoint = recommendDao.getRecommendPoint(loginmemberId, coulumnId);
+		
+		System.out.println(recommendPoint);
 		
 		System.out.println(3);
 		
@@ -39,6 +43,7 @@ public class RecommendService {
 	}
 
 	public void deleteRecommendPoint(int loginmemberId, int coulumnId) {
+		System.out.println("삭제타는 중");
 		recommendDao.deleteRecommendPoint(loginmemberId, coulumnId);
 	}
 
