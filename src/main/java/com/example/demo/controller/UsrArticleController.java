@@ -19,6 +19,8 @@ import com.example.demo.vo.RecommendPoint;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.Rq;
 
+import jakarta.servlet.http.Cookie;
+
 @Controller
 public class UsrArticleController {
 	
@@ -93,6 +95,40 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String detail(Model model, int id) {
 		
+		//쿠키씨
+		Cookie oldCookie = null; // 쿠키 import후 만듬
+		Cookie[] cookies = rq.getCookies(); //req.의 Cookies가 배열이라서.
+		
+		if (cookies != null) { // 쿠키가 null이 아니면 
+			for (Cookie cookie : cookies) { //배열을 돌아서 
+				if (cookie.getName().equals("hitCount")) { // 쿠키이름이 hitCount면 
+					oldCookie = cookie; // old 쿠키를 cookie껄로 백업
+				}
+			}
+		}
+		
+		if (oldCookie != null) {
+		    if (oldCookie.getValue().contains("[" + id + "]") == false) {
+		        // articleService.increaseHitCount(id);
+		        oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+		        oldCookie.setPath("/");
+		        oldCookie.setMaxAge(5);
+		        rq.addCookie(oldCookie);
+		        rq.addCookie(oldCookie); // 수정된 부분
+		    }
+		} else {
+		    // articleService.increaseHitCount(id);
+		    Cookie newCookie = new Cookie("hitCount", "[" + id + "]");
+		    newCookie.setPath("/");
+		    newCookie.setMaxAge(5);
+		    rq.addCookie(newCookie);
+		    rq.addCookie(newCookie); // 수정된 부분
+		}
+		
+		
+		
+		
+		
 		//선택한 칼럼의 내용을 가져옴.
 		Article article = articleService.forPrintArticle(id);
 		
@@ -119,6 +155,8 @@ public class UsrArticleController {
 			return "usr/article/detail";
 		}
 		//로그인했을때
+		// 
+		
 		
 		//로그인한 놈의 정보를 가져옴. -> 닉네임에 이름 떠야해.
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());

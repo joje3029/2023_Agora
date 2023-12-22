@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.util.Util;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
+
 
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // 요청이 들어왔을때 여기에 만들어질 친구의 생명주기 같은거. 이 어노테이션이 생기면 : http 요청이 들어올 때마다 새로 만듦. 단, 새로 만들어졌지만 이전꺼를 물려받는식으로 계속 가져감.
@@ -71,5 +73,16 @@ public class Rq {
 	public void init() {
 		// 말짱하게 쓰기 위해서 한번 쓰는게 목적이라서 이게 다임.
 	}
+
+	public Cookie[] getCookies() {
+		return req.getCookies();
+	}
+
+	public void addCookie(Cookie cookie) {
+		cookie.setPath("/"); // 쿠키 경로를 루트로 지정
+		resp.addCookie(cookie);
+		
+	}
+
 
 }
