@@ -14,8 +14,8 @@ public class RecommendService {
 		this.recommendDao = recommendDao;
 	}
 	// 좋아요
-	public RecommendPoint countRecommendPont(int coulumnId) {
-		return recommendDao.countRecommendPont(coulumnId);
+	public RecommendPoint countRecommendPont(int id) {
+		return recommendDao.countRecommendPont(id);
 	}
 	
 	

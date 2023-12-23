@@ -109,8 +109,6 @@ public class UsrArticleController {
 		// 좋아요 갯수
 		RecommendPoint recommendPoint = recommendService.countRecommendPont(id);
 		
-		
-		
 		//로그인 안했을때
 		if(rq.getLoginedMemberId()==0) {
 			model.addAttribute("article", article);
@@ -139,7 +137,6 @@ public class UsrArticleController {
 		//이 사람이 이 글에 좋아요를 눌렀었는지 체크 -> 위의 구독과 동일한 로직
 		RecommendPoint checklike = recommendService.getChecklike(rq.getLoginedMemberId(), id);
 		
-		System.out.println("checklike : "+checklike);
 		// 구독했으면 check가 1 아니면 0으로 세팅해서 넘기자
 		int likeCheck = -1;
 		if(checklike==null) {

@@ -42,9 +42,9 @@ public interface RecommendDao {
 	@Select("""
 			SELECT COUNT(*) AS `count`
 				FROM COLUMN_LIKE
-				WHERE columnId =#{coulumnId}
+				WHERE columnId =#{id}
 			""")
-	public RecommendPoint countRecommendPont(int coulumnId);
+	public RecommendPoint countRecommendPont(int id);
 	
 	@Select("""
 			SELECT * FROM EMPLYR_SBSCRB
