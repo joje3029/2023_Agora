@@ -53,4 +53,13 @@ public interface RecommendDao {
 			""")
 	public RecommendPoint getCheckRecommend(int loginedMemberId, int writerId);
 	
+	@Select("""
+			SELECT * 
+				FROM COLUMN_LIKE 
+				WHERE columnId = ${id}
+					AND userUniqId =${loginedMemberId}
+			""")
+	public RecommendPoint getChecklike(int loginedMemberId, int id);
+	
+	
 }

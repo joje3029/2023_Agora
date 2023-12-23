@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.RecommendDao;
 import com.example.demo.vo.RecommendPoint;
-import com.example.demo.vo.ResultData;
 
 @Service
 public class RecommendService {
@@ -39,7 +38,9 @@ public class RecommendService {
 	public RecommendPoint getCheckRecommend(int loginedMemberId, int writerId) {
 		return recommendDao.getCheckRecommend(loginedMemberId, writerId);
 	}
+	public RecommendPoint getChecklike(int loginedMemberId, int id) {
+		return recommendDao.getChecklike(loginedMemberId, id);
+	}
 	
-	//로그인 한사람이 로그인했는지 보려고 하는거
-
+	
 }

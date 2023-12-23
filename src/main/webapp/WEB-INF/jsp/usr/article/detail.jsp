@@ -29,11 +29,18 @@
 	}
 	
 	$(document).ready(function() {
-		// check를 확인하고 되어있으면 0 아니면 1
-		const check = ${check};
-		if(check===1){
+		//구독 check를 확인하고 되어있으면 0 아니면 1
+		const subscribeCheck = ${subscribeCheck};
+		const likeCheck = ${likeCheck};
+		
+		if(subscribeCheck===1){
 			$("#subscribeBtn").addClass("btn-active");
 		}
+		// 좋아요 check를 확인하고 되어있으면 0 아니면 1
+		if(likeCheck===1){
+			$("#recommendBtn").addClass("btn-active");
+		}
+		
 		
 	    // 여기다가 할짓. 댓글관련 글자수 제한과 글자실시간 보여주기
 	    const replyInput = $('#reply'); // textarea 

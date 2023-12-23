@@ -19,7 +19,8 @@ import com.example.demo.vo.RecommendPoint;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.Rq;
 
-import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UsrArticleController {
@@ -93,41 +94,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String detail(Model model, int id) {
-		
-		//쿠키씨
-		Cookie oldCookie = null; // 쿠키 import후 만듬
-		Cookie[] cookies = rq.getCookies(); //req.의 Cookies가 배열이라서.
-		
-		if (cookies != null) { // 쿠키가 null이 아니면 
-			for (Cookie cookie : cookies) { //배열을 돌아서 
-				if (cookie.getName().equals("hitCount")) { // 쿠키이름이 hitCount면 
-					oldCookie = cookie; // old 쿠키를 cookie껄로 백업
-				}
-			}
-		}
-		
-		if (oldCookie != null) {
-		    if (oldCookie.getValue().contains("[" + id + "]") == false) {
-		        // articleService.increaseHitCount(id);
-		        oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
-		        oldCookie.setPath("/");
-		        oldCookie.setMaxAge(5);
-		        rq.addCookie(oldCookie);
-		        rq.addCookie(oldCookie); // 수정된 부분
-		    }
-		} else {
-		    // articleService.increaseHitCount(id);
-		    Cookie newCookie = new Cookie("hitCount", "[" + id + "]");
-		    newCookie.setPath("/");
-		    newCookie.setMaxAge(5);
-		    rq.addCookie(newCookie);
-		    rq.addCookie(newCookie); // 수정된 부분
-		}
-		
-		
-		
-		
+	public String detail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
 		
 		//선택한 칼럼의 내용을 가져옴.
 		Article article = articleService.forPrintArticle(id);
@@ -155,8 +122,6 @@ public class UsrArticleController {
 			return "usr/article/detail";
 		}
 		//로그인했을때
-		// 
-		
 		
 		//로그인한 놈의 정보를 가져옴. -> 닉네임에 이름 떠야해.
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
@@ -164,20 +129,32 @@ public class UsrArticleController {
 		// 이 사람이 구독을 했는지 안했는지 체크 -> 했으면 뭔가를 던져서 화면에 누름이 addClass 되야해
 		RecommendPoint checkRecommend = recommendService.getCheckRecommend(rq.getLoginedMemberId(), article.getColmnWrter());
 		// 구독했으면 check가 1 아니면 0으로 세팅해서 넘기자
-		int check = -1;
+		int subscribeCheck = -1;
 		if(checkRecommend==null) {
-			check=0;
+			subscribeCheck=0;
 		}else {
-			check=1;
+			subscribeCheck=1;
 		}
 		
+		//이 사람이 이 글에 좋아요를 눌렀었는지 체크 -> 위의 구독과 동일한 로직
+		RecommendPoint checklike = recommendService.getChecklike(rq.getLoginedMemberId(), id);
+		
+		System.out.println("checklike : "+checklike);
+		// 구독했으면 check가 1 아니면 0으로 세팅해서 넘기자
+		int likeCheck = -1;
+		if(checklike==null) {
+			likeCheck=0;
+		}else {
+			likeCheck=1;
+		}
 		//그래야 닉네임으로 보여주니까. -> 댓글 적어놓은걸.
 		model.addAttribute("nickname", member.getNickname());
 		model.addAttribute("article", article);
 		model.addAttribute("replies", replies);
 		model.addAttribute("replyCount", replyCount);
 		model.addAttribute("recommendPoint", recommendPoint);
-		model.addAttribute("check", check);
+		model.addAttribute("subscribeCheck", subscribeCheck);
+		model.addAttribute("likeCheck", likeCheck);
 		
 		return "usr/article/detail";
 	}

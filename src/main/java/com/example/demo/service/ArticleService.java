@@ -51,5 +51,9 @@ public class ArticleService {
 	public List<Article> getArticleRank() {
 		return articleDao.getArticleRank();
 	}
+
+	public void increaseHitCount(int id) {
+		articleDao.increaseHitCount(id);
+	}
 	
 }

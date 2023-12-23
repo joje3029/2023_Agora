@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.RecommendService;
 import com.example.demo.vo.RecommendPoint;
-import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -27,14 +26,10 @@ public class UsrRecommendPointController {
 	@RequestMapping("/usr/recommendPoint/doRecommendPoint")
 	@ResponseBody
 	public Map<String, Object> doRecommendPoint(int coulumnId, boolean recommendBtn) { //recommendBtn은 true/false가 오니까.
-		System.out.println("지나가시나요?");
 		
 		Map<String, Object> data =new HashMap<>();
 		
-		System.out.println("여긴 오세요?");
-		System.out.println("recommendBtn : "+recommendBtn);
 		if (recommendBtn) {
-			
 			recommendService.deleteRecommendPoint(rq.getLoginedMemberId(), coulumnId);
 			// 좋아요 갯수 세야함
 			RecommendPoint recommendPoint=recommendService.countRecommendPont(coulumnId);
@@ -60,11 +55,9 @@ public class UsrRecommendPointController {
 		@ResponseBody
 		public String doSubscribePoint(int writerId, boolean recommendBtn) { //recommendBtn은 true/false가 오니까.
 			if (recommendBtn) {
-				
 				recommendService.deleteSubscribePoint(rq.getLoginedMemberId(), writerId);
 				return "구독 취소";
 			}
-			
 			recommendService.insertSubscribePoint(rq.getLoginedMemberId(), writerId); // 좋아요 칼럼에 insert 잘하고 있음.
 			return "구독 성공"; // 그후 return을 좋아요로 내뱉음 
 		}

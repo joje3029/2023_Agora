@@ -133,6 +133,13 @@ public interface ArticleDao {
 			""")
 	public List<Article> getArticleRank();
 	
+	@Update("""
+			UPDATE `COLUMN`
+				SET clickCount = clickCount + 1
+				WHERE id = #{id}
+			""")
+	public void increaseHitCount(int id);
+	
 	
 
 

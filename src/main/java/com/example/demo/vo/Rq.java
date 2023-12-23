@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.util.Util;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -72,16 +71,6 @@ public class Rq {
 
 	public void init() {
 		// 말짱하게 쓰기 위해서 한번 쓰는게 목적이라서 이게 다임.
-	}
-
-	public Cookie[] getCookies() {
-		return req.getCookies();
-	}
-
-	public void addCookie(Cookie cookie) {
-		cookie.setPath("/"); // 쿠키 경로를 루트로 지정
-		resp.addCookie(cookie);
-		
 	}
 
 
