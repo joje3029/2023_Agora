@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ReplyDao;
 import com.example.demo.vo.Reply;
+import com.example.demo.vo.SubRely;
 
 @Service
 public class ReplyService {
@@ -34,6 +35,10 @@ public class ReplyService {
 
 	public void doSubRely(int loginedMemberId,  int replyId, String reply) {
 		replyDao.doSubRely(loginedMemberId, replyId, reply);
+	}
+
+	public List<SubRely> getSubReles(int replyId) {
+		return replyDao.getSubReles(replyId);
 	}
 
 }

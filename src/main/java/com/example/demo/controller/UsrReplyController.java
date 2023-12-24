@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Rq;
+import com.example.demo.vo.SubRely;
 
 @Controller
 public class UsrReplyController {
@@ -46,7 +51,6 @@ public class UsrReplyController {
 		if (Util.empty(reply)) {
 			return Util.jsHistoryBack("내용을 입력해주세요");
 		}
-		System.out.println("일단 여기는 온거지?");
 		// 대댓글을 대댓글 Db에 insert
 		replyService.doSubRely(rq.getLoginedMemberId(), replyId, reply);
 		
@@ -59,12 +63,26 @@ public class UsrReplyController {
 	//대댓글 보여줄 ajax 요청 : 우선은 오는지만 확인
 	@RequestMapping("/usr/reply/showSubRely")
 	@ResponseBody
-	public String showSubRely() {
-
-		System.out.println("일단 여기는 온거지?"); // 일단 여기는 옴.
-		// 대댓글을 대댓글 Db에 insert
+	public Map<String, Object> showSubRely(int replyId) {
+		System.out.println("replyId : "+replyId);
 		
-		return "sowSubRely 옴.";
+		System.out.println("일단 여기는 온거지?"); // 일단 여기는 옴.
+		
+		System.out.println(1);
+		List<SubRely> subReles = replyService.getSubReles(replyId);
+		
+		System.out.println(2);
+		
+		Map<String, Object> data =new HashMap<>();
+		
+		System.out.println(4);
+		
+		data.put("data", subReles);
+		
+		System.out.println("data : "+data);
+		System.out.println(5);
+		
+		return data;
 	}
 	
 }

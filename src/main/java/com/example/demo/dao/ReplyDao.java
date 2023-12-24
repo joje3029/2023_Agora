@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.demo.vo.Reply;
+import com.example.demo.vo.SubRely;
 
 @Mapper
 public interface ReplyDao {
@@ -51,5 +52,12 @@ public interface ReplyDao {
 				, replyWrter = ${loginedMemberId}
 			""")
 	public void doSubRely(int loginedMemberId, int replyId, String reply);
+	
+	@Select("""
+			SELECT * 
+				FROM REPLY 
+				WHERE answerUniqId = ${replyId}
+			""")
+	public List<SubRely> getSubReles(int replyId);
 
 }

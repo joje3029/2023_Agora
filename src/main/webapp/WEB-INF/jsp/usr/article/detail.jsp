@@ -33,16 +33,19 @@
         $('button[id^="sub-reply-"]').on('click', function() {
             // 현재 버튼의 ID에서 reply ID 추출
             var replyId = $(this).attr('id').split('-')[2]; 
-            
+            console.log(replyId);
+           
             // 여기서 ajax로 가서 해당 버튼의 replyId에 대한 대댓글을 대댓글 테이블에서 데꼬와야함. 여기서 계속 실패함.
             // 도전!! 뱁새 용사는 지지 않아!!
             $.ajax({
 			url: "/usr/reply/showSubRely", // ajax 요청 날림.
 			method: "get", 
 			data: {
+				"replyId" : replyId, //1 이감
 				},
-			dataType: "text", // 답이 text로옴 
+			dataType: "json", // 답이 text로옴 
 			success: function(data) {
+				// 이제 여기서 넘어온 data를 이쁘게 만들어서 나오게 하면 됨.
 				console.log(data);
 				
 			},
