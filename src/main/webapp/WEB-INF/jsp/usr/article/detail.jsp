@@ -33,8 +33,19 @@
         $('button[id^="sub-reply-"]').on('click', function() {
             // 현재 버튼의 ID에서 reply ID 추출
             var replyId = $(this).attr('id').split('-')[2]; 
-            console.log(replyId);
+            
+            // 대댓글 입력 부분의 ID를 동적으로 생성
+            var subReplyId = 'sub-reply-' + replyId;
+		
+			//이제 위에서 선택한걸 기준으로 찾기
+			//1. 선택한거의 부모를 데꼬오자.
+			var parentDiv = $(this).closest('div'); // 선택한 거(this)의 부모씨.
+			
+			// 부모 요소의 형제 중 id가 'sub-reply'로 시작하는 요소를 찾음
+            var subReplyDiv = parentDiv.siblings('div[id^="sub-reply-"]');
            
+			var showSubReplyDiv= subReplyDiv.find("#sub-reply-list");
+			
             // 여기서 ajax로 가서 해당 버튼의 replyId에 대한 대댓글을 대댓글 테이블에서 데꼬와야함. 여기서 계속 실패함.
             // 도전!! 뱁새 용사는 지지 않아!!
             $.ajax({
@@ -47,7 +58,14 @@
 			success: function(data) {
 				// 이제 여기서 넘어온 data를 이쁘게 만들어서 나오게 하면 됨.
 				console.log(data);
-				
+				//showSubReplyDiv.append('<div>추가될 HTML</div>');
+				for (var i = 0; i < data.length; i++) {
+				    console.log("대댓글 " + (i+1) + ": " + data[i].replyBody);
+				    // 여기서 data[i]를 이용하여 필요한 처리를 수행
+				    // 예시: HTML을 동적으로 생성하여 추가
+				    var subReplyHTML = '<div class="sub-reply-item">' + data[i].replyBody + '</div>';
+				    showSubReplyDiv.append(subReplyHTML);
+				}
 			},
 			error: function(xhr, status, error) {
 				console.error("ERROR : " + status + " - " + error);
@@ -55,15 +73,7 @@
 
 		})
             
-            // 대댓글 입력 부분의 ID를 동적으로 생성
-            var subReplyId = 'sub-reply-' + replyId;
-		
-			//이제 위에서 선택한걸 기준으로 찾기
-			//1. 선택한거의 부모를 데꼬오자.
-			var parentDiv = $(this).closest('div'); // 선택한 거(this)의 부모씨.
-			
-			// 부모 요소의 형제 중 id가 'sub-reply'로 시작하는 요소를 찾음
-            var subReplyDiv = parentDiv.siblings('div[id^="sub-reply-"]');
+           
 			
 			// 형제 요소의 'hidden' 클래스를 제거하여 보이도록 함
             subReplyDiv.removeClass('hidden');
@@ -263,10 +273,11 @@
 							<!-- 그 댓글에 해당하는 대댓글이 보여야함.  -->
 							<!-- 이 화면을 보여줄때만 필요하니가 대댓글 쓰기를 누르면 그때 Ajax로 요구해야겠다. 그 해당만 그때 그때 hiden 제거하면서. -->
 							<!-- 버튼 id : sub-reply-${reply.id}, onclikc=doWrite_sub_reply -->
-					
-							<!-- 그 댓글에 해당하는 대댓글이 보여야함.  -->
-							<!-- 대댓글 입력 부분 -->
 							<div id="sub-reply-display-${reply.id}" class="hidden">
+							<!-- 그 댓글에 해당하는 대댓글이 보여야함.  -->
+							<div id="sub-reply-list" class="border bg-purple-300">
+							</div>
+							<!-- 대댓글 입력 부분 -->
 								<form action="../reply/doSubRely" method="post"
 									onsubmit="replyForm_onSubmit(this); return false;">
 									<input name="columnId" type="hidden" value="${article.id }" /> <input

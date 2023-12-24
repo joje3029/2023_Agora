@@ -64,23 +64,13 @@ public class UsrReplyController {
 	@RequestMapping("/usr/reply/showSubRely")
 	@ResponseBody
 	public Map<String, Object> showSubRely(int replyId) {
-		System.out.println("replyId : "+replyId);
-		
-		System.out.println("일단 여기는 온거지?"); // 일단 여기는 옴.
-		
-		System.out.println(1);
 		List<SubRely> subReles = replyService.getSubReles(replyId);
 		
-		System.out.println(2);
-		
 		Map<String, Object> data =new HashMap<>();
-		
-		System.out.println(4);
 		
 		data.put("data", subReles);
 		
 		System.out.println("data : "+data);
-		System.out.println(5);
 		
 		return data;
 	}
