@@ -34,6 +34,24 @@
             // 현재 버튼의 ID에서 reply ID 추출
             var replyId = $(this).attr('id').split('-')[2]; 
             
+            // 여기서 ajax로 가서 해당 버튼의 replyId에 대한 대댓글을 대댓글 테이블에서 데꼬와야함. 여기서 계속 실패함.
+            // 도전!! 뱁새 용사는 지지 않아!!
+            $.ajax({
+			url: "/usr/reply/showSubRely", // ajax 요청 날림.
+			method: "get", 
+			data: {
+				},
+			dataType: "text", // 답이 text로옴 
+			success: function(data) {
+				console.log(data);
+				
+			},
+			error: function(xhr, status, error) {
+				console.error("ERROR : " + status + " - " + error);
+			}
+
+		})
+            
             // 대댓글 입력 부분의 ID를 동적으로 생성
             var subReplyId = 'sub-reply-' + replyId;
 		

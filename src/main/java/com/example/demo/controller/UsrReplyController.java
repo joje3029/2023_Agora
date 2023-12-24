@@ -38,6 +38,7 @@ public class UsrReplyController {
 	}
 	
 	// 대댓글 관련
+	// 대댓글 insert
 	@RequestMapping("/usr/reply/doSubRely")
 	@ResponseBody
 	public String doSubRely(String reply,int columnId, int replyId) {
@@ -55,4 +56,15 @@ public class UsrReplyController {
 		
 		return Util.jsReplace(Util.f("대댓글을 생성했습니다", id), Util.f("../article/detail?id=%d", columnId));
 	}
+	//대댓글 보여줄 ajax 요청 : 우선은 오는지만 확인
+	@RequestMapping("/usr/reply/showSubRely")
+	@ResponseBody
+	public String showSubRely() {
+
+		System.out.println("일단 여기는 온거지?"); // 일단 여기는 옴.
+		// 대댓글을 대댓글 Db에 insert
+		
+		return "sowSubRely 옴.";
+	}
+	
 }
