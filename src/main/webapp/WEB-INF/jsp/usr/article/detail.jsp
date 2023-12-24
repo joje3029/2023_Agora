@@ -215,8 +215,8 @@
 							<!--  이걸 누르면 대댓글 쓰기가 나와야함. 즉 기본적으로 저것들은 display: none -->
 						</div>
 						<!--  부모의 자식 sub-reply 가 위의 버튼을 누르면 display가 block이 되야함. -->
-						<div id="sub-reply" class="hidden">
-							<!-- 대댓글 입력 부분 -->
+						<!-- 대댓글 입력 부분 -->
+						<div id="sub-reply-display-${reply.id}" class="hidden">
 							<form action="../reply/doWrite" method="post"
 								onsubmit="replyForm_onSubmit(this); return false;">
 								<input name="columnId" type="hidden" value="${article.id }" />
@@ -240,22 +240,40 @@
 								</div>
 							</form>
 						</div>
-	
 					</div>
 				</c:forEach>
 			</div>
 			<script>
 			function doWrite_sub_reply(){
 				alert("일하냐?");// 일하는 거 확인
-				// 이걸 클릭한 놈의 부모의 형제 중 id가 sub-reply 인놈의 class를 변경
-				const replyId = clickedButtonId.split('-')[2];
-    
-			    // 대댓글 입력 부분의 ID를 조합
-			    const subReplyElementId = `sub-reply-${replyId}`;
-			
-			    // 해당 대댓글 입력 부분을 jQuery로 선택
-			    const subReplyElement = $('#' + subReplyElementId);
-				alert(subReplyElement);
+				
+				 // 버튼이 클릭되면 실행되는 함수
+		        $('button[id^="sub-reply-"]').on('click', function() {
+		            // 현재 버튼의 ID에서 reply ID 추출
+		            var replyId = $(this).attr('id').split('-')[2]; 
+		            
+		            alert("replyId : "+replyId); // replyId : 1
+		            
+		            // 대댓글 입력 부분의 ID를 동적으로 생성
+		            var subReplyId = 'sub-reply-' + replyId;
+
+					alert("subReplyId : "+subReplyId); // subReplyId : sub-reply-1 : 대댓글 쓰기 버튼 id
+				
+					//이제 위에서 선택한걸 기준으로 찾기
+					//1. 선택한거의 부모를 데꼬오자.
+					var parentDiv = $(this).closest('div'); // 선택한 거(this)의 부모씨.
+					
+					// 부모 요소의 형제 중 id가 'sub-reply'로 시작하는 요소를 찾음
+		            var subReplyDiv = parentDiv.siblings('div[id^="sub-reply-"]');
+					
+					// 형제 요소의 'hidden' 클래스를 제거하여 보이도록 함
+		            subReplyDiv.removeClass('hidden');
+					
+					
+		            // 대댓글 입력 부분을 보여주기
+		            //$('#' + subReplyId).removeClass('hidden');
+		        });
+				
 			}
 
 			</script>
