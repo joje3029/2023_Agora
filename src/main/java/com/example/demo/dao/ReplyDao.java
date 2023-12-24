@@ -41,5 +41,15 @@ public interface ReplyDao {
 				WHERE columnId = ${id}
 			""")
 	public Reply getReplycount(int id);
+	
+	@Insert("""
+			INSERT INTO REPLY
+				SET answerUniqId =${replyId}
+				, replyWritingTime = NOW()
+				, replyBody = '${reply}'
+				, replyDeleteEnnc = 0
+				, replyWrter = ${loginedMemberId}
+			""")
+	public void doSubRely(int loginedMemberId, int replyId, String reply);
 
 }

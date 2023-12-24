@@ -32,4 +32,8 @@ public class ReplyService {
 		return replyDao.getReplycount(id);
 	}
 
+	public void doSubRely(int loginedMemberId,  int replyId, String reply) {
+		replyDao.doSubRely(loginedMemberId, replyId, reply);
+	}
+
 }
