@@ -54,9 +54,11 @@ public interface ReplyDao {
 	public void doSubRely(int loginedMemberId, int replyId, String reply);
 	
 	@Select("""
-			SELECT * 
-				FROM REPLY 
-				WHERE answerUniqId = ${replyId}
+			SELECT R.*, U.nickname
+				FROM REPLY AS R
+				INNER JOIN USER_INFO AS U
+				ON R.replyWrter = U.id
+				WHERE R.answerUniqId = ${replyId}
 			""")
 	public List<SubRely> getSubReles(int replyId);
 

@@ -57,14 +57,15 @@
 			dataType: "json", // 답이 text로옴 
 			success: function(data) {
 				// 이제 여기서 넘어온 data를 이쁘게 만들어서 나오게 하면 됨.
-				console.log(data);
-				//showSubReplyDiv.append('<div>추가될 HTML</div>');
-				for (var i = 0; i < data.length; i++) {
-				    console.log("대댓글 " + (i+1) + ": " + data[i].replyBody);
-				    // 여기서 data[i]를 이용하여 필요한 처리를 수행
-				    // 예시: HTML을 동적으로 생성하여 추가
-				    var subReplyHTML = '<div class="sub-reply-item">' + data[i].replyBody + '</div>';
-				    showSubReplyDiv.append(subReplyHTML);
+				for (var i = 0; i < data.data.length; i++) {
+				    // 각 대댓글 범위의 자식으로 추가할 HTML 생성
+					var subReply = data.data[i];
+				    var subReplyChildHTML = '<div class="px-2"><i class="fa-solid fa-caret-right"></i>&nbsp;&nbsp;' + subReply.nickname +'&nbsp;&nbsp;<span>'+subReply.replyWritingTime+'</span>'+'</div>'
+				    						+'<div class="px-2">'+subReply.replyBody+'</div>';// 맨위 대댓글 작성자 명+ 작성일 들어올 곳.
+
+		            
+		            // 각 대댓글 범위의 자식에 HTML 추가
+		            showSubReplyDiv.append('<div class="border border-dashed my-2">' + subReplyChildHTML + '</div>'); // 여기가 대댓글의 큰 틀
 				}
 			},
 			error: function(xhr, status, error) {
@@ -275,7 +276,7 @@
 							<!-- 버튼 id : sub-reply-${reply.id}, onclikc=doWrite_sub_reply -->
 							<div id="sub-reply-display-${reply.id}" class="hidden">
 							<!-- 그 댓글에 해당하는 대댓글이 보여야함.  -->
-							<div id="sub-reply-list" class="border bg-purple-300">
+							<div id="sub-reply-list">
 							</div>
 							<!-- 대댓글 입력 부분 -->
 								<form action="../reply/doSubRely" method="post"

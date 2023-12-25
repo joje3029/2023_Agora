@@ -17,5 +17,6 @@ public class SubRely {
 	private int replyDeleteEnnc;
 	private int replyWrter;
 	
+	private String nickname;
 	
 }
