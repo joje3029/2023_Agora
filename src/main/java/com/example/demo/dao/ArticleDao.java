@@ -49,11 +49,16 @@ public interface ArticleDao {
 						</when>
 					</choose>
 				</if>
+				<if test="type == 2">
+				WHERE colmnWrter IN(
+					SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId =#{loginMemberId}
+				) 	
+				</if>
 				ORDER BY C.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
 			</script>	
 			""")
-	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword);
+	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type);
 	
 	@Select("""
 			SELECT C.*, U.nickname
@@ -119,9 +124,14 @@ public interface ArticleDao {
 						</when>
 					</choose>
 				</if>
+				<if test="type == 2">
+				WHERE colmnWrter IN(
+				SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId = #{loginMemberId}
+				)	
+				</if>
 			</script>	
 			""")
-	public int getArticlesCnt(String searchKeywordType, String searchKeyword);
+	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type);
 	
 	@Select("""
 			SELECT C.*, U.nickname 

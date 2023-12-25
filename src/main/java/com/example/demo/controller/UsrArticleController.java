@@ -70,24 +70,59 @@ public class UsrArticleController {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
 		}
 		
-		// 총 페이지 개수
-		int articlesCnt = articleService.getArticlesCnt(searchKeywordType, searchKeyword);
+		// 전역 뺄꺼
+		List<Article> articles= null;
+		int articlesCnt =0;
+		int pagesCnt = 0;
 		
-		//페이징 관련 변수
-		int itemsInAPage  = 10;
-		int limitStart  = (page-1) * itemsInAPage;
-		int pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
+		if(type ==2) { // 구독
+			// 총 페이지 개수
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			System.out.println(articlesCnt);
+			
+			//페이징 관련 변수
+			int itemsInAPage  = 10;
+			int limitStart  = (page-1) * itemsInAPage;
+			pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
+			
+			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
+			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+
+		}else if(type ==3) {// 좋아요
+			// 총 페이지 개수
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			
+			//페이징 관련 변수
+			int itemsInAPage  = 10;
+			int limitStart  = (page-1) * itemsInAPage;
+			pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
+			
+			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
+			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		}else {
+			// 총 페이지 개수
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			
+			//페이징 관련 변수
+			int itemsInAPage  = 10;
+			int limitStart  = (page-1) * itemsInAPage;
+			pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
+			
+			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
+			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		}
 		
-		// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
-		//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-		List<Article> articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		
-		model.addAttribute("searchKeywordType", searchKeywordType);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articles", articles);
-		model.addAttribute("articlesCnt", articlesCnt);
-		model.addAttribute("pagesCnt", pagesCnt);
-		model.addAttribute("page", page);
+		
+		model.addAttribute("searchKeywordType", searchKeywordType);// 파라미터
+		model.addAttribute("searchKeyword", searchKeyword);// 파라미터
+		model.addAttribute("articles", articles);// 전역으로 빼야함 : List<Article>
+		model.addAttribute("articlesCnt", articlesCnt);// 전역으로 빼야함 : int
+		model.addAttribute("pagesCnt", pagesCnt); // 전역으로 빼야함 int
+		model.addAttribute("page", page); // 파라미터
 		
 		
 		return "usr/article/list";
