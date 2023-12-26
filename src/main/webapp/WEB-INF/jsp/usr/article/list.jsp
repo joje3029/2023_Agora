@@ -115,7 +115,7 @@
 						<a class="join-item btn btn-sm ${page == i ? 'btn-active' : '' }" href="?page=${i }&${baseUri }">${i }</a>
 					</c:forEach>
 					<c:if test="${page < pagesCnt }">
-						<a class="join-item btn btn-sm" href="?page=${pagesCnt }">»</a>
+						<a class="join-item btn btn-sm" href="?page=${pagesCnt }&${baseUri }">»</a>
 					</c:if>
 					<c:if test="${page == pagesCnt }">
 						<a class="join-item btn btn-sm btn-disabled" href="?page=${pagesCnt }&${baseUri }">»</a>
