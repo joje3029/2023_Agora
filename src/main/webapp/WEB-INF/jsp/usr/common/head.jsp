@@ -83,8 +83,8 @@ $(document).ready(function () {
 						<!-- href 고치면서 controller도 고쳐야함 -->
 						<li><a href="/usr/article/list">전체칼럼</a></li>
 						<c:if  test="${rq.getLoginedMemberId() != 0 }">
-							<li><a href="/usr/article/list">구독한 작가 칼럼</a></li>
-							<li><a href="/usr/article/list">좋아요 한 칼럼</a></li>
+							<li><a href="/usr/article/list?type=2">구독한 작가 칼럼</a></li>
+							<li><a href="/usr/article/list?type=3">좋아요 한 칼럼</a></li>
 							<li><a href="/usr/article/list">추천 칼럼</a></li>
 							<li><a href="/usr/article/write">칼럼 작성</a></li>
 						</c:if>
