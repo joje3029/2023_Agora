@@ -27,70 +27,7 @@
 		
 		form.submit();
 	}
-	// 대댓글 쓰기 누르면 해당 댓글의 대댓글 + 대댓글 쓰는거 보여줌.
-	function doWrite_sub_reply(){
-		 // 버튼이 클릭되면 실행되는 함수
-        $('button[id^="sub-reply-"]').on('click', function() {
-        	console.log(1);
-	            // 현재 버튼의 ID에서 reply ID 추출
-	            var replyId = $(this).attr('id').split('-')[2]; 
-	        console.log(2);    
-	            // 대댓글 입력 부분의 ID를 동적으로 생성
-	            var subReplyId = 'sub-reply-' + replyId;
-	            console.log(3);
-				//이제 위에서 선택한걸 기준으로 찾기
-				//1. 선택한거의 부모를 데꼬오자.
-				var parentDiv = $(this).closest('div'); // 선택한 거(this)의 부모씨.
-				console.log(4);
-				// 부모 요소의 형제 중 id가 'sub-reply'로 시작하는 요소를 찾음
-	            var subReplyDiv = parentDiv.siblings('div[id^="sub-reply-"]');
-	            console.log(5);
-				var showSubReplyDiv= subReplyDiv.find("#sub-reply-list");
-				console.log(6);
-				
-				if ($(this).hasClass('checkClick')) {
-				    // 버튼 상태 토글
-				    $(this).removeClass('checkClick');
-
-				    // 대댓글을 가져오는 ajax 요청
-				    $.ajax({
-				        url: "/usr/reply/showSubRely",
-				        method: "get",
-				        data: {
-				            "replyId": replyId,
-				        },
-				        dataType: "json",
-				        success: function (data) {
-				            // 이제 여기서 넘어온 data를 이쁘게 만들어서 나오게 하면 됨.
-				            for (var i = 0; i < data.data.length; i++) {
-				                // 대댓글 추가 작업
-				                var subReply = data.data[i];
-				                var subReplyChildHTML = '<div class="px-2"><i class="fa-solid fa-caret-right"></i>&nbsp;&nbsp;' + subReply.nickname + '&nbsp;&nbsp;<span>' + subReply.replyWritingTime + '</span>' + '</div>' +
-				                    '<div class="p-2">' + subReply.replyBody + '</div>';
-
-				                // 각 대댓글 범위의 자식에 HTML 추가
-				                showSubReplyDiv.append('<div class="border border-dashed my-2">' + subReplyChildHTML + '</div>'); // 여기가 대댓글의 큰 틀
-				            }
-				            // 대댓글을 보여줌
-				            subReplyDiv.removeClass('hidden');
-				            $(this).removeClass('checkClick');
-				        },
-				        error: function (xhr, status, error) {
-				            console.error("ERROR : " + status + " - " + error);
-				        }
-				    });
-				} else if (!$(this).hasClass('checkClick')) {
-				    // 버튼 상태 토글
-				    $(this).addClass('checkClick');
-				    subReplyDiv.addClass('hidden');
-				    // 대댓글 숨기기 및 내용 비우기
-				}
-
-        	
-	    });
 		
-	}
-	
 	$(document).ready(function() {
 		//구독 check를 확인하고 되어있으면 0 아니면 1
 		const subscribeCheck = ${subscribeCheck};
@@ -122,6 +59,7 @@
 	        }
 	        textCount.text(currentLength + '/' + maxLength);
 	    });
+	 
 	});
 
 		
@@ -274,8 +212,7 @@
 					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
 					<div class="text-xs text-gray-400">${reply.answerUpdtTime }</div>
 					<div class="flex justify-end pr-2">
-						<button id="sub-reply-${reply.id}" class="btn btn-sm checkClick"
-							onclick="doWrite_sub_reply()">대댓글 쓰기</button>
+						<button id="sub-reply-${reply.id}" class="btn btn-sm checkClick">대댓글 쓰기</button>
 						<!--  이걸 누르면 대댓글 쓰기가 나와야함. 즉 기본적으로 저것들은 display: none -->
 					</div>
 					<!--  부모의 자식 sub-reply 가 위의 버튼을 누르면 display가 block이 되야함. -->
@@ -313,6 +250,75 @@
 				</div>
 			</c:forEach>
 		</div>
+		
+		<script>
+		
+		// 대댓글 쓰기 누르면 해당 댓글의 대댓글 + 대댓글 쓰는거 보여줌.
+		 // 버튼이 클릭되면 실행되는 함수
+	     $('button[id^="sub-reply-"]').on('click', function() {
+// 	     	event.stopPropagation(); // 이벤트가 여러번 발생하는걸 방지.
+	          // 현재 버튼의 ID에서 reply ID 추출
+	          var replyId = $(this).attr('id').split('-')[2]; 
+	          // 대댓글 입력 부분의 ID를 동적으로 생성
+	          var subReplyId = 'sub-reply-' + replyId;
+				//이제 위에서 선택한걸 기준으로 찾기
+				//1. 선택한거의 부모를 데꼬오자.
+				var parentDiv = $(this).closest('div'); // 선택한 거(this)의 부모씨.
+				// 부모 요소의 형제 중 id가 'sub-reply'로 시작하는 요소를 찾음
+	          var subReplyDiv = parentDiv.siblings('div[id^="sub-reply-"]');
+				var showSubReplyDiv= subReplyDiv.find("#sub-reply-list");
+				
+				let Btn = $(this);
+				if (Btn.hasClass('checkClick')) {
+				    // 버튼 상태 토글
+				    
+				    // 대댓글을 가져오는 ajax 요청
+				    $.ajax({
+				        url: "/usr/reply/showSubRely",
+				        method: "get",
+				        data: {
+				            "replyId": replyId,
+				        },
+				        dataType: "json",
+				        success: function (data) {
+				            // 이제 여기서 넘어온 data를 이쁘게 만들어서 나오게 하면 됨.
+			                var subReplyChildHTML = '';
+				            for (var i = 0; i < data.data.length; i++) {
+				                // 대댓글 추가 작업
+				                var subReply = data.data[i];
+				                
+				                subReplyChildHTML += '<div class="px-2"><i class="fa-solid fa-caret-right"></i>&nbsp;&nbsp;' + subReply.nickname + '&nbsp;&nbsp;<span>' + subReply.replyWritingTime + '</span>' + '</div>' +
+			                    '<div class="p-2">' + subReply.replyBody + '</div>'; 
+	
+				                // 각 대댓글 범위의 자식에 HTML 추가
+				                
+				            }
+				            // 대댓글을 보여줌
+				            subReplyDiv.removeClass('hidden');
+				            Btn.removeClass('checkClick');
+				            
+			                showSubReplyDiv.html('<div class="border border-dashed my-2">' + subReplyChildHTML + '</div>'); // 여기가 대댓글의 큰 틀
+			                
+				            
+				            
+				            
+				            
+				        },
+				        error: function (xhr, status, error) {
+				            console.error("ERROR : " + status + " - " + error);
+				        }
+				    });
+				} else{
+				    // 버튼 상태 토글
+				    Btn.addClass('checkClick');
+				    subReplyDiv.addClass('hidden');
+				    // 대댓글 숨기기 및 내용 비우기
+				    subReplyDiv.empty();
+				}
+	
+	     	
+	  		});
+		</script>
 	</section>
 </section>
 </body>
