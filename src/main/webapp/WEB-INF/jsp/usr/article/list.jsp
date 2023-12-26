@@ -17,7 +17,7 @@
                 <ul>
                   <li><a href="/usr/home/main">Home<i class="fa-solid fa-house"></i></a></li> 
                   <li><a href="/usr/article/list">칼럼</a></li> 
-                  <li>전체 / 구독 / 좋아요</li>
+                  <li>${typeName}</li>
                 </ul>
             </div>
             <!--메뉴 : 네비게이션 일자로 만들어요!-->
@@ -102,7 +102,7 @@
 					<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
 					<c:set var="endPage" value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
 					
-					<c:set var="baseUri" value="&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }" />
+					<c:set var="baseUri" value="type=${type }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }" />
 					
 					<c:if test="${page == 1 }">
 						<a class="join-item btn btn-sm btn-disabled">«</a>
