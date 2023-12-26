@@ -33,11 +33,6 @@ public interface ArticleDao {
 				FROM `COLUMN` AS C
 				INNER JOIN `USER_INFO` AS U
 				ON C.colmnWrter = U.id
-				<if test="type == 2">
-				WHERE colmnWrter IN(
-					SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId =#{loginMemberId}
-				) 	
-				</if>
 				<if test="searchKeyword != ''">
 					<choose>
 						<when test="searchKeywordType == 'title'">
@@ -53,6 +48,11 @@ public interface ArticleDao {
 							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 					</choose>
+				</if>
+				<if test="type == 2">
+				WHERE colmnWrter IN(
+					SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId =#{loginMemberId}
+				) 	
 				</if>
 				ORDER BY C.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
@@ -127,6 +127,13 @@ public interface ArticleDao {
 				<if test="type == 2">
 				WHERE colmnWrter IN(
 				SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId = #{loginMemberId}
+				)	
+				</if>
+				<if test="type == 3">
+				WHERE C.id IN(
+					SELECT columnId
+					FROM COLUMN_LIKE
+					WHERE userUniqId =2
 				)	
 				</if>
 			</script>	

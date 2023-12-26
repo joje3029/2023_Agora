@@ -80,7 +80,6 @@ public class UsrArticleController {
 			typeName = "구독한 작가 칼럼";
 			// 총 페이지 개수
 			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
-			System.out.println(articlesCnt); // 지금 71 로 들어옴 -> 10개씩 끊으면 페이지 네이션이 8개가 나와야함.
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;
@@ -89,8 +88,6 @@ public class UsrArticleController {
 			
 			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
 			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-			// 여기서 잘못가져오고 있네. 위에서 
-			System.out.println("type : "+type);
 			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 
 		
@@ -98,6 +95,7 @@ public class UsrArticleController {
 			typeName = "좋아요 한 칼럼";
 			// 총 페이지 개수
 			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			System.out.println(articlesCnt); // 지금 71 로 들어옴 -> 10개씩 끊으면 페이지 네이션이 8개가 나와야함.
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;
