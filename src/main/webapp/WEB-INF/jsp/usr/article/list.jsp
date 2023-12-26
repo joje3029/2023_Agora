@@ -45,6 +45,7 @@
         
                 <!-- 여다가 검색기능 만들꺼임. -->
                 <form>
+                	<input type="hidden" name="type" value="${type }">
                     <div class="navbar bg-base-100 border">
                         <select name="searchKeywordType"  data-value="${searchKeywordType }" class="select select-bordered select-sm mr-1" >
                         	<option value="all">전체</option>

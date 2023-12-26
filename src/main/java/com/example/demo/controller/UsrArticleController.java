@@ -95,7 +95,6 @@ public class UsrArticleController {
 			typeName = "좋아요 한 칼럼";
 			// 총 페이지 개수
 			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
-			System.out.println(articlesCnt); // 지금 71 로 들어옴 -> 10개씩 끊으면 페이지 네이션이 8개가 나와야함.
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;

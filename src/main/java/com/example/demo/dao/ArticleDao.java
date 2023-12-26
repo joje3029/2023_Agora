@@ -33,26 +33,67 @@ public interface ArticleDao {
 				FROM `COLUMN` AS C
 				INNER JOIN `USER_INFO` AS U
 				ON C.colmnWrter = U.id
-				<if test="searchKeyword != ''">
-					<choose>
-						<when test="searchKeywordType == 'title'">
-							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'body'">
-							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'write'">
-							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'all'">
-							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-					</choose>
+				<if test="type == 1">
+					<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'title'">
+								WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'body'">
+								WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'write'">
+								WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'all'">
+								WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+						</choose>
+					</if>
 				</if>
 				<if test="type == 2">
 				WHERE colmnWrter IN(
 					SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId =#{loginMemberId}
-				) 	
+				)
+				 	<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'title'">
+								AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'body'">
+								AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'write'">
+								AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'all'">
+								AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+						</choose>
+					</if>	
+				</if>
+				<if test="type == 3">
+				WHERE C.id IN(
+					SELECT columnId
+					FROM COLUMN_LIKE
+					WHERE userUniqId =#{loginMemberId}
+				)
+					<if test="searchKeyword != ''">
+							<choose>
+								<when test="searchKeywordType == 'title'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'body'">
+									AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'write'">
+									AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'all'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+							</choose>
+						</if>	
 				</if>
 				ORDER BY C.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
@@ -106,35 +147,73 @@ public interface ArticleDao {
 			<script>
 			SELECT COUNT(*)
 				FROM `COLUMN` AS C
-				<if test="searchKeyword != ''">
-				INNER JOIN `USER_INFO` AS U
-				ON C.colmnWrter = U.id
-					<choose>
-						<when test="searchKeywordType == 'title'">
-							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'body'">
-							WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'write'">
-							WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="searchKeywordType == 'all'">
-							WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-					</choose>
+				<if test="type == 1">
+					<if test="searchKeyword != ''">
+					INNER JOIN `USER_INFO` AS U
+					ON C.colmnWrter = U.id
+						<choose>
+							<when test="searchKeywordType == 'title'">
+								WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'body'">
+								WHERE C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'write'">
+								WHERE U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'all'">
+								WHERE C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+						</choose>
+					</if>
 				</if>
 				<if test="type == 2">
+				INNER JOIN `USER_INFO` AS U
+					ON C.colmnWrter = U.id
 				WHERE colmnWrter IN(
 				SELECT ownerUserId FROM EMPLYR_SBSCRB WHERE guestUserId = #{loginMemberId}
-				)	
+				)
+					<if test="searchKeyword != ''">
+						<choose>
+							<when test="searchKeywordType == 'title'">
+								AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'body'">
+								AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'write'">
+								AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+							<when test="searchKeywordType == 'all'">
+								AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+							</when>
+						</choose>
+					</if>	
 				</if>
 				<if test="type == 3">
+				INNER JOIN `USER_INFO` AS U
+					ON C.colmnWrter = U.id
 				WHERE C.id IN(
 					SELECT columnId
 					FROM COLUMN_LIKE
-					WHERE userUniqId =2
-				)	
+					WHERE userUniqId =#{loginMemberId}
+				)
+					<if test="searchKeyword != ''">
+							<choose>
+								<when test="searchKeywordType == 'title'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'body'">
+									AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'write'">
+									AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'all'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+							</choose>
+						</if>	
 				</if>
 			</script>	
 			""")
