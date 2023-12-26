@@ -45,8 +45,6 @@ a {
 	text-decoration: none;
 }
 
-/* 메인배경색 : background-color: #D1FAE5; */
-
 /*토스트ui관련 */
 
 body{
@@ -395,6 +393,11 @@ section>.button_bar {
 	flex-direction: column;
 }
 
+/*메인의 하트 색상 변경*/
+.fa-heart{
+	color: red;
+}
+
 /*짝수 일때와 홀수 일때 배경색 차별*/
 .main>.main-in-section>.items>.item:nth-child(even) {
   background-color: #E3F6CE; /* 짝수일 때의 배경색 */
@@ -404,6 +407,7 @@ section>.button_bar {
   background-color: #CEF6CE; /* 홀수일 때의 배경색 */
 }
 
+
 .main>.main-in-section>.items>.item>.title {
 	text-align: center;
 	padding: 5%;
@@ -411,7 +415,24 @@ section>.button_bar {
 	font-size: 1.5rem;
 }
 
-.main>.main-in-section>.items>.item>.writer {
+.main>.main-in-section>.items>.item:hover>.title{
+	text-decoration: underline;
+/*	text-decoration-color: yellowgreen;*/
+}
+
+.main>.main-in-section>.items>.item>.writer{
+	text-align: center;
+	padding: 2%;
+	font-size: 1rem;
+}
+
+.main>.main-in-section>.items>.item>.likeCount{
+	text-align: center;
+	padding: 2%;
+	font-size: 1rem;
+}
+
+.main>.main-in-section>.items>.item>.discussionCount{
 	text-align: center;
 	padding: 2%;
 	font-size: 1rem;

@@ -19,6 +19,8 @@ public class Article {
 	private int colmnWrter; //작성자 번호
 	private String nickname; //작성자 닉네임
 	
+	private int count; //좋아요 카운트
+	
 	//textarea와 토스트ui의 차이때문에 있어야함.
 	public String getForPrintBody() {
 		return this.body.replaceAll("\n", "<br />");

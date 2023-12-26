@@ -52,26 +52,13 @@
 		<section class="main-in-section">
 			<div class="section-title text-2xl">랭킹 칼럼</div>
 			<section class="items">
-				<div class="item">
-					<div class="title">칼럼제목1</div>
-					<div class="writer">작성자1</div>
-				</div>
-				<div class="item">
-					<div class="title">칼럼제목2</div>
-					<div class="writer">작성자2</div>
-				</div>
-				<div class="item">
-					<div class="title">칼럼제목3</div>
-					<div class="writer">작성자3</div>
-				</div>
-				<div class="item">
-					<div class="title">칼럼제목4</div>
-					<div class="writer">작성자4</div>
-				</div>
-				<div class="item">
-					<div class="title">칼럼제목5</div>
-					<div class="writer">작성자5</div>
-				</div>
+				<c:forEach var="article" items="${articles}">
+					<div class="item">
+						<div class="title">${article.title}</div>
+						<div class="writer">${article.nickname}</div>
+						<div class="likeCount"><i class="fa-solid fa-heart"></i>${article.count}</div>
+					</div>
+				</c:forEach>
 			</section>
 		</section>
 	
@@ -81,22 +68,27 @@
 				<div class="item">
 					<div class="title">칼럼제목1</div>
 					<div class="writer">작성자1</div>
+					<div class="discussionCount">인원 수</div>
 				</div>
 				<div class="item">
 					<div class="title">칼럼제목2</div>
 					<div class="writer">작성자2</div>
+					<div class="discussionCount">인원 수</div>
 				</div>
 				<div class="item">
 					<div class="title">칼럼제목3</div>
 					<div class="writer">작성자3</div>
+					<div class="discussionCount">인원 수</div>
 				</div>
 				<div class="item">
 					<div class="title">칼럼제목4</div>
 					<div class="writer">작성자4</div>
+					<div class="discussionCount">인원 수</div>
 				</div>
 				<div class="item">
 					<div class="title">칼럼제목5</div>
 					<div class="writer">작성자5</div>
+					<div class="discussionCount">인원 수</div>
 				</div>
 			</section>
 		</section>

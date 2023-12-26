@@ -134,11 +134,14 @@ public interface ArticleDao {
 	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type);
 	
 	@Select("""
-			SELECT C.*, U.nickname 
-				FROM `COLUMN` AS C
+			SELECT C.*, U.nickname, COUNT(*) AS `count`  
+				FROM `COLUMN` AS C 
+				INNER JOIN COLUMN_LIKE AS L
+				ON C.id = L.columnId
 				INNER JOIN `USER_INFO` AS U
 				ON C.colmnWrter = U.id
-				ORDER BY clickCount DESC
+				GROUP BY C.id
+				ORDER BY `count` DESC
 				LIMIT 5;
 			""")
 	public List<Article> getArticleRank();
