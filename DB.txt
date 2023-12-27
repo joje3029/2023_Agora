@@ -7,23 +7,24 @@ USE Agora;
 -- 이아는 컬럼명을 걍 다 백틱하는구만. 신경쓰지 말것.
 
 CREATE TABLE `USER_INFO` (
-	`id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID',
-	`uwerId` VARCHAR(20) NOT NULL COMMENT '아이디',
-	`passwd` VARCHAR(200) NOT NULL COMMENT '비밀번호',
-	`name` VARCHAR(10) NOT NULL COMMENT '이름',
-	`nickname` VARCHAR(15) NOT NULL COMMENT '닉네임',
-	`email` VARCHAR(50) NOT NULL COMMENT '이메일',
-	`telno` VARCHAR(11) NOT NULL COMMENT '전화번호',
-	`postNum` VARCHAR(10) NOT NULL COMMENT '우편번호',	
-	`adress` VARCHAR(50) NOT NULL COMMENT '주소',		
-	`detailAdress` VARCHAR(50) NOT NULL COMMENT '상세주소',	
-	`extAdress` VARCHAR(50) NOT NULL COMMENT '참고항목',	
-	`secsnEnnc` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0 ',
-	`joinDate` DATETIME NOT NULL COMMENT '가입일',
-	`mberAuthor` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
+	`id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '회원ID', 
+	`uwerId` VARCHAR(20) NULL COMMENT '아이디', 
+	`passwd` VARCHAR(200) NULL COMMENT '비밀번호',
+	`name` VARCHAR(10) NULL COMMENT '이름',
+	`nickname` VARCHAR(15) NULL COMMENT '닉네임',
+	`email` VARCHAR(50) NULL COMMENT '이메일',
+	`telno` VARCHAR(11) NULL COMMENT '전화번호',
+	`postNum` VARCHAR(10) NULL COMMENT '우편번호',	
+	`adress` VARCHAR(50) NULL COMMENT '주소',		
+	`detailAdress` VARCHAR(50) NULL COMMENT '상세주소',	
+	`extAdress` VARCHAR(50) NULL COMMENT '참고항목',	
+	`secsnEnnc` TINYINT UNSIGNED NULL DEFAULT 0 COMMENT '탈퇴유/무 : 유-1 무-0 ',
+	`joinDate` DATETIME NULL COMMENT '가입일',
+	`mberAuthor` TINYINT UNSIGNED NULL DEFAULT 1 COMMENT '회원권한: 관리자-2, 일반회원 1',
 	`modifyDate` DATETIME NULL COMMENT '수정날짜',
 	`secsnReqstdt` DATETIME NULL COMMENT '탈퇴신청날짜'
 );
+
 
 CREATE TABLE `COLUMN` (
 	`Id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '칼럼ID',
@@ -65,6 +66,7 @@ CREATE TABLE CHAT(
     messageType VARCHAR(20) NOT NULL COMMENT 'LEAVE / TALK / BAN 등'
 );
 
+
 CREATE TABLE CHATROOMMEMBER(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'PK',
     regDate DATETIME NOT NULL COMMENT '채팅토론방 참가 시간',
@@ -84,6 +86,7 @@ CREATE TABLE `ANSWER` (
 	`answerDeleteEnnc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
 );
 
+
 CREATE TABLE `CSTMR_CNSLT_CNTER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
 	`userUniqId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
@@ -92,12 +95,14 @@ CREATE TABLE `CSTMR_CNSLT_CNTER` (
 	`ricfldSndngYn`	TINYINT	UNSIGNED NOT NULL DEFAULT 0	COMMENT '답보냄여부 : 보냄-1 안보냄-0 보냄 실패-4'
 );
 
+
 CREATE TABLE `UFSD_ATCH_FILE_MNG` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '첨부파일ID',
 	`atachFileDc`	TEXT	NULL	COMMENT '첨부파일설명',
 	`frstRegId`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
 	`frstRegDate`	DATETIME	NULL	COMMENT '최초등록일자'
 );
+
 
 CREATE TABLE `EMPLYR_SBSCRB` (
 	`ownerUserId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
@@ -123,8 +128,8 @@ CREATE TABLE `REPLY` (
 	`answerUniqId`	INT	UNSIGNED NOT NULL	COMMENT '댓글ID',
 	`replyWritingTime`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
 	`replyBody`	TEXT	NOT NULL	COMMENT '댓글내용',
-	`replyUpdtTime`	DATETIME	NULL	COMMENT '댓글수정된시간',
-	`replyDeleteTime`	DATETIME	NULL	COMMENT '댓글삭제시간',
+	`replyUpdtTime`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
+	`replyDeleteTime`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
 	`replyDeleteEnnc`	TINYINT	NOT NULL	COMMENT '삭제여부 : 유(삭제함)-1 무(삭제안함)-0',
 	`replyWrter`	INT UNSIGNED	NOT NULL	COMMENT '작성자'
 );
@@ -144,3 +149,232 @@ CREATE TABLE `WITHDROW_REASON` (
 	`withDrowDate`	DATETIME NOT NULL	COMMENT '탈퇴 날짜 '
 	
 );
+
+
+#관리자 생성
+INSERT INTO `USER_INFO` (
+  `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+  
+) VALUES (
+  'admin',
+  SHA2('Admin123456789!', 256),
+  '관리자',
+  '관리자씨',
+  'phandom0311@naver.com',
+  '01012345678',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  NOW(),
+  2,
+  NULL,
+  NULL
+);
+
+INSERT INTO `USER_INFO` (
+  `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+) VALUES (
+  'test15',
+  SHA2('Test1123456789!', 256),
+  '뱁새씨',
+  '뱁새씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  '2021-02-18 15:00:00',
+  1,
+  NULL,
+  NULL
+);
+
+#유저 3명 만들기
+#일반 유저 1
+INSERT INTO `USER_INFO` (
+  `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+) VALUES (
+  'test1',
+  SHA2('Test1123456789!', 256),
+  '뱁새씨',
+  '뱁새씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  NOW(),
+  1,
+  NULL,
+  NULL
+);
+
+#일반 유저 2
+INSERT INTO `USER_INFO` (
+  `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+) VALUES (
+  'test2',
+  SHA2('Test2123456789!', 256),
+  '뱁새공주님',
+  '뱁새공주님',
+  'phandom0311@naver.com',
+  '01023456789',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  NOW(),
+  1,
+  NULL,
+  NULL
+);
+
+#일반 유저 3
+INSERT INTO `USER_INFO` (
+   `uwerId`,
+  `passwd`,
+  `name`,
+  `nickname`,
+  `email`,
+  `telno`,
+  `postNum`,
+  `adress`,
+  `detailAdress`,
+  `extAdress`,
+  `secsnEnnc`,
+  `joinDate`,
+  `mberAuthor`,
+  `secsnReqstdt`,
+  `modifyDate`
+) VALUES (
+  'test3',
+  SHA2('Test3123456789!',256),
+  '뱁새아가씨',
+  '뱁새아가씨',
+  'phandom0311@naver.com',
+  '01023456789',
+  '06014',
+  '서울 강남구 도산대로 403',
+  '2023',
+  '(청담동)',
+  0,
+  NOW(),
+  1,
+  NULL,
+  NULL
+);
+
+# 칼럼 랜덤 만들기
+INSERT INTO `COLUMN`(
+  `title`,
+  `writngTime`,
+  `body`,
+  `colmnClSetup`,
+  `colmnModifiedTime`,
+  `colmnDeleteTime`,
+  `colmnDeleteEnnc`,
+  `colmnWrter`,
+  `clickCount`
+) VALUES (
+  CONCAT('제목_', FLOOR(RAND() * 10000)),
+  NOW(),
+  CONCAT('내용_', FLOOR(RAND() * 10000)),
+  FLOOR(RAND() * 9) + 1,
+  NULL,
+  NULL,
+  0,
+  FLOOR(RAND() * 4) + 1,
+  FLOOR(RAND() * 20) + 1
+);
+
+
+/* 칼럼 배로 불리기
+INSERT INTO `COLUMN` (
+ `title`,
+  `writngTime`,
+  `body`,
+  `colmnClSetup`,
+  `colmnModifiedTime`,
+  `colmnDeleteTime`,
+  `colmnDeleteEnnc`,
+  `colmnWrter`,
+  `clickCount`
+)
+SELECT
+  CONCAT('제목_', FLOOR(RAND() * 10000)),
+  NOW(),
+  CONCAT('내용_', FLOOR(RAND() * 10000)),
+  FLOOR(RAND() * 9) + 1,
+  NULL,
+  NULL,
+  0,
+  FLOOR(RAND() * 4) + 1,
+  FLOOR(RAND() * 20) + 1
+FROM
+  `COLUMN`
+LIMIT 10; 
+-- 원하는 행 수를 지정해주세요
+*/

@@ -29,12 +29,8 @@ public class UsrSnsLoginController {
 	@ResponseBody
 	public String getKakaoLoginToken(String code, Model model) throws IOException {
 		// 확인용
-		System.out.println("code = " + code);
-        
 		String access_token = usrSnsLoginService.getToken(code); 
-
 		Map<String, Object> userInfo = usrSnsLoginService.getUserInfo(access_token);
-        
 		
 		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
 		String strId =userInfo.get("id").toString();
