@@ -70,8 +70,6 @@ public class UsrReplyController {
 		
 		data.put("data", subReles);
 		
-		System.out.println("data : "+data);
-		
 		return data;
 	}
 	

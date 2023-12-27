@@ -20,17 +20,17 @@
             <div class="text-sm breadcrumbs">
             <!-- 여기 변수로 변경해야함. 변해야해. -->
                 <ul>
-                  <li><a>Home</a></li> 
-                  <li><a>Documents</a></li> 
-                  <li>Add Document</li>
+                  <li><a href="/usr/home/main">Home<i class="fa-solid fa-house"></i></a></li> 
+                  <li><a href="/usr/discussion/list">토론방</a></li> 
+                  <li>${typeName}</li>
                 </ul>
             </div>
             <!--메뉴 : 네비게이션 일자로 만들어요!-->
             <div class="menuBar">
                 <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box my-2">
-                    <li><a>전체 토론방</a></li>
-                    <li><a>추천 토론방</a></li>
-                    <li><a>내 토론방</a></li>
+                    <li class="text-lg"><a href="?type=1">전체 토론방</a></li>
+                    <li class="text-lg"><a href="?type=2">내 토론방</a></li>
+                    <li class="text-lg"><a href="?type=3">추천 토론방</a></li>
                   </ul>
             </div>
             <div class="container mx-auto px-3">

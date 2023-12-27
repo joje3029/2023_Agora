@@ -17,12 +17,12 @@ public class DiscussionService {
 		this.discussionDao = discussionDao;
 	}
 
-	public int getDiscussionCnt(String searchKeywordType, String searchKeyword) {
-		return discussionDao.getDiscussionCnt(searchKeywordType, searchKeyword);
+	public int getDiscussionCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type) {
+		return discussionDao.getDiscussionCnt(loginMemberId, searchKeywordType, searchKeyword, type);
 	}
 
-	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword) {
-		return discussionDao.getdisussionRooms(limitStart,itemsInAPage, searchKeywordType, searchKeyword);
+	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type) {
+		return discussionDao.getdisussionRooms(limitStart,itemsInAPage, searchKeywordType, searchKeyword, loginMemberId, type);
 	}
 
 	public void createDiscussionRoom(int loginedMemberId, String roomName, String type) {

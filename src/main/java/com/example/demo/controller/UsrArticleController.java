@@ -119,14 +119,14 @@ public class UsrArticleController {
 			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		}
 		
-		model.addAttribute("type", type);// 페이지네이션에 추가할 type
-		model.addAttribute("typeName", typeName);// 위에 네비게이션에 넣을 type이름
-		model.addAttribute("searchKeywordType", searchKeywordType);// 파라미터
-		model.addAttribute("searchKeyword", searchKeyword);// 파라미터
-		model.addAttribute("articles", articles);// 전역으로 빼야함 : List<Article>
-		model.addAttribute("articlesCnt", articlesCnt);// 전역으로 빼야함 : int
-		model.addAttribute("pagesCnt", pagesCnt); // 전역으로 빼야함 int
-		model.addAttribute("page", page); // 파라미터
+		model.addAttribute("type", type);
+		model.addAttribute("typeName", typeName);
+		model.addAttribute("searchKeywordType", searchKeywordType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("articles", articles);
+		model.addAttribute("articlesCnt", articlesCnt);
+		model.addAttribute("pagesCnt", pagesCnt); 
+		model.addAttribute("page", page); 
 		
 		
 		return "usr/article/list";

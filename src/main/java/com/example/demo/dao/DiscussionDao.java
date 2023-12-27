@@ -32,7 +32,7 @@ public interface DiscussionDao {
 				</if>
 			</script>	
 			""")
-	public int getDiscussionCnt(String searchKeywordType, String searchKeyword);
+	public int getDiscussionCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type); // 갯수 세는거
 
 	@Select("""
 			<script>
@@ -57,7 +57,7 @@ public interface DiscussionDao {
 				LIMIT #{limitStart}, #{itemsInAPage}
 			</script>	
 			""")
-	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword);
+	public List<DiscussionRoom> getdisussionRooms(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type); // 토론방 리스트 가져오는거.
 	
 	@Insert("""
 			INSERT INTO `DSCSN_ROOM`
