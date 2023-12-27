@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.DiscussionDao;
-import com.example.demo.vo.Article;
 import com.example.demo.vo.DiscussionRoom;
 
 @Service
