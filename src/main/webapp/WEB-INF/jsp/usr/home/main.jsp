@@ -11,7 +11,7 @@
 <!-- 공통 css -->
 <link rel="stylesheet" href="/resource/main.css" />
 
-
+<div>${rq.getLoginedMemberId() }</div>
 <!-- 캐러셀을 일단 안쓴 버전으로 퍼블리싱을 하자 => 캐러셀같은 프론트 단때문에 시간 많이 잡아먹지 말자! -->
 <section class="main">
 	<!-- 메인 페이지 환영 캐러셀 : 안녕 동물 친구들!! -->

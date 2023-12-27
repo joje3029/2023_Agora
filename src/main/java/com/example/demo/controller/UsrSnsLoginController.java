@@ -6,8 +6,10 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.UsrSnsLoginService;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
@@ -24,48 +26,33 @@ public class UsrSnsLoginController {
 	// 소셜로그인만 따로 할꺼임.
 	// 카카오 로그인
 	@RequestMapping("/usr/member/kakaoLogin")
+	@ResponseBody
 	public String getKakaoLoginToken(String code, Model model) throws IOException {
 		// 확인용
 		System.out.println("code = " + code);
         
 		String access_token = usrSnsLoginService.getToken(code); 
-		// 확인용        
-		System.out.println("code : "+code);
-		// 확인용
-		System.out.println("여기를 오기는 하는가 그대?"); // 여기를 오심-> 즉 404가 아님. =>
-		// 확인용
-		System.out.println("token : " + access_token); // 코드가 출력이 되시거든. 그럼 그냥 여기서 post url로 만들어서 요청을 보내면 안되냐?
 
 		Map<String, Object> userInfo = usrSnsLoginService.getUserInfo(access_token);
         
-		// 확인용
-		System.out.println("userInfo : "+userInfo);
-		// age_range = email(String), nickname = nickname(String), id = id(int)
-		System.out.println(userInfo.get("id"));
-		
+		//난중에 이렇게 무식하게 짜르면 안돼 ㅠㅠ 지금은 발표해야하는데 int범위 넘어가서 여기저기서 에러떠서 일단 짜른거야. 실제로는 얘부터 다 타입이 long이어야해.
+		String strId =userInfo.get("id").toString();
+		strId=strId.substring(1);
 		
 		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
-		int id = (Long) userInfo.get("id");
-		System.out.println(2);
+		int id = Integer.parseInt(strId); 
 		System.out.println("id : "+id);
-		
-//		int id = Integer.parseInt(userInfo.get("id").toString()); 
 		String email = userInfo.get("age_range").toString();
 		String nickname = userInfo.get("nickname").toString();
 		
 		Member member = new Member(id, email, nickname);
 		
-		System.out.println("여기가 문제냐?");
 		
-		rq.login(member);
+		// Db에도 member 내용이 들어가야해
 		
-		System.out.println("여기가 문제냐2?");
-//        model.addAttribute("code", code);
-//        model.addAttribute("access_token", access_token);
-//        model.addAttribute("userInfo", userInfo);
+		rq.login(member); 
 		
-
-		return "usr/home/main"; // 그럼 여기를 계정 로그인 요청으로 가게?
+		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
 	// 네이버 로그인
