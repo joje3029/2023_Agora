@@ -313,7 +313,7 @@
 				    Btn.addClass('checkClick');
 				    subReplyDiv.addClass('hidden');
 				    // 대댓글 숨기기 및 내용 비우기
-				    subReplyDiv.empty();
+				    showSubReplyDiv.empty();
 				}
 	
 	     	
