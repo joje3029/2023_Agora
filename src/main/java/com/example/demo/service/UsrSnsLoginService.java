@@ -123,11 +123,11 @@ public class UsrSnsLoginService {
 
             String id = obj.get("id").toString();
             String nickname = properties.get("nickname").toString();
-            String age_range = kakao_account.get("age_range").toString();
-
+            String email = kakao_account.get("email").toString();
+            
             result.put("id", id);
             result.put("nickname", nickname);
-            result.put("age_range", age_range);
+            result.put("age_range", email);
 
             br.close();
 

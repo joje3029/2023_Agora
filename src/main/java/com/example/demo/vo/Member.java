@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
-	private int id; // 회원ID
+	private int id; // 회원ID // 카카오 id 때문에 형을 일단 -> long으로 바꿈.
 	private String uwerId; // 아이디
 	private String passwd; //비밀번호
 	private String name; //이름
@@ -31,6 +31,14 @@ public class Member {
 			return "활동 중";
 		}
 		return "탈퇴";
+	}
+
+
+	public Member(int id, String email, String nickname) {
+		this.id = id;
+        this.email = email;
+        this.nickname = nickname;
+		
 	}
 
 }

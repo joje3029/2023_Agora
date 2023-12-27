@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.service.UsrSnsLoginService;
+import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -39,13 +40,29 @@ public class UsrSnsLoginController {
         
 		// 확인용
 		System.out.println("userInfo : "+userInfo);
-		System.out.println("code : "+code);
-		System.out.println("access_token : "+access_token);
-        System.out.println("userInfo : "+userInfo);
+		// age_range = email(String), nickname = nickname(String), id = id(int)
+		System.out.println(userInfo.get("id"));
 		
-        model.addAttribute("code", code);
-        model.addAttribute("access_token", access_token);
-        model.addAttribute("userInfo", userInfo);
+		
+		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
+		int id = (Long) userInfo.get("id");
+		System.out.println(2);
+		System.out.println("id : "+id);
+		
+//		int id = Integer.parseInt(userInfo.get("id").toString()); 
+		String email = userInfo.get("age_range").toString();
+		String nickname = userInfo.get("nickname").toString();
+		
+		Member member = new Member(id, email, nickname);
+		
+		System.out.println("여기가 문제냐?");
+		
+		rq.login(member);
+		
+		System.out.println("여기가 문제냐2?");
+//        model.addAttribute("code", code);
+//        model.addAttribute("access_token", access_token);
+//        model.addAttribute("userInfo", userInfo);
 		
 
 		return "usr/home/main"; // 그럼 여기를 계정 로그인 요청으로 가게?
