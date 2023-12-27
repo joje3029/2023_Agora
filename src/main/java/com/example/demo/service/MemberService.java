@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
 import com.example.demo.util.Util;
-import com.example.demo.vo.DiscussionRoom;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 

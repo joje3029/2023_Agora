@@ -35,23 +35,21 @@ public class UsrSnsLoginController {
 
 		Map<String, Object> userInfo = usrSnsLoginService.getUserInfo(access_token);
         
-		//난중에 이렇게 무식하게 짜르면 안돼 ㅠㅠ 지금은 발표해야하는데 int범위 넘어가서 여기저기서 에러떠서 일단 짜른거야. 실제로는 얘부터 다 타입이 long이어야해.
-		String strId =userInfo.get("id").toString();
-		strId=strId.substring(1);
 		
 		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
-		int id = Integer.parseInt(strId); 
-		System.out.println("id : "+id);
+		String strId =userInfo.get("id").toString();
+		//난중에 이렇게 무식하게 짜르면 안돼 ㅠㅠ 지금은 발표해야하는데 int범위 넘어가서 여기저기서 에러떠서 일단 짜른거야. 실제로는 얘부터 다 타입이 long이어야해.
+		strId=strId.substring(1);
 		String email = userInfo.get("age_range").toString();
 		String nickname = userInfo.get("nickname").toString();
 		
-		Member member = new Member(id, email, nickname);
-		
-		
-		// Db에도 member 내용이 들어가야해
-		
+		// Db에 데꼬 온 애 insert
+		usrSnsLoginService.insertKakaoinfo(strId, email, nickname);
+		//insert한 애 pk 값 들고오려고 던짐.
+		int lastId = usrSnsLoginService.getLastId();
+		//여기서 마지막에 들어간 애 행을 데꼬와서 member에 넣어서 들어가면 다른데서도 안꼬이겠다.
+		Member member=usrSnsLoginService.getLastInsertMember(lastId);
 		rq.login(member); 
-		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
@@ -68,30 +66,5 @@ public class UsrSnsLoginController {
 
 		return "usr/home/main";
 	}
-
-//	// 여기서부터는 이전꺼.
-//	// 회원가입
-//	@RequestMapping("/usr/member/join")
-//	public String join() {
-//		return "usr/member/join";
-//	}
-//
-//	// 로그인아이디 중복 체크
-//	@RequestMapping("/usr/member/loginIdDupChk")
-//	@ResponseBody
-//	public ResultData loginIdDupChk(String loginId) {
-//
-//		if (Util.empty(loginId)) {
-//			return ResultData.from("F-1", "아이디를 입력해주세요");
-//		}
-//
-//		Member member = memberService.getMemberByLoginId(loginId);
-//
-//		if (member != null) {
-//			return ResultData.from("F-2", Util.f("%s은(는) 이미 사용중인 아이디입니다", loginId));
-//		}
-//
-//		return ResultData.from("S-1", Util.f("%s은(는) 사용 가능한 아이디입니다", loginId));
-//	}
 
 }

@@ -15,10 +15,21 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.MemberDao;
+import com.example.demo.dao.SnsLoginDao;
+import com.example.demo.vo.Member;
+
 
 @Service
-public class UsrSnsLoginService {
-
+public class UsrSnsLoginService{
+	
+	private SnsLoginDao snsLoginDao;
+	
+	public UsrSnsLoginService(SnsLoginDao snsLoginDao) {
+		this.snsLoginDao = snsLoginDao;
+	}
+	
+	// 카카오 로그인 관련
     public String getToken(String code) throws IOException {
     	// 인가코드로 토큰 받기
     			String host = "https://kauth.kakao.com/oauth/token";
@@ -138,6 +149,20 @@ public class UsrSnsLoginService {
 
         return result;
     }
+	
+	public void insertKakaoinfo(String strId, String email, String nickname) {
+		snsLoginDao.insertKakaoinfo(strId, email, nickname);
+	}
+
+	public Member getLastInsertMember(int lastId) {
+		return snsLoginDao.getLastInsertMember(lastId);
+	}
+
+	public int getLastId() {
+		return snsLoginDao.getLastId();
+	}
+
+	
 	
 
 

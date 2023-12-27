@@ -286,8 +286,6 @@ public class UsrMemberController {
 			return Util.jsHistoryBack("전화번호가 일치하지 않습니다");
 		}
 		
-		System.out.println(2);
-		
 		// 임시 비번 발급
 		ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempLoginPwByEmail(member);
 		
