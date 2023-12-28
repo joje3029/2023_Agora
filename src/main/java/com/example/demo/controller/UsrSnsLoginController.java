@@ -63,15 +63,22 @@ public class UsrSnsLoginController {
 	}
 
 	// 네이버 로그인
-	@RequestMapping("/usr/snsmember/naverLogin")
+	
+	@RequestMapping("/usr/member/naverLogin")
 	public String naverLogin() {
 
-		return "usr/home/main";
+		System.out.println(2);
+		// 전체 동의하고 나서 오는거 -> 즉 여기서 음... 카카오씨처럼 뭔가를 해서 main으로 보내야함.
+		
+		return "usr/member/naverLogin2";
 	}
 
 	// 구글 로그인
-	@RequestMapping("/usr/snsmember/googleLogin")
+	@RequestMapping("/usr/member/googleLogin")
 	public String googleLogin() {
+		
+		// 여기서 할꺼 구글에 인증 요청을 보내야지. 그럼 구글이 계정 누구로 할꺼냐 그런거 띄울꺼고 . 그거 하고나면 로그인쪼로록 하고 나서 home
+		
 
 		return "usr/home/main";
 	}

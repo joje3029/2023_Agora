@@ -5,14 +5,11 @@
 <c:set var="pageTitle" value="USER LOGIN" />
 
 <%@ include file="../common/head2.jsp"%>
-<!-- 네이버 로그인을 위한 cdn-->
-<script
-	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
-	charset="utf-8"></script>
 
-<!-- 구글 로그인을 위해 -->
-<meta name="google-signin-client_id"
-	content="156368883589-0hdsi099embd282knv5uhadn8t93sem9.apps.googleusercontent.com">
+<!-- 네이버 로그인 관련 -->
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 
 <script>
 		// 로그인이랑 비밀번호 글자 제한
@@ -108,12 +105,23 @@
 	            </div>
 				
 				<div>
-					<a href="/usr/snsmember/naverLogin"> <img
+				 <%
+				    String clientId = "sre3apwylaef28oEMZxP";//애플리케이션 클라이언트 아이디값"; // 내꺼 : 
+				    String redirectURI = URLEncoder.encode("http://localhost:8081/usr/member/naverLogin", "UTF-8");
+				    SecureRandom random = new SecureRandom(); // 암호학적으로 안전한 난수를 생성하는데 사용.
+				    String state = new BigInteger(130, random).toString(); // 임의의 정수를 다루는데 사용.
+				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+				    apiURL += "&client_id=" + clientId;
+				    apiURL += "&redirect_uri=" + redirectURI;
+				    apiURL += "&state=" + state;
+				    session.setAttribute("state", state);
+				 %>
+					<a href="<%=apiURL%>"> <img
 						src="/resource/images/naver_login.png" alt="네이버로그인">
 					</a>
 				</div>
 				<div>
-					<a href="/usr/snsmember/googleLogin"> <img
+					<a href="/usr/member/googleLogin"> <img
 						src="/resource/images/google_login.png" alt="구글로그인">
 					</a>
 				</div>
