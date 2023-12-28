@@ -125,7 +125,7 @@
 						src="/resource/images/google_login.png" alt="구글로그인">
 					</a>
 				</div>
-				<div>QR코드들어올자리</div>
+				<div><a href="/usr/member/qrLogin">QR로그인</a></div>
 			</div>
 		</section>
 	</body>
