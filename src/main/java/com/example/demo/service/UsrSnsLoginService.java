@@ -15,7 +15,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.SnsLoginDao;
 import com.example.demo.vo.Member;
 
@@ -72,16 +71,12 @@ public class UsrSnsLoginService{
     	            while ((line = br.readLine()) != null) { // br.readLine()이 BufferedReader로 부터 한줄의 문자열을 읽어옴. line 변수에 현재 읽은 라인이 할당됨. line이 null이 아닐 동안 루프 실행.
     	                result += line; // 각 라인을 result에 추가
     	            }
-    	            System.out.println("result = " + result); // 여기서 result된 결과 한번 찍어보기
-    	            
     	         // json parsing
     	            JSONParser parser = new JSONParser();
     	            JSONObject elem = (JSONObject) parser.parse(result); // 문자열 result를 파싱하여 JsonObject로 변환. 변환한건 elem에 들어감.
     	            
     	            String access_token = elem.get("access_token").toString(); // 파싱한거에서 키가 access_token을 꺼내서 타입을 String으로 바꿔서 access_token에 넣음.
     	            String refresh_token = elem.get("refresh_token").toString();
-    	            System.out.println("refresh_token = " + refresh_token); // 잘 들어갔는지 확인
-    	            System.out.println("access_token = " + access_token);
     	            
     	            token = access_token; // try전에 선언한 token에 백업
     	            
@@ -108,8 +103,6 @@ public class UsrSnsLoginService{
             urlConnection.setRequestMethod("GET"); // get으로 요청 보낼끼다
 
             int responseCode = urlConnection.getResponseCode();
-            System.out.println("responseCode = " + responseCode); // 서버가 요청을 제대로 처리했는지 보려고 한거. 200(성공) : 서버가 요청을 제대로 처리했다는 의미.
-
 
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line = "";
@@ -119,18 +112,10 @@ public class UsrSnsLoginService{
                 res+=line;
             }
 
-            System.out.println("res = " + res); // {"id":3243567631,"connected_at":"2023-12-27T06:27:43Z"}
-
-
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(res);
             JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
             JSONObject properties = (JSONObject) obj.get("properties");
-            
-            //여기가 null인 이유 나는 카카오 로그인을 할때 동의를 받은적이 없어서 카카오가 안넘기는거임. 동의했다는 정보를 같이 넘겨야함.
-            System.out.println("kakao_account : "+kakao_account); //null
-            System.out.println("properties : "+properties); //null
-
 
             String id = obj.get("id").toString();
             String nickname = properties.get("nickname").toString();

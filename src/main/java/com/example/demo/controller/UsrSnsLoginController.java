@@ -35,9 +35,10 @@ public class UsrSnsLoginController {
 		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
 		String strId =userInfo.get("id").toString();
 		//난중에 이렇게 무식하게 짜르면 안돼 ㅠㅠ 지금은 발표해야하는데 int범위 넘어가서 여기저기서 에러떠서 일단 짜른거야. 실제로는 얘부터 다 타입이 long이어야해.
-		strId=strId.substring(1);
 		String email = userInfo.get("age_range").toString();
 		String nickname = userInfo.get("nickname").toString();
+		
+		// 여기서 중복 검증을 챙겨야겠네.
 		
 		// Db에 데꼬 온 애 insert
 		usrSnsLoginService.insertKakaoinfo(strId, email, nickname);
@@ -46,6 +47,7 @@ public class UsrSnsLoginController {
 		//여기서 마지막에 들어간 애 행을 데꼬와서 member에 넣어서 들어가면 다른데서도 안꼬이겠다.
 		Member member=usrSnsLoginService.getLastInsertMember(lastId);
 		rq.login(member); 
+		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
