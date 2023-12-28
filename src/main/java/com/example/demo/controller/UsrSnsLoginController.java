@@ -39,14 +39,25 @@ public class UsrSnsLoginController {
 		String nickname = userInfo.get("nickname").toString();
 		
 		// 여기서 중복 검증을 챙겨야겠네.
+		// 일단 strId를 데꼬 Db를 간다. 잘 가꼬 오는지 확인한다.
+		Member memberCheck = usrSnsLoginService.getMemberCheck(strId);
 		
-		// Db에 데꼬 온 애 insert
-		usrSnsLoginService.insertKakaoinfo(strId, email, nickname);
-		//insert한 애 pk 값 들고오려고 던짐.
-		int lastId = usrSnsLoginService.getLastId();
-		//여기서 마지막에 들어간 애 행을 데꼬와서 member에 넣어서 들어가면 다른데서도 안꼬이겠다.
-		Member member=usrSnsLoginService.getLastInsertMember(lastId);
-		rq.login(member); 
+		Member member =null;
+		if(memberCheck==null) {
+			// Db에 kakao에서 데꼬 온 애 insert
+			usrSnsLoginService.insertKakaoinfo(strId, email, nickname);
+			//insert한 애 pk 값 들고오려고 던짐.
+			int lastId = usrSnsLoginService.getLastId();
+			//여기서 마지막에 들어간 애 행을 데꼬와서 member에 넣어서 들어가면 다른데서도 안꼬이겠다.
+			member=usrSnsLoginService.getLastInsertMember(lastId);
+			
+		}else {
+			// member 가 뭐라도 있다 -> 즉 이전 로그인 기록이 있다.
+			// 이때는 insert가 아니라 이미 불러와졌고 그 기록이가 있으니까.
+			member = memberCheck;
+		}
+		
+		rq.login(member);		
 		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}

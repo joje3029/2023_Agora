@@ -147,6 +147,10 @@ public class UsrSnsLoginService{
 		return snsLoginDao.getLastId();
 	}
 
+	public Member getMemberCheck(String strId) {
+		return snsLoginDao.getMemberCheck(strId);
+	}
+
 	
 	
 

@@ -27,4 +27,11 @@ public interface SnsLoginDao {
 			""")
 	public Member getLastInsertMember(int lastId);
 	
+	@Select("""
+			SELECT * 
+				FROM USER_INFO 
+				WHERE uwerId = #{strId}
+			""")
+	public Member getMemberCheck(String strId);
+	
 }
