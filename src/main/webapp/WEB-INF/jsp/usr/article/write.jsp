@@ -11,43 +11,7 @@
 
 <!-- 지시어 문법으로 incldue로 파일을 포함 : 포함한 파일이 공통으로 들어갈 head일뿐 -->
 
-<script>
-	
-	$(document).ready(function() {
-	    const titleInput = $('#title');
-	    const maxLength = 50;
 
-	    titleInput.on('input', function() {
-	        const inputValue = $(this).val();
-	        
-	        if (inputValue.length > maxLength) {
-	            $(this).val(inputValue.slice(0, maxLength)); // 최대 길이까지만 잘라냄
-	            alert('제목은 50자 이내여야 합니다.');
-	        }
-	    });
-	});
-	
-	
-	//onSubmit 코드
-	const writeForm_onSubmit = function(form){
-		form.title.value = form.title.value.trim();
-		form.body.value = form.body.value.trim();
-		
-		//내용 있냐 업냐 검증
-		if(form.title.value.length ==0){
-			alert('제목을 입력해주세요');
-			form.title.focus();
-			return
-		}
-		if(form.body.value.length ==0){
-			alert('내용을 입력해주세요');
-			form.body.focus();
-			return
-		}
-		
-		form.submit(); // 여기서 보내고 나서 아래에서 return false하는거라 이미 보낸 상태이기 때문에 괜찮음.
-	}
-</script>
 
 	<section class="listBody">
 		<form action="doWrite" method="post"
@@ -57,28 +21,20 @@
 				<table class="table table-lg">
 					<tr>
 						<td class="text-center" colspan="2">
-							<p>
-								<span class="text-red-700">*</span>컬럼 분류 설정은 필수입니다
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center" colspan="2">
-						
-						<select
+						<div class="mb-2"><span class="text-red-700">*</span>컬럼 분류 설정은 필수입니다</div>
+						<select id="session" name="session"
 							class="select select-bordered max-w-xs select-sm">
-								<option disabled selected>컬럼 분류</option>
-								<option>철학</option>
-								<option>종교</option>
-								<option>사회과학</option>
-								<option>자연과학</option>
-								<option>기술과학</option>
-								<option>예술</option>
-								<option>언어</option>
-								<option>문학</option>
-								<option>역사</option>
-						</select> <!-- 임시저장은 안되면 빼야해서 일단 div. submit꼬이는거 싫어 -->
-							<div class="btn btn-sm ml-1">임시저장</div>
+								<option value="notSelect" disabled selected>컬럼 분류</option>
+								<option value="philosophy">철학</option>
+								<option value="religion">종교</option>
+								<option value="socialScience">사회과학</option>
+								<option value="naturalScience">자연과학</option>
+								<option value="technologyScience">기술과학</option>
+								<option value="art">예술</option>
+								<option value="language">언어</option>
+								<option value="literature">문학</option>
+								<option value="history">역사</option>
+						</select>
 							<button class="btn btn-sm ml-1">작성</button></td>
 					</tr>
 						<th>제목</th>

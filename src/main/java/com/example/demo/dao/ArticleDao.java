@@ -19,8 +19,6 @@ public interface ArticleDao {
 				, writngTime = NOW()
 				, `body` = #{body}
 				, colmnClSetup ='1'
-				, colmnModifidTime = NOW()
-				, colmnDeleteTime = NOW()
 				, colmnDeleteEnnc = 1
 				, colmnWrter = 1
 

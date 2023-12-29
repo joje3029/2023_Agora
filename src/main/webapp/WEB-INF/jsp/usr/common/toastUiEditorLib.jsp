@@ -282,9 +282,8 @@
 	  ToastEditorView__init();
 	});
 
-	function submitForm(form){
+	function writeForm_onSubmit(form){
 	  form.title.value = form.title.value.trim();
-	  form.body.value = form.body.value.trim();
 	  
 	  if (form.title.value.length == 0) {
 	    alert('제목을 입력해주세요');
@@ -294,15 +293,39 @@
 	  
 	  const editor = $(form).find('.toast-ui-editor').data('data-toast-editor');
 	  const markdown = editor.getMarkdown().trim();
-
+		
 	  if (markdown.length == 0) {
 	    alert('내용을 입력해주세요');
 	    editor.focus();
 	    return;
 	  }
 	  
+	  // 여기서 칼럼 분류를 넣어야
+	  // 일단 가꼬오는지 보자
+	  const session = form.session.value;
+	  console.log(session);
+	  
+	  if(session === "notSelect"){
+		  alert('칼럼분류설정을 해주세요.');
+		  return;
+	  }
+	  
 	  form.body.value = markdown;
 	  
 	  form.submit();
 	}
+	
+	$(document).ready(function() {
+	    const titleInput = $('#title');
+	    const maxLength = 50;
+
+	    titleInput.on('input', function() {
+	        const inputValue = $(this).val();
+	        
+	        if (inputValue.length > maxLength) {
+	            $(this).val(inputValue.slice(0, maxLength)); // 최대 길이까지만 잘라냄
+	            alert('제목은 50자 이내여야 합니다.');
+	        }
+	    });
+	});
 </script>
