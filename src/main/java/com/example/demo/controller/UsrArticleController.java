@@ -46,7 +46,8 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body) {
+	public String doWrite(String title, String body, String session) {
+		System.out.println(session); // 잘들어옴.
 		//인터셉터에서 로그인 해야만 가능하게 설정할꺼니까 로그인했냐 안했냐도 필요없고, 
 		
 		if (Util.empty(title)) {
@@ -57,7 +58,34 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("내용을 입력해주세요");
 		}
 		
-		articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		
+		// 여기서 칼럼 글로 들어온걸 숫자로 변형
+		//칼럼분류설정(한국 도서 십진 분류법에 따라 구분) 철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9'
+		int colmnClSetup =-1;
+		if(session.equals("philosophy")) {
+			colmnClSetup = 1;
+		}else if(session.equals("religion")) {
+			colmnClSetup = 2;
+		}else if(session.equals("socialScience")) {
+			colmnClSetup = 3;
+		}else if(session.equals("naturalScience")) {
+			colmnClSetup = 4;
+		}else if(session.equals("technologyScience")) {
+			colmnClSetup = 5;
+		}else if(session.equals("art")) {
+			colmnClSetup = 6;
+		}else if(session.equals("language")) {
+			colmnClSetup = 7;
+		}else if(session.equals("literature")) {
+			colmnClSetup = 8;
+		}else if(session.equals("history")) {
+			colmnClSetup = 9;
+		}else {
+			return Util.jsHistoryBack("칼럼 분류을 입력해주세요");
+		}
+		
+		
+		articleService.writeArticle(rq.getLoginedMemberId(), title, body, colmnClSetup);
 		
 		int id = articleService.getLastInsertId();
 		

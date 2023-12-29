@@ -18,12 +18,12 @@ public interface ArticleDao {
 				SET  title = #{title}
 				, writngTime = NOW()
 				, `body` = #{body}
-				, colmnClSetup ='1'
+				, colmnClSetup = #{colmnClSetup}
 				, colmnDeleteEnnc = 1
 				, colmnWrter = 1
 
 			""")
-	public void writeArticle(int memberId, String title, String body);
+	public void writeArticle(int memberId, String title, String body, int colmnClSetup);
 	
 	@Select("""
 			<script>
