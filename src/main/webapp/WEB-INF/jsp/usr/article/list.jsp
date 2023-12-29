@@ -102,7 +102,7 @@
 					<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
 					<c:set var="endPage" value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
 					
-					<c:set var="baseUri" value="type=${type }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }" />
+					<c:set var="baseUri" value="type=${type }&session=${session }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }" />
 					
 					<c:if test="${page == 1 }">
 						<a class="join-item btn btn-sm btn-disabled">«</a>

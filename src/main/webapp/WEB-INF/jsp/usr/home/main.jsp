@@ -181,23 +181,23 @@
 			</section>
 		</section>
 	
-		<section class="main-in-section">
+		<section class="main-in-section text-2xl">
 			<div class="section-title text-2xl">분야별 칼럼</div>
 			<section class="table-section">
 				<div class="table-row">
-					<div class="table-item">철학</div>
-					<div class="table-item">종교</div>
-					<div class="table-item">사회과학</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=1">철학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=2">종교</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=3">사회과학</a></div>
 				</div>
 				<div class="table-row">
-					<div class="table-item">자연과학</div>
-					<div class="table-item">기술과학</div>
-					<div class="table-item">예술</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=4">자연과학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=5">기술과학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=6">예술</a></div>
 				</div>
 				<div class="table-row">
-					<div class="table-item">언어</div>
-					<div class="table-item">문학</div>
-					<div class="table-item">역사</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=7">언어</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=8">문학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=9">역사</a></div>
 				</div>
 			</section>
 		</section>

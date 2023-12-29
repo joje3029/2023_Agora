@@ -186,6 +186,7 @@ public class UsrArticleController {
 		}
 		
 		model.addAttribute("type", type);
+		model.addAttribute("session", session);
 		model.addAttribute("typeName", typeName);
 		model.addAttribute("searchKeywordType", searchKeywordType);
 		model.addAttribute("searchKeyword", searchKeyword);
