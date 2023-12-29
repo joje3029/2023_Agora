@@ -20,8 +20,8 @@ public class ArticleService {
 		articleDao.writeArticle(memberId, title, body, colmnClSetup);
 	}
 	
-	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type) {
-		return articleDao.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, loginMemberId, type);
+	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type, int session) {
+		return articleDao.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, loginMemberId, type, session);
 	}
 	
 	public Article forPrintArticle(int id) {
@@ -44,8 +44,8 @@ public class ArticleService {
 		return articleDao.getLastInsertId();
 	}
 	
-	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type) {
-		return articleDao.getArticlesCnt(loginMemberId, searchKeywordType, searchKeyword, type);
+	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type, int session) {
+		return articleDao.getArticlesCnt(loginMemberId, searchKeywordType, searchKeyword, type, session);
 	}
 
 	public List<Article> getArticleRank() {

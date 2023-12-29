@@ -11,9 +11,7 @@
 
 <section class="listBody">
 	 <div>
-            <!--Breadcrumbs : 왼쪽이 더 이쁨!-->
             <div class="text-sm breadcrumbs">
-            <!-- 여기 변수로 변경해야함. 변해야해. -->
                 <ul>
                   <li><a href="/usr/home/main">Home<i class="fa-solid fa-house"></i></a></li> 
                   <li><a href="/usr/article/list">칼럼</a></li> 
@@ -36,9 +34,10 @@
 				  <option>역사</option> 
 				</select></li>-->
 				<li class="text-lg"><a href="?type=1">전체 칼럼</a></li>
-				<li class="text-lg"><a href="?type=2">구독한 작가 칼럼</a></li>
-				<li class="text-lg"><a href="?type=3">좋아요 한 칼럼</a></li>
-				
+				<c:if test="${rq.getLoginedMemberId() != 0 }">
+					<li class="text-lg"><a href="?type=2">구독한 작가 칼럼</a></li>
+					<li class="text-lg"><a href="?type=3">좋아요 한 칼럼</a></li>
+				</c:if>
 			</ul>
 		</div>
             <div class="container mx-auto px-3">

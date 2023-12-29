@@ -91,13 +91,32 @@ public interface ArticleDao {
 									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 								</when>
 							</choose>
-						</if>	
+					</if>	
+				</if>
+				<if test="type == 4">
+				WHERE colmnClSetup = #{session}
+					<if test="searchKeyword != ''">
+							<choose>
+								<when test="searchKeywordType == 'title'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'body'">
+									AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'write'">
+									AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'all'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+							</choose>
+					</if>
 				</if>
 				ORDER BY C.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
 			</script>	
 			""")
-	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type);
+	public List<Article> getArticles(int limitStart, int itemsInAPage, String searchKeywordType, String searchKeyword, int loginMemberId, int type, int session);
 	
 	@Select("""
 			SELECT C.*, U.nickname
@@ -211,11 +230,30 @@ public interface ArticleDao {
 									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 								</when>
 							</choose>
-						</if>	
+					</if>	
+				</if>
+				<if test="type == 4">
+				WHERE colmnClSetup = #{session}
+					<if test="searchKeyword != ''">
+							<choose>
+								<when test="searchKeywordType == 'title'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'body'">
+									AND C.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'write'">
+									AND U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordType == 'all'">
+									AND C.title LIKE CONCAT('%', #{searchKeyword}, '%') OR C.body LIKE CONCAT('%', #{searchKeyword}, '%') OR U.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+							</choose>
+					</if>
 				</if>
 			</script>	
 			""")
-	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type);
+	public int getArticlesCnt(int loginMemberId, String searchKeywordType, String searchKeyword, int type, int session);
 	
 	@Select("""
 			SELECT C.*, U.nickname, COUNT(*) AS `count`  

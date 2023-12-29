@@ -84,7 +84,6 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("칼럼 분류을 입력해주세요");
 		}
 		
-		
 		articleService.writeArticle(rq.getLoginedMemberId(), title, body, colmnClSetup);
 		
 		int id = articleService.getLastInsertId();
@@ -93,7 +92,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") int type,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
+	public String list(Model model, @RequestParam(defaultValue = "1") int type,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "all") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "0")int session) {
 		if (page <= 0) {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
 		}
@@ -107,7 +106,7 @@ public class UsrArticleController {
 		if(type ==2) { // 구독
 			typeName = "구독한 작가 칼럼";
 			// 총 페이지 개수
-			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type, session);
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;
@@ -116,13 +115,13 @@ public class UsrArticleController {
 			
 			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
 			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type, session); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 
 		
 		}else if(type ==3) {// 좋아요
 			typeName = "좋아요 한 칼럼";
 			// 총 페이지 개수
-			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type, session);
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;
@@ -131,11 +130,50 @@ public class UsrArticleController {
 			
 			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
 			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type, session); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		
+		}else if(type == 4) {//칼럼 분류를 선택했다. 
+			// 이름은 if 로 맞는걸 넣게 해야겠네.
+			
+			//철학-1 종교-2 사회과학-3 자연과학-4 기술과학-5 예술-6 언어-7 문학-8 역사-9
+			if(session == 1) {// 
+				typeName = "철학";
+			}else if(session == 2) {
+				typeName = "종교";
+			}else if(session == 3) {
+				typeName = "사회과학";
+			}else if(session == 4) {
+				typeName = "자연과학";
+			}else if(session == 5) {
+				typeName = "기술과학";
+			}else if(session == 6) {
+				typeName = "예술";
+			}else if(session == 7) {
+				typeName = "언어";
+			}else if(session == 8) {
+				typeName = "문학";
+			}else {
+				typeName = "역사	";
+			}
+			
+			// 총 페이지 개수
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type, session);
+			
+			//페이징 관련 변수
+			int itemsInAPage  = 10;
+			int limitStart  = (page-1) * itemsInAPage;
+			pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage); // 화면에 보여질 페이지의 마지막 페이지 번호
+			
+			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
+			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type, session); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+		
+			
+			
 		}else {
 			typeName = "전체 칼럼";
 			// 총 페이지 개수
-			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type);
+			articlesCnt = articleService.getArticlesCnt(rq.getLoginedMemberId(), searchKeywordType, searchKeyword, type, session);
 			
 			//페이징 관련 변수
 			int itemsInAPage  = 10;
@@ -144,7 +182,7 @@ public class UsrArticleController {
 			
 			// 위의 것들을 이용해서 아래의 이걸 수정해야함. => Db에 limit 만큼만 스캔때리라고 하기 위해
 			//기존에 공부할때 이걸 만든 이유 => db에서 list 가꼬 올라고
-			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
+			articles = articleService.getArticles(limitStart, itemsInAPage, searchKeywordType, searchKeyword, rq.getLoginedMemberId(), type, session); // lastPage는 jsp에서 그려낼때 필요한 애, 데이터 베이스에서 limit으로 조회할껀 추가된 두개니까(정확하게는 연산을 해낸 결과가 필요).
 		}
 		
 		model.addAttribute("type", type);

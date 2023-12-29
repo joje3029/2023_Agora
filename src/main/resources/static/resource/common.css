@@ -408,31 +408,31 @@ section>.button_bar {
 }
 
 
-.main>.main-in-section>.items>.item>.title {
+.main>.main-in-section>.items>.item>a>.title {
 	text-align: center;
 	padding: 5%;
 	margin: 15% 0 5% 0;
 	font-size: 1.5rem;
 }
 
-.main>.main-in-section>.items>.item:hover>.title{
+.main>.main-in-section>.items>.item:hover>a>.title{
 	text-decoration: underline;
 /*	text-decoration-color: yellowgreen;*/
 }
 
-.main>.main-in-section>.items>.item>.writer{
+.main>.main-in-section>.items>.item>a>.writer{
 	text-align: center;
 	padding: 2%;
 	font-size: 1rem;
 }
 
-.main>.main-in-section>.items>.item>.likeCount{
+.main>.main-in-section>.items>.item>a>.likeCount{
 	text-align: center;
 	padding: 2%;
 	font-size: 1rem;
 }
 
-.main>.main-in-section>.items>.item>.discussionCount{
+.main>.main-in-section>.items>.item>a>.discussionCount{
 	text-align: center;
 	padding: 2%;
 	font-size: 1rem;

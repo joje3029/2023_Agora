@@ -29,8 +29,10 @@
             <div class="menuBar">
                 <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box my-2">
                     <li class="text-lg"><a href="?type=1">전체 토론방</a></li>
-                    <li class="text-lg"><a href="?type=2">내 토론방</a></li>
-                    <li class="text-lg"><a href="?type=3">추천 토론방</a></li>
+                    <c:if test="${rq.getLoginedMemberId() != 0 }">
+	                    <li class="text-lg"><a href="?type=2">내 토론방</a></li>
+	                    <li class="text-lg"><a href="?type=3">추천 토론방</a></li>
+	                </c:if>
                   </ul>
             </div>
             <div class="container mx-auto px-3">

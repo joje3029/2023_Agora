@@ -53,9 +53,11 @@
 			<section class="items">
 				<c:forEach var="article" items="${articles}">
 					<div class="item">
+					<a href="/usr/article/detail?id=${article.id}"> 
 						<div class="title">${article.title}</div>
 						<div class="writer">${article.nickname}</div>
 						<div class="likeCount"><i class="fa-solid fa-heart"></i>${article.count}</div>
+					</a>
 					</div>
 				</c:forEach>
 			</section>
@@ -65,29 +67,39 @@
 			<div class="section-title">랭킹 토론방</div>
 			<section class="items">
 				<div class="item">
-					<div class="title">칼럼제목1</div>
-					<div class="writer">작성자1</div>
-					<div class="discussionCount">인원 수</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+						<div class="discussionCount">인원 수</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목2</div>
-					<div class="writer">작성자2</div>
-					<div class="discussionCount">인원 수</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+						<div class="discussionCount">인원 수</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목3</div>
-					<div class="writer">작성자3</div>
-					<div class="discussionCount">인원 수</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+						<div class="discussionCount">인원 수</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목4</div>
-					<div class="writer">작성자4</div>
-					<div class="discussionCount">인원 수</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+						<div class="discussionCount">인원 수</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목5</div>
-					<div class="writer">작성자5</div>
-					<div class="discussionCount">인원 수</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+						<div class="discussionCount">인원 수</div>
+					</a>
 				</div>
 			</section>
 		</section>
@@ -96,19 +108,19 @@
 			<div class="section-title text-2xl">분야별 칼럼</div>
 			<section class="table-section">
 				<div class="table-row">
-					<div class="table-item">철학</div>
-					<div class="table-item">종교</div>
-					<div class="table-item">사회과학</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=1">철학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=2">종교</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=3">사회과학</a></div>
 				</div>
 				<div class="table-row">
-					<div class="table-item">자연과학</div>
-					<div class="table-item">기술과학</div>
-					<div class="table-item">예술</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=4">자연과학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=5">기술과학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=6">예술</a></div>
 				</div>
 				<div class="table-row">
-					<div class="table-item">언어</div>
-					<div class="table-item">문학</div>
-					<div class="table-item">역사</div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=7">언어</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=8">문학</a></div>
+					<div class="table-item"><a href="/usr/article/list?type=4&session=9">역사</a></div>
 				</div>
 			</section>
 		</section>
