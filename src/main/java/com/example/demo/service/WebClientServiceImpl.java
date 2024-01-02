@@ -28,6 +28,7 @@ public class WebClientServiceImpl {
         String SearchTarget = "Book";
         String output = "js";
         String Version = "20131101";
+        String MaxResults = "100";
         
         // 여기서부터 문제네. 
         // webClient 기본 설정
@@ -45,6 +46,7 @@ public class WebClientServiceImpl {
                                         .path("/ttb/api/ItemList.aspx")
                                         .queryParam("ttbkey", ttbkey)
                                         .queryParam("QueryType", QueryType)
+                                        .queryParam("MaxResults", MaxResults)
                                         .queryParam("SearchTarget", SearchTarget)
                                         .queryParam("output", output)
                                         .queryParam("Version", Version)
@@ -68,6 +70,7 @@ public class WebClientServiceImpl {
         String SearchTarget = "Book";
         String output = "js";
         String Version = "20131101";
+        String MaxResults = "100";
         
         // 여기서부터 문제네. 
         // webClient 기본 설정
@@ -85,6 +88,7 @@ public class WebClientServiceImpl {
                                         .path("/ttb/api/ItemList.aspx")
                                         .queryParam("ttbkey", ttbkey)
                                         .queryParam("QueryType", QueryType)
+                                        .queryParam("MaxResults", MaxResults)
                                         .queryParam("SearchTarget", SearchTarget)
                                         .queryParam("output", output)
                                         .queryParam("Version", Version)
