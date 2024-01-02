@@ -7,7 +7,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.demo.dao.AdminDao;
 import com.example.demo.dao.WebClientDao;
 
 import lombok.extern.slf4j.Slf4j;
