@@ -1,16 +1,26 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.example.demo.dao.AdminDao;
+import com.example.demo.dao.WebClientDao;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class WebClientServiceImpl {
+	
+	private WebClientDao webClientDao;
+	
+	public WebClientServiceImpl(WebClientDao webClientDao) {
+		this.webClientDao = webClientDao;
+	}
 
     public void get() { // 일단 새로운책으로 해서 controller에서 요청을 보냈을때 받는지 해보자. 대충 뭐 하나 jsp에서 연결해서 contorller가 일하게 하면 되니까. 
     	System.out.println(3);
@@ -21,8 +31,6 @@ public class WebClientServiceImpl {
         String output = "js";
         String Version = "20131101";
         
-        System.out.println(4);
-        
         // 여기서부터 문제네. 
         // webClient 기본 설정
         WebClient webClient =
@@ -30,9 +38,6 @@ public class WebClientServiceImpl {
                         .builder()
                         .baseUrl("http://www.aladin.co.kr")
                         .build();
-        
-        System.out.println("webClient1 : "+webClient);
-        
         // api 요청
         Map<String, Object> response =
                 webClient
@@ -49,11 +54,18 @@ public class WebClientServiceImpl {
                         .retrieve()
                         .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                         .block();
-        System.out.println("webClient2 : "+webClient); 
-        
         // 결과 확인
         log.info(response.toString());// 잘 가꼬 오네
         
-        System.out.println(5);
+        
+        // 가꼬온거를 Db에 넣어야지.
+        // 넣기전에 잘라야해. 내가 필요한것만.
+        List<Map<String, Object>> itemList=(List<Map<String, Object>>) response.get("item");
+        
+        webClientDao.insertNewBook(itemList);
+        
+        
+        System.out.println(4);
+        
     }
 }
