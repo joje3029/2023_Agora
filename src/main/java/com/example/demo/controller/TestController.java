@@ -16,12 +16,14 @@ public class TestController {
 	}
 	//여기서 스케쥴러가 되게 
 	
-	@Scheduled(cron = "0 0 15 * * *") // 매일 오후 3시 00분
-	public String doNewBookAladin(){
-		System.out.println(1);
-		webClientServiceImpl.get();
-		System.out.println(2);
-		return "usr/home/interduce";
+	@Scheduled(cron = "0 00 15 * * *") // 매일 오후 3시 00분
+	public void doNewBookAladin(){
+		webClientServiceImpl.getNewBook();
+	}
+	
+	@Scheduled(cron = "0 00 15 1 * *") // 매달 1일 오후 3시 00분
+	public void doBestBook(){
+		webClientServiceImpl.getBestBook();
 	}
 
 }

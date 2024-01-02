@@ -24,7 +24,7 @@ public interface WebClientDao {
         "</foreach>",
         "</script>"
     })
-    void insertNewBook(List<Map<String, Object>> itemList);
+    void insertBook(List<Map<String, Object>> itemList);
 
 	
 }
