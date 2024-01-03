@@ -41,4 +41,10 @@ public class Member {
 		
 	}
 
+	public Member(String uwerId, String nickname, String email, String name) {
+		this.uwerId = uwerId;
+        this.email = email;
+        this.nickname = nickname;
+	}
+
 }

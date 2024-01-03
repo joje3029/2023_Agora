@@ -95,6 +95,7 @@ public class UsrSnsLoginController {
 
 	// 네이버에서 토큰 온거
 	@RequestMapping("/usr/member/naverLogin")
+	@ResponseBody
 	public String naverLogin(@RequestParam(name = "code", required = false) String code,
             @RequestParam(name = "state", required = false) String state) {
 		
@@ -122,10 +123,19 @@ public class UsrSnsLoginController {
         String token = (String) response.get("access_token");
 		
         System.out.println(token); //AAAAO8veEihf4pm0qQFSYVCKhfF3HTz30TAAeasdIuDluisP8siBKafPJ9NiWrwzVFjqibrNuQz1zrkGLWSp5sK8RHc
-        Map<String, Object> member=getUserInfo(token);
+        Map<String, Object> userinfo=getUserInfo(token);
+        
+        // 짤라서 때려넣어. 내 DB에 그리고 자른거중에 객체 맞는건 객체화 해서 rq.로 넣어
+        String uwerId=(String) userinfo.get("id");
+        String nickname=(String) userinfo.get("nickname");
+        String email=(String) userinfo.get("email");
+        String name=(String) userinfo.get("name");
+        
+        Member member = new Member(uwerId, nickname, email, name);
 		
 		// 전체 동의하고 나서 오는거 -> 즉 여기서 음... 카카오씨처럼 뭔가를 해서 main으로 보내야함.
-		
+        rq.login(member);
+        
         return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
