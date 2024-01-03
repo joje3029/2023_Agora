@@ -134,24 +134,34 @@
 			<div class="section-title text-2xl">추천 칼럼</div>
 			<section class="items">
 				<div class="item">
-					<div class="title">칼럼제목1</div>
-					<div class="writer">작성자1</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목2</div>
-					<div class="writer">작성자2</div>
+					<a href="">
+						<div class="title">칼럼제목2</div>
+						<div class="writer">작성자2</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목3</div>
-					<div class="writer">작성자3</div>
+					<a href="">
+						<div class="title">칼럼제목3</div>
+						<div class="writer">작성자3</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목4</div>
-					<div class="writer">작성자4</div>
+					<a href="">
+						<div class="title">칼럼제목4</div>
+						<div class="writer">작성자4</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목5</div>
-					<div class="writer">작성자5</div>
+					<a href="">
+						<div class="title">칼럼제목5</div>
+						<div class="writer">작성자5</div>
+					</a>
 				</div>
 			</section>
 		</section>
@@ -160,24 +170,34 @@
 			<div class="section-title">추천 토론방</div>
 			<section class="items">
 				<div class="item">
-					<div class="title">칼럼제목1</div>
-					<div class="writer">작성자1</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목2</div>
-					<div class="writer">작성자2</div>
+					<a href="">
+						<div class="title">칼럼제목2</div>
+						<div class="writer">작성자2</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목3</div>
-					<div class="writer">작성자3</div>
+					<a href="">
+						<div class="title">칼럼제목3</div>
+						<div class="writer">작성자3</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목4</div>
-					<div class="writer">작성자4</div>
+					<a href="">
+						<div class="title">칼럼제목4</div>
+						<div class="writer">작성자4</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목5</div>
-					<div class="writer">작성자5</div>
+					<a href="">
+						<div class="title">칼럼제목5</div>
+						<div class="writer">작성자5</div>
+					</a>
 				</div>
 			</section>
 		</section>
@@ -207,24 +227,34 @@
 			<div class="section-title text-2xl ">추천 책</div>
 			<section class="items">
 				<div class="item">
-					<div class="title">칼럼제목1</div>
-					<div class="writer">작성자1</div>
+					<a href="">
+						<div class="title">칼럼제목1</div>
+						<div class="writer">작성자1</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목2</div>
-					<div class="writer">작성자2</div>
+					<a href="">
+						<div class="title">칼럼제목2</div>
+						<div class="writer">작성자2</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목3</div>
-					<div class="writer">작성자3</div>
+					<a href="">
+						<div class="title">칼럼제목3</div>
+						<div class="writer">작성자3</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목4</div>
-					<div class="writer">작성자4</div>
+					<a href="">
+						<div class="title">칼럼제목4</div>
+						<div class="writer">작성자4</div>
+					</a>
 				</div>
 				<div class="item">
-					<div class="title">칼럼제목5</div>
-					<div class="writer">작성자5</div>
+					<a href="">
+						<div class="title">칼럼제목5</div>
+						<div class="writer">작성자5</div>
+					</a>
 				</div>
 			</section>
 		</section>

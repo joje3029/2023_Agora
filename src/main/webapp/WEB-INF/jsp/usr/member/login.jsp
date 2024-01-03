@@ -105,18 +105,7 @@
 	            </div>
 				
 				<div>
-				 <%
-				    String clientId = "sre3apwylaef28oEMZxP";//애플리케이션 클라이언트 아이디값"; // 내꺼 : 
-				    String redirectURI = URLEncoder.encode("http://localhost:8081/usr/member/naverLogin", "UTF-8");
-				    SecureRandom random = new SecureRandom(); // 암호학적으로 안전한 난수를 생성하는데 사용.
-				    String state = new BigInteger(130, random).toString(); // 임의의 정수를 다루는데 사용.
-				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-				    apiURL += "&client_id=" + clientId;
-				    apiURL += "&redirect_uri=" + redirectURI;
-				    apiURL += "&state=" + state;
-				    session.setAttribute("state", state);
-				 %>
-					<a href="<%=apiURL%>"> <img
+					<a href="/usr/member/toNaverLogin"> <img
 						src="/resource/images/naver_login.png" alt="네이버로그인">
 					</a>
 				</div>

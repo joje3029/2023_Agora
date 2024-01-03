@@ -36,11 +36,16 @@ public class UsrHomeController {
 			
 			return "usr/home/main";
 		}
+		
 		//로그인 했으면 추천 모듈이 일을해서 세팅
 		
 		// 추천 모듈씨는 되면 넣기
+		// 일단 책이 어떻게 메인에 나오는지 궁금해 때리기
 		
 		
+		System.out.println("지나가는겨?");
+		
+		System.out.println("2"+rq);
 		
 		return "usr/home/main";
 	}

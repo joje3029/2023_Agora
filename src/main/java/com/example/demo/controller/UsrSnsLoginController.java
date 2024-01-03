@@ -1,12 +1,23 @@
 package com.example.demo.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.SecureRandom;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.service.UsrSnsLoginService;
 import com.example.demo.util.Util;
@@ -32,9 +43,7 @@ public class UsrSnsLoginController {
 		String access_token = usrSnsLoginService.getToken(code); 
 		Map<String, Object> userInfo = usrSnsLoginService.getUserInfo(access_token);
 		
-		// 안들어가는 이유 : int 범위보다 커서 => long을 써야함. -> 
 		String strId =userInfo.get("id").toString();
-		//난중에 이렇게 무식하게 짜르면 안돼 ㅠㅠ 지금은 발표해야하는데 int범위 넘어가서 여기저기서 에러떠서 일단 짜른거야. 실제로는 얘부터 다 타입이 long이어야해.
 		String email = userInfo.get("age_range").toString();
 		String nickname = userInfo.get("nickname").toString();
 		
@@ -62,23 +71,92 @@ public class UsrSnsLoginController {
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
-	// 네이버 로그인
-	
-	@RequestMapping("/usr/member/naverLogin")
-	public String naverLogin() {
+	// 네이버 로그인 요청 보내기
+	@RequestMapping("/usr/member/toNaverLogin")
+	public String toNaverLogin() { // 버튼을 누르면 이리로 옴. -> 여기서 요청을 보내고 그거가 redirect를 아래의 naverLogin으로 하게 하자.
+		
+		 // state용 난수 생성
+        SecureRandom random = new SecureRandom();
+        String state = new BigInteger(130, random).toString(32);
+        
+        // redirect
+        StringBuffer url = new StringBuffer();
+        url.append("https://nid.naver.com/oauth2.0/authorize?");
+        url.append("client_id=sre3apwylaef28oEMZxP&state");
+        url.append("&response_type=code");
+        url.append("&redirect_uri=http://localhost:8081/usr/member/naverLogin");
+        url.append("&state=" + state);
+        
+        System.out.println("url : "+url);
 
-		System.out.println(2);
+        return "redirect:" + url;
+        
+	}
+
+	// 네이버에서 토큰 온거
+	@RequestMapping("/usr/member/naverLogin")
+	public String naverLogin(@RequestParam(name = "code", required = false) String code,
+            @RequestParam(name = "state", required = false) String state) {
+		
+		String clientId = "sre3apwylaef28oEMZxP";//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "rwYLDjLKwK";//애플리케이션 클라이언트 시크릿값";
+		
+		// 네이버에 요청 보내기
+        WebClient webclient = WebClient.builder()
+            .baseUrl("https://nid.naver.com")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .build();
+
+        JSONObject response = webclient.post()
+            .uri(uriBuilder -> uriBuilder
+                .path("/oauth2.0/token")
+                .queryParam("client_id", clientId)
+                .queryParam("client_secret", clientSecret)
+                .queryParam("grant_type", "authorization_code")
+                .queryParam("state", state)
+                .queryParam("code", code)
+                .build())
+            .retrieve().bodyToMono(JSONObject.class).block();
+            
+        // 네이버에서 온 응답에서 토큰을 추출
+        String token = (String) response.get("access_token");
+		
+        System.out.println(token); //AAAAO8veEihf4pm0qQFSYVCKhfF3HTz30TAAeasdIuDluisP8siBKafPJ9NiWrwzVFjqibrNuQz1zrkGLWSp5sK8RHc
+        Map<String, Object> member=getUserInfo(token);
+		
 		// 전체 동의하고 나서 오는거 -> 즉 여기서 음... 카카오씨처럼 뭔가를 해서 main으로 보내야함.
 		
-		return "usr/member/naverLogin2";
+        return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
+	}
+
+	private Map<String, Object> getUserInfo(String accessToken) {
+		 // 사용자 정보 요청하기
+        WebClient webclient = WebClient.builder()
+            .baseUrl("https://openapi.naver.com")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .build();
+
+        JSONObject response = webclient.get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/v1/nid/me")
+                .build())
+            .header("Authorization", "Bearer " + accessToken)
+            .retrieve()
+            .bodyToMono(JSONObject.class).block();
+        
+        // 원하는 정보 추출하기
+        Map<String, Object> res = (Map<String, Object>) response.get("response");
+
+        return res;
 	}
 
 	// 구글 로그인
 	@RequestMapping("/usr/member/googleLogin")
 	public String googleLogin() {
 		
-		// 여기서 할꺼 구글에 인증 요청을 보내야지. 그럼 구글이 계정 누구로 할꺼냐 그런거 띄울꺼고 . 그거 하고나면 로그인쪼로록 하고 나서 home
+	
 		
+		System.out.println(3);
 
 		return "usr/home/main";
 	}
