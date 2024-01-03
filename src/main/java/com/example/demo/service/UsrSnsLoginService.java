@@ -151,6 +151,10 @@ public class UsrSnsLoginService{
 		return snsLoginDao.getMemberCheck(strId);
 	}
 
+	public void insertNaverinfo(String uwerId, String nickname, String email, String name) {
+		snsLoginDao.insertNaverinfo(uwerId, nickname, email, name);
+	}
+
 	
 	
 

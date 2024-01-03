@@ -34,4 +34,10 @@ public interface SnsLoginDao {
 			""")
 	public Member getMemberCheck(String strId);
 	
+	@Insert("""
+			 INSERT INTO USER_INFO (uwerId, email, nickname, name)
+			 	VALUES (#{uwerId}, #{email}, #{nickname}, #{name})
+			""")
+	public void insertNaverinfo(String uwerId, String nickname, String email, String name);
+	
 }

@@ -1,11 +1,7 @@
 package com.example.demo.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Map;
 
@@ -131,11 +127,28 @@ public class UsrSnsLoginController {
         String email=(String) userinfo.get("email");
         String name=(String) userinfo.get("name");
         
-        Member member = new Member(uwerId, nickname, email, name);
-		
+        // 여기서 중복 검증을 챙겨야겠네.
+     	// 일단 strId를 데꼬 Db를 간다. 잘 가꼬 오는지 확인한다.
+     	Member memberCheck = usrSnsLoginService.getMemberCheck(uwerId);
+        
+     	Member member =null;
+		if(memberCheck==null) {
+			// Db에 kakao에서 데꼬 온 애 insert
+			usrSnsLoginService.insertNaverinfo(uwerId, nickname, email, name);
+			//insert한 애 pk 값 들고오려고 던짐.
+			int lastId = usrSnsLoginService.getLastId();
+			//여기서 마지막에 들어간 애 행을 데꼬와서 member에 넣어서 들어가면 다른데서도 안꼬이겠다.
+			member=usrSnsLoginService.getLastInsertMember(lastId);
+			
+		}else {
+			// member 가 뭐라도 있다 -> 즉 이전 로그인 기록이 있다.
+			// 이때는 insert가 아니라 이미 불러와졌고 그 기록이가 있으니까.
+			member = memberCheck;
+		}
+        
 		// 전체 동의하고 나서 오는거 -> 즉 여기서 음... 카카오씨처럼 뭔가를 해서 main으로 보내야함.
         rq.login(member);
-        
+
         return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/"); // 그럼 여기를 계정 로그인 요청으로 가게?
 	}
 
@@ -163,9 +176,7 @@ public class UsrSnsLoginController {
 	// 구글 로그인
 	@RequestMapping("/usr/member/googleLogin")
 	public String googleLogin() {
-		
 	
-		
 		System.out.println(3);
 
 		return "usr/home/main";
