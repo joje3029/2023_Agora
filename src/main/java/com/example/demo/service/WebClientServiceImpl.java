@@ -9,10 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.dao.WebClientDao;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class WebClientServiceImpl {
 	
 	private WebClientDao webClientDao;

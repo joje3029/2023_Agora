@@ -8,10 +8,10 @@ import com.example.demo.service.WebClientServiceImpl;
 
 @Controller
 @EnableScheduling
-public class TestController {
+public class WebClientScheduledController {
 	private WebClientServiceImpl webClientServiceImpl;
 
-	TestController(WebClientServiceImpl webClientServiceImpl) {
+	WebClientScheduledController(WebClientServiceImpl webClientServiceImpl) {
 		this.webClientServiceImpl =webClientServiceImpl;
 	}
 	//여기서 스케쥴러가 되게 

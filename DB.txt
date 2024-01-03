@@ -4,6 +4,8 @@ DROP DATABASE IF EXISTS Agora;
 CREATE DATABASE Agora;
 USE Agora;
 
+
+
 -- 이아는 컬럼명을 걍 다 백틱하는구만. 신경쓰지 말것.
 
 CREATE TABLE `USER_INFO` (
@@ -35,9 +37,7 @@ CREATE TABLE `COLUMN` (
 	`colmnModifiedTime`	DATETIME	NULL	COMMENT '칼럼수정시간',
 	`colmnDeleteTime`	DATETIME	NULL	COMMENT '칼럼삭제시간',
 	`colmnDeleteEnnc`	TINYINT	UNSIGNED	NOT NULL DEFAULT 0	COMMENT '칼럼삭제유무 : 유(삭제함)-1 무(삭제안함)-0',
-	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자',
-	`clickCount`	INT	UNSIGNED	NOT NULL	COMMENT '클릭 횟수- 랭킹에 이용'
-	
+	`colmnWrter`	INT	UNSIGNED	NOT NULL	COMMENT '작성자'
 );
 
 # 칼럼 좋아요 한거 연결
@@ -66,7 +66,6 @@ CREATE TABLE CHAT(
     messageType VARCHAR(20) NOT NULL COMMENT 'LEAVE / TALK / BAN 등'
 );
 
-
 CREATE TABLE CHATROOMMEMBER(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'PK',
     regDate DATETIME NOT NULL COMMENT '채팅토론방 참가 시간',
@@ -74,6 +73,7 @@ CREATE TABLE CHATROOMMEMBER(
     memberId INT UNSIGNED NOT NULL COMMENT '유저 PK ID',
     sessionId VARCHAR(50) NOT NULL  COMMENT '일단 미지수 뭐일까....'
 );
+
 
 CREATE TABLE `ANSWER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '댓글ID',
@@ -85,7 +85,6 @@ CREATE TABLE `ANSWER` (
 	`answerDeleteTime`	DATETIME	NULL	COMMENT '댓글삭제시간',
 	`answerDeleteEnnc`	INT UNSIGNED	NOT NULL DEFAULT 0	COMMENT '댓글삭제유/무 : 유(삭제함)-1 무(삭제안함)-0'
 );
-
 
 CREATE TABLE `CSTMR_CNSLT_CNTER` (
 	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '고객상담ID',
@@ -102,7 +101,6 @@ CREATE TABLE `UFSD_ATCH_FILE_MNG` (
 	`frstRegId`	INT UNSIGNED	NULL	COMMENT '최초등록자ID',
 	`frstRegDate`	DATETIME	NULL	COMMENT '최초등록일자'
 );
-
 
 CREATE TABLE `EMPLYR_SBSCRB` (
 	`ownerUserId`	INT	UNSIGNED NOT NULL	COMMENT '회원ID',
@@ -128,8 +126,8 @@ CREATE TABLE `REPLY` (
 	`answerUniqId`	INT	UNSIGNED NOT NULL	COMMENT '댓글ID',
 	`replyWritingTime`	DATETIME	NOT NULL	COMMENT '댓글작성시간',
 	`replyBody`	TEXT	NOT NULL	COMMENT '댓글내용',
-	`replyUpdtTime`	DATETIME	NOT NULL	COMMENT '댓글수정된시간',
-	`replyDeleteTime`	DATETIME	NOT NULL	COMMENT '댓글삭제시간',
+	`replyUpdtTime`	DATETIME	NULL	COMMENT '댓글수정된시간',
+	`replyDeleteTime`	DATETIME	NULL	COMMENT '댓글삭제시간',
 	`replyDeleteEnnc`	TINYINT	NOT NULL	COMMENT '삭제여부 : 유(삭제함)-1 무(삭제안함)-0',
 	`replyWrter`	INT UNSIGNED	NOT NULL	COMMENT '작성자'
 );
@@ -150,231 +148,15 @@ CREATE TABLE `WITHDROW_REASON` (
 	
 );
 
-
-#관리자 생성
-INSERT INTO `USER_INFO` (
-  `uwerId`,
-  `passwd`,
-  `name`,
-  `nickname`,
-  `email`,
-  `telno`,
-  `postNum`,
-  `adress`,
-  `detailAdress`,
-  `extAdress`,
-  `secsnEnnc`,
-  `joinDate`,
-  `mberAuthor`,
-  `secsnReqstdt`,
-  `modifyDate`
-  
-) VALUES (
-  'admin',
-  SHA2('Admin123456789!', 256),
-  '관리자',
-  '관리자씨',
-  'phandom0311@naver.com',
-  '01012345678',
-  '06014',
-  '서울 강남구 도산대로 403',
-  '2023',
-  '(청담동)',
-  0,
-  NOW(),
-  2,
-  NULL,
-  NULL
-);
-
-INSERT INTO `USER_INFO` (
-  `uwerId`,
-  `passwd`,
-  `name`,
-  `nickname`,
-  `email`,
-  `telno`,
-  `postNum`,
-  `adress`,
-  `detailAdress`,
-  `extAdress`,
-  `secsnEnnc`,
-  `joinDate`,
-  `mberAuthor`,
-  `secsnReqstdt`,
-  `modifyDate`
-) VALUES (
-  'test15',
-  SHA2('Test1123456789!', 256),
-  '뱁새씨',
-  '뱁새씨',
-  'phandom0311@naver.com',
-  '01023456789',
-  '06014',
-  '서울 강남구 도산대로 403',
-  '2023',
-  '(청담동)',
-  0,
-  '2021-02-18 15:00:00',
-  1,
-  NULL,
-  NULL
-);
-
-#유저 3명 만들기
-#일반 유저 1
-INSERT INTO `USER_INFO` (
-  `uwerId`,
-  `passwd`,
-  `name`,
-  `nickname`,
-  `email`,
-  `telno`,
-  `postNum`,
-  `adress`,
-  `detailAdress`,
-  `extAdress`,
-  `secsnEnnc`,
-  `joinDate`,
-  `mberAuthor`,
-  `secsnReqstdt`,
-  `modifyDate`
-) VALUES (
-  'test1',
-  SHA2('Test1123456789!', 256),
-  '뱁새씨',
-  '뱁새씨',
-  'phandom0311@naver.com',
-  '01023456789',
-  '06014',
-  '서울 강남구 도산대로 403',
-  '2023',
-  '(청담동)',
-  0,
-  NOW(),
-  1,
-  NULL,
-  NULL
-);
-
-#일반 유저 2
-INSERT INTO `USER_INFO` (
-  `uwerId`,
-  `passwd`,
-  `name`,
-  `nickname`,
-  `email`,
-  `telno`,
-  `postNum`,
-  `adress`,
-  `detailAdress`,
-  `extAdress`,
-  `secsnEnnc`,
-  `joinDate`,
-  `mberAuthor`,
-  `secsnReqstdt`,
-  `modifyDate`
-) VALUES (
-  'test2',
-  SHA2('Test2123456789!', 256),
-  '뱁새공주님',
-  '뱁새공주님',
-  'phandom0311@naver.com',
-  '01023456789',
-  '06014',
-  '서울 강남구 도산대로 403',
-  '2023',
-  '(청담동)',
-  0,
-  NOW(),
-  1,
-  NULL,
-  NULL
-);
-
-#일반 유저 3
-INSERT INTO `USER_INFO` (
-   `uwerId`,
-  `passwd`,
-  `name`,
-  `nickname`,
-  `email`,
-  `telno`,
-  `postNum`,
-  `adress`,
-  `detailAdress`,
-  `extAdress`,
-  `secsnEnnc`,
-  `joinDate`,
-  `mberAuthor`,
-  `secsnReqstdt`,
-  `modifyDate`
-) VALUES (
-  'test3',
-  SHA2('Test3123456789!',256),
-  '뱁새아가씨',
-  '뱁새아가씨',
-  'phandom0311@naver.com',
-  '01023456789',
-  '06014',
-  '서울 강남구 도산대로 403',
-  '2023',
-  '(청담동)',
-  0,
-  NOW(),
-  1,
-  NULL,
-  NULL
-);
-
-# 칼럼 랜덤 만들기
-INSERT INTO `COLUMN`(
-  `title`,
-  `writngTime`,
-  `body`,
-  `colmnClSetup`,
-  `colmnModifiedTime`,
-  `colmnDeleteTime`,
-  `colmnDeleteEnnc`,
-  `colmnWrter`,
-  `clickCount`
-) VALUES (
-  CONCAT('제목_', FLOOR(RAND() * 10000)),
-  NOW(),
-  CONCAT('내용_', FLOOR(RAND() * 10000)),
-  FLOOR(RAND() * 9) + 1,
-  NULL,
-  NULL,
-  0,
-  FLOOR(RAND() * 4) + 1,
-  FLOOR(RAND() * 20) + 1
+CREATE TABLE `BOOKLIST` (
+	`id`	INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT	COMMENT '책 리스트 Pk',
+	`title`	VARCHAR(500)	NOT NULL	COMMENT '책 제목',
+	`link`	VARCHAR(500) NOT NULL	COMMENT '구매 링크',
+	`author` VARCHAR(500) NOT NULL	COMMENT '작가',
+	`pubDate` VARCHAR(100) NOT NULL	COMMENT '출판일',
+	`cover` VARCHAR(500) NOT NULL	COMMENT '커버 url',
+	`categoryName` VARCHAR(200) NOT NULL	COMMENT '카테고리'	
 );
 
 
-/* 칼럼 배로 불리기
-INSERT INTO `COLUMN` (
- `title`,
-  `writngTime`,
-  `body`,
-  `colmnClSetup`,
-  `colmnModifiedTime`,
-  `colmnDeleteTime`,
-  `colmnDeleteEnnc`,
-  `colmnWrter`,
-  `clickCount`
-)
-SELECT
-  CONCAT('제목_', FLOOR(RAND() * 10000)),
-  NOW(),
-  CONCAT('내용_', FLOOR(RAND() * 10000)),
-  FLOOR(RAND() * 9) + 1,
-  NULL,
-  NULL,
-  0,
-  FLOOR(RAND() * 4) + 1,
-  FLOOR(RAND() * 20) + 1
-FROM
-  `COLUMN`
-LIMIT 10; 
--- 원하는 행 수를 지정해주세요
-*/
+
