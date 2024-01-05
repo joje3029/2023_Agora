@@ -20,7 +20,7 @@ public class WebRTCTestController {
 	@RequestMapping("/usr/test/index")
 	public String showInterduce() {
 		
-		System.out.println("지나가는겨?");
+		System.out.println("지나가는겨?"); // 지나감.
 		
 		return "/usr/test/index";
 	}
