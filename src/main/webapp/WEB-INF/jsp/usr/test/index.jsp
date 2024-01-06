@@ -12,6 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
+<!-- 일단 이 코드는 form이 없어. 즉 룸 아이디랑 해서 가는 창인거 같은데 그게 없어. -->
+	<div class="btn" id="myButton">연결 test btn</div><!-- peerConfig랑 연결 되었는지 확인한다고 한거.  -->
+
+
 	<div>
 			<!-- 룸 아이디 번호를 입력하는 input -->
 	    <input type="number" id="roomIdInput" /><!--  타입이 넘버여서 위아래버튼이 나는거 -->
@@ -30,7 +34,7 @@
 	    <div id="remoteStreamDiv">
 	    </div>
 			<!-- webRTC 연결을 위한 js  -->
-	    <script src="peerConfig.js"></script>
+	    <script src="/resource/peerConfig.js"></script>
 
 	</body>
 </html>
