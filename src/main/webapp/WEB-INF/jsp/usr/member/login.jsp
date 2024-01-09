@@ -110,7 +110,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="/usr/member/googleLogin"> <img
+					<a href="/usr/member/toGoogleLogin"> <img
 						src="/resource/images/google_login.png" alt="구글로그인">
 					</a>
 				</div>

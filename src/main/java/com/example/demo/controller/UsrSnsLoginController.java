@@ -6,28 +6,42 @@ import java.security.SecureRandom;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.example.demo.service.OAuthService;
 import com.example.demo.service.UsrSnsLoginService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 public class UsrSnsLoginController {
 	private UsrSnsLoginService usrSnsLoginService;
 	private Rq rq;
+	private Environment env;
+	private RestTemplate restTemplate = new RestTemplate();
 
-	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq) {
+	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq, Environment env) {
 		this.usrSnsLoginService =usrSnsLoginService;
 		this.rq = rq;
+		this.env = env;
 	}
 
 	// 소셜로그인만 따로 할꺼임.
@@ -153,7 +167,7 @@ public class UsrSnsLoginController {
 	}
 
 	private Map<String, Object> getUserInfo(String accessToken) {
-		 // 사용자 정보 요청하기
+		 //네이버 사용자 정보 요청하기
         WebClient webclient = WebClient.builder()
             .baseUrl("https://openapi.naver.com")
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -173,13 +187,37 @@ public class UsrSnsLoginController {
         return res;
 	}
 
-	// 구글 로그인
-	@RequestMapping("/usr/member/googleLogin")
-	public String googleLogin() {
-	
-		System.out.println(3);
-
-		return "usr/home/main";
+	// 구글 로그인 요청
+	@RequestMapping("/usr/member/toGoogleLogin")
+	public String toGoogleLogin() {
+		String googleClientId = "620485610882-nenvgg4jdejjldeq8j60dnnrf15h1iia.apps.googleusercontent.com";
+		
+		String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
+	                + "&redirect_uri=http://localhost:8081/usr/member/googleLogin&response_type=code&scope=profile";
+		
+		System.out.println(reqUrl);
+		
+		return "redirect:" + reqUrl;
+		
 	}
+	
+	@GetMapping("/usr/member/googleLogin")
+	public String successGoogleLogin(@RequestParam("code") String accessCode){
+	    OAuthService.getGoogleAccessToken(accessCode);
+	    
+	    return "usr/member/naverLogin2";
+	}
+	
+	
+//	@RequestMapping("/usr/member/googleLogin")
+//	public String googleLogin(@RequestParam String code) {
+//		
+//        
+//		System.out.println(3);
+//
+//		return "usr/member/naverLogin2";
+//	}
+	
+	
 
 }
