@@ -9,9 +9,12 @@
 <link rel="stylesheet" href="/resource/main.css" />
 
 <script>
-	// li에 뭘 선택했는지에 따라.....  chatbot-bubble에 보여줘야함
-	// controller가 있어야겠네. 요청 보낼 url이랑
-	
+// 누른거에 따라 ajax로 해야겠네.
+  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+
+  ChannelIO('boot', {
+    "pluginKey": "86d18a91-f7bf-4710-a116-191a99f17f48"
+  });
 </script>
 
 		<section class="listBody">
@@ -29,7 +32,7 @@
 					<li class="question-item"><a href="#">구독</a></li>
 					<li class="question-item"><a href="#">탈퇴</a></li>
 					<c:if  test="${rq.getLoginedMemberId() != 0 }">
-						<li class="question-item"><a href="customercenter">그 외</a></li>
+						<li class="question-item"><a href="customercenter">1:1 고객상담센터</a></li>
 					</c:if>
 					</ui>
 				</nav>

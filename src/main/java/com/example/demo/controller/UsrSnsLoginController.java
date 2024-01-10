@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.security.SecureRandom;
 import java.util.Map;
 
@@ -14,7 +12,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +26,6 @@ import com.example.demo.service.UsrSnsLoginService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
-
 
 
 
@@ -237,9 +233,11 @@ public class UsrSnsLoginController {
 	            // access_token 추출
 	            String IdToken = (String) json.get("id_token");
 	            System.out.println("IdToken : "+IdToken);
+
+	            //일단 JWT 토큰 복호화를 여기서 해보자
 	            
 	            
-	            getGoogleInfo(IdToken);
+	            
 	            
 	        } catch (ParseException e) {
 	            e.printStackTrace();
@@ -250,10 +248,6 @@ public class UsrSnsLoginController {
 		    return "usr/member/naverLogin2";
 		}
 
-		private void getGoogleInfo(String IdToken) {
-			
-			
-		}
 	
 	
 	
