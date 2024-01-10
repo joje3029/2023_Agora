@@ -2,18 +2,27 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.SecureRandom;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.service.UsrSnsLoginService;
@@ -21,10 +30,18 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
+
+
+
+
 @Controller
 public class UsrSnsLoginController {
 	private UsrSnsLoginService usrSnsLoginService;
 	private Rq rq;
+	private String googleClientId = "620485610882-nenvgg4jdejjldeq8j60dnnrf15h1iia.apps.googleusercontent.com";
+	private String googleClientSecret = "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";
+	private String redirectUri = "http://localhost:8081/usr/member/googleLogin";
+	private String tokenEndpoint = "https://oauth2.googleapis.com/token";
 
 	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq) {
 		this.usrSnsLoginService =usrSnsLoginService;
@@ -84,7 +101,6 @@ public class UsrSnsLoginController {
         url.append("&redirect_uri=http://localhost:8081/usr/member/naverLogin");
         url.append("&state=" + state);
         
-        System.out.println("url : "+url);
 
         return "redirect:" + url;
         
@@ -175,36 +191,73 @@ public class UsrSnsLoginController {
 	}
 
 	// 구글 로그인 요청
-	@RequestMapping("/usr/member/toGoogleLogin")
-	public String toGoogleLogin() {
-		String googleClientId = "620485610882-nenvgg4jdejjldeq8j60dnnrf15h1iia.apps.googleusercontent.com";
+		@RequestMapping("/usr/member/toGoogleLogin")
+		public String toGoogleLogin() {
+			
+			String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
+		                + "&redirect_uri=http://localhost:8081/usr/member/googleLogin&response_type=code&scope=profile";
+			
+			System.out.println(reqUrl);
+			
+			return "redirect:" + reqUrl;
+			
+		}
 		
-		String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
-	                + "&redirect_uri=http://localhost:8081/usr/member/googleLogin&response_type=code&scope=profile";
-		
-		System.out.println(reqUrl);
-		
-		return "redirect:" + reqUrl;
-		
-	}
+		@GetMapping("/usr/member/googleLogin")
+		public String successGoogleLogin(@RequestParam("code") String authorizationCode){
+			
+		    
+			System.out.println("authorizationCode : "+authorizationCode);
+			
+			 // Access Token 요청을 위한 데이터 설정
+	        String tokenRequestBody = "code=" + authorizationCode
+	                + "&client_id=" + googleClientId
+	                + "&client_secret=" + googleClientSecret
+	                + "&redirect_uri=" + redirectUri
+	                + "&grant_type=authorization_code";
+			
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("Content-Type", "application/x-www-form-urlencoded");
+	        
+	     // RestTemplate을 사용하여 Access Token 요청
+	        RestTemplate restTemplate = new RestTemplate();
+	        ResponseEntity<String> responseEntity = restTemplate.exchange(tokenEndpoint, HttpMethod.POST,
+	                new HttpEntity<>(tokenRequestBody, headers), String.class);
+	        
+	     // 응답에서 Access Token 추출
+	        String responseBody = responseEntity.getBody();
+	        System.out.println("Access Token Response: " + responseBody); // 네 오셨어요.
+	        
+	        JSONParser parser = new JSONParser();
+			
+			try {
+	            // JSON 문자열을 JSON 객체로 파싱
+	            JSONObject json = (JSONObject) parser.parse(responseBody);
+
+	            // access_token 추출
+	            String IdToken = (String) json.get("id_token");
+	            System.out.println("IdToken : "+IdToken);
+	            
+	            
+	            getGoogleInfo(IdToken);
+	            
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        // 여기에서 Access Token을 사용하여 추가 작업 수행
+	        
+		    return "usr/member/naverLogin2";
+		}
+
+		private void getGoogleInfo(String IdToken) {
+			
+			
+		}
 	
-	@GetMapping("/usr/member/googleLogin")
-	public String successGoogleLogin(@RequestParam("code") String accessCode){
-	    
-		System.out.println("accessCode : "+accessCode);
-		
-	    return "usr/member/naverLogin2";
-	}
 	
 	
-//	@RequestMapping("/usr/member/googleLogin")
-//	public String googleLogin(@RequestParam String code) {
-//		
-//        
-//		System.out.println(3);
-//
-//		return "usr/member/naverLogin2";
-//	}
+
 	
 	
 
