@@ -24,7 +24,6 @@ public class WebRTCTestController {
 		
 		return "/usr/test/index";
 	}
-
-
+	
 	
 }

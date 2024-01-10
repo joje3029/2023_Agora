@@ -102,6 +102,11 @@ $(document).ready(function () {
 					</ul>
 				</li>
 				<c:if  test="${rq.getLoginedMemberId() != 0 }">
+					<li class="menu_bar_item">책 검색
+						<ul class="dropdown-content">
+							<li><a href="/usr/book/search">책 검색</a></li>
+						</ul>
+					</li>
 					<li class="menu_bar_item">마이페이지
 						<ul class="dropdown-content">
 							<li><a href="/usr/member/profile">내 회원정보</a></li>

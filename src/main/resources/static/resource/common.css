@@ -579,6 +579,17 @@ section>.button_bar {
     border-radius: 10px;
     padding: 1px;
 }
+/*책 검색결과 나올 부분*/
+.bookSearchResult {
+	width: 100%;
+	border: solid 3px darkgoldenrod;
+}
+
+.center{
+	width: 70%;
+	margin: 10px 15%;
+}
+
 
 
 

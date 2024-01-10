@@ -6,42 +6,29 @@ import java.security.SecureRandom;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.demo.service.OAuthService;
 import com.example.demo.service.UsrSnsLoginService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 public class UsrSnsLoginController {
 	private UsrSnsLoginService usrSnsLoginService;
 	private Rq rq;
-	private Environment env;
-	private RestTemplate restTemplate = new RestTemplate();
 
-	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq, Environment env) {
+	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq) {
 		this.usrSnsLoginService =usrSnsLoginService;
 		this.rq = rq;
-		this.env = env;
 	}
 
 	// 소셜로그인만 따로 할꺼임.
@@ -203,8 +190,9 @@ public class UsrSnsLoginController {
 	
 	@GetMapping("/usr/member/googleLogin")
 	public String successGoogleLogin(@RequestParam("code") String accessCode){
-	    OAuthService.getGoogleAccessToken(accessCode);
 	    
+		System.out.println("accessCode : "+accessCode);
+		
 	    return "usr/member/naverLogin2";
 	}
 	

@@ -21,7 +21,13 @@ public class UsrMemberController {
 		this.memberService = memberService;
 		this.rq = rq;
 	}
-
+	
+	// 회원가입
+		@RequestMapping("/usr/member/naverLogin2")
+		public String naverLogin() {
+			return "usr/member/naverLogin2";
+		}
+	
 	// 회원가입
 	@RequestMapping("/usr/member/join")
 	public String join() {
