@@ -1,34 +1,58 @@
-메인
--헤더 스크롤 해내기 -> 포기해. 이전이랑 동일한데서 안된다는건 지금 안됨
--로그인시 닉네임-> 포기해. 이전이랑 동일한데서 안된다는건 지금 안됨
+# Agora(개인 프로젝트)
+### Agora는 책을 매개로 많은 사람들이 토론하는 공간입니다.
+##기능정의서
+![Agora기능정의서](https://github.com/joje3029/2023_Agora/assets/127838357/b1c2be23-c329-4697-b911-4bc014d78d42)
+## 유저
+### 메인 페이지
+![메인창](https://github.com/joje3029/2023_Agora/assets/127838357/8cc9d4dc-1303-4570-ad5c-d41a26f95756)
+### 로그인
+![로그인](https://raw.githubusercontent.com/JJeonBH/Game_Together/0cb7202a0d4d06a480efe82d9fe07d5cbd82a968/src/main/resources/static/resource/images/2.%EC%A0%84%EC%A0%81%EA%B2%80%EC%83%89.png)
+###Qr코드로그인 누르면 나오는 창
+![QR코드](https://github.com/joje3029/2023_Agora/assets/127838357/b0139a3b-cb2f-4735-9e72-55388fcb3a63)
+### 회원가입
+![회원가입](https://github.com/joje3029/2023_Agora/assets/127838357/dc33506f-a697-450d-a0bc-439f5654c39a)
+### 칼럼
+#### 칼럼-전체칼럼
+![칼럼_전체칼럼](https://github.com/joje3029/2023_Agora/assets/127838357/bd8f3b99-3f9d-4196-9050-923b68f4fc69)
+#### 칼럼디테일-본인이 쓰지 않은 칼럼
+![칼럼디테일_본인이쓰지않은칼럼](https://github.com/joje3029/2023_Agora/assets/127838357/b7a89ed6-a5f7-4259-91fa-bf77354a5f8b)
 
-- 로그인 전에는 랭킹 로그인 후에는 추천으로 해야하니까 그부분 테스트하고 주석 달기
+### 칼럼 댓글 대댓글
+![칼럼댓글과대댓글](https://github.com/joje3029/2023_Agora/assets/127838357/eb048a54-d5c5-40d3-806a-0175d5b73118)
+### 토론방
+![채팅토론방](https://github.com/joje3029/2023_Agora/assets/127838357/4db0de56-75e5-4d05-9712-2415c05af795)
+### 책 검색 및 구입
+####책 검색
+![책검색](https://github.com/joje3029/2023_Agora/assets/127838357/a3ef1852-2598-439f-a85f-92395be7cdb8)
+#### 책 구매
+![책구매](https://github.com/joje3029/2023_Agora/assets/127838357/6fe74bd5-ddf4-4872-adfc-2983a67dc700)
+### 프로필
+![프로필](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/7.%EA%B4%80%EB%A6%AC%EC%9E%90%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
 
-칼럼 => 이거 할꾸야!! : 우선 구독이 되야해
--구독, 좋아요, 댓글, 대댓글 손보기
--더미 칼럼도 지금보다 구체적으로 만들기
--그리고 그거 리스트에 반영되게 하기
 
-토론방
--채팅을 기준으로 칼럼과 동일
+## 관리자
+### 관리자 로그인
+![관리자로그인](https://github.com/joje3029/2023_Agora/assets/127838357/e195b105-4768-4f0b-8d41-2699646008d4)
+####관리자가 아닌 일반회원이 로그인하려고하면 관리자권한이 없다고 뜨고 로그인 안됨.
+![관리자로그인권한없음이미지](https://github.com/joje3029/2023_Agora/assets/127838357/628350d7-d8ba-4be9-bcad-e3fdbf3e7ff6)
+### 관리자회원조회
+![관리자회원조회](https://github.com/joje3029/2023_Agora/assets/127838357/7d29c83d-3d09-49b9-99e0-1b216b9fa49e)
+#### 강제탈퇴후 유저쪽에서 로그인하려고할때-로그인불가
+![강제탈퇴시이미지](https://github.com/joje3029/2023_Agora/assets/127838357/2bcfad8a-205b-4764-a8cf-4ba82f81a427)
+### 관리자고객상담리스트
+![관리자고객상담리스트](https://github.com/joje3029/2023_Agora/assets/127838357/c2335b6d-b672-456e-a891-179fa8499fb7)
+####고객상담 답 회원 이메일로 감
+![고객상담답이메일](https://github.com/joje3029/2023_Agora/assets/127838357/7a4e249d-1596-4b30-a6d8-448144afdf5c)
+### 사이트 통계
+#### 사이트통계 신규가입자수
+![사이트통계_신규가입자수](https://github.com/joje3029/2023_Agora/assets/127838357/96b00d86-8311-47ba-9d9b-82acd3cdc45e)
+#### 사이트통계 탈퇴 회원수와 이유
+![사이트통계_탈퇴 회원수와이유](https://github.com/joje3029/2023_Agora/assets/127838357/c2f53c9d-756a-4676-8983-acbd4e36d463)
 
-유저 로그인
--외부 api 로그인 가능 : 카카오를 시작으로 하나씩 하기
 
-------------------------------------------------------------------------------------------
-오늘의 목표 : <네이버 로그인>+<구글 로그인> +<QR로그인>/샌드버그 API
-
-<구글과 네이버 로그인 오늘 그만하고 머리 식히고 내일 다시 보자. >
-구글 라이브러리 => spring-boot-starter-oauth2-client은 pom에 depency하고 나면 관련 아닌 문제로 뭐라고 하지만 application.yml 에 정보 추가하면 오케이 됨.
-일단 머리 비우고 생각해 지금 아침 8시 반부터 오후 4시 30분까지 계속 파고 있어서 생각이랑 머리가 어디 갇혀있어.
-
-구글이 -> 문서를 구글에 OAuth2 API문서로 쳐보기 : 태진쌤과 뒤진 결과 이걸로 치면 Rest API로 하는  엔드포인트 나올 확률 높음.
-=> sts로 하는건 sts 시큐리티를 써서하는걸로 sts 문서에 있음.
-
-------------------------------------------------------------------------------------------
-QR코드 로그인 네트워크 문제
-태진쌤 : Ngrok 사용 -> 중개를 한번해서 가능함. 8시간동안 띄울수 있음. 포트여는건 학원이라서 안됨.랜선과 와이파이는 다름
-차쌤 : 코드로 들어올수 있게 열면 됨  => 상황을 구글에 적어서 => 로컬로 한 걸 외부로 들어가는 법 같은 걸로 구글에 검색 (보미님은 노트북으로 휴대폰을 해서 와피아이로 와이파이라서 되었는데 나는 로컬에서 외부라서 안될 수 있음 -> 기능 문제가 아니라 랜선 네트워크 문제)
-
-------------------------------------------------------------------------------------------
-추천 때리려면 싫어요도 만들어야겠는데 그래야 명시적이 되지. 하이브리드로 할꺼라서 명시만 하지는 않을꺼지만 좀더 섬세하고 분명하게 하려면 필요.
+### 글 수정
+![글 수정](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/11.%EA%B8%80%20%EC%88%98%EC%A0%95%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+### 댓글
+![댓글](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/12.%EB%8C%93%EA%B8%80%20%EA%B8%B0%EB%8A%A5.png?raw=true)
+### 채팅방
+![채팅방](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/13.%EC%B1%84%ED%8C%85%EB%B0%A9.png?raw=true)
