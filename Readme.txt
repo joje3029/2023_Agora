@@ -48,11 +48,3 @@
 ![사이트통계_신규가입자수](https://github.com/joje3029/2023_Agora/assets/127838357/96b00d86-8311-47ba-9d9b-82acd3cdc45e)
 #### 사이트통계 탈퇴 회원수와 이유
 ![사이트통계_탈퇴 회원수와이유](https://github.com/joje3029/2023_Agora/assets/127838357/c2f53c9d-756a-4676-8983-acbd4e36d463)
-
-
-### 글 수정
-![글 수정](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/11.%EA%B8%80%20%EC%88%98%EC%A0%95%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
-### 댓글
-![댓글](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/12.%EB%8C%93%EA%B8%80%20%EA%B8%B0%EB%8A%A5.png?raw=true)
-### 채팅방
-![채팅방](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/13.%EC%B1%84%ED%8C%85%EB%B0%A9.png?raw=true)
