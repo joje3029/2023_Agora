@@ -7,17 +7,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.DiscussionService;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.DiscussionRoom;
 import com.example.demo.vo.Rq;
 
 @Controller
 public class UsrHomeController {
 	
 	private ArticleService articleService;
+	private DiscussionService discussionService;
 	private Rq rq;
 	
-	UsrHomeController(ArticleService articleService){
+	UsrHomeController(ArticleService articleService, DiscussionService discussionService){
 		this.articleService = articleService;
+		this.discussionService = discussionService; 
 	}
 	
 //	메인
@@ -29,9 +33,13 @@ public class UsrHomeController {
 		
 		// 로그인 안했으면 : 좋아요 순으로 가꼬와야함. 
 		if(rq == null) {
-			// 이거 수정해야함. 
+			// 랭킹 칼럼 
 			List<Article> articles =articleService.getArticleRank();
 			
+			//랭킹 토론방
+			List<DiscussionRoom> discussionRooms =discussionService.getRoomRank();
+			
+			model.addAttribute("discussionRooms", discussionRooms);
 			model.addAttribute("articles", articles);
 			
 			return "usr/home/main";

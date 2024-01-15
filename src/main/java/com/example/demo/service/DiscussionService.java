@@ -36,6 +36,10 @@ public class DiscussionService {
 		return discussionDao.getDiscussionRoomById(discussionId);
 	}
 
+	public List<DiscussionRoom> getRoomRank() {
+		return discussionDao.getRoomRank();
+	}
+
 
 
 	

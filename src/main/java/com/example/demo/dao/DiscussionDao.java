@@ -78,4 +78,15 @@ public interface DiscussionDao {
 				WHERE D.id =#{discussionId}
 			""")
 	public DiscussionRoom getDiscussionRoomById(int discussionId);
+	
+	@Select("""
+			SELECT DR.id AS id, DR.dscsnRoomNm, COUNT(CRM.id) AS memberCount
+				FROM DSCSN_ROOM AS DR
+				LEFT JOIN CHATROOMMEMBER AS CRM ON DR.id = CRM.dscsnRoomId
+				WHERE DR.id BETWEEN 1 AND (SELECT MAX(id) FROM DSCSN_ROOM)
+				GROUP BY DR.id
+				ORDER BY memberCount DESC
+				Limit 5
+			""")
+	public List<DiscussionRoom> getRoomRank();
 }

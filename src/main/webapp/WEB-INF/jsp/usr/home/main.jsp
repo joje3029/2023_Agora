@@ -63,6 +63,21 @@
 				</c:forEach>
 			</section>
 		</section>
+		
+		<section class="main-in-section text-2xl">
+			<div class="section-title">랭킹 토론방</div>
+			<section class="items">
+				<c:forEach var="discussionRoom" items="${discussionRooms}">
+					<div class="item">
+					<a href="usr/discussion/chat?discussionId=${discussionRoom.id}"> 
+						<div class="title">${discussionRoom.dscsnRoomNm}</div>
+						<div class="likeCount"><i class="fa-solid fa-heart"></i>${discussionRoom.memberCount}</div>
+					</a>
+					</div>
+				</c:forEach>
+			</section>
+		</section>
+	
 	
 			<section class="main-in-section text-2xl">
 			<div class="section-title">랭킹 토론방</div>
