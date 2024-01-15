@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,8 +26,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.service.UsrSnsLoginService;
 import com.example.demo.util.Util;
+import com.example.demo.vo.JwtUtil;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.proc.BadJOSEException;
+import com.nimbusds.jose.proc.JWSVerificationKeySelector;
+import com.nimbusds.jose.proc.SimpleSecurityContext;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
+import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 
 
 
@@ -38,7 +50,10 @@ public class UsrSnsLoginController {
 	private String googleClientSecret = "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";
 	private String redirectUri = "http://localhost:8081/usr/member/googleLogin";
 	private String tokenEndpoint = "https://oauth2.googleapis.com/token";
-
+	
+	@Autowired
+    private JwtUtil jwtUtil;
+	
 	UsrSnsLoginController(UsrSnsLoginService usrSnsLoginService, Rq rq) {
 		this.usrSnsLoginService =usrSnsLoginService;
 		this.rq = rq;
@@ -226,26 +241,33 @@ public class UsrSnsLoginController {
 	        
 	        JSONParser parser = new JSONParser();
 			
-			try {
+	        try {
 	            // JSON 문자열을 JSON 객체로 파싱
 	            JSONObject json = (JSONObject) parser.parse(responseBody);
 
 	            // access_token 추출
-	            String IdToken = (String) json.get("id_token");
-	            System.out.println("IdToken : "+IdToken);
+	            String idToken = (String) json.get("id_token");
+	            System.out.println("IdToken: " + idToken);
 
-	            //일단 JWT 토큰 복호화를 여기서 해보자
-	            
-	            
-	            
-	            
-	        } catch (ParseException e) {
+	            // RS256 디코딩을 위한 JWKSet 로드
+	            JWKSet jwkSet = JWKSet.load(new URL("https://www.googleapis.com/oauth2/v3/certs"));
+
+	            // JWTProcessor 설정
+	            ConfigurableJWTProcessor<SimpleSecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
+	            JWSVerificationKeySelector<SimpleSecurityContext> keySelector = new JWSVerificationKeySelector<>(JWSAlgorithm.RS256, new JWKSetKeySelector<>(jwkSet));
+	            jwtProcessor.setJWSKeySelector(keySelector);
+
+	            // JWT 디코딩 및 검증
+	            JWTClaimsSet claimsSet = jwtProcessor.process(idToken, null);
+
+	            // 여기에서 claimsSet을 사용하여 추가 작업 수행
+	            System.out.println("Decoded Claims: " + claimsSet.toJSONObject());
+
+	        } catch (ParseException | BadJOSEException | JOSEException e) {
 	            e.printStackTrace();
 	        }
-	        
-	        // 여기에서 Access Token을 사용하여 추가 작업 수행
-	        
-		    return "usr/member/naverLogin2";
+
+	        return "usr/member/naverLogin2";
 		}
 
 	
