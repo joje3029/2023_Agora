@@ -397,6 +397,10 @@ section>.button_bar {
 .fa-heart{
 	color: red;
 }
+/*메인의 사람들 색상 변경*/
+.fa-people-group{
+	color: green;
+}
 
 /*짝수 일때와 홀수 일때 배경색 차별*/
 .main>.main-in-section>.items>.item:nth-child(even) {

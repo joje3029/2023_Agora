@@ -71,52 +71,10 @@
 					<div class="item">
 					<a href="usr/discussion/chat?discussionId=${discussionRoom.id}"> 
 						<div class="title">${discussionRoom.dscsnRoomNm}</div>
-						<div class="likeCount"><i class="fa-solid fa-heart"></i>${discussionRoom.memberCount}</div>
+						<div class="likeCount"><i class="fa-solid fa-people-group"></i> ${discussionRoom.memberCount}</div>
 					</a>
 					</div>
 				</c:forEach>
-			</section>
-		</section>
-	
-	
-			<section class="main-in-section text-2xl">
-			<div class="section-title">랭킹 토론방</div>
-			<section class="items">
-				<div class="item">
-					<a href="">
-						<div class="title">칼럼제목1</div>
-						<div class="writer">작성자1</div>
-						<div class="discussionCount">인원 수</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="">
-						<div class="title">칼럼제목1</div>
-						<div class="writer">작성자1</div>
-						<div class="discussionCount">인원 수</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="">
-						<div class="title">칼럼제목1</div>
-						<div class="writer">작성자1</div>
-						<div class="discussionCount">인원 수</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="">
-						<div class="title">칼럼제목1</div>
-						<div class="writer">작성자1</div>
-						<div class="discussionCount">인원 수</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="">
-						<div class="title">칼럼제목1</div>
-						<div class="writer">작성자1</div>
-						<div class="discussionCount">인원 수</div>
-					</a>
-				</div>
 			</section>
 		</section>
 	
