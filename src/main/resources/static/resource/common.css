@@ -180,6 +180,11 @@ html>body .toastui-editor-contents {
 	
 }
 
+/*칼럼 버튼들 있는곳 크기 변경*/
+#likeCount{
+	width: 300px;
+}
+
 /* login 부분 css */
 .login {
 	width: 50%;

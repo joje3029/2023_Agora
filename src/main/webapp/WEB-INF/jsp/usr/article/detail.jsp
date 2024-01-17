@@ -139,7 +139,7 @@
 	<section class="title-section border p-3 font-semibold">
 		<div class="title text-3xl">${article.title }</div>
 		<div class="alarm-session w-96">
-			<div class="backColorGreen">
+			<div class="backColorGreen" id="likeCount">
 				좋아요 갯수 : <span id="likeNum">${recommendPoint.count}</span>
 			</div>
 			<!-- 좋아요 갯수 보일 곳. -->
@@ -148,6 +148,8 @@
 				<c:if
 					test="${rq.getLoginedMemberId() != null && rq.getLoginedMemberId() != article.colmnWrter }">
 					<div class="btn" id="recommendBtn" onclick="likeCheck(this);">좋아요
+						버튼</div>
+					<div class="btn" id="hateBtn" onclick="hateCheck(this);">싫어요
 						버튼</div>
 					<div class="btn" id="subscribeBtn" onclick="subscribeCheck(this)">구독
 						버튼</div>
