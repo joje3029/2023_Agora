@@ -603,5 +603,17 @@ section>.button_bar {
 	font-size: xx-large;
 	color: green;
 }
+/*챗봇 hover시 설정*/
+.question-item:hover, #chatbot-bubble li:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: green;
+}
+
+#chatbot-bubble ul{
+	border: 1px dashed black;
+    width: 50%;
+    padding: 0 5%;	
+}
 
 
