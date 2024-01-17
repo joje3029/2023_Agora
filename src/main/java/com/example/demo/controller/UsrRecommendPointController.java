@@ -13,53 +13,65 @@ import com.example.demo.vo.Rq;
 
 @Controller
 public class UsrRecommendPointController {
-	
+
 	private RecommendService recommendService;
 	private Rq rq;
-	
-	UsrRecommendPointController(RecommendService recommendService, Rq rq){
+
+	UsrRecommendPointController(RecommendService recommendService, Rq rq) {
 		this.recommendService = recommendService;
-		this.rq =rq;
+		this.rq = rq;
 	}
-	
+
 	// 좋아요 버튼을 누르면 ajax에서 보내는 url
 	@RequestMapping("/usr/recommendPoint/doRecommendPoint")
 	@ResponseBody
-	public Map<String, Object> doRecommendPoint(int coulumnId, boolean recommendBtn) { //recommendBtn은 true/false가 오니까.
-		
-		Map<String, Object> data =new HashMap<>();
-		
+	public Map<String, Object> doRecommendPoint(int coulumnId, boolean recommendBtn) { // recommendBtn은 true/false가 오니까.
+
+		Map<String, Object> data = new HashMap<>();
+
 		if (recommendBtn) {
 			recommendService.deleteRecommendPoint(rq.getLoginedMemberId(), coulumnId);
 			// 좋아요 갯수 세야함
-			RecommendPoint recommendPoint=recommendService.countRecommendPont(coulumnId);
-			
+			RecommendPoint recommendPoint = recommendService.countRecommendPont(coulumnId);
+
 			data.put("result", "좋아요 취소");
 			data.put("recommendPoint", recommendPoint);
-			
+
 			return data;
 		}
-		
+
 		recommendService.insertRecommendPoint(rq.getLoginedMemberId(), coulumnId); // 좋아요 칼럼에 insert 잘하고 있음.
 		// 좋아요 갯수 세야함
-		RecommendPoint recommendPoint=recommendService.countRecommendPont(coulumnId);
-		
+		RecommendPoint recommendPoint = recommendService.countRecommendPont(coulumnId);
+
 		data.put("result", "좋아요 성공");
 		data.put("recommendPoint", recommendPoint);
-		
-		return data; // 그후 return을 좋아요로 내뱉음 
+
+		return data; // 그후 return을 좋아요로 내뱉음
 	}
-	
+
 	// 구독 버튼을 누르면 ajax에서 보내는 url
-		@RequestMapping("/usr/recommendPoint/doSubscribePoint")
-		@ResponseBody
-		public String doSubscribePoint(int writerId, boolean recommendBtn) { //recommendBtn은 true/false가 오니까.
-			if (recommendBtn) {
-				recommendService.deleteSubscribePoint(rq.getLoginedMemberId(), writerId);
-				return "구독 취소";
-			}
-			recommendService.insertSubscribePoint(rq.getLoginedMemberId(), writerId); // 좋아요 칼럼에 insert 잘하고 있음.
-			return "구독 성공"; // 그후 return을 좋아요로 내뱉음 
+	@RequestMapping("/usr/recommendPoint/doSubscribePoint")
+	@ResponseBody
+	public String doSubscribePoint(int writerId, boolean recommendBtn) { // recommendBtn은 true/false가 오니까.
+		if (recommendBtn) {
+			recommendService.deleteSubscribePoint(rq.getLoginedMemberId(), writerId);
+			return "구독 취소";
 		}
-	
+		recommendService.insertSubscribePoint(rq.getLoginedMemberId(), writerId); // 좋아요 칼럼에 insert 잘하고 있음.
+		return "구독 성공"; // 그후 return을 좋아요로 내뱉음
+	}
+
+	// 싫어요 버튼을 누르면 ajax에서 보내는 url
+	@RequestMapping("/usr/recommendPoint/doHatePoint")
+	@ResponseBody
+	public String doHatePoint(int coulumnId, boolean recommendBtn) { // recommendBtn은 true/false가 오니까.
+		System.out.println("coulumnId :"+coulumnId +", recommendBtn : "+recommendBtn);
+		if (recommendBtn) {
+			recommendService.deleteHatePoint(rq.getLoginedMemberId(), coulumnId);
+			return "싫어요 취소";
+		}
+		recommendService.insertHatePoint(rq.getLoginedMemberId(), coulumnId); // 좋아요 칼럼에 insert 잘하고 있음.
+		return "싫어요 성공"; // 그후 return을 좋아요로 내뱉음
+	}
 }

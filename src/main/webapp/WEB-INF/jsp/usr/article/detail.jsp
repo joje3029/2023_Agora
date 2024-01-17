@@ -61,12 +61,7 @@
 	    });
 	 
 	});
-
 		
-</script>
-
-<script>
-	// 여기서 할꺼 좋아요씨. 해보고 되면 위랑 합칠꺼임. 합치고 하니까 둘다 조져지더라
 	
 	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
 	const likeCheck = function(el) {
@@ -99,11 +94,44 @@
 			}
 		})
 	}
-</script>
-<script>
-	// 여기서 할꺼 좋아요씨. 해보고 되면 위랑 합칠꺼임. 합치고 하니까 둘다 조져지더라
 	
-	// 1. 좋아요 버튼을 눌렀을때 일을 하는지 확인
+	// 2. 싫어요 버튼을 눌렀을때 일을 하는지 확인
+	const hateCheck = function(el) {
+	    let isHateActive = $(el).hasClass('btn-active');  // 변수명 변경
+	    
+	    console.log("싫어요?"); // 반응함
+	    $.ajax({
+	        url: "/usr/recommendPoint/doHatePoint", // ajax 요청 날림.
+	        method: "get", 
+	        data: {
+	            "coulumnId" : ${article.id }, //arteicleid
+	            "recommendBtn" : isHateActive // 변경된 변수 사용
+	        },
+	        dataType: "text", // 답이 text로옴 
+	        success: function(data) {
+	            console.log("data : "+data)
+	            if (data === "싫어요 성공") { //온 답의 결과가 이거면 
+	            
+	                $("#hateBtn").addClass("btn-active");
+	            
+	            } else if (data === "싫어요 취소") {
+	                // 좋아요 취소 시의 처리
+	                $("#hateBtn").removeClass("btn-active");
+	            } else {
+	                console.error("예상치 못한 응답 : " + data);
+	            }
+	            
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("ERROR : " + status + " - " + error);
+	        }
+	    })
+
+	}
+
+	
+	
+	// 3. 구독 버튼을 눌렀을때 일을 하는지 확인
 	const subscribeCheck = function(el) {
 		let subscribeCheck = $(el).hasClass('btn-active');
 		
@@ -120,7 +148,7 @@
 					$("#subscribeBtn").addClass("btn-active");
 				
 				} else if (data === "구독 취소") {
-                    // 좋아요 취소 시의 처리
+                    // 구독 취소 시의 처리
 					$("#subscribeBtn").removeClass("btn-active");
 	            } else {
 	            	console.error("예상치 못한 응답 : " + data);

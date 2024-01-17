@@ -41,6 +41,13 @@ public class RecommendService {
 	public RecommendPoint getChecklike(int loginedMemberId, int id) {
 		return recommendDao.getChecklike(loginedMemberId, id);
 	}
+	public void deleteHatePoint(int loginedMemberId, int coulumnId) {
+		return recommendDao.deleteHatePoint(loginedMemberId, coulumnId);
+	}
+	public void insertHatePoint(int loginedMemberId, int coulumnId) {
+		return recommendDao.insertHatePoint(loginedMemberId, coulumnId);
+		
+	}
 	
 	
 }

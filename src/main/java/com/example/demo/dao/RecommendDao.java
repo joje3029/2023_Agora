@@ -61,5 +61,20 @@ public interface RecommendDao {
 			""")
 	public RecommendPoint getChecklike(int loginedMemberId, int id);
 	
+	@Insert("""
+			INSERT INTO COLUMN_HATE
+				SET columnId = ${coulumnId}
+				, userUniqId = ${loginedMemberId}
+				, hatepoint = 1
+			""")
+	public void insertHatePoint(int loginedMemberId, int coulumnId);
+	
+	@Delete("""
+			DELETE FROM COLUMN_HATE
+			WHERE userUniqId = #{loginmemberId}
+				AND columnId =#{coulumnId}
+			""")
+	public void deleteHatePoint(int loginedMemberId, int coulumnId);
+	
 	
 }
