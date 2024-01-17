@@ -593,6 +593,15 @@ section>.button_bar {
 	margin: 10px 15%;
 }
 
+/*챗봇 버블 창 스크롤*/
+.chatbot-bubble{
+	overflow-y: auto;
+}
 
+/*챗봇의 로봇 모양 키우기*/
+#chatbot-bubble .fa-robot, #chatbot-bubble .fa-user{
+	font-size: xx-large;
+	color: green;
+}
 
 
