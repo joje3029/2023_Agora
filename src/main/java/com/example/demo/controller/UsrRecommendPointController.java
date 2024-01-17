@@ -66,7 +66,6 @@ public class UsrRecommendPointController {
 	@RequestMapping("/usr/recommendPoint/doHatePoint")
 	@ResponseBody
 	public String doHatePoint(int coulumnId, boolean recommendBtn) { // recommendBtn은 true/false가 오니까.
-		System.out.println("coulumnId :"+coulumnId +", recommendBtn : "+recommendBtn);
 		if (recommendBtn) {
 			recommendService.deleteHatePoint(rq.getLoginedMemberId(), coulumnId);
 			return "싫어요 취소";

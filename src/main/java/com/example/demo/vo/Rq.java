@@ -56,11 +56,14 @@ public class Rq {
 
 	public void login(Member member) { // 로그인만 되면 되는거니까 굳이 뭔가 반환할 필요 없음
 		this.session.setAttribute("loginedMemberId", member.getId());
+		this.session.setAttribute("loginedNickname", member.getNickname());
+		System.out.println("member.getNickname() : "+member.getNickname());
 		// 이거 할라고 session이 전역으로 뺀거임.
 	}
 
 	public void logout() {
 		this.session.removeAttribute("loginedMemberId"); // session이에서 요소를 삭제하는거니까 늘 하듯 remove
+		this.session.removeAttribute("loginedNickname");
 	}
 
 	public String jsReturnOnView(String msg) { //얘는 controller에서 return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다", id)); 형식으로 msg를 보내면 
@@ -68,6 +71,10 @@ public class Rq {
 
 		return "usr/common/js"; // 이 jsp로 보냄.
 	}
+	
+	public String getLoginedNickname() {
+        return (String) session.getAttribute("loginedNickname");
+    }
 
 	public void init() {
 		// 말짱하게 쓰기 위해서 한번 쓰는게 목적이라서 이게 다임.

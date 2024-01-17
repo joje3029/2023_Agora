@@ -42,10 +42,10 @@ public class RecommendService {
 		return recommendDao.getChecklike(loginedMemberId, id);
 	}
 	public void deleteHatePoint(int loginedMemberId, int coulumnId) {
-		return recommendDao.deleteHatePoint(loginedMemberId, coulumnId);
+		recommendDao.deleteHatePoint(loginedMemberId, coulumnId);
 	}
 	public void insertHatePoint(int loginedMemberId, int coulumnId) {
-		return recommendDao.insertHatePoint(loginedMemberId, coulumnId);
+		recommendDao.insertHatePoint(loginedMemberId, coulumnId);
 		
 	}
 	

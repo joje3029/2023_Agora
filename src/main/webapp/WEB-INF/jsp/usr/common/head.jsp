@@ -120,13 +120,14 @@ $(document).ready(function () {
 		<div class="flex-grow"></div>
 		<div class="login-out-session mr-3">
 			<ul>
-
 				<c:if test="${rq.getLoginedMemberId() == 0 }">
 					<li class="inline-block mr-2"><a href="/usr/member/join">회원가입</a></li>
 					&nbsp;&nbsp;&nbsp;
 					<li class="inline-block"><a href="/usr/member/login"><span>LOGIN</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
+					<li class="inline-block mr-2"><i class="fa-solid fa-user-large"></i>&nbsp;${rq.getLoginedNickname()}</li>
+					&nbsp;&nbsp;&nbsp;
 					<li class="inline-block"><a href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 				</c:if>
 			</ul>

@@ -337,6 +337,7 @@ public class UsrMemberController {
 		}
 
 		rq.login(member);
+		System.out.println("member : "+member);
 		
 
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
