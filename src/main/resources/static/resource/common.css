@@ -59,6 +59,7 @@ html>body .toastui-editor-contents {
 /*채팅창 높이 고정*/
 .chat-height{
 	height: 50vh;
+	
 }
 
 /*헤더 스크롤 얘가 있어야 스크립트가 class를 넣다 뻈다 하면서 일하지*/
@@ -590,6 +591,10 @@ section>.button_bar {
     border-radius: 10px;
     padding: 1px;
 }
+#member-list{
+	display: flex;
+}
+
 /*책 검색결과 나올 부분*/
 .bookSearchResult {
 	width: 100%;
