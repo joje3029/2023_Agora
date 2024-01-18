@@ -398,6 +398,8 @@ section>.button_bar {
 	flex-direction: column;
 }
 
+/*메인의 이미지 변경*/
+
 /*메인의 하트 색상 변경*/
 .fa-heart{
 	color: red;

@@ -11,42 +11,67 @@
 <!-- 공통 css -->
 <link rel="stylesheet" href="/resource/main.css" />
 
+ <style>
+    @keyframes crossfadeImages {
+      0%, 100% {
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      75% {
+        opacity: 0;
+      }
+    }
 
-<!-- 캐러셀을 일단 안쓴 버전으로 퍼블리싱을 하자 => 캐러셀같은 프론트 단때문에 시간 많이 잡아먹지 말자! -->
+    .image-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-container img {
+	  width: auto;
+	  height: 100%;
+	  position: absolute;
+	  top: 0;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  opacity: 0;
+	  animation: crossfadeImages 30s infinite;
+	}
+
+    .image-container img:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .image-container img:nth-child(2) {
+      animation-delay: 7.5s;
+    }
+
+    .image-container img:nth-child(3) {
+      animation-delay: 15s;
+    }
+
+    .image-container img:nth-child(4) {
+      animation-delay: 22.5s;
+    }
+  </style>
+
+
 <section class="main">
-	<!-- 메인 페이지 환영 캐러셀 : 안녕 동물 친구들!! -->
+	<!--  메인페이지 환영 안녕 동물 친구들을 이미지 변환으로 변경 -->
 	<section class="main-in-section w-full main-height">
-		<div class="carousel w-full ">
-			<div id="slide1" class="carousel-item relative w-full main-height">
-					<img src="/resource/images/Lets_Read_A_Book_Together.jpg" class="main-image-height" />
-				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-					<a href="#slide4" class="btn btn-circle">❮</a>
-					<a href="#slide2" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide2" class="carousel-item relative w-full main-height">
-				<img src="/resource/images/Lets_Talk_Toggether.jpg" class="main-image-height" />
-				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-					<a href="#slide1" class="btn btn-circle">❮</a>
-					<a href="#slide3" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide3" class="carousel-item relative w-full main-height">
-				<img src="/resource/images/Express_Your_Thoughts.jpg" class="main-image-height" />
-				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-					<a href="#slide2" class="btn btn-circle">❮</a>
-					<a href="#slide4" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide4" class="carousel-item relative w-full main-height">
-				<img src="/resource/images/Book_animal.jpg" class="main-image-height" />
-				<div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-					<a href="#slide3" class="btn btn-circle">❮</a>
-					<a href="#slide1" class="btn btn-circle">❯</a>
-				</div>
-			</div>
+		<div class="image-container">
+			<img src="/resource/images/Lets_Read_A_Book_Together.jpg" alt="책같이읽자" />
+			<img src="/resource/images/Lets_Talk_Toggether.jpg" alt="같이이야기하자" />
+			<img src="/resource/images/Express_Your_Thoughts.jpg" alt="너의생각은어때?" />
+			<img src="/resource/images/Book_animal.jpg" alt="책읽는동물친구들" />
 		</div>
 	</section>
+
+
 	<!-- 로그인 안했을때 -->	
 	<c:if test="${rq.getLoginedMemberId() == 0 }">
 		<section class="main-in-section">
