@@ -6,7 +6,7 @@
 ### 메인 페이지
 ![메인창](https://github.com/joje3029/2023_Agora/assets/127838357/8cc9d4dc-1303-4570-ad5c-d41a26f95756)
 ### 로그인
-![로그인](https://raw.githubusercontent.com/JJeonBH/Game_Together/0cb7202a0d4d06a480efe82d9fe07d5cbd82a968/src/main/resources/static/resource/images/2.%EC%A0%84%EC%A0%81%EA%B2%80%EC%83%89.png)
+![로그인창](https://github.com/joje3029/2023_Agora/assets/127838357/08598047-d75a-4183-997d-77c866b26cbc)
 ###Qr코드로그인 누르면 나오는 창
 ![QR코드](https://github.com/joje3029/2023_Agora/assets/127838357/b0139a3b-cb2f-4735-9e72-55388fcb3a63)
 ### 회원가입
@@ -24,10 +24,15 @@
 ### 책 검색 및 구입
 ####책 검색
 ![책검색](https://github.com/joje3029/2023_Agora/assets/127838357/a3ef1852-2598-439f-a85f-92395be7cdb8)
-#### 책 구매
+### 책 구매
 ![책구매](https://github.com/joje3029/2023_Agora/assets/127838357/6fe74bd5-ddf4-4872-adfc-2983a67dc700)
 ### 프로필
-![프로필](https://github.com/JJeonBH/Game_Together/blob/main/src/main/resources/static/resource/images/7.%EA%B4%80%EB%A6%AC%EC%9E%90%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+![프로필](https://github.com/joje3029/2023_Agora/assets/127838357/7d8e8c31-2d59-4586-a310-6555bfc57449)
+### 챗봇
+![챗봇](https://github.com/joje3029/2023_Agora/assets/127838357/250d097f-58ae-4703-9a21-b5c436acb9b9)
+### 1:1 고객센터
+![고객센터](https://github.com/joje3029/2023_Agora/assets/127838357/e0630927-eba0-49e5-9405-301408a8e8fc)
+
 
 
 ## 관리자
